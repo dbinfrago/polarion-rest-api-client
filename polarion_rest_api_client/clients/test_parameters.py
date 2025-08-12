@@ -21,11 +21,12 @@ from polarion_rest_api_client.open_api_client.api.test_runs import (
 from . import base_classes as bc
 
 
-class TestRunParameters(bc.ItemsClient[dm.TestRunParameter]):
+class TestRunParameters(
+    bc.MultiGetClient[dm.TestRunParameter],
+    bc.CreateClient[dm.TestRunParameter],
+    bc.DeleteClient[dm.TestRunParameter],
+):
     """Client to handle TestParameters of a TestRun."""
-
-    def get(self, *args: t.Any, **kwargs: t.Any) -> dm.TestRunParameter:
-        raise NotImplementedError
 
     def get_multi(  # type: ignore[override]
         self,
@@ -48,10 +49,33 @@ class TestRunParameters(bc.ItemsClient[dm.TestRunParameter]):
             pagesize=page_size,
         )
 
+        return _parse_get_response(response.parsed, test_run_id)
+
+    async def a_get_multi(  # type: ignore[override]
+        self,
+        test_run_id: str,
+        *,
+        page_size: int = 100,
+        page_number: int = 1,
+        fields: dict[str, str] | None = None,
+    ) -> tuple[list[dm.TestRunParameter], bool]:
+        if fields is None:
+            fields = self._client.default_fields.testparameters
+
+        sparse_fields = self._build_sparse_fields(fields)
+        response = await get_test_run_test_parameters.asyncio_detailed(
+            self._project_id,
+            test_run_id,
+            client=self._client.client,
+            fields=sparse_fields,
+            pagenumber=page_number,
+            pagesize=page_size,
+        )
+
         self._raise_on_error(response)
         return _parse_get_response(response.parsed, test_run_id)
 
-    def _split_into_batches(
+    def _pre_batching_grouping(
         self, items: list[dm.TestRunParameter]
     ) -> t.Generator[list[dm.TestRunParameter], None, None]:
         for _, group in itertools.groupby(
@@ -81,18 +105,28 @@ class TestRunParameters(bc.ItemsClient[dm.TestRunParameter]):
         )
         assert response.parsed.data
 
+    async def _a_create(self, items: list[dm.TestRunParameter]) -> None:
+        """Call only with items with common test_run_id."""
+        test_run_id = items[0].test_run_id
+        body = _build_post_body(items)
+
+        response = await post_test_run_test_parameters.asyncio_detailed(
+            self._project_id,
+            test_run_id,
+            client=self._client.client,
+            body=body,
+        )
+        self._raise_on_error(response)
+
+        assert isinstance(
+            response.parsed, api_models.TestparametersListPostResponse
+        )
+        assert response.parsed.data
+
     def _delete(self, items: list[dm.TestRunParameter]) -> None:
         """Call only with items with common test_run_id."""
         test_run_id = items[0].test_run_id
-        body = api_models.TestparametersListDeleteRequest(
-            data=[
-                api_models.TestparametersListDeleteRequestDataItem(
-                    type_=api_models.TestparametersListDeleteRequestDataItemType.TESTPARAMETERS,
-                    id=f"{self._project_id}/{item.test_run_id}/{item.name}",
-                )
-                for item in items
-            ]
-        )
+        body = self._build_delete_body(items)
 
         response = delete_test_run_test_parameters.sync_detailed(
             self._project_id,
@@ -102,12 +136,41 @@ class TestRunParameters(bc.ItemsClient[dm.TestRunParameter]):
         )
         self._raise_on_error(response)
 
+    async def _a_delete(self, items: list[dm.TestRunParameter]) -> None:
+        """Call only with items with common test_run_id."""
+        test_run_id = items[0].test_run_id
+        body = self._build_delete_body(items)
 
-class TestRecordParameters(bc.ItemsClient[dm.TestRecordParameter]):
+        response = await delete_test_run_test_parameters.asyncio_detailed(
+            self._project_id,
+            test_run_id,
+            client=self._client.client,
+            body=body,
+        )
+        self._raise_on_error(response)
+
+    def _build_delete_body(
+        self, items: list[dm.TestRunParameter]
+    ) -> api_models.TestparametersListDeleteRequest:
+        return api_models.TestparametersListDeleteRequest(
+            data=[
+                api_models.TestparametersListDeleteRequestDataItem(
+                    type_=api_models.TestparametersListDeleteRequestDataItemType.TESTPARAMETERS,
+                    id=f"{self._project_id}/{item.test_run_id}/{item.name}",
+                )
+                for item in items
+            ]
+        )
+
+
+class TestRecordParameters(
+    bc.MultiGetClient[dm.TestRecordParameter],
+    bc.CreateClient[dm.TestRecordParameter],
+    bc.DeleteClient[dm.TestRecordParameter],
+):
     """Clients to handle TestParameters of a TestRecord."""
 
-    def get(self, *args: t.Any, **kwargs: t.Any) -> dm.TestRecordParameter:
-        raise NotImplementedError
+    _delete_batch_size = 1
 
     def get_multi(  # type: ignore[override]
         self,
@@ -137,7 +200,35 @@ class TestRecordParameters(bc.ItemsClient[dm.TestRecordParameter]):
 
         return _parse_get_response(response.parsed, test_record)
 
-    def _split_into_batches(
+    async def a_get_multi(  # type: ignore[override]
+        self,
+        test_record: dm.TestRecord,
+        *,
+        page_size: int = 100,
+        page_number: int = 1,
+        fields: dict[str, str] | None = None,
+    ) -> tuple[list[dm.TestRecordParameter], bool]:
+        if fields is None:
+            fields = self._client.default_fields.testparameters
+
+        sparse_fields = self._build_sparse_fields(fields)
+        response = await get_test_record_test_parameters.asyncio_detailed(
+            self._project_id,
+            test_record.test_run_id,
+            test_record.work_item_project_id,
+            test_record.work_item_id,
+            str(test_record.iteration),
+            client=self._client.client,
+            fields=sparse_fields,
+            pagenumber=page_number,
+            pagesize=page_size,
+        )
+
+        self._raise_on_error(response)
+
+        return _parse_get_response(response.parsed, test_record)
+
+    def _pre_batching_grouping(
         self, items: list[dm.TestRecordParameter]
     ) -> t.Generator[list[dm.TestRecordParameter], None, None]:
         for _, group in itertools.groupby(
@@ -167,6 +258,22 @@ class TestRecordParameters(bc.ItemsClient[dm.TestRecordParameter]):
         )
         self._raise_on_error(response)
 
+    async def _a_create(self, items: list[dm.TestRecordParameter]) -> None:
+        """Call only with items with common test_records."""
+        test_record = items[0].test_record
+        body = _build_post_body(items)
+
+        response = await post_test_record_test_parameters.asyncio_detailed(
+            self._project_id,
+            test_record.test_run_id,
+            test_record.work_item_project_id,
+            test_record.work_item_id,
+            str(test_record.iteration),
+            client=self._client.client,
+            body=body,
+        )
+        self._raise_on_error(response)
+
     def _delete(self, items: list[dm.TestRecordParameter]) -> None:
         """We expect only one TestRecordParameter for deletion."""
         assert len(items) == 1
@@ -183,14 +290,21 @@ class TestRecordParameters(bc.ItemsClient[dm.TestRecordParameter]):
         )
         self._raise_on_error(response)
 
-    def delete(
-        self, items: dm.TestRecordParameter | list[dm.TestRecordParameter]
-    ) -> None:
-        if not isinstance(items, list):
-            items = [items]
+    async def _a_delete(self, items: list[dm.TestRecordParameter]) -> None:
+        """We expect only one TestRecordParameter for deletion."""
+        assert len(items) == 1
+        test_record = items[0].test_record
 
-        for item in items:
-            self._delete([item])
+        response = await delete_test_record_test_parameter.asyncio_detailed(
+            self._project_id,
+            test_record.test_run_id,
+            test_record.work_item_project_id,
+            test_record.work_item_id,
+            str(test_record.iteration),
+            items[0].name,
+            client=self._client.client,
+        )
+        self._raise_on_error(response)
 
 
 @t.overload

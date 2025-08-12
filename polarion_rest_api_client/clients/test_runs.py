@@ -5,7 +5,9 @@ import typing as t
 
 from polarion_rest_api_client import data_models as dm
 from polarion_rest_api_client.open_api_client import models as api_models
+from polarion_rest_api_client.open_api_client import types as oa_types
 from polarion_rest_api_client.open_api_client.api.test_runs import (
+    delete_test_runs,
     get_test_runs,
     patch_test_run,
     post_test_runs,
@@ -25,11 +27,12 @@ AttributesType = t.TypeVar(
 
 
 class TestRuns(
-    bc.SingleUpdatableItemsMixin[dm.TestRun],
-    bc.UpdatableItemsClient[dm.TestRun],
+    bc.MultiGetClient[dm.TestRun],
+    bc.UpdateClient[dm.TestRun],
+    bc.CreateClient[dm.TestRun],
+    bc.DeleteClient[dm.TestRun],
 ):
-    def get(self, *args: t.Any, **kwargs: t.Any) -> dm.TestRun:
-        raise NotImplementedError
+    _update_batch_size = 1
 
     def __init__(
         self, project_id: str, client: "polarion_client.PolarionClient"
@@ -38,21 +41,43 @@ class TestRuns(
         self.records = test_records.TestRecords(project_id, client)
         self.parameters = test_parameters.TestRunParameters(project_id, client)
 
-    def _update(self, to_update: list[dm.TestRun] | dm.TestRun) -> None:
+    def _update(self, to_update: list[dm.TestRun]) -> None:
         """Create the given list of test runs."""
-        assert not isinstance(to_update, list), "Expected only one item"
-        assert to_update.id
+        assert len(to_update) == 1, "Expected only one item"
+        assert to_update[0].id
         response = patch_test_run.sync_detailed(
             self._project_id,
-            to_update.id,
+            to_update[0].id,
             client=self._client.client,
             body=api_models.TestrunsSinglePatchRequest(
                 data=api_models.TestrunsSinglePatchRequestData(
                     type_=api_models.TestrunsSinglePatchRequestDataType.TESTRUNS,  # pylint: disable=line-too-long
-                    id=f"{self._project_id}/{to_update.id}",
+                    id=f"{self._project_id}/{to_update[0].id}",
                     attributes=self._fill_test_run_attributes(
                         api_models.TestrunsSinglePatchRequestDataAttributes,
-                        to_update,
+                        to_update[0],
+                    ),
+                )
+            ),
+        )
+
+        self._raise_on_error(response)
+
+    async def _a_update(self, to_update: list[dm.TestRun]) -> None:
+        """Create the given list of test runs."""
+        assert len(to_update) == 1, "Expected only one item"
+        assert to_update[0].id
+        response = await patch_test_run.asyncio_detailed(
+            self._project_id,
+            to_update[0].id,
+            client=self._client.client,
+            body=api_models.TestrunsSinglePatchRequest(
+                data=api_models.TestrunsSinglePatchRequestData(
+                    type_=api_models.TestrunsSinglePatchRequestDataType.TESTRUNS,  # pylint: disable=line-too-long
+                    id=f"{self._project_id}/{to_update[0].id}",
+                    attributes=self._fill_test_run_attributes(
+                        api_models.TestrunsSinglePatchRequestDataAttributes,
+                        to_update[0],
                     ),
                 )
             ),
@@ -86,12 +111,45 @@ class TestRuns(
             pagenumber=page_number,
             pagesize=page_size,
         )
+        return self._parse_get_response(response)
+
+    async def a_get_multi(  # type: ignore[override]
+        self,
+        query: str = "",
+        *,
+        page_size: int = 100,
+        page_number: int = 1,
+        fields: dict[str, str] | None = None,
+    ) -> tuple[list[dm.TestRun], bool]:
+        """Return the test runs on a defined page matching the given query.
+
+        In addition, a flag whether a next page is available is
+        returned. Define a fields dictionary as described in the
+        Polarion API documentation to get certain fields.
+        """
+        if fields is None:
+            fields = self._client.default_fields.testruns
+
+        sparse_fields = self._build_sparse_fields(fields)
+        response = await get_test_runs.asyncio_detailed(
+            self._project_id,
+            client=self._client.client,
+            query=query,
+            fields=sparse_fields,
+            pagenumber=page_number,
+            pagesize=page_size,
+        )
 
         self._raise_on_error(response)
 
+        return self._parse_get_response(response)
+
+    def _parse_get_response(
+        self, response: oa_types.Response
+    ) -> tuple[list[dm.TestRun], bool]:
+        self._raise_on_error(response)
         parsed_response = response.parsed
         assert isinstance(parsed_response, api_models.TestrunsListGetResponse)
-
         test_runs = []
         for data in parsed_response.data or []:
             assert isinstance(data.id, str)
@@ -129,39 +187,82 @@ class TestRuns(
             parsed_response.links,
             api_models.TestrunsListGetResponseLinks,
         ) and bool(parsed_response.links.next_)
-
         return test_runs, next_page
 
     def _create(self, items: list[dm.TestRun]) -> None:
         """Create the given list of test runs."""
-        polarion_test_runs = [
-            api_models.TestrunsListPostRequestDataItem(
-                type_=api_models.TestrunsListPostRequestDataItemType.TESTRUNS,
-                attributes=self._fill_test_run_attributes(
-                    api_models.TestrunsListPostRequestDataItemAttributes,
-                    test_run,
-                ),
-            )
-            for test_run in items
-        ]
-
         response = post_test_runs.sync_detailed(
             self._project_id,
             client=self._client.client,
-            body=api_models.TestrunsListPostRequest(polarion_test_runs),
+            body=self._prepare_post_request(items),
+        )
+        self._process_create_reponse(items, response)
+
+    async def _a_create(self, items: list[dm.TestRun]) -> None:
+        """Create the given list of test runs."""
+        response = await post_test_runs.asyncio_detailed(
+            self._project_id,
+            client=self._client.client,
+            body=self._prepare_post_request(items),
+        )
+        self._process_create_reponse(items, response)
+
+    def _process_create_reponse(
+        self, items: list[dm.TestRun], response: oa_types.Response
+    ) -> None:
+        self._raise_on_error(response)
+        parsed_response = response.parsed
+        assert isinstance(parsed_response, api_models.TestrunsListPostResponse)
+        assert parsed_response.data
+        for i, data in enumerate(parsed_response.data):
+            assert data.id
+            items[i].id = data.id.split("/")[-1]
+
+    def _prepare_post_request(
+        self, items: list[dm.TestRun]
+    ) -> api_models.TestrunsListPostRequest:
+        return api_models.TestrunsListPostRequest(
+            [
+                api_models.TestrunsListPostRequestDataItem(
+                    type_=api_models.TestrunsListPostRequestDataItemType.TESTRUNS,
+                    attributes=self._fill_test_run_attributes(
+                        api_models.TestrunsListPostRequestDataItemAttributes,
+                        test_run,
+                    ),
+                )
+                for test_run in items
+            ]
         )
 
+    def _delete(self, items: list[dm.TestRun]) -> None:
+        response = delete_test_runs.sync_detailed(
+            self._project_id,
+            client=self._client.client,
+            body=self._make_delete_request(items),
+        )
         self._raise_on_error(response)
-        assert isinstance(response.parsed, api_models.TestrunsListPostResponse)
-        assert response.parsed.data
 
-        if response.parsed and response.parsed.data:
-            for i, data in enumerate(response.parsed.data):
-                assert data.id
-                items[i].id = data.id.split("/")[-1]
+    async def _a_delete(self, items: list[dm.TestRun]) -> None:
+        response = await delete_test_runs.asyncio_detailed(
+            self._project_id,
+            client=self._client.client,
+            body=self._make_delete_request(items),
+        )
+        self._raise_on_error(response)
 
-    def _delete(self, items: dm.TestRun | list[dm.TestRun]) -> None:
-        raise NotImplementedError
+    def _make_delete_request(
+        self, items: list[dm.TestRun]
+    ) -> api_models.TestrunsListDeleteRequest:
+        return api_models.TestrunsListDeleteRequest(
+            data=[
+                api_models.TestrunsListDeleteRequestDataItem(
+                    type_=api_models.TestrunsListDeleteRequestDataItemType.TESTRUNS,
+                    id=item.id,
+                )
+                for item in items
+                if item.id
+            ]
+        )
 
     def _fill_test_run_attributes(  # noqa: C901
         self,

@@ -255,11 +255,11 @@ def test_delete_parameters_trecord(
     )
     assert (
         reqs[1].url.path
-        == "/api/projects/PROJ/testruns/TRUN/testrecords/PROJ/TC1/1/testparameters/name2"
+        == "/api/projects/PROJ/testruns/TRUN/testrecords/PROJ/TC1/0/testparameters/name3"
     )
     assert (
         reqs[2].url.path
-        == "/api/projects/PROJ/testruns/TRUN/testrecords/PROJ/TC1/0/testparameters/name3"
+        == "/api/projects/PROJ/testruns/TRUN/testrecords/PROJ/TC1/1/testparameters/name2"
     )
     assert reqs[0].method == "DELETE"
     assert reqs[1].method == "DELETE"
