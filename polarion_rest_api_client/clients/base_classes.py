@@ -3,9 +3,11 @@
 """Base classes for client implementations on project Level."""
 
 import abc
+import asyncio
 import datetime
 import functools
 import http
+import inspect
 import logging
 import random
 import time
@@ -159,31 +161,67 @@ class BaseClient(t.Generic[T]):
 
     def _retry_on_error(
         self, call: t.Callable[..., R], *args: t.Any, **kwargs: t.Any
-    ) -> R:
+    ) -> R | t.Coroutine[t.Any, t.Any, R]:
+        if inspect.iscoroutinefunction(call):
+
+            async def wrapped() -> R:
+                last_error = None
+                sleeptime = 0.0
+                for attempt in range(1, _max_retries + 1):
+                    try:
+                        return await call(*args, **kwargs)
+                    except Exception as e:
+                        last_error = e
+                        sleeptime = sleeptime * 3 + random.uniform(
+                            0.5, (attempt + 1) / 2
+                        )
+                        self._handle_tolerated_exception(
+                            e, sleeptime, attempt, last_error
+                        )
+                        await asyncio.sleep(sleeptime)
+
+                assert last_error is not None
+                raise last_error
+
+            return wrapped()
+
         last_error = None
         sleeptime = 0.0
         for attempt in range(1, _max_retries + 1):
             try:
                 return call(*args, **kwargs)
             except Exception as e:
-                if (
-                    isinstance(e, errors.PolarionApiException)
-                    and e.args[0] in _NON_RETRIABLE_ERRORS
-                ):
-                    raise
                 last_error = e
+                sleeptime = sleeptime * 3 + random.uniform(
+                    0.5, (attempt + 1) / 2
+                )
+                self._handle_tolerated_exception(
+                    e, sleeptime, attempt, last_error
+                )
+                time.sleep(sleeptime)
 
-            sleeptime = sleeptime * 3 + random.uniform(0.5, (attempt + 1) / 2)
-            logger.warning(
-                "Request failed, retrying after %.1fs (%d/%d): %s",
-                sleeptime,
-                attempt,
-                _max_retries,
-                last_error,
-            )
-            time.sleep(sleeptime)
         assert last_error is not None
         raise last_error
+
+    def _handle_tolerated_exception(
+        self,
+        e: Exception,
+        sleeptime: float,
+        attempt: int,
+        last_error: Exception,
+    ) -> None:
+        if (
+            isinstance(e, errors.PolarionApiException)
+            and e.args[0] in _NON_RETRIABLE_ERRORS
+        ):
+            raise
+        logger.warning(
+            "Request failed, retrying after %.1fs (%d/%d): %s",
+            sleeptime,
+            attempt,
+            _max_retries,
+            last_error,
+        )
 
     def _pre_batching_grouping(
         self, items: list[T]
@@ -429,7 +467,7 @@ class StatusItemClient(UpdateClient, DeleteClient, t.Generic[ST], abc.ABC):
             await super().async_delete(items)
         else:
             delete_items = self._prepare_update_items(items)
-            await self.a_update(delete_items)
+            await self.async_update(delete_items)
 
     def _prepare_update_items(self, items: ST | list[ST]) -> list[ST]:
         if not isinstance(items, list):
