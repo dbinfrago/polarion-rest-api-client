@@ -58,7 +58,7 @@ class TestRecords(
         )
         self._raise_on_error(response)
 
-    async def _a_update(self, to_update: list[dm.TestRecord]) -> None:
+    async def _async_update(self, to_update: list[dm.TestRecord]) -> None:
         assert len(to_update) == 1, "Expected only one item"
         item = to_update[0]
         response = await patch_test_record.asyncio_detailed(
@@ -119,7 +119,7 @@ class TestRecords(
         )
         return self._parse_get_response(response, test_run_id)
 
-    async def a_get_multi(  # type: ignore[override]
+    async def async_get_multi(  # type: ignore[override]
         self,
         test_run_id: str,
         *,
@@ -216,7 +216,7 @@ class TestRecords(
 
         self._parse_post_response(items, response)
 
-    async def _a_create(
+    async def _async_create(
         self,
         items: list[dm.TestRecord],
     ) -> None:
@@ -289,7 +289,7 @@ class TestRecords(
         )
         self._raise_on_error(response)
 
-    async def _a_delete(self, items: list[dm.TestRecord]) -> None:
+    async def _async_delete(self, items: list[dm.TestRecord]) -> None:
         assert len(items) == 1, "Expected only one item"
         item = items[0]
         response = await delete_test_record.asyncio_detailed(

@@ -58,7 +58,7 @@ class WorkItemLinks(
 
         return self._parse_get_response(response, work_item_id)
 
-    async def a_get_multi(  # type: ignore[override]
+    async def async_get_multi(  # type: ignore[override]
         self,
         work_item_id: str,
         *,
@@ -165,7 +165,7 @@ class WorkItemLinks(
 
         self._raise_on_error(response)
 
-    async def _a_create(self, items: list[dm.WorkItemLink]) -> None:
+    async def _async_create(self, items: list[dm.WorkItemLink]) -> None:
         response = await post_linked_work_items.asyncio_detailed(
             self._project_id,
             items[0].primary_work_item_id,
@@ -212,7 +212,7 @@ class WorkItemLinks(
         )
         self._raise_on_error(response)
 
-    async def _a_delete(self, items: list[dm.WorkItemLink]) -> None:
+    async def _async_delete(self, items: list[dm.WorkItemLink]) -> None:
         response = await delete_linked_work_items.asyncio_detailed(
             self._project_id,
             items[0].primary_work_item_id,

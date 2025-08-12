@@ -51,7 +51,7 @@ class TestRunParameters(
 
         return _parse_get_response(response.parsed, test_run_id)
 
-    async def a_get_multi(  # type: ignore[override]
+    async def async_get_multi(  # type: ignore[override]
         self,
         test_run_id: str,
         *,
@@ -105,7 +105,7 @@ class TestRunParameters(
         )
         assert response.parsed.data
 
-    async def _a_create(self, items: list[dm.TestRunParameter]) -> None:
+    async def _async_create(self, items: list[dm.TestRunParameter]) -> None:
         """Call only with items with common test_run_id."""
         test_run_id = items[0].test_run_id
         body = _build_post_body(items)
@@ -136,7 +136,7 @@ class TestRunParameters(
         )
         self._raise_on_error(response)
 
-    async def _a_delete(self, items: list[dm.TestRunParameter]) -> None:
+    async def _async_delete(self, items: list[dm.TestRunParameter]) -> None:
         """Call only with items with common test_run_id."""
         test_run_id = items[0].test_run_id
         body = self._build_delete_body(items)
@@ -200,7 +200,7 @@ class TestRecordParameters(
 
         return _parse_get_response(response.parsed, test_record)
 
-    async def a_get_multi(  # type: ignore[override]
+    async def async_get_multi(  # type: ignore[override]
         self,
         test_record: dm.TestRecord,
         *,
@@ -258,7 +258,7 @@ class TestRecordParameters(
         )
         self._raise_on_error(response)
 
-    async def _a_create(self, items: list[dm.TestRecordParameter]) -> None:
+    async def _async_create(self, items: list[dm.TestRecordParameter]) -> None:
         """Call only with items with common test_records."""
         test_record = items[0].test_record
         body = _build_post_body(items)
@@ -290,7 +290,7 @@ class TestRecordParameters(
         )
         self._raise_on_error(response)
 
-    async def _a_delete(self, items: list[dm.TestRecordParameter]) -> None:
+    async def _async_delete(self, items: list[dm.TestRecordParameter]) -> None:
         """We expect only one TestRecordParameter for deletion."""
         assert len(items) == 1
         test_record = items[0].test_record

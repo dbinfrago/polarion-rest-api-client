@@ -32,7 +32,7 @@ class TestSteps(
         )
         self._raise_on_error(response)
 
-    async def _a_update(self, to_update: list[dm.TestStep]) -> None:
+    async def _async_update(self, to_update: list[dm.TestStep]) -> None:
         response = await patch_test_steps.asyncio_detailed(
             self._project_id,
             to_update[0].work_item_id,
@@ -65,7 +65,7 @@ class TestSteps(
         )
         return self._parse_get_response(response)
 
-    async def a_get_multi(  # type: ignore[override]
+    async def async_get_multi(  # type: ignore[override]
         self,
         work_item_id: str,
         *,
@@ -144,7 +144,7 @@ class TestSteps(
         )
         self._process_post_response(items, response)
 
-    async def _a_create(self, items: list[dm.TestStep]) -> None:
+    async def _async_create(self, items: list[dm.TestStep]) -> None:
         response = await post_test_steps.asyncio_detailed(
             self._project_id,
             items[0].work_item_id,
@@ -177,7 +177,7 @@ class TestSteps(
         )
         self._raise_on_error(response)
 
-    async def _a_delete(self, items: list[dm.TestStep]) -> None:
+    async def _async_delete(self, items: list[dm.TestStep]) -> None:
         response = await delete_test_steps.asyncio_detailed(
             self._project_id,
             items[0].work_item_id,

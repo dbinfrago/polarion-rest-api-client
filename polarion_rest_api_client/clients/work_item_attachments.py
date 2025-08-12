@@ -41,7 +41,9 @@ class WorkItemAttachments(
         )
         self._raise_on_error(response)
 
-    async def _a_update(self, to_update: list[dm.WorkItemAttachment]) -> None:
+    async def _async_update(
+        self, to_update: list[dm.WorkItemAttachment]
+    ) -> None:
         """Update the given work item attachment in Polarion."""
         item, multipart = self._prepare_patch_request(to_update)
 
@@ -116,7 +118,7 @@ class WorkItemAttachments(
 
         return self._process_get_response(response, work_item_id)
 
-    async def a_get_multi(  # type: ignore[override]
+    async def async_get_multi(  # type: ignore[override]
         self,
         work_item_id: str,
         *,
@@ -193,7 +195,7 @@ class WorkItemAttachments(
 
         self._process_post_response(items, response)
 
-    async def _a_create(self, items: list[dm.WorkItemAttachment]) -> None:
+    async def _async_create(self, items: list[dm.WorkItemAttachment]) -> None:
         """Create the given work item attachment in Polarion."""
         multipart = self._prepare_post_request(items)
         response = await post_work_item_attachments.asyncio_detailed(
@@ -282,7 +284,7 @@ class WorkItemAttachments(
         )
         self._raise_on_error(response)
 
-    async def _a_delete(self, items: list[dm.WorkItemAttachment]) -> None:
+    async def _async_delete(self, items: list[dm.WorkItemAttachment]) -> None:
         assert len(items) == 1, "Expected only one item"
         item = items[0]
         response = await delete_work_item_attachment.asyncio_detailed(

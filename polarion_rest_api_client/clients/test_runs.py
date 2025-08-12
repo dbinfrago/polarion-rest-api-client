@@ -63,7 +63,7 @@ class TestRuns(
 
         self._raise_on_error(response)
 
-    async def _a_update(self, to_update: list[dm.TestRun]) -> None:
+    async def _async_update(self, to_update: list[dm.TestRun]) -> None:
         """Create the given list of test runs."""
         assert len(to_update) == 1, "Expected only one item"
         assert to_update[0].id
@@ -113,7 +113,7 @@ class TestRuns(
         )
         return self._parse_get_response(response)
 
-    async def a_get_multi(  # type: ignore[override]
+    async def async_get_multi(  # type: ignore[override]
         self,
         query: str = "",
         *,
@@ -198,7 +198,7 @@ class TestRuns(
         )
         self._process_create_reponse(items, response)
 
-    async def _a_create(self, items: list[dm.TestRun]) -> None:
+    async def _async_create(self, items: list[dm.TestRun]) -> None:
         """Create the given list of test runs."""
         response = await post_test_runs.asyncio_detailed(
             self._project_id,
@@ -242,7 +242,7 @@ class TestRuns(
         )
         self._raise_on_error(response)
 
-    async def _a_delete(self, items: list[dm.TestRun]) -> None:
+    async def _async_delete(self, items: list[dm.TestRun]) -> None:
         response = await delete_test_runs.asyncio_detailed(
             self._project_id,
             client=self._client.client,
