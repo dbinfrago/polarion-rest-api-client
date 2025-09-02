@@ -4,6 +4,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import ssl
 import typing as t
 
@@ -126,6 +127,7 @@ class PolarionClient:
         page_size: int = 100,
         max_content_size: int = 2 * 1024**2,
         verify_ssl: ssl.SSLContext | bool | None = None,
+        max_in_flight_requests: int = 4,
     ):
         if verify_ssl is None:
             verify_ssl = truststore.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
@@ -135,6 +137,7 @@ class PolarionClient:
             verify_ssl=verify_ssl,
             httpx_args=httpx_args or {},
         )
+        self.semaphore = asyncio.Semaphore(max_in_flight_requests)
         self.batch_size = batch_size
         self.page_size = page_size
         self.max_content_size = max_content_size

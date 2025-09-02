@@ -169,7 +169,8 @@ class BaseClient(t.Generic[T]):
                 sleeptime = 0.0
                 for attempt in range(1, _max_retries + 1):
                     try:
-                        return await call(*args, **kwargs)
+                        async with self._client.semaphore:
+                            return await call(*args, **kwargs)
                     except Exception as e:
                         last_error = e
                         sleeptime = sleeptime * 3 + random.uniform(
