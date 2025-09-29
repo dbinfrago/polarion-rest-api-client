@@ -111,6 +111,7 @@ class Documents(
                     if attributes.outline_numbering
                     else None
                 ),
+                additional_properties=attributes.additional_properties or {},
             )
 
         return None
@@ -125,64 +126,69 @@ class Documents(
         assert not isinstance(to_update, list), "Expected only one item"
         assert to_update.module_folder is not None, "module folder must be set"
         assert to_update.module_name is not None, "module name must be set"
-        # pylint: disable=line-too-long
+
+        attrs = api_models.DocumentsSinglePatchRequestDataAttributes(
+            home_page_content=(
+                api_models.DocumentsSinglePatchRequestDataAttributesHomePageContent(
+                    type_=api_models.DocumentsSinglePatchRequestDataAttributesHomePageContentType(
+                        to_update.home_page_content.type
+                    ),
+                    value=to_update.home_page_content.value or "",
+                )
+                if to_update.home_page_content
+                else oa_types.UNSET
+            ),
+            status=to_update.status or oa_types.UNSET,
+            title=to_update.title or oa_types.UNSET,
+            type_=to_update.type or oa_types.UNSET,
+            rendering_layouts=(
+                [
+                    api_models.DocumentsSinglePatchRequestDataAttributesRenderingLayoutsItem(
+                        label=layout.label or oa_types.UNSET,
+                        layouter=(
+                            layout.layouter.value
+                            if layout.layouter is not None
+                            else oa_types.UNSET
+                        ),
+                        type_=layout.type or oa_types.UNSET,
+                        properties=(
+                            [
+                                api_models.DocumentsSinglePatchRequestDataAttributesRenderingLayoutsItemPropertiesItem.from_dict(
+                                    p
+                                )
+                                for p in layout.properties.serialize()
+                            ]
+                            if layout.properties
+                            else oa_types.UNSET
+                        ),
+                    )
+                    for layout in to_update.rendering_layouts
+                ]
+                if to_update.rendering_layouts
+                else oa_types.UNSET
+            ),
+            uses_outline_numbering=to_update.outline_numbering
+            or oa_types.UNSET,
+            outline_numbering=(
+                api_models.DocumentsSinglePatchRequestDataAttributesOutlineNumbering(
+                    prefix=to_update.outline_numbering_prefix
+                )
+                if to_update.outline_numbering_prefix
+                else oa_types.UNSET
+            ),
+        )
+
+        attrs.additional_properties.update(
+            to_update.additional_properties or {}
+        )
+
         req = api_models.DocumentsSinglePatchRequest(
             data=api_models.DocumentsSinglePatchRequestData(
                 api_models.DocumentsSinglePatchRequestDataType.DOCUMENTS,
                 id=f"{self._project_id}/{to_update.module_folder}/{to_update.module_name}",
-                attributes=api_models.DocumentsSinglePatchRequestDataAttributes(
-                    home_page_content=(
-                        api_models.DocumentsSinglePatchRequestDataAttributesHomePageContent(
-                            type_=api_models.DocumentsSinglePatchRequestDataAttributesHomePageContentType(
-                                to_update.home_page_content.type
-                            ),
-                            value=to_update.home_page_content.value or "",
-                        )
-                        if to_update.home_page_content
-                        else oa_types.UNSET
-                    ),
-                    status=to_update.status or oa_types.UNSET,
-                    title=to_update.title or oa_types.UNSET,
-                    type_=to_update.type or oa_types.UNSET,
-                    rendering_layouts=(
-                        [
-                            api_models.DocumentsSinglePatchRequestDataAttributesRenderingLayoutsItem(
-                                label=layout.label or oa_types.UNSET,
-                                layouter=(
-                                    layout.layouter.value
-                                    if layout.layouter is not None
-                                    else oa_types.UNSET
-                                ),
-                                type_=layout.type or oa_types.UNSET,
-                                properties=(
-                                    [
-                                        api_models.DocumentsSinglePatchRequestDataAttributesRenderingLayoutsItemPropertiesItem.from_dict(
-                                            p
-                                        )
-                                        for p in layout.properties.serialize()
-                                    ]
-                                    if layout.properties
-                                    else oa_types.UNSET
-                                ),
-                            )
-                            for layout in to_update.rendering_layouts
-                        ]
-                        if to_update.rendering_layouts
-                        else oa_types.UNSET
-                    ),
-                    uses_outline_numbering=to_update.outline_numbering
-                    or oa_types.UNSET,
-                    outline_numbering=(
-                        api_models.DocumentsSinglePatchRequestDataAttributesOutlineNumbering(
-                            prefix=to_update.outline_numbering_prefix
-                        )
-                        if to_update.outline_numbering_prefix
-                        else oa_types.UNSET
-                    ),
-                ),
+                attributes=attrs,
             )
         )
-        # pylint: enable=line-too-long
 
         res = patch_document.sync_detailed(
             project_id=self._project_id,
@@ -204,70 +210,77 @@ class Documents(
         """Return a list of documents - Not implemented yet."""
         raise NotImplementedError
 
+    def _build_create_attributes(
+        self, document: dm.Document
+    ) -> api_models.DocumentsListPostRequestDataItemAttributes:
+        attrs = api_models.DocumentsListPostRequestDataItemAttributes(
+            home_page_content=(
+                api_models.DocumentsListPostRequestDataItemAttributesHomePageContent(
+                    type_=api_models.DocumentsListPostRequestDataItemAttributesHomePageContentType(
+                        document.home_page_content.type
+                    ),
+                    value=document.home_page_content.value or "",
+                )
+                if document.home_page_content
+                else oa_types.UNSET
+            ),
+            module_name=document.module_name or oa_types.UNSET,
+            status=document.status or oa_types.UNSET,
+            title=document.title or oa_types.UNSET,
+            type_=document.type or oa_types.UNSET,
+            rendering_layouts=(
+                [
+                    api_models.DocumentsListPostRequestDataItemAttributesRenderingLayoutsItem(
+                        label=layout.label or oa_types.UNSET,
+                        layouter=(
+                            layout.layouter.value
+                            if layout.layouter is not None
+                            else oa_types.UNSET
+                        ),
+                        type_=layout.type or oa_types.UNSET,
+                        properties=(
+                            [
+                                api_models.DocumentsListPostRequestDataItemAttributesRenderingLayoutsItemPropertiesItem.from_dict(
+                                    p
+                                )
+                                for p in layout.properties.serialize()
+                            ]
+                            if layout.properties
+                            else oa_types.UNSET
+                        ),
+                    )
+                    for layout in document.rendering_layouts
+                ]
+                if document.rendering_layouts
+                else oa_types.UNSET
+            ),
+            uses_outline_numbering=document.outline_numbering
+            or oa_types.UNSET,
+            outline_numbering=(
+                api_models.DocumentsListPostRequestDataItemAttributesOutlineNumbering(
+                    prefix=document.outline_numbering_prefix
+                )
+                if document.outline_numbering_prefix
+                else oa_types.UNSET
+            ),
+        )
+        attrs.additional_properties.update(
+            document.additional_properties or {}
+        )
+        return attrs
+
     def _create(self, items: list[dm.Document]) -> None:
         # due to grouping in _split_into_batches all module folders are equal
         assert items[0].module_folder is not None, "module folder must be set"
 
         req = api_models.DocumentsListPostRequest(
-            # pylint: disable=line-too-long
             data=[
                 api_models.DocumentsListPostRequestDataItem(
                     type_=api_models.DocumentsListPostRequestDataItemType.DOCUMENTS,
-                    attributes=api_models.DocumentsListPostRequestDataItemAttributes(
-                        home_page_content=(
-                            api_models.DocumentsListPostRequestDataItemAttributesHomePageContent(
-                                type_=api_models.DocumentsListPostRequestDataItemAttributesHomePageContentType(
-                                    document.home_page_content.type
-                                ),
-                                value=document.home_page_content.value or "",
-                            )
-                            if document.home_page_content
-                            else oa_types.UNSET
-                        ),
-                        module_name=document.module_name or oa_types.UNSET,
-                        status=document.status or oa_types.UNSET,
-                        title=document.title or oa_types.UNSET,
-                        type_=document.type or oa_types.UNSET,
-                        rendering_layouts=(
-                            [
-                                api_models.DocumentsListPostRequestDataItemAttributesRenderingLayoutsItem(
-                                    label=layout.label or oa_types.UNSET,
-                                    layouter=(
-                                        layout.layouter.value
-                                        if layout.layouter is not None
-                                        else oa_types.UNSET
-                                    ),
-                                    type_=layout.type or oa_types.UNSET,
-                                    properties=(
-                                        [
-                                            api_models.DocumentsListPostRequestDataItemAttributesRenderingLayoutsItemPropertiesItem.from_dict(
-                                                p
-                                            )
-                                            for p in layout.properties.serialize()
-                                        ]
-                                        if layout.properties
-                                        else oa_types.UNSET
-                                    ),
-                                )
-                                for layout in document.rendering_layouts
-                            ]
-                            if document.rendering_layouts
-                            else oa_types.UNSET
-                        ),
-                        uses_outline_numbering=document.outline_numbering
-                        or oa_types.UNSET,
-                        outline_numbering=(
-                            api_models.DocumentsListPostRequestDataItemAttributesOutlineNumbering(
-                                prefix=document.outline_numbering_prefix
-                            )
-                            if document.outline_numbering_prefix
-                            else oa_types.UNSET
-                        ),
-                    ),
+                    attributes=self._build_create_attributes(document),
                 )
                 for document in items
             ]
-            # pylint: enable=line-too-long
         )
 
         res = post_documents.sync_detailed(

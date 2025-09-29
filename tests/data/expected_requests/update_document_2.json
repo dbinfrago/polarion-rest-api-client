@@ -28,7 +28,12 @@
           "type": "task2"
         }
       ],
-      "title": "Fancy Title"
+      "title": "Fancy Title",
+      "html_property": {
+        "type": "text/html",
+        "value": "<p>super Value</p>"
+      },
+      "integer_property": 42
     }
   }
 }
