@@ -1,1 +1,40 @@
-{"data": [{"type": "documents", "attributes": {"homePageContent": {"type": "text/html", "value": "<p>super Value</p>"}, "moduleName": "name", "outlineNumbering": {"prefix": "TEST"}, "renderingLayouts": [{"label": "My label", "layouter": "paragraph", "properties": [{"key": "fieldsAtEndAsTable", "value": "true"}, {"key": "fieldsAtStart", "value": "id"}, {"key": "fieldsAtEnd", "value": "custom"}, {"key": "sidebarWorkItemFields", "value": "id"}, {"key": "hidden", "value": "false"}], "type": "task"}, {"label": "My label", "layouter": "paragraph", "properties": [{"key": "fieldsAtEndAsTable", "value": "false"}, {"key": "fieldsAtStart", "value": "id"}, {"key": "hidden", "value": "false"}], "type": "task2"}], "title": "Fancy Title"}}]}
+{
+  "data": [
+    {
+      "type": "documents",
+      "attributes": {
+        "homePageContent": {
+          "type": "text/html",
+          "value": "<p>super Value</p>"
+        },
+        "moduleName": "name",
+        "outlineNumbering": { "prefix": "TEST" },
+        "renderingLayouts": [
+          {
+            "label": "My label",
+            "layouter": "paragraph",
+            "properties": [
+              { "key": "fieldsAtEndAsTable", "value": "true" },
+              { "key": "fieldsAtStart", "value": "id" },
+              { "key": "fieldsAtEnd", "value": "custom" },
+              { "key": "sidebarWorkItemFields", "value": "id" },
+              { "key": "hidden", "value": "false" }
+            ],
+            "type": "task"
+          },
+          {
+            "label": "My label",
+            "layouter": "paragraph",
+            "properties": [
+              { "key": "fieldsAtEndAsTable", "value": "false" },
+              { "key": "fieldsAtStart", "value": "id" },
+              { "key": "hidden", "value": "false" }
+            ],
+            "type": "task2"
+          }
+        ],
+        "title": "Fancy Title"
+      }
+    }
+  ]
+}

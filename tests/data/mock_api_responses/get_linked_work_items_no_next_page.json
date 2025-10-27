@@ -27,9 +27,7 @@
       }
     }
   ],
-  "included": [
-    {}
-  ],
+  "included": [{}],
   "links": {
     "self": "server-host-name/application-path/projects/MyProjectId/workitems/MyWorkItemId/linkedworkitems/parent/MyProjectId?page%5Bsize%5D=10&page%5Bnumber%5D=5",
     "first": "server-host-name/application-path/projects/MyProjectId/workitems/MyWorkItemId/linkedworkitems/parent/MyProjectId?page%5Bsize%5D=10&page%5Bnumber%5D=1",

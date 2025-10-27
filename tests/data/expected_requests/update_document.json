@@ -1,1 +1,10 @@
-{"data": {"type": "documents", "id": "PROJ/folder/name1", "attributes": {"homePageContent": {"type": "text/html", "value": "<p>super Value</p>"}, "title": "Fancy Title"}}}
+{
+  "data": {
+    "type": "documents",
+    "id": "PROJ/folder/name1",
+    "attributes": {
+      "homePageContent": { "type": "text/html", "value": "<p>super Value</p>" },
+      "title": "Fancy Title"
+    }
+  }
+}

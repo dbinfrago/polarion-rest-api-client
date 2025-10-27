@@ -42,7 +42,7 @@ repos:
           - --license-filepath
           - LICENSES/.license_header_apache.txt
           - --comment-style
-          - '#'
+          - "#"
       - id: insert-license
         name: Insert CC0 license headers (shell-style comments)
         files: '(?:^|/)(?:codeql-analysis.yml|dependabot.yml|\.(?:pre-commit-config.yaml|(?:git|helm|docker)ignore))$'
@@ -51,7 +51,7 @@ repos:
           - --license-filepath
           - LICENSES/.license_header_cc0.txt
           - --comment-style
-          - '#'
+          - "#"
       - id: insert-license
         name: Insert license headers (XML-style comments)
         files: '\.(?:html|md|xml)$'
@@ -61,7 +61,7 @@ repos:
           - --license-filepath
           - LICENSES/.license_header_apache.txt
           - --comment-style
-          - '<!--| ~| -->'
+          - "<!--| ~| -->"
       - id: insert-license
         name: Insert Apache license headers (C-style comments)
         files: '\.(?:s?css|js|ts)$'
@@ -71,7 +71,7 @@ repos:
           - --license-filepath
           - LICENSES/.license_header_apache.txt
           - --comment-style
-          - '/*| *| */'
+          - "/*| *| */"
       - id: insert-license
         name: Insert Apache license headers (reST comments)
         files: '\.rst$'
@@ -81,7 +81,7 @@ repos:
           - --license-filepath
           - LICENSES/.license_header_apache.txt
           - --comment-style
-          - '..|  |'
+          - "..|  |"
   - repo: local # docformatter
     hooks:
       - id: docformatter
@@ -139,8 +139,17 @@ repos:
       - id: commitlint
         stages: [commit-msg]
         additional_dependencies:
-          - '@commitlint/config-conventional'
+          - "@commitlint/config-conventional"
   - repo: https://github.com/hadolint/hadolint
     rev: v2.12.0
     hooks:
       - id: hadolint-docker
+  - repo: local
+    hooks:
+      - id: prettier
+        name: prettier
+        entry: prettier --write
+        language: node
+        types_or: [json]
+        additional_dependencies:
+          - "prettier@^3.6.2"

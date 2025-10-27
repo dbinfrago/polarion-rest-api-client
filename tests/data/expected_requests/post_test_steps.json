@@ -3,9 +3,7 @@
     {
       "type": "teststeps",
       "attributes": {
-        "keys": [
-          "string"
-        ],
+        "keys": ["string"],
         "values": [
           {
             "type": "text/html",
@@ -17,9 +15,7 @@
     {
       "type": "teststeps",
       "attributes": {
-        "keys": [
-          "string"
-        ],
+        "keys": ["string"],
         "values": [
           {
             "type": "text/html",

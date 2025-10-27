@@ -264,9 +264,7 @@
       "portal": "server-host-name/application-path/polarion/redirect/project/MyProjectId/workitem?id=MyWorkItemId&revision=1234"
     }
   },
-  "included": [
-    {}
-  ],
+  "included": [{}],
   "links": {
     "self": "server-host-name/application-path/projects/MyProjectId/workitems/MyWorkItemId?revision=1234"
   }
