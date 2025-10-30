@@ -4,9 +4,7 @@
       "type": "teststeps",
       "id": "PROJ/asdfg/1",
       "attributes": {
-        "keys": [
-          "string"
-        ],
+        "keys": ["string"],
         "values": [
           {
             "type": "text/html",
@@ -19,9 +17,7 @@
       "type": "teststeps",
       "id": "PROJ/asdfg/2",
       "attributes": {
-        "keys": [
-          "string"
-        ],
+        "keys": ["string"],
         "values": [
           {
             "type": "text/html",

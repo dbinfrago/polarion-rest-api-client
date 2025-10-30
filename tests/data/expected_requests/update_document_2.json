@@ -1,1 +1,34 @@
-{"data": {"type": "documents", "id": "PROJ/folder/name", "attributes": {"homePageContent": {"type": "text/html", "value": "<p>super Value</p>"}, "renderingLayouts": [{"label": "My label", "layouter": "paragraph", "properties": [{"key": "fieldsAtEndAsTable", "value": "false"}, {"key": "fieldsAtStart", "value": "id"}, {"key": "fieldsAtEnd", "value": "custom"}, {"key": "sidebarWorkItemFields", "value": "id"}, {"key": "hidden", "value": "true"}], "type": "task"}, {"label": "My label", "layouter": "paragraph", "properties": [{"key": "fieldsAtEndAsTable", "value": "false"}, {"key": "fieldsAtStart", "value": "id"}, {"key": "hidden", "value": "false"}], "type": "task2"}], "title": "Fancy Title"}}}
+{
+  "data": {
+    "type": "documents",
+    "id": "PROJ/folder/name",
+    "attributes": {
+      "homePageContent": { "type": "text/html", "value": "<p>super Value</p>" },
+      "renderingLayouts": [
+        {
+          "label": "My label",
+          "layouter": "paragraph",
+          "properties": [
+            { "key": "fieldsAtEndAsTable", "value": "false" },
+            { "key": "fieldsAtStart", "value": "id" },
+            { "key": "fieldsAtEnd", "value": "custom" },
+            { "key": "sidebarWorkItemFields", "value": "id" },
+            { "key": "hidden", "value": "true" }
+          ],
+          "type": "task"
+        },
+        {
+          "label": "My label",
+          "layouter": "paragraph",
+          "properties": [
+            { "key": "fieldsAtEndAsTable", "value": "false" },
+            { "key": "fieldsAtStart", "value": "id" },
+            { "key": "hidden", "value": "false" }
+          ],
+          "type": "task2"
+        }
+      ],
+      "title": "Fancy Title"
+    }
+  }
+}

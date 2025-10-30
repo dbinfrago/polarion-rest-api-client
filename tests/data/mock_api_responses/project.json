@@ -44,9 +44,7 @@
       "self": "server-host-name/application-path/projects/MyProjectId?revision=1234"
     }
   },
-  "included": [
-    {}
-  ],
+  "included": [{}],
   "links": {
     "self": "server-host-name/application-path/projects/MyProjectId?revision=1234"
   }

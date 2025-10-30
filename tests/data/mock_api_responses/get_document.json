@@ -1,62 +1,62 @@
 {
-    "data": {
-        "attributes": {
-            "autoSuspect": {},
-            "branchedWithQuery": {},
-            "derivedFromLinkRole": {},
-            "created": "1970-01-01T00:00:00Z",
-            "homePageContent": {
-                "type": "text/html",
-                "value": "<h1>My text value</h1>"
+  "data": {
+    "attributes": {
+      "autoSuspect": {},
+      "branchedWithQuery": {},
+      "derivedFromLinkRole": {},
+      "created": "1970-01-01T00:00:00Z",
+      "homePageContent": {
+        "type": "text/html",
+        "value": "<h1>My text value</h1>"
+      },
+      "moduleFolder": "MySpaceId",
+      "moduleName": "MyDocumentName",
+      "outlineNumbering": {
+        "prefix": "PREFIX"
+      },
+      "renderingLayouts": [
+        {
+          "type": "task",
+          "label": "My label",
+          "layouter": "paragraph",
+          "properties": [
+            {
+              "key": "fieldsAtStart",
+              "value": "id"
             },
-            "moduleFolder": "MySpaceId",
-            "moduleName": "MyDocumentName",
-            "outlineNumbering": {
-            "prefix": "PREFIX"
+            {
+              "key": "fieldsAtEnd",
+              "value": "custom,bla"
             },
-            "renderingLayouts": [
-                {
-                  "type": "task",
-                  "label": "My label",
-                  "layouter": "paragraph",
-                  "properties": [
-                    {
-                      "key": "fieldsAtStart",
-                      "value": "id"
-                    },
-                    {
-                      "key": "fieldsAtEnd",
-                      "value": "custom,bla"
-                    },
-                    {
-                      "key": "sidebarWorkItemFields",
-                      "value": "id"
-                    },
-                    {
-                      "key": "fieldsAtEndAsTable",
-                      "value": "true"
-                    }
-                  ]
-                }
-            ],
-            "status": "open",
-            "structureLinkRole": "parent",
-            "title": "MyDocumentName",
-            "type": "standardSpecification",
-            "updated": "1970-01-01T00:00:00Z",
-            "usesOutlineNumbering": true
-        },
-        "id": "MyProjectId/MySpaceId/MyDocumentName",
-        "links": {
-            "self": "server-host-name/application-path/projects/MyProjectId/spaces/MySpaceId/documents/MyDocumentName"
-        },
-        "meta": {},
-        "relationships": {},
-        "revision": {},
-        "type": "documents"
+            {
+              "key": "sidebarWorkItemFields",
+              "value": "id"
+            },
+            {
+              "key": "fieldsAtEndAsTable",
+              "value": "true"
+            }
+          ]
+        }
+      ],
+      "status": "open",
+      "structureLinkRole": "parent",
+      "title": "MyDocumentName",
+      "type": "standardSpecification",
+      "updated": "1970-01-01T00:00:00Z",
+      "usesOutlineNumbering": true
     },
-    "included": [],
+    "id": "MyProjectId/MySpaceId/MyDocumentName",
     "links": {
-        "self": "server-host-name/application-path/projects/MyProjectId/spaces/MySpaceId/documents/MyDocumentName"
-    }
+      "self": "server-host-name/application-path/projects/MyProjectId/spaces/MySpaceId/documents/MyDocumentName"
+    },
+    "meta": {},
+    "relationships": {},
+    "revision": {},
+    "type": "documents"
+  },
+  "included": [],
+  "links": {
+    "self": "server-host-name/application-path/projects/MyProjectId/spaces/MySpaceId/documents/MyDocumentName"
+  }
 }

@@ -77,8 +77,7 @@
         }
       },
       "meta": {
-        "errors": [
-        ]
+        "errors": []
       },
       "links": {
         "self": "server-host-name/application-path/projects/MyProjectId/testruns/MyTestRunId?revision=1234",
@@ -86,9 +85,7 @@
       }
     }
   ],
-  "included": [
-    {}
-  ],
+  "included": [{}],
   "links": {
     "self": "server-host-name/application-path/projects/MyProjectId/testruns?page%5Bsize%5D=10&page%5Bnumber%5D=5",
     "first": "server-host-name/application-path/projects/MyProjectId/testruns?page%5Bsize%5D=10&page%5Bnumber%5D=1",

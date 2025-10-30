@@ -15,7 +15,8 @@
       "relationships": {
         "module": {
           "data": {
-            "id": "PROJ/space/document", "type": "documents"
+            "id": "PROJ/space/document",
+            "type": "documents"
           }
         }
       }
