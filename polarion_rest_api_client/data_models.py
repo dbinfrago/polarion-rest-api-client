@@ -16,6 +16,7 @@ __all__ = [
     "Document",
     "DocumentReference",
     "HtmlContent",
+    "HyperLink",
     "Layouter",
     "RenderingLayout",
     "RenderingProperties",
@@ -84,6 +85,7 @@ class WorkItem(StatusItem):
     linked_work_items_truncated: bool = False
     attachments_truncated: bool = False
     home_document: DocumentReference | None = None
+    hyperlinks: list[HyperLink] | None = None
 
     def __init__(
         self,
@@ -100,6 +102,7 @@ class WorkItem(StatusItem):
         linked_work_items_truncated: bool = False,
         attachments_truncated: bool = False,
         home_document: DocumentReference | None = None,
+        hyperlinks: list[HyperLink] | None = None,
         **kwargs: t.Any,
     ) -> None:
         super().__init__(id, type, status)
@@ -126,6 +129,7 @@ class WorkItem(StatusItem):
         self.linked_work_items_truncated = linked_work_items_truncated
         self.attachments_truncated = attachments_truncated
         self.home_document = home_document
+        self.hyperlinks = hyperlinks
 
     def __getattribute__(self, item: str) -> t.Any:
         """Return all non WorkItem attributes from additional_properties."""
@@ -171,6 +175,9 @@ class WorkItem(StatusItem):
                 if self.home_document
                 else None
             ),
+            "hyperlinks": None
+            if self.hyperlinks is None
+            else [dataclasses.asdict(link) for link in self.hyperlinks],
         }
 
 
@@ -437,3 +444,12 @@ class TestRecordParameter(AbstractTestParameter):
     def __init__(self, test_record: TestRecord, name: str, value: str):
         super().__init__(name, value)
         self.test_record = test_record
+
+
+@dataclasses.dataclass
+class HyperLink:
+    """Hyperlink used in WorkItems."""
+
+    title: str | None = None
+    role: str | None = None
+    uri: str | None = None

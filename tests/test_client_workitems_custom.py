@@ -41,6 +41,17 @@ def test_create_work_item_custom_work_item(
         status="open",
         type="task",
         capella_uuid="asdfgh",
+        hyperlinks=[
+            polarion_api.HyperLink(
+                role="ref_ext",
+                uri="https://polarion.plm.automation.siemens.com",
+            ),
+            polarion_api.HyperLink(
+                title="Title",
+                role="ref_ext",
+                uri="https://polarion.plm.automation.siemens.com",
+            ),
+        ],
     )
 
     work_item.capella_uuid = "asdfg"
