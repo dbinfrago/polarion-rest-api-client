@@ -321,6 +321,16 @@ class WorkItems(bc.SingleUpdatableItemsMixin, bc.StatusItemClient):
             ),
             status=work_item.status or oa_types.UNSET,
             title=work_item.title or oa_types.UNSET,
+            hyperlinks=oa_types.UNSET
+            if work_item.hyperlinks is None
+            else [
+                api_models.WorkitemsListPostRequestDataItemAttributesHyperlinksItem(
+                    role=hyperlink.role or oa_types.UNSET,
+                    title=hyperlink.title or oa_types.UNSET,
+                    uri=hyperlink.uri or oa_types.UNSET,
+                )
+                for hyperlink in work_item.hyperlinks
+            ],
         )
 
         attrs.additional_properties.update(work_item.additional_attributes)
@@ -366,6 +376,16 @@ class WorkItems(bc.SingleUpdatableItemsMixin, bc.StatusItemClient):
 
         if work_item.status is not None:
             attrs.status = work_item.status
+
+        if work_item.hyperlinks is not None:
+            attrs.hyperlinks = [
+                api_models.WorkitemsSinglePatchRequestDataAttributesHyperlinksItem(
+                    role=hyperlink.role or oa_types.UNSET,
+                    title=hyperlink.title or oa_types.UNSET,
+                    uri=hyperlink.uri or oa_types.UNSET,
+                )
+                for hyperlink in work_item.hyperlinks
+            ]
 
         attrs.additional_properties.update(work_item.additional_attributes)
 
@@ -480,9 +500,22 @@ class WorkItems(bc.SingleUpdatableItemsMixin, bc.StatusItemClient):
         description = None
         if work_item.attributes.description:
             description = dm.TextContent(
-                self.unset_to_none(work_item.attributes.description.type_),
+                None
+                if work_item.attributes.description.type_ is oa_types.UNSET
+                else str(work_item.attributes.description.type_),
                 self.unset_to_none(work_item.attributes.description.value),
             )
+
+        hyperlinks = None
+        if isinstance(work_item.attributes.hyperlinks, list):
+            hyperlinks = [
+                dm.HyperLink(
+                    role=self.unset_to_none(hyperlink.role),
+                    title=self.unset_to_none(hyperlink.title),
+                    uri=self.unset_to_none(hyperlink.uri),
+                )
+                for hyperlink in work_item.attributes.hyperlinks
+            ]
 
         return work_item_cls(
             work_item_id,
@@ -496,4 +529,5 @@ class WorkItems(bc.SingleUpdatableItemsMixin, bc.StatusItemClient):
             linked_work_items_truncated=links_truncated,
             attachments_truncated=attachments_truncated,
             home_document=home_document,
+            hyperlinks=hyperlinks,
         )

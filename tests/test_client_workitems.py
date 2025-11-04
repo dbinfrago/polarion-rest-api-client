@@ -22,6 +22,7 @@ from tests.conftest import (
     TEST_WI_NOT_TRUNCATED_RESPONSE,
     TEST_WI_PATCH_COMPLETELY_REQUEST,
     TEST_WI_PATCH_DESCRIPTION_REQUEST,
+    TEST_WI_PATCH_HYPERLINKS_REQUEST,
     TEST_WI_PATCH_STATUS_DELETED_REQUEST,
     TEST_WI_PATCH_STATUS_REQUEST,
     TEST_WI_PATCH_TITLE_REQUEST,
@@ -37,6 +38,11 @@ def test_get_one_work_item(
     with open(TEST_WI_SINGLE_RESPONSE, encoding="utf8") as f:
         httpx_mock.add_response(json=json.load(f))
 
+    expected_hyperlinks = [
+        polarion_api.HyperLink(
+            role="ref_ext", uri="https://polarion.plm.automation.siemens.com"
+        )
+    ]
     work_item = client.work_items.get("MyWorkItemId")
 
     query = {
@@ -57,6 +63,7 @@ def test_get_one_work_item(
     assert work_item.home_document is not None
     assert work_item.home_document.module_folder == "MySpaceId"
     assert work_item.home_document.module_name == "MyDocumentId"
+    assert work_item.hyperlinks == expected_hyperlinks
 
 
 def test_get_one_work_item_not_truncated(
@@ -152,21 +159,19 @@ def test_get_all_work_items_single_page(
         httpx_mock.add_response(json=json.load(f))
 
     client._client.default_fields.workitems = "@basic,description"  # type: ignore
-
-    work_items = client.work_items.get_all("", revision=revision)
-
-    reqs = httpx_mock.get_requests()
-    assert reqs[0].method == "GET"
-    assert len(work_items) == 1
-    assert len(reqs) == 1
-    assert dict(reqs[0].url.params) == query
-    assert work_items[0] == polarion_api.WorkItem(
+    expected_workitem = polarion_api.WorkItem(
         "MyWorkItemId2",
         title="Title",
         description=polarion_api.HtmlContent("My text value"),
         type="task",
         status="open",
-        additional_attributes={"capella_uuid": "asdfgh", "checksum": "123"},
+        additional_attributes={
+            "capella_uuid": "asdfgh",
+            "checksum": "123",
+        },
+        home_document=polarion_api.DocumentReference(
+            "MySpaceId", "MyDocumentId"
+        ),
         linked_work_items=[
             polarion_api.WorkItemLink(
                 "MyWorkItemId2",
@@ -179,7 +184,27 @@ def test_get_all_work_items_single_page(
         attachments=[
             polarion_api.WorkItemAttachment("MyWorkItemId2", "MyAttachmentId")
         ],
+        hyperlinks=[
+            polarion_api.HyperLink(
+                role="ref_ext",
+                uri="https://polarion.plm.automation.siemens.com",
+            ),
+            polarion_api.HyperLink(
+                title="Title",
+                role="ref_ext",
+                uri="https://polarion.plm.automation.siemens.com",
+            ),
+        ],
     )
+
+    work_items = client.work_items.get_all("", revision=revision)
+
+    reqs = httpx_mock.get_requests()
+    assert reqs[0].method == "GET"
+    assert len(work_items) == 1
+    assert len(reqs) == 1
+    assert dict(reqs[0].url.params) == query
+    assert work_items[0].to_dict() == expected_workitem.to_dict()
     assert work_items[0].home_document.module_folder == "MySpaceId"
     assert work_items[0].home_document.module_name == "MyDocumentId"
     assert "checksum" in work_items[0].additional_attributes
@@ -209,6 +234,17 @@ def test_create_work_item(
 ):
     with open(TEST_WI_CREATED_RESPONSE, encoding="utf8") as f:
         httpx_mock.add_response(201, json=json.load(f))
+
+    work_item.hyperlinks = [
+        polarion_api.HyperLink(
+            role="ref_ext", uri="https://polarion.plm.automation.siemens.com"
+        ),
+        polarion_api.HyperLink(
+            title="Title",
+            role="ref_ext",
+            uri="https://polarion.plm.automation.siemens.com",
+        ),
+    ]
 
     client.work_items.create(work_item)
 
@@ -444,6 +480,38 @@ def test_update_work_item_description(
     assert req.method == "PATCH"
     with open(TEST_WI_PATCH_DESCRIPTION_REQUEST, encoding="utf8") as f:
         assert json.loads(req.content.decode()) == json.load(f)
+
+
+def test_update_work_item_hyperlinks(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    httpx_mock.add_response(204)
+    with open(TEST_WI_PATCH_HYPERLINKS_REQUEST, encoding="utf8") as f:
+        expected_request = json.load(f)
+
+    client.work_items.update(
+        polarion_api.WorkItem(
+            id="MyWorkItemId",
+            hyperlinks=[
+                polarion_api.HyperLink(
+                    role="ref_ext",
+                    uri="https://polarion.plm.automation.siemens.com",
+                ),
+                polarion_api.HyperLink(
+                    title="Title",
+                    role="ref_ext",
+                    uri="https://polarion.plm.automation.siemens.com",
+                ),
+            ],
+        )
+    )
+
+    req = httpx_mock.get_request()
+    assert req is not None
+    assert req.url.path.endswith("PROJ/workitems/MyWorkItemId")
+    assert req.method == "PATCH"
+    assert json.loads(req.content.decode()) == expected_request
 
 
 def test_update_work_item_title(

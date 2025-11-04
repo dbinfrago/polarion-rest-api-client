@@ -1,0 +1,19 @@
+{
+  "data": {
+    "type": "workitems",
+    "id": "PROJ/MyWorkItemId",
+    "attributes": {
+      "hyperlinks": [
+        {
+          "role": "ref_ext",
+          "uri": "https://polarion.plm.automation.siemens.com"
+        },
+        {
+          "title": "Title",
+          "role": "ref_ext",
+          "uri": "https://polarion.plm.automation.siemens.com"
+        }
+      ]
+    }
+  }
+}

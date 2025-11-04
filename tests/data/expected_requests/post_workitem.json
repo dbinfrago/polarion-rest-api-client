@@ -10,7 +10,18 @@
         "status": "open",
         "title": "Title",
         "type": "task",
-        "capella_uuid": "asdfg"
+        "capella_uuid": "asdfg",
+        "hyperlinks": [
+          {
+            "role": "ref_ext",
+            "uri": "https://polarion.plm.automation.siemens.com"
+          },
+          {
+            "title": "Title",
+            "role": "ref_ext",
+            "uri": "https://polarion.plm.automation.siemens.com"
+          }
+        ]
       }
     }
   ]

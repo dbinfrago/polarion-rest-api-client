@@ -18,6 +18,11 @@
           {
             "role": "ref_ext",
             "uri": "https://polarion.plm.automation.siemens.com"
+          },
+          {
+            "title": "Title",
+            "role": "ref_ext",
+            "uri": "https://polarion.plm.automation.siemens.com"
           }
         ],
         "id": "MyWorkItemId",
