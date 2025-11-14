@@ -3,6 +3,7 @@
 """Implementation of the documents client."""
 
 import itertools
+import logging
 import typing as t
 import urllib.parse
 
@@ -16,6 +17,8 @@ from polarion_rest_api_client.open_api_client.api.documents import (
 )
 
 from . import base_classes as bc
+
+logger = logging.getLogger(__name__)
 
 
 class Documents(
@@ -112,6 +115,9 @@ class Documents(
                     else None
                 ),
                 additional_properties=attributes.additional_properties or {},
+                structure_link_role=self.unset_to_none(
+                    attributes.structure_link_role
+                ),
             )
 
         return None
@@ -126,6 +132,11 @@ class Documents(
         assert not isinstance(to_update, list), "Expected only one item"
         assert to_update.module_folder is not None, "module folder must be set"
         assert to_update.module_name is not None, "module name must be set"
+
+        if to_update.structure_link_role:
+            logger.warning(
+                "Changing the documents structure link role is not supported."
+            )
 
         attrs = api_models.DocumentsSinglePatchRequestDataAttributes(
             home_page_content=(
@@ -263,6 +274,7 @@ class Documents(
                 if document.outline_numbering_prefix
                 else oa_types.UNSET
             ),
+            structure_link_role=document.structure_link_role or oa_types.UNSET,
         )
         attrs.additional_properties.update(
             document.additional_properties or {}

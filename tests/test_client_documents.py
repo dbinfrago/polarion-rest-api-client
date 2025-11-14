@@ -63,6 +63,7 @@ def test_get_document_with_all_fields(
             ),
             "integer_property": 42,
         },
+        structure_link_role="parent",
     )
 
 
@@ -99,6 +100,7 @@ def test_create_new_document(
                 ),
             ),
         ],
+        structure_link_role="parent",
         additional_properties={
             "html_property": polarion_api.TextContent(
                 type="text/html", value="<p>super Value</p>"

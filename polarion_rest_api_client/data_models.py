@@ -222,6 +222,7 @@ class Document(StatusItem):
     title: str | None = None
     outline_numbering: bool | None = None
     outline_numbering_prefix: str | None = None
+    structure_link_role: str | None = None
     additional_properties: dict[str, t.Any] = dataclasses.field(
         default_factory=dict
     )
@@ -238,6 +239,7 @@ class Document(StatusItem):
         rendering_layouts: list[RenderingLayout] | None = None,
         outline_numbering: bool | None = None,
         outline_numbering_prefix: str | None = None,
+        structure_link_role: str | None = None,
         additional_properties: dict[str, t.Any] | None = None,
     ):
         super().__init__(id, type, status)
@@ -248,6 +250,7 @@ class Document(StatusItem):
         self.rendering_layouts = rendering_layouts
         self.outline_numbering = outline_numbering
         self.outline_numbering_prefix = outline_numbering_prefix
+        self.structure_link_role = structure_link_role
         self.additional_properties = additional_properties or {}
 
     def __eq__(self, other: object) -> bool:
