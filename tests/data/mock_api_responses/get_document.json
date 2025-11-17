@@ -44,7 +44,12 @@
       "title": "MyDocumentName",
       "type": "standardSpecification",
       "updated": "1970-01-01T00:00:00Z",
-      "usesOutlineNumbering": true
+      "usesOutlineNumbering": true,
+      "html_property": {
+        "type": "text/html",
+        "value": "<p>super Value</p>"
+      },
+      "integer_property": 42
     },
     "id": "MyProjectId/MySpaceId/MyDocumentName",
     "links": {
