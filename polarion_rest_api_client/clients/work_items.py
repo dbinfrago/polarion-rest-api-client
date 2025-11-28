@@ -447,6 +447,7 @@ class WorkItems(bc.SingleUpdatableItemsMixin, bc.StatusItemClient):
         links = []
         attachments = []
         home_document: dm.DocumentReference | None = None
+        additional_attributes = work_item.attributes.additional_properties
 
         # We set both truncated flags to True and will only set them to False,
         # if the corresponding fields were requested and returned completely
@@ -497,6 +498,17 @@ class WorkItems(bc.SingleUpdatableItemsMixin, bc.StatusItemClient):
                     if attachment.id
                 ]
 
+            if (
+                rel_additional_attributes
+                := work_item.relationships.additional_properties
+            ):
+                for key, value in rel_additional_attributes.items():
+                    if (
+                        isinstance(value, dict)
+                        and value.get("data", {}).get("type") == "users"
+                    ):
+                        additional_attributes[key] = value["data"]["id"]
+
         description = None
         if work_item.attributes.description:
             description = dm.TextContent(
@@ -516,14 +528,13 @@ class WorkItems(bc.SingleUpdatableItemsMixin, bc.StatusItemClient):
                 )
                 for hyperlink in work_item.attributes.hyperlinks
             ]
-
         return work_item_cls(
             work_item_id,
             title=self.unset_to_none(work_item.attributes.title),
             description=description,
             type=self.unset_to_none(work_item.attributes.type_),
             status=self.unset_to_none(work_item.attributes.status),
-            additional_attributes=work_item.attributes.additional_properties,
+            additional_attributes=additional_attributes,
             linked_work_items=links,
             attachments=attachments,
             linked_work_items_truncated=links_truncated,
