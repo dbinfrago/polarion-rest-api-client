@@ -11,6 +11,7 @@
         "title": "Title",
         "type": "task",
         "capella_uuid": "asdfg",
+        "cfOwner": "MyUserId",
         "hyperlinks": [
           {
             "role": "ref_ext",

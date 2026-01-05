@@ -55,6 +55,7 @@ def test_create_work_item_custom_work_item(
     )
 
     work_item.capella_uuid = "asdfg"
+    work_item.cfOwner = "MyUserId"
 
     client.work_items.create(work_item)
 

@@ -58,6 +58,8 @@ def test_get_one_work_item(
     assert len(work_item.linked_work_items) == 1
     assert len(work_item.attachments) == 1
     assert "test_custom_field" in work_item.additional_attributes
+    assert "cfOwner" in work_item.additional_attributes
+    assert work_item.additional_attributes["cfOwner"] == "MyUserId"
     assert work_item.attachments_truncated is True
     assert work_item.linked_work_items_truncated is True
     assert work_item.home_document is not None
@@ -245,6 +247,8 @@ def test_create_work_item(
             uri="https://polarion.plm.automation.siemens.com",
         ),
     ]
+
+    work_item.additional_attributes["cfOwner"] = "MyUserId"
 
     client.work_items.create(work_item)
 
