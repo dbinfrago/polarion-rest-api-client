@@ -12,7 +12,9 @@ from tests.conftest import (
     TEST_TREC_NEXT_RESPONSE,
     TEST_TREC_NO_NEXT_RESPONSE,
     TEST_TREC_PATCH_REQUEST,
+    TEST_TREC_PATCH_REQUEST_EX_BY,
     TEST_TREC_POST_REQUEST,
+    check_req,
 )
 
 
@@ -55,6 +57,7 @@ def test_get_test_records_multi_page(
     assert test_records[0].comment.type == "text/html"
     assert test_records[0].work_item_id == "MyTestcaseId2"
     assert test_records[0].work_item_revision == "1234"
+    assert test_records[0].executed_by == "MyUserId"
 
 
 def test_create_test_records(
@@ -85,18 +88,18 @@ def test_create_test_records(
         duration=1,
         result="failed",
         comment=polarion_api.TextContent("text/html", "My text value 2"),
+        executed_by="1234",
     )
 
     client.test_runs.records.create([tr_1, tr_2])
 
     reqs = httpx_mock.get_requests()
     assert len(reqs) == 1
-    req_data = json.loads(reqs[0].content.decode("utf-8"))
-    with open(TEST_TREC_POST_REQUEST, encoding="utf8") as f:
-        expected_req = json.load(f)
 
-    assert req_data == expected_req
-    assert reqs[0].url.path.endswith(f"/testruns/{test_run_id}/testrecords")
+    check_req(
+        f"/testruns/{test_run_id}/testrecords", reqs[0], TEST_TREC_POST_REQUEST
+    )
+
     assert tr_1.iteration == 0
     assert tr_2.iteration == 1
 
@@ -125,11 +128,37 @@ def test_update_test_record(
 
     reqs = httpx_mock.get_requests()
     assert len(reqs) == 1
-    req_data = json.loads(reqs[0].content.decode("utf-8"))
-    with open(TEST_TREC_PATCH_REQUEST, encoding="utf8") as f:
-        expected_req = json.load(f)
+    check_req(
+        f"/testruns/{test_run_id}/testrecords/{work_item_project}/{work_item_id}/4",
+        reqs[0],
+        TEST_TREC_PATCH_REQUEST,
+    )
 
-    assert req_data == expected_req
-    assert reqs[0].url.path.endswith(
-        f"/testruns/{test_run_id}/testrecords/{work_item_project}/{work_item_id}/4"
+
+def test_update_test_record_executed_by(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    httpx_mock.add_response(204)
+
+    test_run_id = "asdfg"
+    work_item_id = "MyWorkItemId"
+    work_item_project = "MyProjectId"
+
+    tr_1 = polarion_api.TestRecord(
+        test_run_id,
+        work_item_project,
+        work_item_id,
+        iteration=4,
+        executed_by="1234",
+    )
+
+    client.test_runs.records.update(tr_1)
+
+    reqs = httpx_mock.get_requests()
+    assert len(reqs) == 1
+    check_req(
+        f"/testruns/{test_run_id}/testrecords/{work_item_project}/{work_item_id}/4",
+        reqs[0],
+        TEST_TREC_PATCH_REQUEST_EX_BY,
     )

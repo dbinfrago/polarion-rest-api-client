@@ -39,6 +39,12 @@
             "type": "workitems",
             "id": "MyProjectId/MyWorkItemId"
           }
+        },
+        "executedBy": {
+          "data": {
+            "type": "users",
+            "id": "1234"
+          }
         }
       }
     }

@@ -364,6 +364,7 @@ class TestRecord:
     result: str | None = None
     comment: TextContent | None = None
     executed: datetime.datetime | None = None
+    executed_by: str | None = None
     additional_attributes: dict[str, t.Any] = dataclasses.field(
         default_factory=dict
     )
