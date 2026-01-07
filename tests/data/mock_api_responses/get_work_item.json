@@ -246,6 +246,12 @@
         "meta": {
           "totalCount": 0
         }
+      },
+      "cfOwner": {
+        "data": {
+          "type": "users",
+          "id": "MyUserId"
+        }
       }
     },
     "meta": {

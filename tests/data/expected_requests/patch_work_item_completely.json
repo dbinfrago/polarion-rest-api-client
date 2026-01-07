@@ -9,7 +9,8 @@
       },
       "title": "Title",
       "status": "open",
-      "capella_uuid": "qwertz"
+      "capella_uuid": "qwertz",
+      "cfOwner": "NewOwner"
     }
   }
 }

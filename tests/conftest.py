@@ -43,7 +43,10 @@ def fixture_dummy_work_item_patch():
         title="Title",
         description=polarion_api.HtmlContent("My text value"),
         status="open",
-        additional_attributes={"capella_uuid": "qwertz"},
+        additional_attributes={
+            "capella_uuid": "qwertz",
+            "cfOwner": "NewOwner",
+        },
     )
 
 
