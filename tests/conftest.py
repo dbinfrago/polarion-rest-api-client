@@ -3,8 +3,10 @@
 
 from __future__ import annotations
 
+import json
 import pathlib
 
+import httpx
 import pytest
 
 import polarion_rest_api_client as polarion_api
@@ -131,6 +133,9 @@ TEST_TRUN_PATCH_REQUEST = TEST_REQUESTS / "patch_test_run_partially.json"
 TEST_TRUN_FULLY_PATCH_REQUEST = TEST_REQUESTS / "patch_test_run_fully.json"
 TEST_TRUN_POST_REQUEST = TEST_REQUESTS / "post_test_run.json"
 TEST_TREC_PATCH_REQUEST = TEST_REQUESTS / "patch_test_record.json"
+TEST_TREC_PATCH_REQUEST_EX_BY = (
+    TEST_REQUESTS / "patch_test_record_executed_by.json"
+)
 TEST_TREC_POST_REQUEST = TEST_REQUESTS / "post_test_records.json"
 TEST_TREC_CREATED_RESPONSE = TEST_RESPONSES / "created_test_records.json"
 TEST_TRUN_CREATED_RESPONSE = TEST_RESPONSES / "created_test_runs.json"
@@ -160,3 +165,13 @@ TEST_TRUN_PARAM_DELETE_REQ_2 = TEST_REQUESTS / "delete_parameters_trun_2.json"
 
 class CustomWorkItem(polarion_api.WorkItem):
     capella_uuid: str | None
+
+
+def check_req(
+    expected_path: str, req: httpx.Request, expected_body: pathlib.Path
+):
+    req_data = json.loads(req.content.decode("utf-8"))
+    with open(expected_body, encoding="utf8") as f:
+        expected_req = json.load(f)
+    assert req_data == expected_req
+    assert req.url.path.endswith(expected_path)

@@ -60,6 +60,16 @@ class TestRecords(
                         api_models.TestrecordsSinglePatchRequestDataAttributes,
                         to_update,
                     ),
+                    relationships=api_models.TestrecordsSinglePatchRequestDataRelationships(
+                        executed_by=api_models.TestrecordsSinglePatchRequestDataRelationshipsExecutedBy(
+                            data=api_models.TestrecordsSinglePatchRequestDataRelationshipsExecutedByData(
+                                type_=api_models.TestrecordsSinglePatchRequestDataRelationshipsExecutedByDataType.USERS,
+                                id=to_update.executed_by,
+                            )
+                        ),
+                    )
+                    if to_update.executed_by is not None
+                    else oa_types.UNSET,
                 )
             ),
             # pylint: enable=line-too-long
@@ -103,24 +113,35 @@ class TestRecords(
                 api_models.TestrecordsListGetResponseDataItemAttributes,
             )
             _, _, project_id, work_item, iteration = data.id.split("/")
+            executed_by = None
+            if (
+                data.relationships
+                and (ex_by := data.relationships.executed_by)
+                and ex_by.data
+                and ex_by.data.id
+            ):
+                executed_by = ex_by.data.id
             test_records.append(
                 dm.TestRecord(
-                    test_run_id,
-                    project_id,
-                    work_item,
-                    self.unset_to_none(data.attributes.test_case_revision),
-                    int(iteration),
-                    (
+                    test_run_id=test_run_id,
+                    work_item_project_id=project_id,
+                    work_item_id=work_item,
+                    work_item_revision=self.unset_to_none(
+                        data.attributes.test_case_revision
+                    ),
+                    iteration=int(iteration),
+                    duration=(
                         data.attributes.duration
                         if not isinstance(
                             data.attributes.duration, oa_types.Unset
                         )
                         else -1
                     ),
-                    self.unset_to_none(data.attributes.result),
-                    self._handle_text_content(data.attributes.comment),
-                    self.unset_to_none(data.attributes.executed),
-                    data.additional_properties or {},
+                    result=self.unset_to_none(data.attributes.result),
+                    comment=self._handle_text_content(data.attributes.comment),
+                    executed=self.unset_to_none(data.attributes.executed),
+                    executed_by=executed_by,
+                    additional_attributes=data.additional_properties or {},
                 )
             )
         next_page = isinstance(
@@ -160,7 +181,15 @@ class TestRecords(
                                     type_=api_models.TestrecordsListPostRequestDataItemRelationshipsTestCaseDataType.WORKITEMS,
                                     id=f"{test_record.work_item_project_id}/{test_record.work_item_id}",
                                 )
+                            ),
+                            executed_by=api_models.TestrecordsListPostRequestDataItemRelationshipsExecutedBy(
+                                data=api_models.TestrecordsListPostRequestDataItemRelationshipsExecutedByData(
+                                    type_=api_models.TestrecordsListPostRequestDataItemRelationshipsExecutedByDataType.USERS,
+                                    id=test_record.executed_by,
+                                )
                             )
+                            if test_record.executed_by is not None
+                            else oa_types.UNSET,
                         ),
                     )
                     for test_record in items

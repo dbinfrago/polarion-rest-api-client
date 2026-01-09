@@ -1,0 +1,15 @@
+{
+  "data": {
+    "type": "testrecords",
+    "id": "PROJ/asdfg/MyProjectId/MyWorkItemId/4",
+    "attributes": {},
+    "relationships": {
+      "executedBy": {
+        "data": {
+          "type": "users",
+          "id": "1234"
+        }
+      }
+    }
+  }
+}
