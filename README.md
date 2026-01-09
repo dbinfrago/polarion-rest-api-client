@@ -6,8 +6,7 @@
 # polarion-rest-api-client
 
 <!-- prettier-ignore -->
-![image](https://github.com/dbinfrago/polarion-rest-api-client/actions/workflows/build-test-publish.yml/badge.svg)
-![image](https://github.com/dbinfrago/polarion-rest-api-client/actions/workflows/lint.yml/badge.svg)
+![image](https://github.com/DSD-DBS/polarion-rest-api-client/actions/workflows/build-test-publish.yml/badge.svg)
 
 A client library for accessing Polarion REST API. This project consists of multiple layers. There is a high level, still incomplete
 version of the client and a feature complete low level API client, which was generated using an [OpenAPI generator](https://github.com/openapi-generators/openapi-python-client).
@@ -123,30 +122,23 @@ Things to know:
 # Documentation
 
 <!-- prettier-ignore -->
-Read the [full documentation on Github pages](https://dbinfrago.github.io/polarion-rest-api-client).
+Read the [full documentation](https://polarion-rest-api-client.readthedocs.io/en/latest/).
 
 # Installation
 
 You can install the latest released version directly from [PyPI](https://pypi.org/project/polarion-rest-api-client/).
 
 ```zsh
-pip install polarion-rest-api-client
+uv add polarion-rest-api-client
 ```
 
-To set up a development environment, clone the project and install it into a
-virtual environment.
+To set up a development environment, clone the project and install it with uv.
 
 ```zsh
 git clone https://github.com/dbinfrago/polarion-rest-api-client
 cd polarion-rest-api-client
-python -m venv .venv
-
-source .venv/bin/activate.sh  # for Linux / Mac
-.venv\Scripts\activate  # for Windows
-
-pip install -U pip pre-commit
-pip install -e '.[docs,test]'
-pre-commit install
+uv sync --extra docs --extra test
+uvx pre-commit run --all-files
 ```
 
 ## Updating the auto generated part
