@@ -19,8 +19,8 @@ def test_faulty_error_message(
     with open(TEST_FAULTS_ERROR_RESPONSES, encoding="utf8") as f:
         response = json.load(f)
 
-    httpx_mock.add_response(400, json=response)
-    httpx_mock.add_response(400, json=response)
+    httpx_mock.add_response(500, json=response)
+    httpx_mock.add_response(500, json=response)
 
     with pytest.raises(polarion_api.PolarionApiException) as e_info:
         client.documents.get(
@@ -28,13 +28,10 @@ def test_faulty_error_message(
         )
 
     e = e_info.value
-    assert len(e.args) == 6
+    assert len(e.args) == 2
     assert len(httpx_mock.get_requests()) == 2
-    assert e.args[1][0] == "400"
-    assert (
-        e.args[1][1] == "Unexpected token, BEGIN_ARRAY expected, but was : "
-        "BEGIN_OBJECT (at $.data)"
-    )
+    assert e.args[1][0] == "500"
+    assert e.args[1][1] == "An internal error occurred, please try again later"
 
 
 def test_dont_retry_on_404(

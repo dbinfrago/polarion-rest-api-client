@@ -1,51 +1,10 @@
 {
   "errors": [
     {
-      "status": "400",
-      "title": "Bad Request",
-      "detail": "Unexpected token, BEGIN_ARRAY expected, but was : BEGIN_OBJECT (at $.data)",
-      "source": {
-        "pointer": null,
-        "parameter": "revision"
-      }
-    },
-    {
-      "status": "400",
-      "title": "Bad Request",
-      "detail": "Unexpected token, BEGIN_ARRAY expected, but was : BEGIN_OBJECT (at $.data)",
-      "source": {
-        "pointer": "$.data",
-        "parameter": null
-      }
-    },
-    {
-      "status": "400",
-      "title": "Bad Request",
-      "detail": "Unexpected token, BEGIN_ARRAY expected, but was : BEGIN_OBJECT (at $.data)",
+      "status": "500",
+      "title": "Internal server error",
+      "detail": "An internal error occurred, please try again later",
       "source": null
-    },
-    {
-      "status": "400",
-      "title": "Bad Request",
-      "detail": "Unexpected token, BEGIN_ARRAY expected, but was : BEGIN_OBJECT (at $.data)",
-      "source": {
-        "pointer": "$.data",
-        "parameter": "revision",
-        "resource": null
-      }
-    },
-    {
-      "status": "400",
-      "title": "Bad Request",
-      "detail": "Unexpected token, BEGIN_ARRAY expected, but was : BEGIN_OBJECT (at $.data)",
-      "source": {
-        "pointer": "$.data",
-        "parameter": "revision",
-        "resource": {
-          "id": "MyProjectId/id",
-          "type": null
-        }
-      }
     }
   ]
 }

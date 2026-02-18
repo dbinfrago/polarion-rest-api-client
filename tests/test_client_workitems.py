@@ -415,18 +415,18 @@ def test_create_work_items_failed(
     httpx_mock: pytest_httpx.HTTPXMock,
     work_item: polarion_api.WorkItem,
 ):
-    expected = "Unexpected token, BEGIN_ARRAY expected, but was : BEGIN_OBJECT (at $.data)"
+    expected = "An internal error occurred, please try again later"
     with open(TEST_ERROR_RESPONSE, encoding="utf8") as f:
         response = json.load(f)
 
-    httpx_mock.add_response(400, json=response)
-    httpx_mock.add_response(400, json=response)
+    httpx_mock.add_response(500, json=response)
+    httpx_mock.add_response(500, json=response)
 
     with pytest.raises(polarion_api.PolarionApiException) as exc_info:
         client.work_items.create(3 * [work_item])
 
     assert exc_info.type is polarion_api.PolarionApiException
-    assert exc_info.value.args[0] == 400
+    assert exc_info.value.args[0] == 500
     assert exc_info.value.args[1][1] == expected
     assert len(httpx_mock.get_requests()) == 2
 
