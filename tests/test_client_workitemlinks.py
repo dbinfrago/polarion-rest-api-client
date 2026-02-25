@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import re
 
 import pytest
 import pytest_httpx
@@ -302,7 +303,9 @@ def test_get_work_item_links_error_first_request(
     client: polarion_api.ProjectClient,
     httpx_mock: pytest_httpx.HTTPXMock,
     caplog: pytest.LogCaptureFixture,
+    monkeypatch: pytest.MonkeyPatch,
 ):
+    monkeypatch.setattr("time.sleep", lambda _: None)
     httpx_mock.add_response(502, content=b"Test")
     with open(
         TEST_WIL_NO_NEXT_PAGE_RESPONSE,
@@ -318,10 +321,9 @@ def test_get_work_item_links_error_first_request(
     assert len(caplog.record_tuples) == 1
     _, level, message = caplog.record_tuples[0]
     assert level == 30
-    assert (
-        message == "Will retry after failing on first attempt, due to "
-        "the following error "
-        "(<HTTPStatus.BAD_GATEWAY: 502>, b'Test')"
+    assert re.fullmatch(
+        r"Request failed, retrying after [01]\.\ds \(1/5\): \(<HTTPStatus.BAD_GATEWAY: 502>, b'Test'\)",
+        message,
     )
     assert len(reqs) == 2
     assert work_item_links[0] == polarion_api.WorkItemLink(

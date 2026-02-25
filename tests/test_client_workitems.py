@@ -414,11 +414,16 @@ def test_create_work_items_failed(
     client: polarion_api.ProjectClient,
     httpx_mock: pytest_httpx.HTTPXMock,
     work_item: polarion_api.WorkItem,
+    monkeypatch: pytest.MonkeyPatch,
 ):
+    monkeypatch.setattr("time.sleep", lambda _: None)
     expected = "An internal error occurred, please try again later"
     with open(TEST_ERROR_RESPONSE, encoding="utf8") as f:
         response = json.load(f)
 
+    httpx_mock.add_response(500, json=response)
+    httpx_mock.add_response(500, json=response)
+    httpx_mock.add_response(500, json=response)
     httpx_mock.add_response(500, json=response)
     httpx_mock.add_response(500, json=response)
 
@@ -428,14 +433,19 @@ def test_create_work_items_failed(
     assert exc_info.type is polarion_api.PolarionApiException
     assert exc_info.value.args[0] == 500
     assert exc_info.value.args[1][1] == expected
-    assert len(httpx_mock.get_requests()) == 2
+    assert len(httpx_mock.get_requests()) == 5
 
 
 def test_create_work_items_failed_no_error(
     client: polarion_api.ProjectClient,
     httpx_mock: pytest_httpx.HTTPXMock,
     work_item: polarion_api.WorkItem,
+    monkeypatch: pytest.MonkeyPatch,
 ):
+    monkeypatch.setattr("time.sleep", lambda _: None)
+    httpx_mock.add_response(501, content=b"asdfg")
+    httpx_mock.add_response(501, content=b"asdfg")
+    httpx_mock.add_response(501, content=b"asdfg")
     httpx_mock.add_response(501, content=b"asdfg")
     httpx_mock.add_response(501, content=b"asdfg")
 
