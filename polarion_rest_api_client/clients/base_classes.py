@@ -24,8 +24,7 @@ if t.TYPE_CHECKING:
 T = t.TypeVar("T")
 ST = t.TypeVar("ST", bound=dm.StatusItem)
 logger = logging.getLogger(__name__)
-_min_sleep = 5
-_max_sleep = 15
+_max_retries: t.Final = 5
 
 _NON_RETRIABLE_ERRORS = {
     http.HTTPStatus.BAD_REQUEST,
@@ -142,21 +141,30 @@ class BaseClient:
     def _retry_on_error(
         self, call: t.Callable[..., R], *args: t.Any, **kwargs: t.Any
     ) -> R:
-        try:
-            return call(*args, **kwargs)
-        except Exception as e:
-            if (
-                isinstance(e, errors.PolarionApiException)
-                and e.args[0] in _NON_RETRIABLE_ERRORS
-            ):
-                raise e
+        last_error = None
+        sleeptime = 0.0
+        for attempt in range(1, _max_retries + 1):
+            try:
+                return call(*args, **kwargs)
+            except Exception as e:
+                if (
+                    isinstance(e, errors.PolarionApiException)
+                    and e.args[0] in _NON_RETRIABLE_ERRORS
+                ):
+                    raise
+                last_error = e
+
+            sleeptime = sleeptime * 3 + random.uniform(0.5, (attempt + 1) / 2)
             logger.warning(
-                "Will retry after failing on first attempt, "
-                "due to the following error %s",
-                e,
+                "Request failed, retrying after %.1fs (%d/%d): %s",
+                sleeptime,
+                attempt,
+                _max_retries,
+                last_error,
             )
-            time.sleep(random.uniform(_min_sleep, _max_sleep))
-            return call(*args, **kwargs)
+            time.sleep(sleeptime)
+        assert last_error is not None
+        raise last_error
 
 
 class ItemsClient(BaseClient, t.Generic[T], abc.ABC):
