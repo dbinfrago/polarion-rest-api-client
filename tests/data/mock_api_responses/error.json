@@ -1,13 +1,10 @@
 {
   "errors": [
     {
-      "status": "400",
-      "title": "Bad Request",
-      "detail": "Unexpected token, BEGIN_ARRAY expected, but was : BEGIN_OBJECT (at $.data)",
-      "source": {
-        "pointer": "$.data",
-        "parameter": "revision"
-      }
+      "status": "500",
+      "title": "Internal server error",
+      "detail": "An internal error occurred, please try again later",
+      "source": null
     }
   ]
 }

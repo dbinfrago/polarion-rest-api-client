@@ -5,6 +5,7 @@
 import abc
 import datetime
 import functools
+import http
 import logging
 import random
 import time
@@ -15,7 +16,6 @@ from polarion_rest_api_client import errors
 from polarion_rest_api_client.open_api_client import models as api_models
 from polarion_rest_api_client.open_api_client import types as oa_types
 
-HTTP_NOT_FOUND = 404
 R = t.TypeVar("R")
 
 if t.TYPE_CHECKING:
@@ -26,6 +26,12 @@ ST = t.TypeVar("ST", bound=dm.StatusItem)
 logger = logging.getLogger(__name__)
 _min_sleep = 5
 _max_sleep = 15
+
+_NON_RETRIABLE_ERRORS = {
+    http.HTTPStatus.BAD_REQUEST,
+    http.HTTPStatus.IM_A_TEAPOT,
+    http.HTTPStatus.NOT_FOUND,
+}
 
 UT = t.TypeVar("UT", str, int, float, datetime.datetime, bool, None)
 
@@ -141,7 +147,7 @@ class BaseClient:
         except Exception as e:
             if (
                 isinstance(e, errors.PolarionApiException)
-                and e.args[0] == HTTP_NOT_FOUND
+                and e.args[0] in _NON_RETRIABLE_ERRORS
             ):
                 raise e
             logger.warning(
