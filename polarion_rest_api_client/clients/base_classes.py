@@ -47,7 +47,9 @@ def _compute_backoff(sleeptime: float, attempt: int) -> float:
 class BaseClient(t.Generic[T]):
     """The overall base client for all project related clients."""
 
-    _retry_methods: t.ClassVar[set[str]] = set()
+    _retry_methods: t.ClassVar[set[str]] = (
+        set()
+    )  # methods which can be retried
 
     def __init__(
         self, project_id: str, client: "polarion_client.PolarionClient"
@@ -133,6 +135,8 @@ class BaseClient(t.Generic[T]):
         return value
 
     def _raise_on_error(self, response: oa_types.Response) -> None:
+        """Raise an PolarionApiBaseException, if the response has errors."""
+
         def unexpected_error() -> errors.PolarionApiUnexpectedException:
             return errors.PolarionApiUnexpectedException(
                 response.status_code, response.content
@@ -168,6 +172,7 @@ class BaseClient(t.Generic[T]):
     def _retry_on_error(
         self, call: t.Callable[..., R], *args: t.Any, **kwargs: t.Any
     ) -> R | t.Coroutine[t.Any, t.Any, R]:
+        """Retry on errors with exponential backoff."""
         if inspect.iscoroutinefunction(call):
             return self._retry_async(call, *args, **kwargs)
         return self._retry_sync(call, *args, **kwargs)
@@ -224,6 +229,7 @@ class BaseClient(t.Generic[T]):
         attempt: int,
         last_error: Exception,
     ) -> None:
+        """Log the error without raising if it's a retryable error."""
         if (
             isinstance(e, errors.PolarionApiException)
             and e.args[0] in _NON_RETRIABLE_ERRORS
@@ -241,6 +247,11 @@ class BaseClient(t.Generic[T]):
     def _pre_batching_grouping(
         self, items: list[T]
     ) -> t.Generator[list[T], None, None]:
+        """Group items before actually splitting them into batches.
+
+        Needed if we need to first group by a specific value before we
+        can split into batches.
+        """
         yield items
 
 
