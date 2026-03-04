@@ -84,16 +84,17 @@ class TestRecords(
                     api_models.TestrecordsSinglePatchRequestDataAttributes,
                     to_update,
                 ),
-            relationships=api_models.TestrecordsSinglePatchRequestDataRelationships(
-                        executed_by=api_models.TestrecordsSinglePatchRequestDataRelationshipsExecutedBy(
-                            data=api_models.TestrecordsSinglePatchRequestDataRelationshipsExecutedByData(
-                                type_=api_models.TestrecordsSinglePatchRequestDataRelationshipsExecutedByDataType.USERS,
-                                id=to_update.executed_by,
-                            )
-                        ),
-                    )
-                    if to_update.executed_by is not None
-                    else oa_types.UNSET,)
+                relationships=api_models.TestrecordsSinglePatchRequestDataRelationships(
+                    executed_by=api_models.TestrecordsSinglePatchRequestDataRelationshipsExecutedBy(
+                        data=api_models.TestrecordsSinglePatchRequestDataRelationshipsExecutedByData(
+                            type_=api_models.TestrecordsSinglePatchRequestDataRelationshipsExecutedByDataType.USERS,
+                            id=to_update.executed_by,
+                        )
+                    ),
+                )
+                if to_update.executed_by is not None
+                else oa_types.UNSET,
+            )
         )
         # pylint: enable=line-too-long
 
@@ -262,14 +263,15 @@ class TestRecords(
                                 id=f"{test_record.work_item_project_id}/{test_record.work_item_id}",
                             )
                         ),
-                    executed_by=api_models.TestrecordsListPostRequestDataItemRelationshipsExecutedBy(
-                                data=api_models.TestrecordsListPostRequestDataItemRelationshipsExecutedByData(
-                                    type_=api_models.TestrecordsListPostRequestDataItemRelationshipsExecutedByDataType.USERS,
-                                    id=test_record.executed_by,
-                                )
+                        executed_by=api_models.TestrecordsListPostRequestDataItemRelationshipsExecutedBy(
+                            data=api_models.TestrecordsListPostRequestDataItemRelationshipsExecutedByData(
+                                type_=api_models.TestrecordsListPostRequestDataItemRelationshipsExecutedByDataType.USERS,
+                                id=test_record.executed_by,
                             )
-                            if test_record.executed_by is not None
-                            else oa_types.UNSET,),
+                        )
+                        if test_record.executed_by is not None
+                        else oa_types.UNSET,
+                    ),
                 )
                 for test_record in items
             ]

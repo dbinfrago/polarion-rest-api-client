@@ -40,6 +40,10 @@ UT = t.TypeVar("UT", str, int, float, datetime.datetime, bool, None)
 NT = t.TypeVar("NT", str, int, float, datetime.datetime, bool, oa_types.Unset)
 
 
+def _compute_backoff(sleeptime: float, attempt: int) -> float:
+    return sleeptime * 3 + random.uniform(0.5, (attempt + 1) / 2)
+
+
 class BaseClient(t.Generic[T]):
     """The overall base client for all project related clients."""
 
@@ -165,42 +169,20 @@ class BaseClient(t.Generic[T]):
         self, call: t.Callable[..., R], *args: t.Any, **kwargs: t.Any
     ) -> R | t.Coroutine[t.Any, t.Any, R]:
         if inspect.iscoroutinefunction(call):
+            return self._retry_async(call, *args, **kwargs)
+        return self._retry_sync(call, *args, **kwargs)
 
-            async def wrapped() -> R:
-                last_error = None
-                sleeptime = 0.0
-                for attempt in range(1, _max_retries + 1):
-                    try:
-                        async with self._client.semaphore:
-                            return await call(*args, **kwargs)
-                    except (
-                        errors.PolarionApiBaseException,
-                        httpx.HTTPError,
-                    ) as e:
-                        last_error = e
-                        sleeptime = sleeptime * 3 + random.uniform(
-                            0.5, (attempt + 1) / 2
-                        )
-                        self._handle_tolerated_exception(
-                            e, sleeptime, attempt, last_error
-                        )
-                        await asyncio.sleep(sleeptime)
-
-                assert last_error is not None
-                raise last_error
-
-            return wrapped()
-
-        last_error = None
+    def _retry_sync(
+        self, call: t.Callable[..., R], *args: t.Any, **kwargs: t.Any
+    ) -> R:
+        last_error: Exception | None = None
         sleeptime = 0.0
         for attempt in range(1, _max_retries + 1):
             try:
                 return call(*args, **kwargs)
             except (errors.PolarionApiBaseException, httpx.HTTPError) as e:
                 last_error = e
-                sleeptime = sleeptime * 3 + random.uniform(
-                    0.5, (attempt + 1) / 2
-                )
+                sleeptime = _compute_backoff(sleeptime, attempt)
                 self._handle_tolerated_exception(
                     e, sleeptime, attempt, last_error
                 )
@@ -208,6 +190,32 @@ class BaseClient(t.Generic[T]):
 
         assert last_error is not None
         raise last_error
+
+    def _retry_async(
+        self,
+        call: t.Callable[..., t.Coroutine[t.Any, t.Any, R]],
+        *args: t.Any,
+        **kwargs: t.Any,
+    ) -> t.Coroutine[t.Any, t.Any, R]:
+        async def wrapped() -> R:
+            last_error: Exception | None = None
+            sleeptime = 0.0
+            for attempt in range(1, _max_retries + 1):
+                try:
+                    async with self._client.semaphore:
+                        return await call(*args, **kwargs)
+                except (errors.PolarionApiBaseException, httpx.HTTPError) as e:
+                    last_error = e
+                    sleeptime = _compute_backoff(sleeptime, attempt)
+                    self._handle_tolerated_exception(
+                        e, sleeptime, attempt, last_error
+                    )
+                    await asyncio.sleep(sleeptime)
+
+            assert last_error is not None
+            raise last_error
+
+        return wrapped()
 
     def _handle_tolerated_exception(
         self,

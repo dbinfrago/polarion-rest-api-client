@@ -186,8 +186,9 @@ class WorkItemLinks(
                     attributes=api_models.LinkedworkitemsListPostRequestDataItemAttributes(
                         role=work_item_link.role,
                         suspect=work_item_link.suspect or False,
-                    revision=work_item_link.secondary_work_item_revision
-                            or oa_types.UNSET,),
+                        revision=work_item_link.secondary_work_item_revision
+                        or oa_types.UNSET,
+                    ),
                     relationships=api_models.LinkedworkitemsListPostRequestDataItemRelationships(
                         work_item=api_models.LinkedworkitemsListPostRequestDataItemRelationshipsWorkItem(
                             data=api_models.LinkedworkitemsListPostRequestDataItemRelationshipsWorkItemData(
