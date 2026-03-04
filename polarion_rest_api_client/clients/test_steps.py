@@ -72,6 +72,7 @@ class TestSteps(
         page_size: int = 100,
         page_number: int = 1,
         fields: dict[str, str] | None = None,
+        revision: str | None = None,
     ) -> tuple[list[dm.TestStep], bool]:
         if fields is None:
             fields = self._client.default_fields.teststeps
@@ -84,6 +85,7 @@ class TestSteps(
             fields=sparse_fields,
             pagenumber=page_number,
             pagesize=page_size,
+            revision=revision or oa_types.UNSET,
         )
         return self._parse_get_response(response)
 

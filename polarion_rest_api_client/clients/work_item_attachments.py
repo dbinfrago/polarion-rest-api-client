@@ -125,6 +125,7 @@ class WorkItemAttachments(
         page_size: int = 100,
         page_number: int = 1,
         fields: dict[str, str] | None = None,
+        revision: str | None = None,
     ) -> tuple[list[dm.WorkItemAttachment], bool]:
         """Return the attachments for a given work item on a defined page.
 
@@ -143,6 +144,7 @@ class WorkItemAttachments(
             fields=sparse_fields,
             pagesize=page_size,
             pagenumber=page_number,
+            revision=revision or oa_types.UNSET,
         )
 
         return self._process_get_response(response, work_item_id)

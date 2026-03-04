@@ -13,6 +13,8 @@ import random
 import time
 import typing as t
 
+import httpx
+
 from polarion_rest_api_client import data_models as dm
 from polarion_rest_api_client import errors
 from polarion_rest_api_client.open_api_client import models as api_models
@@ -171,7 +173,10 @@ class BaseClient(t.Generic[T]):
                     try:
                         async with self._client.semaphore:
                             return await call(*args, **kwargs)
-                    except Exception as e:
+                    except (
+                        errors.PolarionApiBaseException,
+                        httpx.HTTPError,
+                    ) as e:
                         last_error = e
                         sleeptime = sleeptime * 3 + random.uniform(
                             0.5, (attempt + 1) / 2
@@ -191,7 +196,7 @@ class BaseClient(t.Generic[T]):
         for attempt in range(1, _max_retries + 1):
             try:
                 return call(*args, **kwargs)
-            except Exception as e:
+            except (errors.PolarionApiBaseException, httpx.HTTPError) as e:
                 last_error = e
                 sleeptime = sleeptime * 3 + random.uniform(
                     0.5, (attempt + 1) / 2
@@ -215,7 +220,8 @@ class BaseClient(t.Generic[T]):
             isinstance(e, errors.PolarionApiException)
             and e.args[0] in _NON_RETRIABLE_ERRORS
         ):
-            raise
+            raise last_error
+
         logger.warning(
             "Request failed, retrying after %.1fs (%d/%d): %s",
             sleeptime,
