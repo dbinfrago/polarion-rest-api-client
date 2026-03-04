@@ -15,12 +15,10 @@ from tests.conftest import TEST_FAULTS_ERROR_RESPONSES
 def test_faulty_error_message(
     client: polarion_api.ProjectClient,
     httpx_mock: pytest_httpx.HTTPXMock,
-    monkeypatch: pytest.MonkeyPatch,
 ):
     with open(TEST_FAULTS_ERROR_RESPONSES, encoding="utf8") as f:
         response = json.load(f)
 
-    monkeypatch.setattr("time.sleep", lambda _: None)
     httpx_mock.add_response(500, json=response)
     httpx_mock.add_response(500, json=response)
     httpx_mock.add_response(500, json=response)

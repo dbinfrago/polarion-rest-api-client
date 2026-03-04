@@ -18,6 +18,20 @@ import polarion_rest_api_client as polarion_api
 from polarion_rest_api_client.clients import base_classes
 
 
+@pytest.fixture(autouse=True)
+def no_sleeps(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setattr(
+        base_classes.time, "sleep", lambda _delay: None, raising=True
+    )
+
+    async def _no_asyncio_sleep(*_: t.Any, **kwargs: t.Any) -> t.Any:
+        return kwargs.get("result")
+
+    monkeypatch.setattr(
+        base_classes.asyncio, "sleep", _no_asyncio_sleep, raising=True
+    )
+
+
 def wrap_client(obj, is_async: bool):
     """Recursively wrap the client to select async methods if needed."""
 
@@ -58,8 +72,6 @@ def pytest_generate_tests(metafunc):
 
 @pytest.fixture
 def client(is_async: bool):
-    base_classes._max_sleep = 0
-    base_classes._min_sleep = 0
     client = polarion_api.PolarionClient(
         polarion_api_endpoint="http://127.0.0.1/api",
         polarion_access_token="PAT123",

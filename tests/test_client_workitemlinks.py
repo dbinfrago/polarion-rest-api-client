@@ -303,9 +303,7 @@ def test_get_work_item_links_error_first_request(
     client: polarion_api.ProjectClient,
     httpx_mock: pytest_httpx.HTTPXMock,
     caplog: pytest.LogCaptureFixture,
-    monkeypatch: pytest.MonkeyPatch,
 ):
-    monkeypatch.setattr("time.sleep", lambda _: None)
     httpx_mock.add_response(502, content=b"Test")
     with open(
         TEST_WIL_NO_NEXT_PAGE_RESPONSE,
