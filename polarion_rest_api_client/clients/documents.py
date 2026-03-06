@@ -80,8 +80,6 @@ class Documents(
             revision=self.none_to_unset(revision),
         )
 
-        self._raise_on_error(response)
-
         return self._parse_document_response(response)
 
     def _parse_document_response(

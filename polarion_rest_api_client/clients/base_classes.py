@@ -135,7 +135,7 @@ class BaseClient(t.Generic[T]):
         return value
 
     def _raise_on_error(self, response: oa_types.Response) -> None:
-        """Raise an PolarionApiBaseException, if the response has errors."""
+        """Raise a PolarionApiBaseException, if the response has errors."""
 
         def unexpected_error() -> errors.PolarionApiUnexpectedException:
             return errors.PolarionApiUnexpectedException(
@@ -186,11 +186,9 @@ class BaseClient(t.Generic[T]):
             try:
                 return call(*args, **kwargs)
             except (errors.PolarionApiBaseException, httpx.HTTPError) as e:
-                last_error = e
                 sleeptime = _compute_backoff(sleeptime, attempt)
-                self._handle_tolerated_exception(
-                    e, sleeptime, attempt, last_error
-                )
+                self._handle_tolerated_exception(e, sleeptime, attempt)
+                last_error = e
                 time.sleep(sleeptime)
 
         assert last_error is not None
@@ -210,11 +208,9 @@ class BaseClient(t.Generic[T]):
                     async with self._client.semaphore:
                         return await call(*args, **kwargs)
                 except (errors.PolarionApiBaseException, httpx.HTTPError) as e:
-                    last_error = e
                     sleeptime = _compute_backoff(sleeptime, attempt)
-                    self._handle_tolerated_exception(
-                        e, sleeptime, attempt, last_error
-                    )
+                    self._handle_tolerated_exception(e, sleeptime, attempt)
+                    last_error = e
                     await asyncio.sleep(sleeptime)
 
             assert last_error is not None
@@ -224,24 +220,23 @@ class BaseClient(t.Generic[T]):
 
     def _handle_tolerated_exception(
         self,
-        e: Exception,
+        error: Exception,
         sleeptime: float,
         attempt: int,
-        last_error: Exception,
     ) -> None:
         """Log the error without raising if it's a retryable error."""
         if (
-            isinstance(e, errors.PolarionApiException)
-            and e.args[0] in _NON_RETRIABLE_ERRORS
+            isinstance(error, errors.PolarionApiException)
+            and error.args[0] in _NON_RETRIABLE_ERRORS
         ):
-            raise last_error
+            raise error
 
         logger.warning(
             "Request failed, retrying after %.1fs (%d/%d): %s",
             sleeptime,
             attempt,
             _max_retries,
-            last_error,
+            error,
         )
 
     def _pre_batching_grouping(
