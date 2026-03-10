@@ -36,8 +36,16 @@ min_wi_request_size = _get_json_content_size(
 )
 
 
-class WorkItems(bc.SingleUpdatableItemsMixin, bc.StatusItemClient):
+class WorkItems(
+    bc.StatusItemClient,
+    bc.MultiGetClient,
+    bc.SingleGetClient,
+    bc.DeleteClient,
+    bc.CreateClient,
+):
     """A project specific client for work item operations."""
+
+    _update_batch_size = 1
 
     def __init__(
         self,
@@ -53,24 +61,39 @@ class WorkItems(bc.SingleUpdatableItemsMixin, bc.StatusItemClient):
         self.test_steps = test_steps.TestSteps(project_id, client)
         self.item_cls = dm.WorkItem
 
-    def _update(self, to_update: list[dm.WorkItem] | dm.WorkItem) -> None:
-        assert not isinstance(to_update, list), "Expected only one item"
-        assert to_update.id is not None
-        if to_update.type:
-            logger.warning(
-                "Attempting to change the type of Work Item %s to %s.",
-                to_update.id,
-                to_update.type,
-            )
-
+    def _update(self, to_update: list[dm.WorkItem]) -> None:
+        item = self._check_update_item(to_update)
         response = patch_work_item.sync_detailed(
             self._project_id,
-            to_update.id,
+            item.id,  # type: ignore
             client=self._client.client,
-            change_type_to=to_update.type or oa_types.UNSET,
-            body=self._build_work_item_patch_request(to_update),
+            change_type_to=item.type or oa_types.UNSET,
+            body=self._build_work_item_patch_request(item),
         )
         self._raise_on_error(response)
+
+    async def _async_update(self, to_update: list[dm.WorkItem]) -> None:
+        item = self._check_update_item(to_update)
+        response = await patch_work_item.asyncio_detailed(
+            self._project_id,
+            item.id,  # type: ignore
+            client=self._client.client,
+            change_type_to=item.type or oa_types.UNSET,
+            body=self._build_work_item_patch_request(item),
+        )
+        self._raise_on_error(response)
+
+    def _check_update_item(self, to_update: list[dm.WorkItem]) -> dm.WorkItem:
+        assert len(to_update) == 1, "Expected only one item"
+        item = to_update[0]
+        assert item.id is not None
+        if item.type:
+            logger.warning(
+                "Attempting to change the type of Work Item %s to %s.",
+                item.id,
+                item.type,
+            )
+        return item
 
     @t.overload  # type: ignore[override]
     def get_multi(
@@ -138,12 +161,85 @@ class WorkItems(bc.SingleUpdatableItemsMixin, bc.StatusItemClient):
             revision=revision or oa_types.UNSET,
         )
 
+        return self._process_get_response(work_item_cls, response)
+
+    @t.overload  # type: ignore[override]
+    async def async_get_multi(
+        self,
+        query: str = "",
+        *,
+        page_size: int = 100,
+        page_number: int = 1,
+        fields: dict[str, str] | None = None,
+        work_item_cls: type[WT],
+        revision: str | None = None,
+    ) -> tuple[list[WT], bool]:
+        """Return the work items on a defined page matching the given query.
+
+        In addition, a flag whether a next page is available is
+        returned. Define a fields dictionary as described in the
+        Polarion API documentation to get certain fields. This function
+        will use the provided WorkItemClass as return type.
+        """
+
+    @t.overload
+    async def async_get_multi(
+        self,
+        query: str = "",
+        *,
+        page_size: int = 100,
+        page_number: int = 1,
+        fields: dict[str, str] | None = None,
+        revision: str | None = None,
+    ) -> tuple[list[dm.WorkItem], bool]:
+        """Return the work items on a defined page matching the given query.
+
+        In addition, a flag whether a next page is available is
+        returned. Define a fields dictionary as described in the
+        Polarion API documentation to get certain fields.
+        """
+
+    async def async_get_multi(
+        self,
+        query: str = "",
+        *,
+        page_size: int = 100,
+        page_number: int = 1,
+        fields: dict[str, str] | None = None,
+        work_item_cls: type[dm.WorkItem] = dm.WorkItem,
+        revision: str | None = None,
+    ) -> tuple[list[dm.WorkItem], bool] | tuple[list[WT], bool]:
+        """Return the work items on a defined page matching the given query.
+
+        In addition, a flag whether a next page is available is
+        returned. Define a fields dictionary as described in the
+        Polarion API documentation to get certain fields.
+        """
+        if fields is None:
+            fields = self._client.default_fields.workitems
+
+        sparse_fields = self._build_sparse_fields(fields)
+        response = await get_work_items.asyncio_detailed(
+            self._project_id,
+            client=self._client.client,
+            fields=sparse_fields,
+            query=query,
+            pagesize=page_size,
+            pagenumber=page_number,
+            revision=revision or oa_types.UNSET,
+        )
+
         self._raise_on_error(response)
+        return self._process_get_response(work_item_cls, response)
 
+    def _process_get_response(
+        self,
+        work_item_cls: type[WT],
+        response: oa_types.Response,
+    ) -> tuple[list[WT], bool]:
+        self._raise_on_error(response)
         work_items_response = response.parsed
-
         work_items: list[WT] = []
-
         next_page = False
         if (
             isinstance(
@@ -161,7 +257,6 @@ class WorkItems(bc.SingleUpdatableItemsMixin, bc.StatusItemClient):
                 work_items_response.links,
                 api_models.WorkitemsListGetResponseLinks,
             ) and bool(work_items_response.links.next_)
-
         return work_items, next_page
 
     @t.overload
@@ -218,18 +313,81 @@ class WorkItems(bc.SingleUpdatableItemsMixin, bc.StatusItemClient):
             ),
             revision=revision or oa_types.UNSET,
         )
+        return self._process_single_get_response(response, work_item_cls)
+
+    @t.overload
+    async def async_get(
+        self,
+        work_item_id: str,
+        work_item_cls: type[WT],
+        revision: str | None = None,
+    ) -> WT | None:
+        """Return one specific work item with all fields.
+
+        This also includes all linked work items and attachments. If
+        there are to many of these to get them in one request, the
+        truncated flags for linked_work_items and attachments will be
+        set to True. This function will use the provided WorkItemClass
+        as return type.
+        """
+
+    @t.overload
+    async def async_get(
+        self, work_item_id: str, *, revision: str | None = None
+    ) -> dm.WorkItem | None:
+        """Return one specific work item with all fields.
+
+        This also includes all linked work items and attachments. If
+        there are to many of these to get them in one request, the
+        truncated flags for linked_work_items and attachments will be
+        set to True.
+        """
+
+    async def async_get(
+        self,
+        work_item_id: str,
+        work_item_cls: type[dm.WorkItem] = dm.WorkItem,
+        revision: str | None = None,
+    ) -> WT | dm.WorkItem | None:
+        """Return one specific work item with all fields.
+
+        This also includes all linked work items and attachments. If
+        there are to many of these to get them in one request, the
+        truncated flags for linked_work_items and attachments will be
+        set to True.
+        """
+        response = await get_work_item.asyncio_detailed(
+            self._project_id,
+            work_item_id,
+            client=self._client.client,
+            fields=self._build_sparse_fields(
+                {
+                    "workitems": "@all",
+                    "workitem_attachments": "@all",
+                    "linkedworkitems": "@all",
+                }
+            ),
+            revision=revision or oa_types.UNSET,
+        )
+        return self._process_single_get_response(response, work_item_cls)
+
+    def _process_single_get_response(
+        self,
+        response: oa_types.Response,
+        work_item_cls: type[WT],
+    ) -> WT | None:
         self._raise_on_error(response)
-
+        parsed_response = response.parsed
+        work_item = None
         if isinstance(
-            response.parsed, api_models.WorkitemsSingleGetResponse
+            parsed_response, api_models.WorkitemsSingleGetResponse
         ) and isinstance(
-            response.parsed.data, api_models.WorkitemsSingleGetResponseData
+            parsed_response.data, api_models.WorkitemsSingleGetResponseData
         ):
-            return self._generate_work_item(
-                response.parsed.data, work_item_cls
+            work_item = self._generate_work_item(
+                parsed_response.data, work_item_cls
             )
-
-        return None
+        return work_item
 
     def _create(self, items: list[dm.WorkItem]) -> None:
         raise NotImplementedError("We have a custom create instead.")
@@ -285,22 +443,92 @@ class WorkItems(bc.SingleUpdatableItemsMixin, bc.StatusItemClient):
                 items[batch_start_index:],
             )
 
+    async def _async_create(self, items: list[dm.WorkItem]) -> None:
+        raise NotImplementedError("We have a custom create instead.")
+
+    async def async_create(
+        self, items: dm.WorkItem | list[dm.WorkItem]
+    ) -> None:
+        """Create WorkItems and respect the max body size of the server."""
+        if not isinstance(items, list):
+            items = [items]
+        current_batch = api_models.WorkitemsListPostRequest(data=[])
+        content_size = min_wi_request_size
+        batch_start_index = 0
+
+        for batch_end_index, work_item in enumerate(items):
+            work_item_data = self._build_work_item_post_request(work_item)
+
+            (
+                proj_content_size,
+                too_big,
+            ) = self._calculate_post_work_item_request_sizes(
+                work_item_data, content_size
+            )
+
+            if too_big:
+                raise errors.PolarionWorkItemException(
+                    "A WorkItem is too large to create.", work_item
+                )
+
+            assert isinstance(current_batch.data, list)
+            if (
+                proj_content_size >= self._client.max_content_size
+                or len(current_batch.data) >= self._client.batch_size
+            ):
+                await self._retry_on_error(
+                    self._a_post_work_item_batch,
+                    current_batch,
+                    items[batch_start_index:batch_end_index],
+                )
+
+                current_batch = api_models.WorkitemsListPostRequest(
+                    data=[work_item_data]
+                )
+                content_size = _get_json_content_size(current_batch.to_dict())
+                batch_start_index = batch_end_index
+            else:
+                assert isinstance(current_batch.data, list)
+                current_batch.data.append(work_item_data)
+                content_size = proj_content_size
+
+        if current_batch.data:
+            await self._retry_on_error(
+                self._a_post_work_item_batch,
+                current_batch,
+                items[batch_start_index:],
+            )
+
     def _delete(self, items: list[dm.WorkItem]) -> None:
-        work_item_ids = [work_item.id for work_item in items]
         response = delete_work_items.sync_detailed(
             self._project_id,
             client=self._client.client,
-            body=api_models.WorkitemsListDeleteRequest(
-                data=[
-                    api_models.WorkitemsListDeleteRequestDataItem(
-                        type_=api_models.WorkitemsListDeleteRequestDataItemType.WORKITEMS,  # pylint: disable=line-too-long
-                        id=f"{self._project_id}/{work_item_id}",
-                    )
-                    for work_item_id in work_item_ids
-                ]
-            ),
+            body=self._build_delete_body(items),
         )
         self._raise_on_error(response)
+
+    async def _async_delete(self, items: list[dm.WorkItem]) -> None:
+        response = await delete_work_items.asyncio_detailed(
+            self._project_id,
+            client=self._client.client,
+            body=self._build_delete_body(items),
+        )
+        self._raise_on_error(response)
+
+    def _build_delete_body(
+        self, items: list[dm.WorkItem]
+    ) -> api_models.WorkitemsListDeleteRequest:
+        work_item_ids = [work_item.id for work_item in items if work_item.id]
+        return api_models.WorkitemsListDeleteRequest(
+            data=[
+                api_models.WorkitemsListDeleteRequestDataItem(
+                    type_=api_models.WorkitemsListDeleteRequestDataItemType.WORKITEMS,
+                    # pylint: disable=line-too-long
+                    id=f"{self._project_id}/{work_item_id}",
+                )
+                for work_item_id in work_item_ids
+            ]
+        )
 
     def _build_work_item_post_request(
         self, work_item: dm.WorkItem
@@ -408,6 +636,24 @@ class WorkItems(bc.SingleUpdatableItemsMixin, bc.StatusItemClient):
 
         self._raise_on_error(response)
 
+        self._process_post_response(response, work_item_objs)
+
+    async def _a_post_work_item_batch(
+        self,
+        work_item_batch: api_models.WorkitemsListPostRequest,
+        work_item_objs: list[dm.WorkItem],
+    ) -> None:
+        response = await post_work_items.asyncio_detailed(
+            self._project_id, client=self._client.client, body=work_item_batch
+        )
+
+        self._raise_on_error(response)
+
+        self._process_post_response(response, work_item_objs)
+
+    def _process_post_response(
+        self, response: oa_types.Response, work_item_objs: list[dm.WorkItem]
+    ) -> None:
         assert isinstance(
             response.parsed, api_models.WorkitemsListPostResponse
         )

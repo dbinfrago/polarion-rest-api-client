@@ -414,9 +414,7 @@ def test_create_work_items_failed(
     client: polarion_api.ProjectClient,
     httpx_mock: pytest_httpx.HTTPXMock,
     work_item: polarion_api.WorkItem,
-    monkeypatch: pytest.MonkeyPatch,
 ):
-    monkeypatch.setattr("time.sleep", lambda _: None)
     expected = "An internal error occurred, please try again later"
     with open(TEST_ERROR_RESPONSE, encoding="utf8") as f:
         response = json.load(f)
@@ -440,9 +438,7 @@ def test_create_work_items_failed_no_error(
     client: polarion_api.ProjectClient,
     httpx_mock: pytest_httpx.HTTPXMock,
     work_item: polarion_api.WorkItem,
-    monkeypatch: pytest.MonkeyPatch,
 ):
-    monkeypatch.setattr("time.sleep", lambda _: None)
     httpx_mock.add_response(501, content=b"asdfg")
     httpx_mock.add_response(501, content=b"asdfg")
     httpx_mock.add_response(501, content=b"asdfg")

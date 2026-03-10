@@ -3,8 +3,13 @@
 
 from __future__ import annotations
 
+import asyncio
+import functools
+import inspect
 import json
 import pathlib
+import typing as t
+from functools import wraps
 
 import httpx
 import pytest
@@ -13,18 +18,69 @@ import polarion_rest_api_client as polarion_api
 from polarion_rest_api_client.clients import base_classes
 
 
-@pytest.fixture(name="client")
-def fixture_client():
-    base_classes._max_sleep = 0
-    base_classes._min_sleep = 0
+@pytest.fixture(autouse=True)
+def no_sleeps(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setattr(
+        base_classes.time, "sleep", lambda _delay: None, raising=True
+    )
+
+    async def _no_asyncio_sleep(*_: t.Any, **kwargs: t.Any) -> t.Any:
+        return kwargs.get("result")
+
+    monkeypatch.setattr(
+        base_classes.asyncio, "sleep", _no_asyncio_sleep, raising=True
+    )
+
+
+def wrap_client(obj, is_async: bool):
+    """Recursively wrap the client to select async methods if needed."""
+
+    class ClientWrapper:
+        def __getattr__(self, name):
+            if is_async and hasattr(obj, f"async_{name}"):
+                attr = getattr(obj, f"async_{name}")
+            else:
+                attr = getattr(obj, name)
+
+            if inspect.iscoroutinefunction(attr) or (
+                isinstance(attr, functools.partial)
+                and inspect.iscoroutinefunction(attr.args[0])
+            ):
+                # Run coroutines sync and also catch those wrapped with retry_on_error
+                @wraps(attr)
+                def sync_wrapper(*args, **kwargs):
+                    return asyncio.run(attr(*args, **kwargs))
+
+                return sync_wrapper
+
+            if callable(attr):
+                return attr  # normal sync method
+
+            # Wrap subclients, too
+            return wrap_client(attr, is_async)
+
+        def __setattr__(self, name: str, value: t.Any):
+            setattr(obj, name, value)
+
+    return ClientWrapper()
+
+
+def pytest_generate_tests(metafunc):
+    if "client" in metafunc.fixturenames:
+        metafunc.parametrize("is_async", [False, True], ids=["sync", "async"])
+
+
+@pytest.fixture
+def client(is_async: bool):
     client = polarion_api.PolarionClient(
         polarion_api_endpoint="http://127.0.0.1/api",
         polarion_access_token="PAT123",
         batch_size=3,
     )
-    return client.generate_project_client(
+    client_base = client.generate_project_client(
         project_id="PROJ", delete_status="deleted"
     )
+    return wrap_client(client_base, is_async)
 
 
 @pytest.fixture(name="work_item")

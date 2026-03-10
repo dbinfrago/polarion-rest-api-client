@@ -22,10 +22,13 @@ logger = logging.getLogger(__name__)
 
 
 class Documents(
-    bc.SingleUpdatableItemsMixin[dm.Document],
-    bc.UpdatableItemsClient[dm.Document],
+    bc.SingleGetClient,
+    bc.CreateClient,
+    bc.UpdateClient[dm.Document],
 ):
     """A client to work with documents in Polarion."""
+
+    _update_batch_size = 1
 
     def get(
         self,
@@ -36,37 +39,54 @@ class Documents(
         revision: str | None | oa_types.Unset = None,
     ) -> dm.Document | None:
         """Return the document with the given document_name and space_id."""
-        if include is None:
-            include = oa_types.UNSET
-
-        if revision is None:
-            revision = oa_types.UNSET
-
-        if " " in space_id or " " in document_name:
-            space_id = urllib.parse.quote(
-                space_id, safe="/", encoding=None, errors=None
-            )
-            document_name = urllib.parse.quote(
-                document_name, safe="/", encoding=None, errors=None
-            )
         if fields is None:
             fields = self._client.default_fields.documents
 
-        sparse_fields = self._build_sparse_fields(fields)
         response = get_document.sync_detailed(
             self._project_id,
-            space_id,
-            document_name,
+            urllib.parse.quote(space_id, safe="/", encoding=None, errors=None),
+            urllib.parse.quote(
+                document_name, safe="/", encoding=None, errors=None
+            ),
             client=self._client.client,
-            fields=sparse_fields,
-            include=include,
-            revision=revision,
+            fields=self._build_sparse_fields(fields),
+            include=self.none_to_unset(include),
+            revision=self.none_to_unset(revision),
         )
 
+        return self._parse_document_response(response)
+
+    async def async_get(
+        self,
+        space_id: str,
+        document_name: str,
+        fields: dict[str, str] | None = None,
+        include: str | None | oa_types.Unset = None,
+        revision: str | None | oa_types.Unset = None,
+    ) -> dm.Document | None:
+        """Return the document with the given document_name and space_id."""
+        if fields is None:
+            fields = self._client.default_fields.documents
+
+        response = await get_document.asyncio_detailed(
+            self._project_id,
+            urllib.parse.quote(space_id, safe="/", encoding=None, errors=None),
+            urllib.parse.quote(
+                document_name, safe="/", encoding=None, errors=None
+            ),
+            client=self._client.client,
+            fields=self._build_sparse_fields(fields),
+            include=self.none_to_unset(include),
+            revision=self.none_to_unset(revision),
+        )
+
+        return self._parse_document_response(response)
+
+    def _parse_document_response(
+        self, response: oa_types.Response
+    ) -> dm.Document | None:
         self._raise_on_error(response)
-
         document_response = response.parsed
-
         if (
             isinstance(
                 document_response, api_models.DocumentsSingleGetResponse
@@ -119,17 +139,45 @@ class Documents(
                     attributes.structure_link_role
                 ),
             )
-
         return None
 
-    def _split_into_batches(
+    def _pre_batching_grouping(
         self, items: list[dm.Document]
     ) -> t.Generator[list[dm.Document], None, None]:
         for _, group in itertools.groupby(items, lambda x: x.module_folder):
-            yield from super()._split_into_batches(list(group))
+            yield list(group)
 
-    def _update(self, to_update: dm.Document | list[dm.Document]) -> None:
-        assert not isinstance(to_update, list), "Expected only one item"
+    def _update(self, to_update: list[dm.Document]) -> None:
+        assert len(to_update) == 1, "Expected only one item"
+        assert to_update[0].module_folder
+        assert to_update[0].module_name
+        res = patch_document.sync_detailed(
+            project_id=self._project_id,
+            space_id=to_update[0].module_folder,
+            document_name=to_update[0].module_name,
+            client=self._client.client,
+            body=self._prepare_patch_request(to_update[0]),
+        )
+
+        self._raise_on_error(res)
+
+    async def _async_update(self, to_update: list[dm.Document]) -> None:
+        assert len(to_update) == 1, "Expected only one item"
+        assert to_update[0].module_folder
+        assert to_update[0].module_name
+        res = await patch_document.asyncio_detailed(
+            project_id=self._project_id,
+            space_id=to_update[0].module_folder,
+            document_name=to_update[0].module_name,
+            client=self._client.client,
+            body=self._prepare_patch_request(to_update[0]),
+        )
+
+        self._raise_on_error(res)
+
+    def _prepare_patch_request(
+        self, to_update: dm.Document
+    ) -> api_models.DocumentsSinglePatchRequest:
         assert to_update.module_folder is not None, "module folder must be set"
         assert to_update.module_name is not None, "module name must be set"
 
@@ -193,7 +241,7 @@ class Documents(
             to_update.additional_properties or {}
         )
 
-        req = api_models.DocumentsSinglePatchRequest(
+        return api_models.DocumentsSinglePatchRequest(
             data=api_models.DocumentsSinglePatchRequestData(
                 api_models.DocumentsSinglePatchRequestDataType.DOCUMENTS,
                 id=f"{self._project_id}/{to_update.module_folder}/{to_update.module_name}",
@@ -201,25 +249,43 @@ class Documents(
             )
         )
 
-        res = patch_document.sync_detailed(
-            project_id=self._project_id,
-            space_id=to_update.module_folder,
-            document_name=to_update.module_name,
+    def _create(self, items: list[dm.Document]) -> None:
+        assert items[0].module_folder
+        res = post_documents.sync_detailed(
+            self._project_id,
+            items[0].module_folder,
             client=self._client.client,
-            body=req,
+            body=self._prepare_document_post_request(items),
         )
 
         self._raise_on_error(res)
 
-    def get_multi(
-        self,
-        *args: t.Any,
-        page_size: int = 100,
-        page_number: int = 1,
-        **kwargs: t.Any,
-    ) -> tuple[list[dm.Document], bool]:
-        """Return a list of documents - Not implemented yet."""
-        raise NotImplementedError
+    async def _async_create(self, items: list[dm.Document]) -> None:
+        assert items[0].module_folder
+        res = await post_documents.asyncio_detailed(
+            self._project_id,
+            items[0].module_folder,
+            client=self._client.client,
+            body=self._prepare_document_post_request(items),
+        )
+
+        self._raise_on_error(res)
+
+    def _prepare_document_post_request(
+        self, items: list[dm.Document]
+    ) -> api_models.DocumentsListPostRequest:
+        # due to grouping in _split_into_batches all module folders are equal
+        assert items[0].module_folder is not None, "module folder must be set"
+        return api_models.DocumentsListPostRequest(
+            # pylint: disable=line-too-long
+            data=[
+                api_models.DocumentsListPostRequestDataItem(
+                    type_=api_models.DocumentsListPostRequestDataItemType.DOCUMENTS,
+                    attributes=self._build_create_attributes(document),
+                )
+                for document in items
+            ]
+        )
 
     def _build_create_attributes(
         self, document: dm.Document
@@ -280,29 +346,3 @@ class Documents(
             document.additional_properties or {}
         )
         return attrs
-
-    def _create(self, items: list[dm.Document]) -> None:
-        # due to grouping in _split_into_batches all module folders are equal
-        assert items[0].module_folder is not None, "module folder must be set"
-
-        req = api_models.DocumentsListPostRequest(
-            data=[
-                api_models.DocumentsListPostRequestDataItem(
-                    type_=api_models.DocumentsListPostRequestDataItemType.DOCUMENTS,
-                    attributes=self._build_create_attributes(document),
-                )
-                for document in items
-            ]
-        )
-
-        res = post_documents.sync_detailed(
-            self._project_id,
-            items[0].module_folder,
-            client=self._client.client,
-            body=req,
-        )
-
-        self._raise_on_error(res)
-
-    def _delete(self, items: list[dm.Document]) -> None:
-        raise NotImplementedError

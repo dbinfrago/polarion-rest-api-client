@@ -9,6 +9,7 @@ from polarion_rest_api_client import data_models as dm
 from polarion_rest_api_client.open_api_client import models as api_models
 from polarion_rest_api_client.open_api_client import types as oa_types
 from polarion_rest_api_client.open_api_client.api.test_records import (
+    delete_test_record,
     get_test_records,
     patch_test_record,
     post_test_records,
@@ -28,9 +29,13 @@ AttributesType = t.TypeVar(
 
 
 class TestRecords(
-    bc.SingleUpdatableItemsMixin[dm.TestRecord],
-    bc.UpdatableItemsClient[dm.TestRecord],
+    bc.CreateClient[dm.TestRecord],
+    bc.MultiGetClient[dm.TestRecord],
+    bc.DeleteClient[dm.TestRecord],
+    bc.UpdateClient[dm.TestRecord],
 ):
+    _update_batch_size = 1
+
     def __init__(
         self, project_id: str, client: polarion_client.PolarionClient
     ):
@@ -39,42 +44,59 @@ class TestRecords(
             project_id, client
         )
 
-    def get(self, *args: t.Any, **kwargs: t.Any) -> dm.TestRecord:
-        raise NotImplementedError
-
-    def _update(self, to_update: list[dm.TestRecord] | dm.TestRecord) -> None:
-        assert not isinstance(to_update, list), "Expected only one item"
+    def _update(self, to_update: list[dm.TestRecord]) -> None:
+        assert len(to_update) == 1, "Expected only one item"
+        item = to_update[0]
         response = patch_test_record.sync_detailed(
             self._project_id,
-            to_update.test_run_id,
-            to_update.work_item_project_id,
-            to_update.work_item_id,
-            str(to_update.iteration),
+            item.test_run_id,
+            item.work_item_project_id,
+            item.work_item_id,
+            str(item.iteration),
             client=self._client.client,
-            # pylint: disable=line-too-long
-            body=api_models.TestrecordsSinglePatchRequest(
-                data=api_models.TestrecordsSinglePatchRequestData(
-                    type_=api_models.TestrecordsSinglePatchRequestDataType.TESTRECORDS,
-                    id=f"{self._project_id}/{to_update.test_run_id}/{to_update.work_item_project_id}/{to_update.work_item_id}/{to_update.iteration}",
-                    attributes=self._fill_test_record_attributes(
-                        api_models.TestrecordsSinglePatchRequestDataAttributes,
-                        to_update,
-                    ),
-                    relationships=api_models.TestrecordsSinglePatchRequestDataRelationships(
-                        executed_by=api_models.TestrecordsSinglePatchRequestDataRelationshipsExecutedBy(
-                            data=api_models.TestrecordsSinglePatchRequestDataRelationshipsExecutedByData(
-                                type_=api_models.TestrecordsSinglePatchRequestDataRelationshipsExecutedByDataType.USERS,
-                                id=to_update.executed_by,
-                            )
-                        ),
-                    )
-                    if to_update.executed_by is not None
-                    else oa_types.UNSET,
-                )
-            ),
-            # pylint: enable=line-too-long
+            body=self._build_patch_body(item),
         )
         self._raise_on_error(response)
+
+    async def _async_update(self, to_update: list[dm.TestRecord]) -> None:
+        assert len(to_update) == 1, "Expected only one item"
+        item = to_update[0]
+        response = await patch_test_record.asyncio_detailed(
+            self._project_id,
+            item.test_run_id,
+            item.work_item_project_id,
+            item.work_item_id,
+            str(item.iteration),
+            client=self._client.client,
+            body=self._build_patch_body(item),
+        )
+        self._raise_on_error(response)
+
+    def _build_patch_body(
+        self, to_update: dm.TestRecord
+    ) -> api_models.TestrecordsSinglePatchRequest:
+        # pylint: disable=line-too-long
+        return api_models.TestrecordsSinglePatchRequest(
+            data=api_models.TestrecordsSinglePatchRequestData(
+                type_=api_models.TestrecordsSinglePatchRequestDataType.TESTRECORDS,
+                id=f"{self._project_id}/{to_update.test_run_id}/{to_update.work_item_project_id}/{to_update.work_item_id}/{to_update.iteration}",
+                attributes=self._fill_test_record_attributes(
+                    api_models.TestrecordsSinglePatchRequestDataAttributes,
+                    to_update,
+                ),
+                relationships=api_models.TestrecordsSinglePatchRequestDataRelationships(
+                    executed_by=api_models.TestrecordsSinglePatchRequestDataRelationshipsExecutedBy(
+                        data=api_models.TestrecordsSinglePatchRequestDataRelationshipsExecutedByData(
+                            type_=api_models.TestrecordsSinglePatchRequestDataRelationshipsExecutedByDataType.USERS,
+                            id=to_update.executed_by,
+                        )
+                    ),
+                )
+                if to_update.executed_by is not None
+                else oa_types.UNSET,
+            )
+        )
+        # pylint: enable=line-too-long
 
     def get_multi(  # type: ignore[override]
         self,
@@ -96,16 +118,39 @@ class TestRecords(
             pagenumber=page_number,
             pagesize=page_size,
         )
+        return self._parse_get_response(response, test_run_id)
 
+    async def async_get_multi(  # type: ignore[override]
+        self,
+        test_run_id: str,
+        *,
+        page_size: int = 100,
+        page_number: int = 1,
+        fields: dict[str, str] | None = None,
+    ) -> tuple[list[dm.TestRecord], bool]:
+        if fields is None:
+            fields = self._client.default_fields.testrecords
+
+        sparse_fields = self._build_sparse_fields(fields)
+        response = await get_test_records.asyncio_detailed(
+            self._project_id,
+            test_run_id,
+            client=self._client.client,
+            fields=sparse_fields,
+            pagenumber=page_number,
+            pagesize=page_size,
+        )
+        return self._parse_get_response(response, test_run_id)
+
+    def _parse_get_response(
+        self, response: oa_types.Response, test_run_id: str
+    ) -> tuple[list[dm.TestRecord], bool]:
         self._raise_on_error(response)
-
         parsed_response = response.parsed
         assert isinstance(
             parsed_response, api_models.TestrecordsListGetResponse
         )
-
         test_records = []
-
         for data in parsed_response.data or []:
             assert isinstance(data.id, str)
             assert isinstance(
@@ -148,14 +193,13 @@ class TestRecords(
             parsed_response.links,
             api_models.TestrecordsListGetResponseLinks,
         ) and bool(parsed_response.links.next_)
-
         return test_records, next_page
 
-    def _split_into_batches(
+    def _pre_batching_grouping(
         self, items: list[dm.TestRecord]
     ) -> t.Generator[list[dm.TestRecord], None, None]:
         for _, group in itertools.groupby(items, lambda x: x.test_run_id):
-            yield from super()._split_into_batches(list(group))
+            yield list(group)
 
     def _create(
         self,
@@ -167,52 +211,98 @@ class TestRecords(
             items[0].test_run_id,
             client=self._client.client,
             # pylint: disable=line-too-long
-            body=api_models.TestrecordsListPostRequest(
-                [
-                    api_models.TestrecordsListPostRequestDataItem(
-                        type_=api_models.TestrecordsListPostRequestDataItemType.TESTRECORDS,
-                        attributes=self._fill_test_record_attributes(
-                            api_models.TestrecordsListPostRequestDataItemAttributes,
-                            test_record,
-                        ),
-                        relationships=api_models.TestrecordsListPostRequestDataItemRelationships(
-                            test_case=api_models.TestrecordsListPostRequestDataItemRelationshipsTestCase(
-                                data=api_models.TestrecordsListPostRequestDataItemRelationshipsTestCaseData(
-                                    type_=api_models.TestrecordsListPostRequestDataItemRelationshipsTestCaseDataType.WORKITEMS,
-                                    id=f"{test_record.work_item_project_id}/{test_record.work_item_id}",
-                                )
-                            ),
-                            executed_by=api_models.TestrecordsListPostRequestDataItemRelationshipsExecutedBy(
-                                data=api_models.TestrecordsListPostRequestDataItemRelationshipsExecutedByData(
-                                    type_=api_models.TestrecordsListPostRequestDataItemRelationshipsExecutedByDataType.USERS,
-                                    id=test_record.executed_by,
-                                )
-                            )
-                            if test_record.executed_by is not None
-                            else oa_types.UNSET,
-                        ),
-                    )
-                    for test_record in items
-                ]
-            ),
+            body=self._build_post_body(items),
             # pylint: enable=line-too-long
         )
 
-        self._raise_on_error(response)
+        self._parse_post_response(items, response)
 
+    async def _async_create(
+        self,
+        items: list[dm.TestRecord],
+    ) -> None:
+        """Create the given list of test records."""
+        response = await post_test_records.asyncio_detailed(
+            self._project_id,
+            items[0].test_run_id,
+            client=self._client.client,
+            body=self._build_post_body(items),
+        )
+        self._parse_post_response(items, response)
+
+    def _parse_post_response(
+        self, items: list[dm.TestRecord], response: oa_types.Response
+    ) -> None:
+        self._raise_on_error(response)
         assert isinstance(
             response.parsed, api_models.TestrecordsListPostResponse
         )
         assert response.parsed.data
-
         counter = 0
         for response_item in response.parsed.data:
             if response_item.id:
                 items[counter].iteration = int(response_item.id.split("/")[-1])
                 counter += 1
 
-    def _delete(self, items: dm.TestRecord | list[dm.TestRecord]) -> None:
-        raise NotImplementedError
+    def _build_post_body(
+        self, items: list[dm.TestRecord]
+    ) -> api_models.TestrecordsListPostRequest:
+        # pylint: disable=line-too-long
+        return api_models.TestrecordsListPostRequest(
+            [
+                api_models.TestrecordsListPostRequestDataItem(
+                    type_=api_models.TestrecordsListPostRequestDataItemType.TESTRECORDS,
+                    attributes=self._fill_test_record_attributes(
+                        api_models.TestrecordsListPostRequestDataItemAttributes,
+                        test_record,
+                    ),
+                    relationships=api_models.TestrecordsListPostRequestDataItemRelationships(
+                        test_case=api_models.TestrecordsListPostRequestDataItemRelationshipsTestCase(
+                            data=api_models.TestrecordsListPostRequestDataItemRelationshipsTestCaseData(
+                                type_=api_models.TestrecordsListPostRequestDataItemRelationshipsTestCaseDataType.WORKITEMS,
+                                id=f"{test_record.work_item_project_id}/{test_record.work_item_id}",
+                            )
+                        ),
+                        executed_by=api_models.TestrecordsListPostRequestDataItemRelationshipsExecutedBy(
+                            data=api_models.TestrecordsListPostRequestDataItemRelationshipsExecutedByData(
+                                type_=api_models.TestrecordsListPostRequestDataItemRelationshipsExecutedByDataType.USERS,
+                                id=test_record.executed_by,
+                            )
+                        )
+                        if test_record.executed_by is not None
+                        else oa_types.UNSET,
+                    ),
+                )
+                for test_record in items
+            ]
+        )
+        # pylint: enable=line-too-long
+
+    def _delete(self, items: list[dm.TestRecord]) -> None:
+        assert len(items) == 1, "Expected only one item"
+        item = items[0]
+        response = delete_test_record.sync_detailed(
+            self._project_id,
+            item.test_run_id,
+            item.work_item_project_id,
+            item.work_item_id,
+            str(item.iteration),
+            client=self._client.client,
+        )
+        self._raise_on_error(response)
+
+    async def _async_delete(self, items: list[dm.TestRecord]) -> None:
+        assert len(items) == 1, "Expected only one item"
+        item = items[0]
+        response = await delete_test_record.asyncio_detailed(
+            self._project_id,
+            item.test_run_id,
+            item.work_item_project_id,
+            item.work_item_id,
+            str(item.iteration),
+            client=self._client.client,
+        )
+        self._raise_on_error(response)
 
     def _fill_test_record_attributes(
         self,

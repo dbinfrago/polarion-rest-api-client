@@ -23,7 +23,6 @@ from tests.conftest import (
             None,
             {
                 "page[size]": "100",
-                "page[number]": "1",
                 "fields[teststeps]": "@all",
             },
         ),
@@ -31,7 +30,6 @@ from tests.conftest import (
             "12345",
             {
                 "page[size]": "100",
-                "page[number]": "1",
                 "fields[teststeps]": "@all",
                 "revision": "12345",
             },
@@ -63,6 +61,7 @@ def test_get_test_steps_multi_page(
 
     assert len(reqs) == 3
     assert reqs[0].method == "GET"
+    query["page[number]"] = "1"
     assert dict(reqs[0].url.params) == query
     query["page[number]"] = "2"
     assert dict(reqs[1].url.params) == query

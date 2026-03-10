@@ -3,13 +3,17 @@
 """Base classes for client implementations on project Level."""
 
 import abc
+import asyncio
 import datetime
 import functools
 import http
+import inspect
 import logging
 import random
 import time
 import typing as t
+
+import httpx
 
 from polarion_rest_api_client import data_models as dm
 from polarion_rest_api_client import errors
@@ -33,23 +37,34 @@ _NON_RETRIABLE_ERRORS = {
 }
 
 UT = t.TypeVar("UT", str, int, float, datetime.datetime, bool, None)
+NT = t.TypeVar("NT", str, int, float, datetime.datetime, bool, oa_types.Unset)
 
 
-class BaseClient:
+def _compute_backoff(sleeptime: float, attempt: int) -> float:
+    return sleeptime * 3 + random.uniform(0.5, (attempt + 1) / 2)
+
+
+class BaseClient(t.Generic[T]):
     """The overall base client for all project related clients."""
 
-    _retry_methods: t.ClassVar[list[str]] = []
+    _retry_methods: t.ClassVar[set[str]] = (
+        set()
+    )  # methods which can be retried
 
     def __init__(
         self, project_id: str, client: "polarion_client.PolarionClient"
     ):
         self._project_id = project_id
         self._client = client
+        self._all_retry_methods: set[str] = set()
+        for base in self.__class__.__mro__:
+            if hasattr(base, "_retry_methods"):
+                self._all_retry_methods.update(base._retry_methods)
 
     def __getattribute__(self, name: str) -> t.Any:
         """Retry method calls defined in _retry_methods."""
         attr = super().__getattribute__(name)
-        retry_methods = super().__getattribute__("_retry_methods")
+        retry_methods = super().__getattribute__("_all_retry_methods")
         if name in retry_methods and callable(attr):
             return functools.partial(
                 super().__getattribute__("_retry_on_error"), attr
@@ -105,7 +120,23 @@ class BaseClient:
             return None
         return value
 
+    @t.overload
+    def none_to_unset(self, value: None) -> oa_types.Unset:
+        """Return UNSET if value is None, else the value."""
+
+    @t.overload
+    def none_to_unset(self, value: NT) -> NT:
+        """Return UNSET if value is None, else the value."""
+
+    def none_to_unset(self, value: t.Any) -> t.Any:
+        """Return UNSET if value is None, else the value."""
+        if value is None:
+            return oa_types.UNSET
+        return value
+
     def _raise_on_error(self, response: oa_types.Response) -> None:
+        """Raise a PolarionApiBaseException, if the response has errors."""
+
         def unexpected_error() -> errors.PolarionApiUnexpectedException:
             return errors.PolarionApiUnexpectedException(
                 response.status_code, response.content
@@ -140,42 +171,187 @@ class BaseClient:
 
     def _retry_on_error(
         self, call: t.Callable[..., R], *args: t.Any, **kwargs: t.Any
+    ) -> R | t.Coroutine[t.Any, t.Any, R]:
+        """Retry on errors with exponential backoff."""
+        if inspect.iscoroutinefunction(call):
+            return self._retry_async(call, *args, **kwargs)
+        return self._retry_sync(call, *args, **kwargs)
+
+    def _retry_sync(
+        self, call: t.Callable[..., R], *args: t.Any, **kwargs: t.Any
     ) -> R:
-        last_error = None
+        last_error: Exception | None = None
         sleeptime = 0.0
         for attempt in range(1, _max_retries + 1):
             try:
                 return call(*args, **kwargs)
-            except Exception as e:
-                if (
-                    isinstance(e, errors.PolarionApiException)
-                    and e.args[0] in _NON_RETRIABLE_ERRORS
-                ):
-                    raise
+            except (errors.PolarionApiBaseException, httpx.HTTPError) as e:
+                sleeptime = _compute_backoff(sleeptime, attempt)
+                self._handle_tolerated_exception(e, sleeptime, attempt)
                 last_error = e
+                time.sleep(sleeptime)
 
-            sleeptime = sleeptime * 3 + random.uniform(0.5, (attempt + 1) / 2)
-            logger.warning(
-                "Request failed, retrying after %.1fs (%d/%d): %s",
-                sleeptime,
-                attempt,
-                _max_retries,
-                last_error,
-            )
-            time.sleep(sleeptime)
         assert last_error is not None
         raise last_error
 
+    def _retry_async(
+        self,
+        call: t.Callable[..., t.Coroutine[t.Any, t.Any, R]],
+        *args: t.Any,
+        **kwargs: t.Any,
+    ) -> t.Coroutine[t.Any, t.Any, R]:
+        async def wrapped() -> R:
+            last_error: Exception | None = None
+            sleeptime = 0.0
+            for attempt in range(1, _max_retries + 1):
+                try:
+                    async with self._client.semaphore:
+                        return await call(*args, **kwargs)
+                except (errors.PolarionApiBaseException, httpx.HTTPError) as e:
+                    sleeptime = _compute_backoff(sleeptime, attempt)
+                    self._handle_tolerated_exception(e, sleeptime, attempt)
+                    last_error = e
+                    await asyncio.sleep(sleeptime)
 
-class ItemsClient(BaseClient, t.Generic[T], abc.ABC):
-    """A client for items of a project, which can be created or requested."""
+            assert last_error is not None
+            raise last_error
 
-    _retry_methods: t.ClassVar[list[str]] = [
-        "get_multi",
+        return wrapped()
+
+    def _handle_tolerated_exception(
+        self,
+        error: Exception,
+        sleeptime: float,
+        attempt: int,
+    ) -> None:
+        """Log the error without raising if it's a retryable error."""
+        if (
+            isinstance(error, errors.PolarionApiException)
+            and error.args[0] in _NON_RETRIABLE_ERRORS
+        ):
+            raise error
+
+        logger.warning(
+            "Request failed, retrying after %.1fs (%d/%d): %s",
+            sleeptime,
+            attempt,
+            _max_retries,
+            error,
+        )
+
+    def _pre_batching_grouping(
+        self, items: list[T]
+    ) -> t.Generator[list[T], None, None]:
+        """Group items before actually splitting them into batches.
+
+        Needed if we need to first group by a specific value before we
+        can split into batches.
+        """
+        yield items
+
+
+class SingleGetClient(BaseClient[T], abc.ABC):
+    """A client for items of a project, which can be created."""
+
+    _retry_methods: t.ClassVar[set[str]] = {
         "get",
+        "async_get",
+    }
+
+    @abc.abstractmethod
+    def get(self, *args: t.Any, **kwargs: t.Any) -> T | None:
+        """Get a specific single item."""
+
+    @abc.abstractmethod
+    async def async_get(self, *args: t.Any, **kwargs: t.Any) -> T | None:
+        """Get a specific single item."""
+
+
+class CreateClient(BaseClient[T], abc.ABC):
+    """A client for items of a project, which can be created."""
+
+    _retry_methods: t.ClassVar[set[str]] = {
         "_create",
+        "_async_create",
+    }
+    _create_batch_size: int = 0
+
+    @abc.abstractmethod
+    def _create(self, items: list[T]) -> None: ...
+
+    @abc.abstractmethod
+    async def _async_create(self, items: list[T]) -> None: ...
+
+    def _split_into_create_batches(
+        self, items: list[T]
+    ) -> t.Generator[list[T], None, None]:
+        batch_size = self._create_batch_size or self._client.batch_size
+        for it in self._pre_batching_grouping(items):
+            for i in range(0, len(it), batch_size):
+                yield it[i : i + batch_size]
+
+    def create(self, items: T | list[T]) -> None:
+        """Create one or multiple items."""
+        if not isinstance(items, list):
+            items = [items]
+
+        for batch in self._split_into_create_batches(items):
+            self._create(batch)
+
+    async def async_create(self, items: T | list[T]) -> None:
+        """Create one or multiple items."""
+        if not isinstance(items, list):
+            items = [items]
+
+        for batch in self._split_into_create_batches(items):
+            await self._async_create(batch)
+
+
+class DeleteClient(BaseClient[T], abc.ABC):
+    """A client for items of a project, which can be created."""
+
+    _retry_methods: t.ClassVar[set[str]] = {
         "_delete",
-    ]
+        "_async_delete",
+    }
+    _delete_batch_size: int = 0
+
+    def _split_into_delete_batches(
+        self, items: list[T]
+    ) -> t.Generator[list[T], None, None]:
+        batch_size = self._delete_batch_size or self._client.batch_size
+        for it in self._pre_batching_grouping(items):
+            for i in range(0, len(it), batch_size):
+                yield it[i : i + batch_size]
+
+    @abc.abstractmethod
+    def _delete(self, items: list[T]) -> None: ...
+
+    @abc.abstractmethod
+    async def _async_delete(self, items: list[T]) -> None: ...
+
+    def delete(self, items: T | list[T]) -> None:
+        """Delete one or multiple items."""
+        if not isinstance(items, list):
+            items = [items]
+        for batch in self._split_into_delete_batches(items):
+            self._delete(batch)
+
+    async def async_delete(self, items: T | list[T]) -> None:
+        """Delete one or multiple items."""
+        if not isinstance(items, list):
+            items = [items]
+        for batch in self._split_into_delete_batches(items):
+            await self._async_delete(batch)
+
+
+class MultiGetClient(BaseClient[T], abc.ABC):
+    """A client for items of a project, which can be created."""
+
+    _retry_methods: t.ClassVar[set[str]] = {
+        "get_multi",
+        "async_get_multi",
+    }
 
     @abc.abstractmethod
     def get_multi(
@@ -192,9 +368,18 @@ class ItemsClient(BaseClient, t.Generic[T], abc.ABC):
         """
 
     @abc.abstractmethod
-    def get(self, *args: t.Any, **kwargs: t.Any) -> T | None:
-        """Get a specific single item."""
-        return self._retry_on_error(self.get, *args, **kwargs)
+    async def async_get_multi(
+        self,
+        *args: t.Any,
+        page_size: int = 100,
+        page_number: int = 1,
+        **kwargs: t.Any,
+    ) -> tuple[list[T], bool]:
+        """Get multiple matching items for a specific page.
+
+        In addition, a flag whether a next page is available is
+        returned.
+        """
 
     def get_all(self, *args: t.Any, **kwargs: t.Any) -> list[T]:
         """Return all matching items using get_multi with auto pagination."""
@@ -213,52 +398,46 @@ class ItemsClient(BaseClient, t.Generic[T], abc.ABC):
             items += _items
         return items
 
-    @abc.abstractmethod
-    def _create(self, items: list[T]) -> None: ...
-
-    def _split_into_batches(
-        self, items: list[T]
-    ) -> t.Generator[list[T], None, None]:
-        for i in range(0, len(items), self._client.batch_size):
-            yield items[i : i + self._client.batch_size]
-
-    def create(self, items: T | list[T]) -> None:
-        """Create one or multiple items."""
-        if not isinstance(items, list):
-            items = [items]
-
-        for batch in self._split_into_batches(items):
-            self._create(batch)
-
-    @abc.abstractmethod
-    def _delete(self, items: list[T]) -> None: ...
-
-    def delete(self, items: T | list[T]) -> None:
-        """Delete one or multiple items."""
-        if not isinstance(items, list):
-            items = [items]
-        for batch in self._split_into_batches(items):
-            self._delete(batch)
+    async def async_get_all(self, *args: t.Any, **kwargs: t.Any) -> list[T]:
+        """Return all matching items using get_multi with auto pagination."""
+        page = 1
+        items, next_page = await self.async_get_multi(
+            *args, page_size=self._client.page_size, page_number=page, **kwargs
+        )
+        while next_page:
+            page += 1
+            _items, next_page = await self.async_get_multi(
+                *args,
+                page_size=self._client.page_size,
+                page_number=page,
+                **kwargs,
+            )
+            items += _items
+        return items
 
 
-class UpdatableItemsClient(ItemsClient, t.Generic[T], abc.ABC):
+class UpdateClient(BaseClient[T], abc.ABC):
     """A client for items which can also be updated."""
 
-    _retry_methods: t.ClassVar[list[str]] = [
-        "get_multi",
-        "get",
-        "_create",
-        "_delete",
+    _retry_methods: t.ClassVar[set[str]] = {
         "_update",
-    ]
+        "_async_update",
+    }
+    _update_batch_size: int = 0
 
     def _split_into_update_batches(
         self, items: list[T]
-    ) -> t.Generator[list[T], None, None] | t.Generator[T, None, None]:
-        yield from self._split_into_batches(items)
+    ) -> t.Generator[list[T], None, None]:
+        batch_size = self._update_batch_size or self._client.batch_size
+        for it in self._pre_batching_grouping(items):
+            for i in range(0, len(it), batch_size):
+                yield it[i : i + batch_size]
 
     @abc.abstractmethod
-    def _update(self, to_update: T | list[T]) -> None: ...
+    def _update(self, to_update: list[T]) -> None: ...
+
+    @abc.abstractmethod
+    async def _async_update(self, to_update: list[T]) -> None: ...
 
     def update(self, items: T | list[T]) -> None:
         """Update the provided item or items."""
@@ -268,17 +447,16 @@ class UpdatableItemsClient(ItemsClient, t.Generic[T], abc.ABC):
         for batch in self._split_into_update_batches(items):
             self._update(batch)
 
+    async def async_update(self, items: T | list[T]) -> None:
+        """Update the provided item or items."""
+        if not isinstance(items, list):
+            items = [items]
 
-class SingleUpdatableItemsMixin(t.Generic[T]):
-    """Mixin to split batches into single items."""
-
-    def _split_into_update_batches(
-        self, items: list[T]
-    ) -> t.Generator[T, None, None]:
-        yield from items
+        for batch in self._split_into_update_batches(items):
+            await self._async_update(batch)
 
 
-class StatusItemClient(UpdatableItemsClient, t.Generic[ST], abc.ABC):
+class StatusItemClient(UpdateClient, DeleteClient, t.Generic[ST], abc.ABC):
     """A client for items, which have a status.
 
     We support to set a specific status for these instead of deleting
@@ -301,12 +479,24 @@ class StatusItemClient(UpdatableItemsClient, t.Generic[ST], abc.ABC):
         if self.delete_status is None:
             super().delete(items)
         else:
-            if not isinstance(items, list):
-                items = [items]
-            delete_items: list[ST] = []
-            for item in items:
-                item.status = self.delete_status
-                delete_items.append(
-                    self.item_cls(id=item.id, status=self.delete_status)
-                )
+            delete_items = self._prepare_update_items(items)
             self.update(delete_items)
+
+    async def async_delete(self, items: ST | list[ST]) -> None:
+        """Delete the item if no delete_status was set, else update status."""
+        if self.delete_status is None:
+            await super().async_delete(items)
+        else:
+            delete_items = self._prepare_update_items(items)
+            await self.async_update(delete_items)
+
+    def _prepare_update_items(self, items: ST | list[ST]) -> list[ST]:
+        if not isinstance(items, list):
+            items = [items]
+        delete_items: list[ST] = []
+        for item in items:
+            item.status = self.delete_status
+            delete_items.append(
+                self.item_cls(id=item.id, status=self.delete_status)
+            )
+        return delete_items
