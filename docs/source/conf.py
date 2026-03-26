@@ -14,14 +14,11 @@ import sys
 
 sys.path.insert(0, os.path.abspath("../.."))
 
+# -- Project information -----------------------------------------------------
+import tomllib
+
 import polarion_rest_api_client
 
-# -- Project information -----------------------------------------------------
-
-if sys.version_info >= (3, 11):
-    import tomllib
-else:
-    import tomli as tomllib
 with open("../../pyproject.toml", "rb") as f:
     _metadata = tomllib.load(f)["project"]
 
