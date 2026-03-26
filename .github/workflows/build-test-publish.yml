@@ -36,6 +36,8 @@ jobs:
           enable-cache: true
           cache-dependency-glob: "**/pyproject.toml"
           python-version: ${{matrix.python_version}}
+      - name: Install runtime and test dependencies
+        run: uv sync --group tests --no-group dev
       - name: Run unit tests
         run: uv run coverage run
       - name: Report coverage

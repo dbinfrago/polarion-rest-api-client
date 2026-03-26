@@ -41,19 +41,22 @@ Homepage = "https://github.com/dbinfrago/polarion-rest-api-client"
 Documentation = "https://dbinfrago.github.io/polarion-rest-api-client"
 
 [dependency-groups]
-dev = [
-  "codespell==2.4.1",
+tests = [
   "coverage>=7.9.1",
-  "docformatter[tomli]==1.7.7",
+  "pytest>=8.4.1",
+  "pytest-asyncio>=1.1.0",
+  "pytest-cov>=6.2.1",
+  "pytest-httpx>=0.35.0",
+]
+dev = [
+  {include-group = "tests"},
+  "codespell==2.4.1",
+  "docformatter[tomli]==1.7.7 ; python_full_version < '3.14'",
   "mypy==1.16.1",
   "openapi-python-client==0.25.1",
   "pre-commit>=4.2.0",
   "pre-commit-uv>=4.1.4",
   "pylsp-mypy>=0.7.0",
-  "pytest>=8.4.1",
-  "pytest-asyncio>=1.1.0",
-  "pytest-cov>=6.2.1",
-  "pytest-httpx>=0.35.0",
   "python-lsp-server[rope]>=1.12.2",
   "reuse==5.0.2",
   "ruff==0.12.0",
