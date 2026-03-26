@@ -82,14 +82,6 @@ repos:
           - LICENSES/.license_header_apache.txt
           - --comment-style
           - "..|  |"
-  - repo: local # docformatter
-    hooks:
-      - id: docformatter
-        name: docformatter
-        language: system
-        entry: uv run --dev docformatter --in-place
-        types_or: [python]
-        require_serial: true
   - repo: local # ruff
     hooks:
       - id: ruff-format
