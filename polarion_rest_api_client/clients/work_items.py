@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 """Implementation of a client providing work item specific functions."""
 
+import asyncio
 import itertools
 import json
 import logging
@@ -134,6 +135,10 @@ class WorkItems(
         if not isinstance(items, list):
             items = [items]
 
+        patch_batches: list[
+            tuple[api_models.WorkitemsListPatchRequest, str | None]
+        ] = []
+
         for batch_type, to_update in itertools.groupby(
             items, lambda item: item.type
         ):
@@ -160,9 +165,7 @@ class WorkItems(
                     proj_content_size >= self._client.max_content_size
                     or len(current_batch.data) >= self._client.batch_size
                 ):
-                    await self._a_patch_work_item_batch(
-                        current_batch, batch_type
-                    )
+                    patch_batches.append((current_batch, batch_type))
 
                     current_batch = api_models.WorkitemsListPatchRequest(
                         data=[work_item_data]
@@ -178,7 +181,14 @@ class WorkItems(
                     content_size = proj_content_size
 
             if current_batch.data:
-                await self._a_patch_work_item_batch(current_batch, batch_type)
+                patch_batches.append((current_batch, batch_type))
+
+        await asyncio.gather(
+            *[
+                self._a_patch_work_item_batch(work_item_batch, batch_type)
+                for work_item_batch, batch_type in patch_batches
+            ]
+        )
 
     def _check_update_items(self, to_update: list[dm.WorkItem]) -> str | None:
         assert to_update, "Expected at least one item"
@@ -551,6 +561,9 @@ class WorkItems(
         """Create WorkItems and respect the max body size of the server."""
         if not isinstance(items, list):
             items = [items]
+        post_batches: list[
+            tuple[api_models.WorkitemsListPostRequest, list[dm.WorkItem]]
+        ] = []
         current_batch = api_models.WorkitemsListPostRequest(data=[])
         content_size = min_wi_request_size
         batch_start_index = 0
@@ -575,9 +588,11 @@ class WorkItems(
                 proj_content_size >= self._client.max_content_size
                 or len(current_batch.data) >= self._client.batch_size
             ):
-                await self._a_post_work_item_batch(
-                    current_batch,
-                    items[batch_start_index:batch_end_index],
+                post_batches.append(
+                    (
+                        current_batch,
+                        items[batch_start_index:batch_end_index],
+                    )
                 )
 
                 current_batch = api_models.WorkitemsListPostRequest(
@@ -591,10 +606,14 @@ class WorkItems(
                 content_size = proj_content_size
 
         if current_batch.data:
-            await self._a_post_work_item_batch(
-                current_batch,
-                items[batch_start_index:],
-            )
+            post_batches.append((current_batch, items[batch_start_index:]))
+
+        await asyncio.gather(
+            *[
+                self._a_post_work_item_batch(work_item_batch, work_item_objs)
+                for work_item_batch, work_item_objs in post_batches
+            ]
+        )
 
     def _delete(self, items: list[dm.WorkItem]) -> None:
         response = delete_work_items.sync_detailed(

@@ -303,8 +303,12 @@ class CreateClient(BaseClient[T], abc.ABC):
         if not isinstance(items, list):
             items = [items]
 
-        for batch in self._split_into_create_batches(items):
-            await self._async_create(batch)
+        await asyncio.gather(
+            *[
+                self._async_create(batch)
+                for batch in self._split_into_create_batches(items)
+            ]
+        )
 
 
 class DeleteClient(BaseClient[T], abc.ABC):
@@ -341,8 +345,12 @@ class DeleteClient(BaseClient[T], abc.ABC):
         """Delete one or multiple items."""
         if not isinstance(items, list):
             items = [items]
-        for batch in self._split_into_delete_batches(items):
-            await self._async_delete(batch)
+        await asyncio.gather(
+            *[
+                self._async_delete(batch)
+                for batch in self._split_into_delete_batches(items)
+            ]
+        )
 
 
 class MultiGetClient(BaseClient[T], abc.ABC):

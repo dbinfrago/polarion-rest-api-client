@@ -28,6 +28,8 @@ project_exists = project_client.exists() # Should be True
 work_items = project_client.work_items.get_all()
 ```
 During the initialization of the client you can define additional settings like the page size when getting items or the maximum content size when bulk creating new items.
+Async bulk operations (`async_create`, `async_update`, `async_delete`) execute their prepared batches concurrently.
+The number of requests that may run at the same time is limited via `max_async_in_flight_requests` on `PolarionClient`.
 In addition, you can define your own Work Item class with custom fields, which become available as attributes on object level instead of being part of the `additional_attributes` dictionary only.
 To use this feature, inherit from our Work Item class and pass your extended class when requesting Work Items:
 ```python
