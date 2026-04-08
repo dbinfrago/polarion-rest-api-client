@@ -137,6 +137,7 @@ class PolarionClient:
             verify_ssl=verify_ssl,
             httpx_args=httpx_args or {},
         )
+        self.max_async_in_flight_requests = max_async_in_flight_requests
         self.semaphore = asyncio.Semaphore(max_async_in_flight_requests)
         self.batch_size = batch_size
         self.page_size = page_size

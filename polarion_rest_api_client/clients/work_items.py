@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: Apache-2.0
 """Implementation of a client providing work item specific functions."""
 
-import asyncio
 import itertools
 import json
 import logging
@@ -50,7 +49,6 @@ class WorkItems(
 ):
     """A project specific client for work item operations."""
 
-    _update_batch_size = 100
     _retry_methods: t.ClassVar[set[str]] = {
         "_post_work_item_batch",
         "_a_post_work_item_batch",
@@ -190,13 +188,9 @@ class WorkItems(
         if not isinstance(items, list):
             items = [items]
 
-        await asyncio.gather(
-            *[
-                self._a_patch_work_item_batch(work_item_batch, batch_type)
-                for work_item_batch, batch_type in self._iter_update_batches(
-                    items
-                )
-            ]
+        await self._run_streaming_batch_calls(
+            self._a_patch_work_item_batch(work_item_batch, batch_type)
+            for work_item_batch, batch_type in self._iter_update_batches(items)
         )
 
     @t.overload  # type: ignore[override]
@@ -516,13 +510,11 @@ class WorkItems(
         if not isinstance(items, list):
             items = [items]
 
-        await asyncio.gather(
-            *[
-                self._a_post_work_item_batch(work_item_batch, work_item_objs)
-                for work_item_batch, work_item_objs in self._iter_create_batches(
-                    items
-                )
-            ]
+        await self._run_streaming_batch_calls(
+            self._a_post_work_item_batch(work_item_batch, work_item_objs)
+            for work_item_batch, work_item_objs in self._iter_create_batches(
+                items
+            )
         )
 
     def _delete(self, items: list[dm.WorkItem]) -> None:
