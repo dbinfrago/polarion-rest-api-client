@@ -1,16 +1,18 @@
 {
-  "data": {
-    "type": "workitems",
-    "id": "PROJ/MyWorkItemId",
-    "attributes": {
-      "description": {
-        "type": "text/html",
-        "value": "My text value"
-      },
-      "title": "Title",
-      "status": "open",
-      "capella_uuid": "qwertz",
-      "cfOwner": "NewOwner"
+  "data": [
+    {
+      "type": "workitems",
+      "id": "PROJ/MyWorkItemId",
+      "attributes": {
+        "description": {
+          "type": "text/html",
+          "value": "My text value"
+        },
+        "title": "Title",
+        "status": "open",
+        "capella_uuid": "qwertz",
+        "cfOwner": "NewOwner"
+      }
     }
-  }
+  ]
 }

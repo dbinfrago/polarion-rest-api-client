@@ -452,8 +452,12 @@ class UpdateClient(BaseClient[T], abc.ABC):
         if not isinstance(items, list):
             items = [items]
 
-        for batch in self._split_into_update_batches(items):
-            await self._async_update(batch)
+        await asyncio.gather(
+            *[
+                self._async_update(batch)
+                for batch in self._split_into_update_batches(items)
+            ]
+        )
 
 
 class StatusItemClient(UpdateClient, DeleteClient, t.Generic[ST], abc.ABC):

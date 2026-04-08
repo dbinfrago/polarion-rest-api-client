@@ -1,9 +1,11 @@
 {
-  "data": {
-    "type": "workitems",
-    "id": "PROJ/MyWorkItemId",
-    "attributes": {
-      "title": "Title"
+  "data": [
+    {
+      "type": "workitems",
+      "id": "PROJ/MyWorkItemId",
+      "attributes": {
+        "title": "Title"
+      }
     }
-  }
+  ]
 }

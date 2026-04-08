@@ -465,7 +465,7 @@ def test_update_work_item_completely(
     req = httpx_mock.get_request()
 
     assert req is not None
-    assert req.url.path.endswith("PROJ/workitems/MyWorkItemId")
+    assert req.url.path.endswith("PROJ/workitems")
     assert req.method == "PATCH"
     with open(TEST_WI_PATCH_COMPLETELY_REQUEST, encoding="utf8") as f:
         assert json.loads(req.content.decode()) == json.load(f)
@@ -486,7 +486,7 @@ def test_update_work_item_description(
 
     req = httpx_mock.get_request()
     assert req is not None
-    assert req.url.path.endswith("PROJ/workitems/MyWorkItemId")
+    assert req.url.path.endswith("PROJ/workitems")
     assert req.method == "PATCH"
     with open(TEST_WI_PATCH_DESCRIPTION_REQUEST, encoding="utf8") as f:
         assert json.loads(req.content.decode()) == json.load(f)
@@ -519,7 +519,7 @@ def test_update_work_item_hyperlinks(
 
     req = httpx_mock.get_request()
     assert req is not None
-    assert req.url.path.endswith("PROJ/workitems/MyWorkItemId")
+    assert req.url.path.endswith("PROJ/workitems")
     assert req.method == "PATCH"
     assert json.loads(req.content.decode()) == expected_request
 
@@ -536,7 +536,7 @@ def test_update_work_item_title(
 
     req = httpx_mock.get_request()
     assert req is not None
-    assert req.url.path.endswith("PROJ/workitems/MyWorkItemId")
+    assert req.url.path.endswith("PROJ/workitems")
     assert req.method == "PATCH"
     with open(TEST_WI_PATCH_TITLE_REQUEST, encoding="utf8") as f:
         assert json.loads(req.content.decode()) == json.load(f)
@@ -555,7 +555,7 @@ def test_update_work_item_status(
     req = httpx_mock.get_request()
 
     assert req is not None
-    assert req.url.path.endswith("PROJ/workitems/MyWorkItemId")
+    assert req.url.path.endswith("PROJ/workitems")
     assert req.method == "PATCH"
     assert len(req.url.params) == 0
     with open(TEST_WI_PATCH_STATUS_REQUEST, encoding="utf8") as f:
@@ -574,11 +574,74 @@ def test_update_work_item_type(
 
     req = httpx_mock.get_request()
     assert req is not None
-    assert req.url.path.endswith("PROJ/workitems/MyWorkItemId")
+    assert req.url.path.endswith("PROJ/workitems")
     assert req.url.params["changeTypeTo"] == "newType"
     assert req.method == "PATCH"
     with open(TEST_WI_PATCH_STATUS_REQUEST, encoding="utf8") as f:
         assert json.loads(req.content.decode()) == json.load(f)
+
+
+def test_update_work_items_split_by_type(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    httpx_mock.add_response(204)
+    httpx_mock.add_response(204)
+
+    client.work_items.update(
+        [
+            polarion_api.WorkItem(id="WI-1", type="task", status="open"),
+            polarion_api.WorkItem(id="WI-2", type="task", status="open"),
+            polarion_api.WorkItem(
+                id="WI-3", type="requirement", status="open"
+            ),
+        ]
+    )
+
+    reqs = httpx_mock.get_requests()
+    assert len(reqs) == 2
+    assert all(req.method == "PATCH" for req in reqs)
+    assert all(req.url.path.endswith("PROJ/workitems") for req in reqs)
+    assert reqs[0].url.params["changeTypeTo"] == "task"
+    assert reqs[1].url.params["changeTypeTo"] == "requirement"
+    assert len(json.loads(reqs[0].content.decode("utf-8"))["data"]) == 2
+    assert len(json.loads(reqs[1].content.decode("utf-8"))["data"]) == 1
+
+
+def test_update_work_items_split_by_content_size(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    httpx_mock.add_response(204)
+    httpx_mock.add_response(204)
+    httpx_mock.add_response(204)
+
+    work_items = [
+        polarion_api.WorkItem(
+            id="WI-1",
+            description=polarion_api.HtmlContent("AB" * 700 * 1024),
+        ),
+        polarion_api.WorkItem(
+            id="WI-2",
+            description=polarion_api.HtmlContent("AB" * 700 * 1024),
+        ),
+        polarion_api.WorkItem(
+            id="WI-3",
+            description=polarion_api.HtmlContent("AB" * 700 * 1024),
+        ),
+    ]
+
+    client.work_items.update(work_items)
+
+    reqs = httpx_mock.get_requests()
+    assert len(reqs) == 3
+    assert all(req.method == "PATCH" for req in reqs)
+    assert all(req.url.path.endswith("PROJ/workitems") for req in reqs)
+    assert all(
+        len(json.loads(req.content.decode("utf-8"))["data"]) == 1
+        for req in reqs
+    )
+    assert all(len(req.content) <= 2 * 1024**2 for req in reqs)
 
 
 def test_delete_work_item_status_mode(
