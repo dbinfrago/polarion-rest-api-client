@@ -103,7 +103,8 @@ class WorkItems(
 
                 assert isinstance(current_batch.data, list)
                 if (
-                    proj_content_size >= self._client.max_content_size
+                    current_batch.data
+                    and proj_content_size > self._client.max_content_size
                     or len(current_batch.data) >= self._client.batch_size
                 ):
                     yield current_batch, batch_type
@@ -151,7 +152,8 @@ class WorkItems(
 
             assert isinstance(current_batch.data, list)
             if (
-                proj_content_size >= self._client.max_content_size
+                current_batch.data
+                and proj_content_size > self._client.max_content_size
                 or len(current_batch.data) >= self._client.batch_size
             ):
                 yield current_batch, items[batch_start_index:batch_end_index]
