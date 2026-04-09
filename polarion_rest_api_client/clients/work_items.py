@@ -82,12 +82,9 @@ class WorkItems(
         new_batch_content_size: int,
     ) -> tuple[bool, int]:
         if (
-            (
-                current_batch_data
-                and projected_content_size > self._client.max_content_size
-            )
-            or len(current_batch_data) >= self._client.batch_size
-        ):
+            current_batch_data
+            and projected_content_size > self._client.max_content_size
+        ) or len(current_batch_data) >= self._client.batch_size:
             return True, new_batch_content_size
 
         current_batch_data.append(item_data)
@@ -175,7 +172,9 @@ class WorkItems(
                     "A WorkItem is too large to create.", work_item
                 )
 
-            new_batch = api_models.WorkitemsListPostRequest(data=[work_item_data])
+            new_batch = api_models.WorkitemsListPostRequest(
+                data=[work_item_data]
+            )
             assert isinstance(current_batch.data, list)
             should_flush, content_size = self._flush_or_append_batch_item(
                 current_batch.data,

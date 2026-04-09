@@ -648,7 +648,9 @@ def test_update_work_items_grouped_by_type_by_default(
         "task",
         "requirement",
     ]
-    assert [len(json.loads(req.content.decode("utf-8"))["data"]) for req in reqs] == [2, 1]
+    assert [
+        len(json.loads(req.content.decode("utf-8"))["data"]) for req in reqs
+    ] == [2, 1]
 
 
 def test_iter_update_batches_does_not_emit_empty_batch_at_exact_size_boundary(
