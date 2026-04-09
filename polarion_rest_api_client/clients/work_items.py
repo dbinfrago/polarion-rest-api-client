@@ -22,6 +22,7 @@ from . import base_classes as bc
 from . import test_steps, work_item_attachments, work_item_links
 
 WT = t.TypeVar("WT", bound=dm.WorkItem)
+BT = t.TypeVar("BT")
 logger = logging.getLogger(__name__)
 if t.TYPE_CHECKING:
     from polarion_rest_api_client import client as polarion_client
@@ -72,6 +73,26 @@ class WorkItems(
     def _update(self, to_update: list[dm.WorkItem]) -> None:
         raise NotImplementedError("We have a custom update instead.")
 
+    def _flush_or_append_batch_item(
+        self,
+        current_batch_data: list[BT],
+        item_data: BT,
+        *,
+        projected_content_size: int,
+        new_batch_content_size: int,
+    ) -> tuple[bool, int]:
+        if (
+            (
+                current_batch_data
+                and projected_content_size > self._client.max_content_size
+            )
+            or len(current_batch_data) >= self._client.batch_size
+        ):
+            return True, new_batch_content_size
+
+        current_batch_data.append(item_data)
+        return False, projected_content_size
+
     def _iter_update_groups(
         self,
         items: list[dm.WorkItem],
@@ -109,25 +130,21 @@ class WorkItems(
                         "A WorkItem is too large to update.", work_item
                     )
 
+                new_batch = api_models.WorkitemsListPatchRequest(
+                    data=[work_item_data]
+                )
                 assert isinstance(current_batch.data, list)
-                if (
-                    current_batch.data
-                    and proj_content_size > self._client.max_content_size
-                    or len(current_batch.data) >= self._client.batch_size
-                ):
+                should_flush, content_size = self._flush_or_append_batch_item(
+                    current_batch.data,
+                    work_item_data,
+                    projected_content_size=proj_content_size,
+                    new_batch_content_size=_get_json_content_size(
+                        new_batch.to_dict()
+                    ),
+                )
+                if should_flush:
                     yield current_batch, batch_type
-                    current_batch = api_models.WorkitemsListPatchRequest(
-                        data=[work_item_data]
-                    )
-                    content_size = _get_json_content_size(
-                        current_batch.to_dict()
-                    )
-                else:
-                    t.cast(
-                        list[api_models.WorkitemsListPatchRequestDataItem],
-                        current_batch.data,
-                    ).append(work_item_data)
-                    content_size = proj_content_size
+                    current_batch = new_batch
 
             if current_batch.data:
                 yield current_batch, batch_type
@@ -158,24 +175,20 @@ class WorkItems(
                     "A WorkItem is too large to create.", work_item
                 )
 
+            new_batch = api_models.WorkitemsListPostRequest(data=[work_item_data])
             assert isinstance(current_batch.data, list)
-            if (
-                current_batch.data
-                and proj_content_size > self._client.max_content_size
-                or len(current_batch.data) >= self._client.batch_size
-            ):
+            should_flush, content_size = self._flush_or_append_batch_item(
+                current_batch.data,
+                work_item_data,
+                projected_content_size=proj_content_size,
+                new_batch_content_size=_get_json_content_size(
+                    new_batch.to_dict()
+                ),
+            )
+            if should_flush:
                 yield current_batch, items[batch_start_index:batch_end_index]
-                current_batch = api_models.WorkitemsListPostRequest(
-                    data=[work_item_data]
-                )
-                content_size = _get_json_content_size(current_batch.to_dict())
+                current_batch = new_batch
                 batch_start_index = batch_end_index
-            else:
-                t.cast(
-                    list[api_models.WorkitemsListPostRequestDataItem],
-                    current_batch.data,
-                ).append(work_item_data)
-                content_size = proj_content_size
 
         if current_batch.data:
             yield current_batch, items[batch_start_index:]
