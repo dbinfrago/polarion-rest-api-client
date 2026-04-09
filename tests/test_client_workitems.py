@@ -10,6 +10,7 @@ import pytest
 import pytest_httpx
 
 import polarion_rest_api_client as polarion_api
+from polarion_rest_api_client.clients import work_items as work_items_client
 from tests.conftest import (
     TEST_ERROR_RESPONSE,
     TEST_WI_CREATED_RESPONSE,
@@ -29,6 +30,22 @@ from tests.conftest import (
     TEST_WI_POST_REQUEST,
     TEST_WI_SINGLE_RESPONSE,
 )
+
+
+def _build_project_client(
+    *,
+    batch_size: int = 3,
+    max_content_size: int = 2 * 1024**2,
+) -> polarion_api.ProjectClient:
+    client = polarion_api.PolarionClient(
+        polarion_api_endpoint="http://127.0.0.1/api",
+        polarion_access_token="PAT123",
+        batch_size=batch_size,
+        max_content_size=max_content_size,
+    )
+    return client.generate_project_client(
+        project_id="PROJ", delete_status="deleted"
+    )
 
 
 def test_get_one_work_item(
@@ -606,6 +623,121 @@ def test_update_work_items_split_by_type(
     assert reqs[1].url.params["changeTypeTo"] == "requirement"
     assert len(json.loads(reqs[0].content.decode("utf-8"))["data"]) == 2
     assert len(json.loads(reqs[1].content.decode("utf-8"))["data"]) == 1
+
+
+def test_update_work_items_grouped_by_type_by_default(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    httpx_mock.add_response(204)
+    httpx_mock.add_response(204)
+    httpx_mock.add_response(204)
+
+    client.work_items.update(
+        [
+            polarion_api.WorkItem(id="WI-1", type="task", status="open"),
+            polarion_api.WorkItem(
+                id="WI-2", type="requirement", status="open"
+            ),
+            polarion_api.WorkItem(id="WI-3", type="task", status="open"),
+        ]
+    )
+
+    reqs = httpx_mock.get_requests()
+    assert len(reqs) == 2
+    assert [req.url.params["changeTypeTo"] for req in reqs] == [
+        "task",
+        "requirement",
+    ]
+    assert [len(json.loads(req.content.decode("utf-8"))["data"]) for req in reqs] == [2, 1]
+
+
+@pytest.mark.httpx_mock(assert_all_responses_were_requested=False)
+def test_update_work_items_can_disable_type_grouping(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    httpx_mock.add_response(204)
+    httpx_mock.add_response(204)
+    httpx_mock.add_response(204)
+
+    client.work_items.update(
+        [
+            polarion_api.WorkItem(id="WI-1", type="task", status="open"),
+            polarion_api.WorkItem(
+                id="WI-2", type="requirement", status="open"
+            ),
+            polarion_api.WorkItem(id="WI-3", type="task", status="open"),
+        ],
+        group_by_type=False,
+    )
+
+    reqs = httpx_mock.get_requests()
+    assert len(reqs) == 3
+    assert [req.url.params["changeTypeTo"] for req in reqs] == [
+        "task",
+        "requirement",
+        "task",
+    ]
+
+
+def test_iter_update_batches_does_not_emit_empty_batch_at_exact_size_boundary(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    project_client = _build_project_client()
+
+    def fake_calculate_sizes(
+        _work_item_data: object,
+        current_content_size: int = work_items_client.min_wi_patch_request_size,
+    ) -> tuple[int, bool]:
+        if current_content_size == work_items_client.min_wi_patch_request_size:
+            return project_client._client.max_content_size, False
+        return current_content_size + 1, False
+
+    monkeypatch.setattr(
+        project_client.work_items,
+        "_calculate_patch_work_item_request_sizes",
+        fake_calculate_sizes,
+    )
+
+    batches = list(
+        project_client.work_items._iter_update_batches(
+            [polarion_api.WorkItem(id="WI-1", status="open")]
+        )
+    )
+
+    assert len(batches) == 1
+    assert batches[0][1] is None
+    assert isinstance(batches[0][0].data, list)
+    assert len(batches[0][0].data) == 1
+
+
+def test_iter_create_batches_does_not_emit_empty_batch_at_exact_size_boundary(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    project_client = _build_project_client()
+
+    def fake_calculate_sizes(
+        _work_item_data: object,
+        current_content_size: int = work_items_client.min_wi_request_size,
+    ) -> tuple[int, bool]:
+        if current_content_size == work_items_client.min_wi_request_size:
+            return project_client._client.max_content_size, False
+        return current_content_size + 1, False
+
+    monkeypatch.setattr(
+        project_client.work_items,
+        "_calculate_post_work_item_request_sizes",
+        fake_calculate_sizes,
+    )
+
+    work_item = polarion_api.WorkItem(type="task", status="open")
+    batches = list(project_client.work_items._iter_create_batches([work_item]))
+
+    assert len(batches) == 1
+    assert isinstance(batches[0][0].data, list)
+    assert len(batches[0][0].data) == 1
+    assert batches[0][1] == [work_item]
 
 
 def test_update_work_items_split_by_content_size(
