@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: Apache-2.0
 """Implementation of a client providing work item specific functions."""
 
-import itertools
 import json
 import logging
 import typing as t
@@ -73,16 +72,25 @@ class WorkItems(
     def _update(self, to_update: list[dm.WorkItem]) -> None:
         raise NotImplementedError("We have a custom update instead.")
 
+    def _iter_update_groups(
+        self,
+        items: list[dm.WorkItem],
+    ) -> t.Iterable[tuple[str | None, list[dm.WorkItem]]]:
+        grouped: dict[str | None, list[dm.WorkItem]] = {}
+        for item in items:
+            grouped.setdefault(item.type, []).append(item)
+
+        yield from grouped.items()
+
     def _iter_update_batches(
-        self, items: list[dm.WorkItem]
+        self,
+        items: list[dm.WorkItem],
     ) -> t.Generator[
         tuple[api_models.WorkitemsListPatchRequest, str | None],
         None,
         None,
     ]:
-        for batch_type, to_update in itertools.groupby(
-            items, lambda item: item.type
-        ):
+        for batch_type, to_update in self._iter_update_groups(items):
             current_batch = api_models.WorkitemsListPatchRequest(data=[])
             content_size = min_wi_patch_request_size
 
@@ -172,7 +180,10 @@ class WorkItems(
         if current_batch.data:
             yield current_batch, items[batch_start_index:]
 
-    def update(self, items: dm.WorkItem | list[dm.WorkItem]) -> None:
+    def update(
+        self,
+        items: dm.WorkItem | list[dm.WorkItem],
+    ) -> None:
         """Update WorkItems and respect max body size and batch limits."""
         if not isinstance(items, list):
             items = [items]
@@ -184,7 +195,8 @@ class WorkItems(
         raise NotImplementedError("We have a custom async_update instead.")
 
     async def async_update(
-        self, items: dm.WorkItem | list[dm.WorkItem]
+        self,
+        items: dm.WorkItem | list[dm.WorkItem],
     ) -> None:
         """Update WorkItems and respect max body size and batch limits."""
         if not isinstance(items, list):

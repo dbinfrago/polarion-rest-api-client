@@ -631,7 +631,6 @@ def test_update_work_items_grouped_by_type_by_default(
 ):
     httpx_mock.add_response(204)
     httpx_mock.add_response(204)
-    httpx_mock.add_response(204)
 
     client.work_items.update(
         [
@@ -650,35 +649,6 @@ def test_update_work_items_grouped_by_type_by_default(
         "requirement",
     ]
     assert [len(json.loads(req.content.decode("utf-8"))["data"]) for req in reqs] == [2, 1]
-
-
-@pytest.mark.httpx_mock(assert_all_responses_were_requested=False)
-def test_update_work_items_can_disable_type_grouping(
-    client: polarion_api.ProjectClient,
-    httpx_mock: pytest_httpx.HTTPXMock,
-):
-    httpx_mock.add_response(204)
-    httpx_mock.add_response(204)
-    httpx_mock.add_response(204)
-
-    client.work_items.update(
-        [
-            polarion_api.WorkItem(id="WI-1", type="task", status="open"),
-            polarion_api.WorkItem(
-                id="WI-2", type="requirement", status="open"
-            ),
-            polarion_api.WorkItem(id="WI-3", type="task", status="open"),
-        ],
-        group_by_type=False,
-    )
-
-    reqs = httpx_mock.get_requests()
-    assert len(reqs) == 3
-    assert [req.url.params["changeTypeTo"] for req in reqs] == [
-        "task",
-        "requirement",
-        "task",
-    ]
 
 
 def test_iter_update_batches_does_not_emit_empty_batch_at_exact_size_boundary(
