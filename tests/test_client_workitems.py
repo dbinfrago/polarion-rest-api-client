@@ -619,7 +619,7 @@ def test_update_work_item_pure_type_change_single_request(
     assert req.url.params["changeTypeTo"] == "newType"
     req_data = json.loads(req.content.decode("utf-8"))
     assert len(req_data["data"]) == 1
-    assert "attributes" not in req_data["data"][0]
+    assert req_data["data"][0].get("attributes") == {}
 
 
 def test_update_work_items_split_by_type(

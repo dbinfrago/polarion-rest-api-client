@@ -742,7 +742,7 @@ class WorkItems(
         return api_models.WorkitemsListPatchRequestDataItem(
             type_=api_models.WorkitemsListPatchRequestDataItemType.WORKITEMS,
             id=f"{self._project_id}/{work_item.id}",
-            attributes=oa_types.UNSET,
+            attributes=api_models.WorkitemsListPatchRequestDataItemAttributes(),
         )
 
     def _has_content_to_patch(self, work_item: dm.WorkItem) -> bool:
