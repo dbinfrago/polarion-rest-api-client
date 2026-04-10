@@ -28,7 +28,7 @@ jobs:
           - "3.14"
         include:
           - os: windows-latest
-            python_version: "3.13"
+            python_version: "3.12"
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
