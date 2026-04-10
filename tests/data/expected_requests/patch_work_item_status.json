@@ -1,9 +1,11 @@
 {
-  "data": {
-    "type": "workitems",
-    "id": "PROJ/MyWorkItemId",
-    "attributes": {
-      "status": "open"
+  "data": [
+    {
+      "type": "workitems",
+      "id": "PROJ/MyWorkItemId",
+      "attributes": {
+        "status": "open"
+      }
     }
-  }
+  ]
 }

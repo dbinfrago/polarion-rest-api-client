@@ -249,6 +249,32 @@ class BaseClient(t.Generic[T]):
         """
         yield items
 
+    async def _run_streaming_batch_calls(
+        self, calls: t.Iterable[t.Coroutine[t.Any, t.Any, None]]
+    ) -> None:
+        max_in_flight = max(1, self._client.max_async_in_flight_requests)
+        pending: set[asyncio.Task[None]] = set()
+
+        try:
+            for call in calls:
+                pending.add(asyncio.create_task(call))
+                if len(pending) >= max_in_flight:
+                    done, pending = await asyncio.wait(
+                        pending, return_when=asyncio.FIRST_COMPLETED
+                    )
+                    for task in done:
+                        task.result()
+
+            if pending:
+                done, _ = await asyncio.wait(pending)
+                for task in done:
+                    task.result()
+        except Exception:
+            for task in pending:
+                task.cancel()
+            await asyncio.gather(*pending, return_exceptions=True)
+            raise
+
 
 class SingleGetClient(BaseClient[T], abc.ABC):
     """A client for items of a project, which can be created."""
@@ -303,8 +329,10 @@ class CreateClient(BaseClient[T], abc.ABC):
         if not isinstance(items, list):
             items = [items]
 
-        for batch in self._split_into_create_batches(items):
-            await self._async_create(batch)
+        await self._run_streaming_batch_calls(
+            self._async_create(batch)
+            for batch in self._split_into_create_batches(items)
+        )
 
 
 class DeleteClient(BaseClient[T], abc.ABC):
@@ -341,8 +369,10 @@ class DeleteClient(BaseClient[T], abc.ABC):
         """Delete one or multiple items."""
         if not isinstance(items, list):
             items = [items]
-        for batch in self._split_into_delete_batches(items):
-            await self._async_delete(batch)
+        await self._run_streaming_batch_calls(
+            self._async_delete(batch)
+            for batch in self._split_into_delete_batches(items)
+        )
 
 
 class MultiGetClient(BaseClient[T], abc.ABC):
@@ -452,8 +482,10 @@ class UpdateClient(BaseClient[T], abc.ABC):
         if not isinstance(items, list):
             items = [items]
 
-        for batch in self._split_into_update_batches(items):
-            await self._async_update(batch)
+        await self._run_streaming_batch_calls(
+            self._async_update(batch)
+            for batch in self._split_into_update_batches(items)
+        )
 
 
 class StatusItemClient(UpdateClient, DeleteClient, t.Generic[ST], abc.ABC):
