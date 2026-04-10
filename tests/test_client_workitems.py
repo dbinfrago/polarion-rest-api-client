@@ -584,24 +584,49 @@ def test_update_work_item_type(
     httpx_mock: pytest_httpx.HTTPXMock,
 ):
     httpx_mock.add_response(204)
+    httpx_mock.add_response(204)
 
     client.work_items.update(
         polarion_api.WorkItem(id="MyWorkItemId", type="newType", status="open")
     )
 
-    req = httpx_mock.get_request()
-    assert req is not None
+    reqs = httpx_mock.get_requests()
+    assert len(reqs) == 2
+    assert reqs[0].url.path.endswith("PROJ/workitems")
+    assert reqs[0].url.params["changeTypeTo"] == "newType"
+    assert reqs[0].method == "PATCH"
+    assert reqs[1].url.path.endswith("PROJ/workitems")
+    assert len(reqs[1].url.params) == 0
+    assert reqs[1].method == "PATCH"
+    with open(TEST_WI_PATCH_STATUS_REQUEST, encoding="utf8") as f:
+        assert json.loads(reqs[1].content.decode()) == json.load(f)
+
+
+def test_update_work_item_pure_type_change_single_request(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    httpx_mock.add_response(204)
+
+    client.work_items.update(
+        polarion_api.WorkItem(id="MyWorkItemId", type="newType")
+    )
+
+    reqs = httpx_mock.get_requests()
+    assert len(reqs) == 1
+    req = reqs[0]
     assert req.url.path.endswith("PROJ/workitems")
     assert req.url.params["changeTypeTo"] == "newType"
-    assert req.method == "PATCH"
-    with open(TEST_WI_PATCH_STATUS_REQUEST, encoding="utf8") as f:
-        assert json.loads(req.content.decode()) == json.load(f)
+    req_data = json.loads(req.content.decode("utf-8"))
+    assert len(req_data["data"]) == 1
+    assert "attributes" not in req_data["data"][0]
 
 
 def test_update_work_items_split_by_type(
     client: polarion_api.ProjectClient,
     httpx_mock: pytest_httpx.HTTPXMock,
 ):
+    httpx_mock.add_response(204)
     httpx_mock.add_response(204)
     httpx_mock.add_response(204)
 
@@ -616,19 +641,22 @@ def test_update_work_items_split_by_type(
     )
 
     reqs = httpx_mock.get_requests()
-    assert len(reqs) == 2
+    assert len(reqs) == 3
     assert all(req.method == "PATCH" for req in reqs)
     assert all(req.url.path.endswith("PROJ/workitems") for req in reqs)
     assert reqs[0].url.params["changeTypeTo"] == "task"
     assert reqs[1].url.params["changeTypeTo"] == "requirement"
     assert len(json.loads(reqs[0].content.decode("utf-8"))["data"]) == 2
     assert len(json.loads(reqs[1].content.decode("utf-8"))["data"]) == 1
+    assert len(reqs[2].url.params) == 0
+    assert len(json.loads(reqs[2].content.decode("utf-8"))["data"]) == 3
 
 
 def test_update_work_items_grouped_by_type_by_default(
     client: polarion_api.ProjectClient,
     httpx_mock: pytest_httpx.HTTPXMock,
 ):
+    httpx_mock.add_response(204)
     httpx_mock.add_response(204)
     httpx_mock.add_response(204)
 
@@ -643,14 +671,17 @@ def test_update_work_items_grouped_by_type_by_default(
     )
 
     reqs = httpx_mock.get_requests()
-    assert len(reqs) == 2
-    assert [req.url.params["changeTypeTo"] for req in reqs] == [
+    assert len(reqs) == 3
+    assert [req.url.params["changeTypeTo"] for req in reqs[:2]] == [
         "task",
         "requirement",
     ]
     assert [
-        len(json.loads(req.content.decode("utf-8"))["data"]) for req in reqs
+        len(json.loads(req.content.decode("utf-8"))["data"])
+        for req in reqs[:2]
     ] == [2, 1]
+    assert len(reqs[2].url.params) == 0
+    assert len(json.loads(reqs[2].content.decode("utf-8"))["data"]) == 3
 
 
 def test_iter_update_batches_does_not_emit_empty_batch_at_exact_size_boundary(
@@ -679,9 +710,8 @@ def test_iter_update_batches_does_not_emit_empty_batch_at_exact_size_boundary(
     )
 
     assert len(batches) == 1
-    assert batches[0][1] is None
-    assert isinstance(batches[0][0].data, list)
-    assert len(batches[0][0].data) == 1
+    assert isinstance(batches[0].data, list)
+    assert len(batches[0].data) == 1
 
 
 def test_iter_create_batches_does_not_emit_empty_batch_at_exact_size_boundary(

@@ -72,58 +72,77 @@ class WorkItems(
     def _update(self, to_update: list[dm.WorkItem]) -> None:
         raise NotImplementedError("We have a custom update instead.")
 
+    def _iter_patch_batches(
+        self,
+        items: t.Iterable[dm.WorkItem],
+        item_builder: t.Callable[
+            [dm.WorkItem], api_models.WorkitemsListPatchRequestDataItem
+        ],
+    ) -> t.Generator[api_models.WorkitemsListPatchRequest, None, None]:
+        current_batch = api_models.WorkitemsListPatchRequest(data=[])
+        content_size = min_wi_patch_request_size
+
+        for work_item in items:
+            work_item_data = item_builder(work_item)
+            proj_content_size, too_big = (
+                self._calculate_patch_work_item_request_sizes(
+                    work_item_data, content_size
+                )
+            )
+
+            if too_big:
+                raise errors.PolarionWorkItemException(
+                    "A WorkItem is too large to update.", work_item
+                )
+
+            assert isinstance(current_batch.data, list)
+            if (
+                current_batch.data
+                and proj_content_size > self._client.max_content_size
+            ) or len(current_batch.data) >= self._client.batch_size:
+                yield current_batch
+                current_batch = api_models.WorkitemsListPatchRequest(
+                    data=[work_item_data]
+                )
+                content_size = _get_json_content_size(current_batch.to_dict())
+            else:
+                t.cast(
+                    list[api_models.WorkitemsListPatchRequestDataItem],
+                    current_batch.data,
+                ).append(work_item_data)
+                content_size = proj_content_size
+
+        if current_batch.data:
+            yield current_batch
+
     def _iter_update_batches(
         self,
         items: list[dm.WorkItem],
+    ) -> t.Generator[api_models.WorkitemsListPatchRequest, None, None]:
+        yield from self._iter_patch_batches(
+            (item for item in items if self._has_content_to_patch(item)),
+            self._build_work_item_list_patch_item,
+        )
+
+    def _iter_type_change_batches(
+        self,
+        items: list[dm.WorkItem],
     ) -> t.Generator[
-        tuple[api_models.WorkitemsListPatchRequest, str | None],
+        tuple[api_models.WorkitemsListPatchRequest, str],
         None,
         None,
     ]:
-        grouped: dict[str | None, list[dm.WorkItem]] = {}
+        grouped: dict[str, list[dm.WorkItem]] = {}
         for item in items:
-            grouped.setdefault(item.type, []).append(item)
+            if item.type:
+                grouped.setdefault(item.type, []).append(item)
 
         for batch_type, to_update in grouped.items():
-            current_batch = api_models.WorkitemsListPatchRequest(data=[])
-            content_size = min_wi_patch_request_size
-
-            for work_item in to_update:
-                work_item_data = self._build_work_item_list_patch_item(
-                    work_item
-                )
-                proj_content_size, too_big = (
-                    self._calculate_patch_work_item_request_sizes(
-                        work_item_data, content_size
-                    )
-                )
-
-                if too_big:
-                    raise errors.PolarionWorkItemException(
-                        "A WorkItem is too large to update.", work_item
-                    )
-
-                assert isinstance(current_batch.data, list)
-                if (
-                    current_batch.data
-                    and proj_content_size > self._client.max_content_size
-                ) or len(current_batch.data) >= self._client.batch_size:
-                    yield current_batch, batch_type
-                    current_batch = api_models.WorkitemsListPatchRequest(
-                        data=[work_item_data]
-                    )
-                    content_size = _get_json_content_size(
-                        current_batch.to_dict()
-                    )
-                else:
-                    t.cast(
-                        list[api_models.WorkitemsListPatchRequestDataItem],
-                        current_batch.data,
-                    ).append(work_item_data)
-                    content_size = proj_content_size
-
-            if current_batch.data:
-                yield current_batch, batch_type
+            for batch in self._iter_patch_batches(
+                to_update,
+                self._build_work_item_type_change_patch_item,
+            ):
+                yield batch, batch_type
 
     def _iter_create_batches(
         self, items: list[dm.WorkItem]
@@ -180,8 +199,13 @@ class WorkItems(
         if not isinstance(items, list):
             items = [items]
 
-        for work_item_batch, batch_type in self._iter_update_batches(items):
-            self._patch_work_item_batch(work_item_batch, batch_type)
+        for work_item_batch, type_change_to in self._iter_type_change_batches(
+            items
+        ):
+            self._patch_work_item_batch(work_item_batch, type_change_to)
+
+        for work_item_batch in self._iter_update_batches(items):
+            self._patch_work_item_batch(work_item_batch, None)
 
     async def _async_update(self, to_update: list[dm.WorkItem]) -> None:
         raise NotImplementedError("We have a custom async_update instead.")
@@ -195,8 +219,18 @@ class WorkItems(
             items = [items]
 
         await self._run_streaming_batch_calls(
-            self._a_patch_work_item_batch(work_item_batch, batch_type)
-            for work_item_batch, batch_type in self._iter_update_batches(items)
+            self._a_patch_work_item_batch(work_item_batch, type_change_to)
+            for work_item_batch, type_change_to in self._iter_type_change_batches(
+                items
+            )
+        )
+
+        await self._run_streaming_batch_calls(
+            self._a_patch_work_item_batch(
+                work_item_batch,
+                None,
+            )
+            for work_item_batch in self._iter_update_batches(items)
         )
 
     @t.overload  # type: ignore[override]
@@ -652,13 +686,6 @@ class WorkItems(
     def _build_work_item_list_patch_item(
         self, work_item: dm.WorkItem
     ) -> api_models.WorkitemsListPatchRequestDataItem:
-        if work_item.type:
-            logger.warning(
-                "Attempting to change the type of Work Item %s to %s.",
-                work_item.id,
-                work_item.type,
-            )
-
         attrs = api_models.WorkitemsListPatchRequestDataItemAttributes()
 
         if work_item.home_document:
@@ -701,6 +728,39 @@ class WorkItems(
             type_=api_models.WorkitemsListPatchRequestDataItemType.WORKITEMS,
             id=f"{self._project_id}/{work_item.id}",
             attributes=attrs,
+        )
+
+    def _build_work_item_type_change_patch_item(
+        self, work_item: dm.WorkItem
+    ) -> api_models.WorkitemsListPatchRequestDataItem:
+        if work_item.id is None:
+            raise errors.PolarionWorkItemException(
+                "A WorkItem ID is required to update.",
+                work_item,
+            )
+
+        logger.warning(
+            "Attempting to change the type of Work Item %s to %s.",
+            work_item.id,
+            work_item.type,
+        )
+
+        return api_models.WorkitemsListPatchRequestDataItem(
+            type_=api_models.WorkitemsListPatchRequestDataItemType.WORKITEMS,
+            id=f"{self._project_id}/{work_item.id}",
+            attributes=oa_types.UNSET,
+        )
+
+    def _has_content_to_patch(self, work_item: dm.WorkItem) -> bool:
+        return any(
+            [
+                work_item.title is not None,
+                work_item.description is not None,
+                work_item.status is not None,
+                work_item.hyperlinks is not None,
+                bool(work_item.additional_attributes),
+                work_item.home_document is not None,
+            ]
         )
 
     def _calculate_patch_work_item_request_sizes(
