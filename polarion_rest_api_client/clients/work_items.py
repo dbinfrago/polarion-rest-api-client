@@ -78,7 +78,7 @@ class WorkItems(
         item_builder: t.Callable[
             [dm.WorkItem], api_models.WorkitemsListPatchRequestDataItem
         ],
-    ) -> t.Generator[api_models.WorkitemsListPatchRequest, None, None]:
+    ) -> t.Iterator[api_models.WorkitemsListPatchRequest]:
         current_batch = api_models.WorkitemsListPatchRequest(data=[])
         content_size = min_wi_patch_request_size
 
@@ -118,7 +118,7 @@ class WorkItems(
     def _iter_update_batches(
         self,
         items: list[dm.WorkItem],
-    ) -> t.Generator[api_models.WorkitemsListPatchRequest, None, None]:
+    ) -> t.Iterator[api_models.WorkitemsListPatchRequest]:
         yield from self._iter_patch_batches(
             (item for item in items if self._has_content_to_patch(item)),
             self._build_work_item_list_patch_item,
@@ -127,11 +127,7 @@ class WorkItems(
     def _iter_type_change_batches(
         self,
         items: list[dm.WorkItem],
-    ) -> t.Generator[
-        tuple[api_models.WorkitemsListPatchRequest, str],
-        None,
-        None,
-    ]:
+    ) -> t.Iterator[tuple[api_models.WorkitemsListPatchRequest, str]]:
         grouped: dict[str, list[dm.WorkItem]] = {}
         for item in items:
             if item.type:
@@ -146,10 +142,8 @@ class WorkItems(
 
     def _iter_create_batches(
         self, items: list[dm.WorkItem]
-    ) -> t.Generator[
-        tuple[api_models.WorkitemsListPostRequest, list[dm.WorkItem]],
-        None,
-        None,
+    ) -> t.Iterator[
+        tuple[api_models.WorkitemsListPostRequest, list[dm.WorkItem]]
     ]:
         current_batch = api_models.WorkitemsListPostRequest(data=[])
         content_size = min_wi_request_size
