@@ -4,7 +4,7 @@
 
 from collections.abc import Mapping, MutableMapping
 from http import HTTPStatus
-from typing import IO, BinaryIO, Generic, Literal, TypeVar, Union
+from typing import IO, BinaryIO, Literal, Union
 
 from attrs import define
 
@@ -41,11 +41,8 @@ class File:
         return self.file_name, self.payload, self.mime_type
 
 
-T = TypeVar("T")
-
-
 @define
-class Response(Generic[T]):
+class Response[T]:
     """A response from an endpoint."""
 
     status_code: HTTPStatus

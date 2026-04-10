@@ -44,7 +44,7 @@ def _compute_backoff(sleeptime: float, attempt: int) -> float:
     return sleeptime * 3 + random.uniform(0.5, (attempt + 1) / 2)
 
 
-class BaseClient(t.Generic[T]):
+class BaseClient[T]:
     """The overall base client for all project related clients."""
 
     _retry_methods: t.ClassVar[set[str]] = (
@@ -488,7 +488,7 @@ class UpdateClient(BaseClient[T], abc.ABC):
         )
 
 
-class StatusItemClient(UpdateClient, DeleteClient, t.Generic[ST], abc.ABC):
+class StatusItemClient(UpdateClient[ST], DeleteClient[ST], abc.ABC):
     """A client for items, which have a status.
 
     We support to set a specific status for these instead of deleting
