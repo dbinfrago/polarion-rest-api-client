@@ -27,6 +27,8 @@ __all__ = [
     "TestRun",
     "TestRunParameter",
     "TestStep",
+    "TestStepResult",
+    "TestStepResultAttachment",
     "TextContent",
     "WorkItem",
     "WorkItemAttachment",
@@ -213,6 +215,8 @@ class WorkItemAttachment:
     file_name: str | None = None
 
 
+
+
 class Document(StatusItem):
     """A data class containing all relevant data of a Polarion Document."""
 
@@ -222,10 +226,6 @@ class Document(StatusItem):
     title: str | None = None
     outline_numbering: bool | None = None
     outline_numbering_prefix: str | None = None
-    structure_link_role: str | None = None
-    additional_properties: dict[str, t.Any] = dataclasses.field(
-        default_factory=dict
-    )
 
     def __init__(
         self,
@@ -239,8 +239,6 @@ class Document(StatusItem):
         rendering_layouts: list[RenderingLayout] | None = None,
         outline_numbering: bool | None = None,
         outline_numbering_prefix: str | None = None,
-        structure_link_role: str | None = None,
-        additional_properties: dict[str, t.Any] | None = None,
     ):
         super().__init__(id, type, status)
         self.module_folder = module_folder
@@ -250,8 +248,6 @@ class Document(StatusItem):
         self.rendering_layouts = rendering_layouts
         self.outline_numbering = outline_numbering
         self.outline_numbering_prefix = outline_numbering_prefix
-        self.structure_link_role = structure_link_role
-        self.additional_properties = additional_properties or {}
 
     def __eq__(self, other: object) -> bool:
         """Compare dicts instead of hashes."""
@@ -364,7 +360,6 @@ class TestRecord:
     result: str | None = None
     comment: TextContent | None = None
     executed: datetime.datetime | None = None
-    executed_by: str | None = None
     additional_attributes: dict[str, t.Any] = dataclasses.field(
         default_factory=dict
     )
@@ -381,6 +376,32 @@ class TestStep:
         default_factory=dict
     )
 
+@dataclasses.dataclass
+class TestStepResult:
+    """A data class for test step result data."""
+
+    test_run_id: str
+    test_case_project_id: str
+    test_case_id: str
+    test_step_index: int 
+    iteration: int
+    result: str | None = None
+    comment: TextContent | None = None
+    executed: datetime.datetime | None = None
+
+@dataclasses.dataclass
+class TestStepResultAttachment:
+    """An Attachment of a test step result."""
+    test_run_id: str
+    test_case_project_id: str
+    test_case_id: str
+    test_step_index: int 
+    iteration: int
+    id: str | None = None
+    title: str | None = None
+    content_bytes: bytes | None = None
+    mime_type: str | None = None
+    file_name: str | None = None
 
 class TextContent(dict):
     """A data class for text content in Polarion."""

@@ -4,7 +4,6 @@
 
 from __future__ import annotations
 
-import asyncio
 import ssl
 import typing as t
 
@@ -29,6 +28,9 @@ class DefaultFields:
     _teststeps: str = "@basic"
     _testparameters: str = "@all"
 
+    _teststepresults: str = "@basic"
+    _teststepresult_attachments: str= "@basic"    
+
     @property
     def workitems(self) -> dict[str, str]:
         """Return the fields dict for workitems."""
@@ -48,6 +50,16 @@ class DefaultFields:
         self._linkedworkitems = value
 
     @property
+    def teststep_results(self) -> dict[str, str]:
+        """Return the fields dict for teststepresults."""
+        return {"teststep_results": self._teststepresults}
+    
+    @teststep_results.setter
+    def teststep_results(self, value: str) -> None:
+        self._teststepresults = value
+
+
+    @property
     def workitem_attachments(self) -> dict[str, str]:
         """Return the fields dict for workitem_attachments."""
         return {"workitem_attachments": self._workitem_attachments}
@@ -55,6 +67,17 @@ class DefaultFields:
     @workitem_attachments.setter
     def workitem_attachments(self, value: str) -> None:
         self._workitem_attachments = value
+    
+    @property
+    def teststepresult_attachments(self) ->  dict[str, str]:
+        """Return the fields dict for testSteptResult_attachments."""
+        return {"teststepresult_attachments": self._teststepresult_attachments}
+    
+    @teststepresult_attachments.setter
+    def teststepresult_attachments(self, value: str) -> None:
+        self._teststepresult_attachments = value
+
+
 
     @property
     def documents(self) -> dict[str, str]:
@@ -112,6 +135,8 @@ class DefaultFields:
             | self.testruns
             | self.testrecords
             | self.testparameters
+            | self.testStepResult_attachments
+            | self.teststep_results
         )
 
 
@@ -127,7 +152,6 @@ class PolarionClient:
         page_size: int = 100,
         max_content_size: int = 2 * 1024**2,
         verify_ssl: ssl.SSLContext | bool | None = None,
-        max_async_in_flight_requests: int = 4,
     ):
         if verify_ssl is None:
             verify_ssl = truststore.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
@@ -137,8 +161,6 @@ class PolarionClient:
             verify_ssl=verify_ssl,
             httpx_args=httpx_args or {},
         )
-        self.max_async_in_flight_requests = max_async_in_flight_requests
-        self.semaphore = asyncio.Semaphore(max_async_in_flight_requests)
         self.batch_size = batch_size
         self.page_size = page_size
         self.max_content_size = max_content_size

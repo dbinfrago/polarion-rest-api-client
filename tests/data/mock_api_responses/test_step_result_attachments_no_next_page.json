@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "totalCount": 1
+  },
+  "data": [
+    {
+      "type": "teststepresult_attachments",
+      "id": "MyProjectId/MyTestRunId/MyProjectId/MyTestCaseId/1/0/MyAttachmentId",
+      "attributes": {
+        "id": "MyAttachmentId",
+        "title": "Attachment Title",
+        "fileName": "file.txt"
+      },
+      "links": {
+        "self": "server-host-name/application-path/projects/MyProjectId/testruns/MyTestRunId/testcases/MyProjectId/MyTestCaseId/teststepresults/1/0/attachments/MyAttachmentId",
+        "content": "server-host-name/application-path/projects/MyProjectId/testruns/MyTestRunId/testcases/MyProjectId/MyTestCaseId/teststepresults/1/0/attachments/MyAttachmentId/content"
+      }
+    }
+  ],
+  "links": {
+    "self": "server-host-name/application-path/projects/MyProjectId/testruns/MyTestRunId/testcases/MyProjectId/MyTestCaseId/teststepresults/1/0/attachments?page%5Bsize%5D=100&page%5Bnumber%5D=1"
+  }
+}

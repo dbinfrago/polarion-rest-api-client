@@ -1,0 +1,24 @@
+{
+  "meta": {
+    "totalCount": 1
+  },
+  "data": [
+    {
+      "type": "teststep_results",
+      "id": "MyProjectId/MyTestRunId/MyProjectId/MyTestCaseId/1/0",
+      "attributes": {
+        "result": "passed",
+        "comment": {
+          "type": "text/plain",
+          "value": "Test passed"
+        }
+      },
+      "links": {
+        "self": "server-host-name/application-path/projects/MyProjectId/testruns/MyTestRunId/testcases/MyProjectId/MyTestCaseId/teststepresults/1/0"
+      }
+    }
+  ],
+  "links": {
+    "self": "server-host-name/application-path/projects/MyProjectId/testruns/MyTestRunId/testcases/MyProjectId/MyTestCaseId/teststepresults?page%5Bsize%5D=100&page%5Bnumber%5D=1"
+  }
+}
