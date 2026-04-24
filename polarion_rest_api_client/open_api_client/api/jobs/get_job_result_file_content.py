@@ -31,31 +31,52 @@ def _parse_response(
         response_200 = cast(Any, None)
         return response_200
     if response.status_code == 400:
-        response_400 = Errors.from_dict(response.json())
+        try:
+            response_400 = Errors.from_dict(response.json())
+        except Exception:
+            response_400 = None
 
         return response_400
     if response.status_code == 401:
-        response_401 = Errors.from_dict(response.json())
+        try:
+            response_401 = Errors.from_dict(response.json())
+        except Exception:
+            response_401 = None
 
         return response_401
     if response.status_code == 403:
-        response_403 = Errors.from_dict(response.json())
+        try:
+            response_403 = Errors.from_dict(response.json())
+        except Exception:
+            response_403 = None
 
         return response_403
     if response.status_code == 404:
-        response_404 = Errors.from_dict(response.json())
+        try:
+            response_404 = Errors.from_dict(response.json())
+        except Exception:
+            response_404 = None
 
         return response_404
     if response.status_code == 406:
-        response_406 = Errors.from_dict(response.json())
+        try:
+            response_406 = Errors.from_dict(response.json())
+        except Exception:
+            response_406 = None
 
         return response_406
     if response.status_code == 500:
-        response_500 = Errors.from_dict(response.json())
+        try:
+            response_500 = Errors.from_dict(response.json())
+        except Exception:
+            response_500 = None
 
         return response_500
     if response.status_code == 503:
-        response_503 = Errors.from_dict(response.json())
+        try:
+            response_503 = Errors.from_dict(response.json())
+        except Exception:
+            response_503 = None
 
         return response_503
     if client.raise_on_unexpected_status:
