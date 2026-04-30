@@ -422,7 +422,7 @@ def test_create_work_items_content_exceed_error(
     assert exc_info.value.work_item == work_item_long
     assert (
         exc_info.value.args[0]
-        == "A WorkItem is too large to create. (WorkItem Title: Title)"
+        == "A WorkItem is too large to create. (WorkItem Title: 'Title', Type: 'task')"
     )
     assert len(httpx_mock.get_requests()) == 0
 
