@@ -1,0 +1,18 @@
+{
+  "data": [
+    {
+      "type": "teststep_results",
+      "id": "MyProjectId/MyTestRunId/MyProjectId/MyTestCaseId/1/0",
+      "links": {
+        "self": "server-host-name/application-path/projects/MyProjectId/testruns/MyTestRunId/testcases/MyProjectId/MyTestCaseId/teststepresults/1/0?revision=1234"
+      }
+    },
+    {
+      "type": "teststep_results",
+      "id": "MyProjectId/MyTestRunId/MyProjectId/MyTestCaseId/1/1",
+      "links": {
+        "self": "server-host-name/application-path/projects/MyProjectId/testruns/MyTestRunId/testcases/MyProjectId/MyTestCaseId/teststepresults/1/1?revision=1234"
+      }
+    }
+  ]
+}

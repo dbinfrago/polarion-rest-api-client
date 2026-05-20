@@ -27,6 +27,8 @@ __all__ = [
     "TestRun",
     "TestRunParameter",
     "TestStep",
+    "TestStepResult",
+    "TestStepResultAttachment",
     "TextContent",
     "WorkItem",
     "WorkItemAttachment",
@@ -380,6 +382,33 @@ class TestStep:
     step_columns: dict[str, TextContent] = dataclasses.field(
         default_factory=dict
     )
+
+@dataclasses.dataclass
+class TestStepResult:
+    """A data class for test step result data."""
+
+    test_run_id: str
+    test_case_project_id: str
+    test_case_id: str
+    test_step_index: str
+    iteration: str
+    result: str | None = None
+    comment: TextContent | None = None
+    executed: datetime.datetime | None = None
+
+@dataclasses.dataclass
+class TestStepResultAttachment:
+    """An Attachment of a test step result."""
+    test_run_id: str
+    test_case_project_id: str
+    test_case_id: str
+    test_step_index: str 
+    iteration: str
+    id: str
+    title: str | None = None
+    content_bytes: bytes | None = None
+    mime_type: str | None = None
+    file_name: str | None = None
 
 
 class TextContent(dict):

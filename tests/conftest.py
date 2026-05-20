@@ -219,6 +219,27 @@ TEST_TRUN_PARAM_DELETE_REQ_1 = TEST_REQUESTS / "delete_parameters_trun_1.json"
 TEST_TRUN_PARAM_DELETE_REQ_2 = TEST_REQUESTS / "delete_parameters_trun_2.json"
 
 
+TEST_TSRES_CREATED_RESPONSE = TEST_RESPONSES / "created_test_step_results.json"
+TEST_TSRES_GET_RESPONSE = TEST_RESPONSES / "get_test_step_result.json"
+TEST_TSRES_NEXT_RESPONSE = TEST_RESPONSES / "test_step_results_next_page.json"
+TEST_TSRES_NO_NEXT_RESPONSE = TEST_RESPONSES / "test_step_results_no_next_page.json"
+TEST_TSRES_POST_REQUEST = TEST_REQUESTS / "post_test_step_results.json"
+TEST_TSRES_PATCH_REQUEST = TEST_REQUESTS / "patch_test_step_result.json"
+
+TEST_TSRES_ATT_CREATED_RESPONSE = TEST_RESPONSES / "created_test_step_result_attachments.json"
+TEST_TSRES_ATT_NO_NEXT_RESPONSE = TEST_RESPONSES / "test_step_result_attachments_no_next_page.json"
+
+TEST_TS_RESULTS_CREATED_RESPONSE = TEST_RESPONSES / "created_test_step_results.json"
+TEST_TS_RESULTS_NEXT_RESPONSE = TEST_RESPONSES / "get_test_step_results_next_page.json"
+TEST_TS_RESULTS_NO_NEXT_RESPONSE = TEST_RESPONSES / "get_test_step_results_no_next_page.json"
+TEST_TS_RESULTS_POST_REQUEST = TEST_REQUESTS / "post_test_step_results.json"
+TEST_TS_RESULTS_PATCH_REQUEST = TEST_REQUESTS / "patch_test_step_result.json"
+
+TEST_TS_RESULT_ATTACHMENTS_CREATED_RESPONSE = TEST_RESPONSES / "created_test_step_result_attachments.json"
+TEST_TS_RESULT_ATTACHMENTS_NEXT_RESPONSE = TEST_RESPONSES / "get_test_step_result_attachments_next_page.json"
+TEST_TS_RESULT_ATTACHMENTS_NO_NEXT_RESPONSE = TEST_RESPONSES / "get_test_step_result_attachments_no_next_page.json"
+
+
 class CustomWorkItem(polarion_api.WorkItem):
     capella_uuid: str | None
 

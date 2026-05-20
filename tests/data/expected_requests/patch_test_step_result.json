@@ -1,0 +1,13 @@
+{
+  "data": {
+    "type": "teststep_results",
+    "id": "MyProjectId/MyTestRunId/MyProjectId/MyTestcaseId/4/1",
+    "attributes": {
+      "result": "passed",
+      "comment": {
+        "type": "text/html",
+        "value": "Updated text"
+      }
+    }
+  }
+}

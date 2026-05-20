@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "type": "teststep_results",
+      "attributes": {
+        "result": "passed",
+        "comment": {
+          "type": "text/html",
+          "value": "My text value"
+        }
+      }
+    },
+    {
+      "type": "teststep_results",
+      "attributes": {
+        "result": "failed",
+        "comment": {
+          "type": "text/html",
+          "value": "My text value 2"
+        }
+      }
+    }
+  ]
+}

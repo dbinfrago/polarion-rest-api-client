@@ -1,0 +1,13 @@
+{
+  "data": [
+    {
+      "type": "teststepresult_attachments",
+      "attributes": {
+        "id": "MyAttachmentId2",
+        "title": "Title 2",
+        "fileName": "test2.txt"
+      }
+    }
+  ],
+  "links": {}
+}
