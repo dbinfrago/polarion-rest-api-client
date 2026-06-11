@@ -135,7 +135,7 @@ class DefaultFields:
             | self.testruns
             | self.testrecords
             | self.testparameters
-            | self.testStepResult_attachments
+            | self.teststepresult_attachments
             | self.teststep_results
         )
 
