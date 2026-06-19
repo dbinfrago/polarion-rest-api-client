@@ -11,6 +11,8 @@ import enum
 import typing as t
 import warnings
 
+from polarion_rest_api_client import errors
+
 __all__ = [
     "AbstractTestParameter",
     "Document",
@@ -286,11 +288,17 @@ class RenderingLayout:
             for prop in _properties:
                 key = prop["key"]
                 value = prop.get("value", "")
+                try:
+                    snake_key = RENDERING_LAYOUT_FIELDS[key]
+                except KeyError:
+                    raise errors.PolarionApiInternalException(
+                        f"Unexpected rendering layout field {key!r} with value {value!r}"
+                    ) from None
                 if key in BOOLEAN_RENDERING_PROPERTIES:
                     value = value == "true"
                 else:
                     value = value.split(",")
-                setattr(properties, RENDERING_LAYOUT_FIELDS[key], value)
+                setattr(properties, snake_key, value)
 
         self.label = label
         self.layouter = layouter
