@@ -35,13 +35,18 @@ __all__ = [
     "WorkItemLink",
 ]
 
-BOOLEAN_RENDERING_PROPERTIES = ["fieldsAtEndAsTable", "hidden"]
+BOOLEAN_RENDERING_PROPERTIES = [
+    "fieldsAtEndAsTable",
+    "hidden",
+    "noPageBreak",
+]
 RENDERING_LAYOUT_FIELDS = {
     "fieldsAtEndAsTable": "fields_at_end_as_table",
     "fieldsAtStart": "fields_at_start",
     "fieldsAtEnd": "fields_at_end",
     "sidebarWorkItemFields": "sidebar_work_item_fields",
     "hidden": "hidden",
+    "noPageBreak": "no_page_break",
 }
 
 
@@ -326,6 +331,7 @@ class RenderingProperties:
     sidebar_work_item_fields: list[str] | None = None
     fields_at_end_as_table: bool = False
     hidden: bool = False
+    no_page_break: bool = False
 
     def serialize(self) -> list[dict[str, t.Any]]:
         """Serialize an instance of this class to be sent via the API."""

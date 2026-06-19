@@ -13,7 +13,8 @@
             { "key": "fieldsAtStart", "value": "id" },
             { "key": "fieldsAtEnd", "value": "custom" },
             { "key": "sidebarWorkItemFields", "value": "id" },
-            { "key": "hidden", "value": "true" }
+            { "key": "hidden", "value": "true" },
+            { "key": "noPageBreak", "value": "true" }
           ],
           "type": "task"
         },
@@ -23,7 +24,8 @@
           "properties": [
             { "key": "fieldsAtEndAsTable", "value": "false" },
             { "key": "fieldsAtStart", "value": "id" },
-            { "key": "hidden", "value": "false" }
+            { "key": "hidden", "value": "false" },
+            { "key": "noPageBreak", "value": "false" }
           ],
           "type": "task2"
         }

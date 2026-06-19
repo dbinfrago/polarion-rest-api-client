@@ -52,6 +52,7 @@ def test_get_document_with_all_fields(
                     fields_at_end=["custom", "bla"],
                     sidebar_work_item_fields=["id"],
                     fields_at_end_as_table=True,
+                    no_page_break=True,
                 ),
             ),
         ],
@@ -89,6 +90,7 @@ def test_create_new_document(
                     fields_at_end=["custom"],
                     sidebar_work_item_fields=["id"],
                     fields_at_end_as_table=True,
+                    no_page_break=True,
                 ),
             ),
             data_models.RenderingLayout(
@@ -97,6 +99,7 @@ def test_create_new_document(
                 layouter=data_models.Layouter("paragraph"),
                 properties=data_models.RenderingProperties(
                     fields_at_start=["id"],
+                    no_page_break=False,
                 ),
             ),
         ],
@@ -166,6 +169,7 @@ def test_update_document(
                     fields_at_end=["custom"],
                     sidebar_work_item_fields=["id"],
                     hidden=True,
+                    no_page_break=True,
                 ),
             ),
             data_models.RenderingLayout(
@@ -174,6 +178,7 @@ def test_update_document(
                 layouter=data_models.Layouter("paragraph"),
                 properties=data_models.RenderingProperties(
                     fields_at_start=["id"],
+                    no_page_break=False,
                 ),
             ),
         ],
