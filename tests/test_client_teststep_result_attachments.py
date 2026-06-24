@@ -19,7 +19,9 @@ def _make_project_client() -> polarion_api.ProjectClient:
         polarion_access_token="PAT123",
         batch_size=3,
     )
-    return client.generate_project_client(project_id="PROJ", delete_status="deleted")
+    return client.generate_project_client(
+        project_id="PROJ", delete_status="deleted"
+    )
 
 
 def test_get_test_step_result_attachments_multi_page(
@@ -28,7 +30,9 @@ def test_get_test_step_result_attachments_multi_page(
     client = _make_project_client()
     with open(TEST_TS_RESULT_ATTACHMENTS_NEXT_RESPONSE, encoding="utf8") as f:
         first_page = json.load(f)
-    with open(TEST_TS_RESULT_ATTACHMENTS_NO_NEXT_RESPONSE, encoding="utf8") as f:
+    with open(
+        TEST_TS_RESULT_ATTACHMENTS_NO_NEXT_RESPONSE, encoding="utf8"
+    ) as f:
         second_page = json.load(f)
 
     httpx_mock.add_response(json=first_page)
@@ -84,7 +88,9 @@ def test_create_test_step_result_attachments(
     httpx_mock: pytest_httpx.HTTPXMock,
 ):
     client = _make_project_client()
-    with open(TEST_TS_RESULT_ATTACHMENTS_CREATED_RESPONSE, encoding="utf8") as f:
+    with open(
+        TEST_TS_RESULT_ATTACHMENTS_CREATED_RESPONSE, encoding="utf8"
+    ) as f:
         httpx_mock.add_response(201, json=json.load(f))
 
     attachment = polarion_api.TestStepResultAttachment(
@@ -112,7 +118,7 @@ def test_create_test_step_result_attachments(
     assert req.headers["content-type"].startswith("multipart/form-data")
 
     content = req.content.decode("utf-8", errors="ignore")
-    assert "Content-Disposition: form-data; name=\"resource\"" in content
+    assert 'Content-Disposition: form-data; name="resource"' in content
     assert "test.txt" in content
     assert "Title" in content
     assert attachment.id == "MyAttachmentId1"

@@ -29,8 +29,7 @@ class DefaultFields:
     _teststeps: str = "@basic"
     _testparameters: str = "@all"
     _teststepresults: str = "@basic"
-    _teststepresult_attachments: str= "@basic" 
-
+    _teststepresult_attachments: str = "@basic"
 
     @property
     def workitems(self) -> dict[str, str]:
@@ -54,11 +53,10 @@ class DefaultFields:
     def teststep_results(self) -> dict[str, str]:
         """Return the fields dict for teststepresults."""
         return {"teststep_results": self._teststepresults}
-    
+
     @teststep_results.setter
     def teststep_results(self, value: str) -> None:
         self._teststepresults = value
-
 
     @property
     def workitem_attachments(self) -> dict[str, str]:
@@ -69,15 +67,14 @@ class DefaultFields:
     def workitem_attachments(self, value: str) -> None:
         self._workitem_attachments = value
 
-
     @property
-    def teststepresult_attachments(self) ->  dict[str, str]:
+    def teststepresult_attachments(self) -> dict[str, str]:
         """Return the fields dict for testSteptResult_attachments."""
         return {"teststepresult_attachments": self._teststepresult_attachments}
-    
+
     @teststepresult_attachments.setter
     def teststepresult_attachments(self, value: str) -> None:
-        self._teststepresult_attachments = value    
+        self._teststepresult_attachments = value
 
     @property
     def documents(self) -> dict[str, str]:

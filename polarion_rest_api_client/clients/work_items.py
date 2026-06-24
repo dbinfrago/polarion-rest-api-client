@@ -19,7 +19,13 @@ from polarion_rest_api_client.open_api_client.api.work_items import (
 )
 
 from . import base_classes as bc
-from . import test_steps ,test_step_result,test_step_result_attachments, work_item_attachments, work_item_links
+from . import (
+    test_step_result,
+    test_step_result_attachments,
+    test_steps,
+    work_item_attachments,
+    work_item_links,
+)
 
 WT = t.TypeVar("WT", bound=dm.WorkItem)
 logger = logging.getLogger(__name__)
@@ -67,8 +73,14 @@ class WorkItems(
         )
         self.links = work_item_links.WorkItemLinks(project_id, client)
         self.test_steps = test_steps.TestSteps(project_id, client)
-        self.teststeps_results = test_step_result.TestStepResults(project_id, client)
-        self.teststepsResults_attachment = test_step_result_attachments.TestStepResultAttachments(project_id, client)
+        self.teststeps_results = test_step_result.TestStepResults(
+            project_id, client
+        )
+        self.teststepsResults_attachment = (
+            test_step_result_attachments.TestStepResultAttachments(
+                project_id, client
+            )
+        )
         self.item_cls = dm.WorkItem
 
     def _update(self, to_update: list[dm.WorkItem]) -> None:

@@ -21,7 +21,9 @@ def _make_project_client() -> polarion_api.ProjectClient:
         polarion_access_token="PAT123",
         batch_size=3,
     )
-    return client.generate_project_client(project_id="PROJ", delete_status="deleted")
+    return client.generate_project_client(
+        project_id="PROJ", delete_status="deleted"
+    )
 
 
 def test_get_test_step_results_multi_page(

@@ -1,30 +1,42 @@
+# Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
 import io
-
 import typing as t
-from polarion_rest_api_client.open_api_client import types as oa_types
-from polarion_rest_api_client.open_api_client import models as api_models
-from polarion_rest_api_client import data_models as dm
 
+from polarion_rest_api_client import data_models as dm
+from polarion_rest_api_client.open_api_client import models as api_models
+from polarion_rest_api_client.open_api_client import types as oa_types
 from polarion_rest_api_client.open_api_client.api.test_step_result_attachments import (
-    post_test_step_result_attachments,
+    delete_test_step_result_attachment,
     get_test_step_result_attachments,
     patch_test_step_result_attachment,
-    delete_test_step_result_attachment)
+    post_test_step_result_attachments,
+)
 
 from . import base_classes as bc
 
-class TestStepResultAttachments(bc.SingleGetClient[dm.TestStepResultAttachment], bc.UpdateClient[dm.TestStepResultAttachment], bc.CreateClient[dm.TestStepResultAttachment], bc.MultiGetClient[dm.TestStepResultAttachment], bc.DeleteClient[dm.TestStepResultAttachment]):
+
+class TestStepResultAttachments(
+    bc.SingleGetClient[dm.TestStepResultAttachment],
+    bc.UpdateClient[dm.TestStepResultAttachment],
+    bc.CreateClient[dm.TestStepResultAttachment],
+    bc.MultiGetClient[dm.TestStepResultAttachment],
+    bc.DeleteClient[dm.TestStepResultAttachment],
+):
     """A class to handle TestStepResultAttachments."""
-    
-    
-    def get(self, *args: t.Any, **kwargs: t.Any) -> dm.TestStepResultAttachment:
+
+    def get(
+        self, *args: t.Any, **kwargs: t.Any
+    ) -> dm.TestStepResultAttachment | None:
         """Return a specific attachment - not Implemented yet."""
         raise NotImplementedError
 
-    def async_get(self, *args: t.Any, **kwargs: t.Any) -> dm.TestStepResultAttachment:
+    def async_get(
+        self, *args: t.Any, **kwargs: t.Any
+    ) -> t.Coroutine[t.Any, t.Any, dm.TestStepResultAttachment | None]:
         """Return a specific attachment - not Implemented yet."""
         raise NotImplementedError
-
 
     def _create(self, items: list[dm.TestStepResultAttachment]) -> None:
         """Create the given work item attachment in Polarion."""
@@ -79,12 +91,13 @@ class TestStepResultAttachments(bc.SingleGetClient[dm.TestStepResultAttachment],
             test_step_index=items[0].test_step_index,
             iteration=items[0].iteration,
             client=self._client.client,
-            body=multipart
+            body=multipart,
         )
 
         self._raise_on_error(response)
         assert isinstance(
-            response.parsed, api_models.TeststepresultAttachmentsListPostResponse
+            response.parsed,
+            api_models.TeststepresultAttachmentsListPostResponse,
         )
         assert response.parsed.data
 
@@ -94,9 +107,9 @@ class TestStepResultAttachments(bc.SingleGetClient[dm.TestStepResultAttachment],
             assert work_item_attachment_res.id
             items[counter].id = work_item_attachment_res.id.split("/")[-1]
 
-
-
-    async def _async_create(self, items: list[dm.TestStepResultAttachment]) -> None:
+    async def _async_create(
+        self, items: list[dm.TestStepResultAttachment]
+    ) -> None:
         """Async create the given work item attachment in Polarion."""
         attachment_attributes = []
         attachment_files = []
@@ -149,12 +162,13 @@ class TestStepResultAttachments(bc.SingleGetClient[dm.TestStepResultAttachment],
             test_step_index=items[0].test_step_index,
             iteration=items[0].iteration,
             client=self._client.client,
-            body=multipart
+            body=multipart,
         )
 
         self._raise_on_error(response)
         assert isinstance(
-            response.parsed, api_models.TeststepresultAttachmentsListPostResponse
+            response.parsed,
+            api_models.TeststepresultAttachmentsListPostResponse,
         )
         assert response.parsed.data
 
@@ -163,11 +177,8 @@ class TestStepResultAttachments(bc.SingleGetClient[dm.TestStepResultAttachment],
         ):
             assert work_item_attachment_res.id
             items[counter].id = work_item_attachment_res.id.split("/")[-1]
-        
 
-
-
-    def get_multi(
+    def get_multi(  # type: ignore[override]
         self,
         project_id: str,
         test_run_id: str,
@@ -175,13 +186,12 @@ class TestStepResultAttachments(bc.SingleGetClient[dm.TestStepResultAttachment],
         test_case_id: str,
         iteration: str,
         test_step_index: str,
-        *,
         page_size: int = 100,
         page_number: int = 1,
         fields: dict[str, str] | None = None,
         revision: str | None = None,
     ) -> tuple[list[dm.TestStepResultAttachment], bool]:
-        """Return test step result attachments"""
+        """Return test step result attachments."""
         if fields is None:
             fields = self._client.default_fields.teststepresult_attachments
         sparse_fields = self._build_sparse_fields(fields)
@@ -209,7 +219,8 @@ class TestStepResultAttachments(bc.SingleGetClient[dm.TestStepResultAttachment],
 
         if (
             isinstance(
-                parsed_response, api_models.TeststepresultAttachmentsListGetResponse
+                parsed_response,
+                api_models.TeststepresultAttachmentsListGetResponse,
             )
             and parsed_response.data
         ):
@@ -238,8 +249,8 @@ class TestStepResultAttachments(bc.SingleGetClient[dm.TestStepResultAttachment],
             ) and bool(parsed_response.links.next_)
 
         return teststepResult_attachments, next_page
-    
-    async def async_get_multi(
+
+    async def async_get_multi(  # type: ignore[override]
         self,
         project_id: str,
         test_run_id: str,
@@ -252,7 +263,7 @@ class TestStepResultAttachments(bc.SingleGetClient[dm.TestStepResultAttachment],
         fields: dict[str, str] | None = None,
         revision: str | None = None,
     ) -> tuple[list[dm.TestStepResultAttachment], bool]:
-        """Async return test step result attachments"""
+        """Async Get test step result attachments."""
         if fields is None:
             fields = self._client.default_fields.teststepresult_attachments
         sparse_fields = self._build_sparse_fields(fields)
@@ -280,7 +291,8 @@ class TestStepResultAttachments(bc.SingleGetClient[dm.TestStepResultAttachment],
 
         if (
             isinstance(
-                parsed_response, api_models.TeststepresultAttachmentsListGetResponse
+                parsed_response,
+                api_models.TeststepresultAttachmentsListGetResponse,
             )
             and parsed_response.data
         ):
@@ -310,16 +322,11 @@ class TestStepResultAttachments(bc.SingleGetClient[dm.TestStepResultAttachment],
 
         return teststepResult_attachments, next_page
 
-    def _update(
-        self, to_update: list[dm.TestStepResultAttachment]
-    ) -> None:
-        """Update the given work item attachment in Polarion."""
+    def _update(self, to_update: list[dm.TestStepResultAttachment]) -> None:
+        """Update the given test step result attachment in Polarion."""
         assert len(to_update) == 1, "Expected only one item"
         item = to_update[0]
-        attributes = (
-            
-            api_models.TeststepresultAttachmentsSinglePatchRequestDataAttributes()
-        )
+        attributes = api_models.TeststepresultAttachmentsSinglePatchRequestDataAttributes()
         if to_update[0].title:
             attributes.title = to_update[0].title
 
@@ -327,7 +334,7 @@ class TestStepResultAttachments(bc.SingleGetClient[dm.TestStepResultAttachment],
             resource=api_models.TeststepresultAttachmentsSinglePatchRequest(
                 data=api_models.TeststepresultAttachmentsSinglePatchRequestData(
                     type_=api_models.TeststepresultAttachmentsSinglePatchRequestDataType.TESTSTEPRESULT_ATTACHMENTS,  # pylint: disable=line-too-long
-                    id = f"{item.test_case_project_id}/{item.test_run_id}/{item.test_case_project_id}/{item.test_case_id}/{item.iteration}/{item.test_step_index}/{item.id}",
+                    id=f"{item.test_case_project_id}/{item.test_run_id}/{item.test_case_project_id}/{item.test_case_id}/{item.iteration}/{item.test_step_index}/{item.id}",
                     attributes=attributes,
                 )
             )
@@ -343,7 +350,7 @@ class TestStepResultAttachments(bc.SingleGetClient[dm.TestStepResultAttachment],
         response = patch_test_step_result_attachment.sync_detailed(
             project_id=self._project_id,
             test_run_id=item.test_run_id,
-            test_case_project_id= self._project_id,
+            test_case_project_id=self._project_id,
             test_case_id=item.test_case_id,
             iteration=item.iteration,
             test_step_index=item.test_step_index,
@@ -356,13 +363,10 @@ class TestStepResultAttachments(bc.SingleGetClient[dm.TestStepResultAttachment],
     async def _async_update(
         self, to_update: list[dm.TestStepResultAttachment]
     ) -> None:
-        """Async update the given work item attachment in Polarion."""
+        """Async update the given test step result attachment in Polarion."""
         assert len(to_update) == 1, "Expected only one item"
         item = to_update[0]
-        attributes = (
-            
-            api_models.TeststepresultAttachmentsSinglePatchRequestDataAttributes()
-        )
+        attributes = api_models.TeststepresultAttachmentsSinglePatchRequestDataAttributes()
         if to_update[0].title:
             attributes.title = to_update[0].title
 
@@ -370,7 +374,7 @@ class TestStepResultAttachments(bc.SingleGetClient[dm.TestStepResultAttachment],
             resource=api_models.TeststepresultAttachmentsSinglePatchRequest(
                 data=api_models.TeststepresultAttachmentsSinglePatchRequestData(
                     type_=api_models.TeststepresultAttachmentsSinglePatchRequestDataType.TESTSTEPRESULT_ATTACHMENTS,  # pylint: disable=line-too-long
-                    id = f"{item.test_case_project_id}/{item.test_run_id}/{item.test_case_project_id}/{item.test_case_id}/{item.iteration}/{item.test_step_index}/{item.id}",
+                    id=f"{item.test_case_project_id}/{item.test_run_id}/{item.test_case_project_id}/{item.test_case_id}/{item.iteration}/{item.test_step_index}/{item.id}",
                     attributes=attributes,
                 )
             )
@@ -383,31 +387,29 @@ class TestStepResultAttachments(bc.SingleGetClient[dm.TestStepResultAttachment],
                 item.mime_type,
             )
 
-        
         response = await patch_test_step_result_attachment.asyncio_detailed(
-                project_id=self._project_id,
-                test_run_id=item.test_run_id,
-                test_case_project_id= self._project_id,
-                test_case_id=item.test_case_id,
-                iteration=item.iteration,
-                test_step_index=item.test_step_index,
-                attachment_id=item.id,
-                client=self._client.client,
-                body=multipart,
-            )
+            project_id=self._project_id,
+            test_run_id=item.test_run_id,
+            test_case_project_id=self._project_id,
+            test_case_id=item.test_case_id,
+            iteration=item.iteration,
+            test_step_index=item.test_step_index,
+            attachment_id=item.id,
+            client=self._client.client,
+            body=multipart,
+        )
         self._raise_on_error(response)
 
-
-    def _delete(self, items: list[dm.TestStepResultAttachment] ) -> None:
+    def _delete(self, items: list[dm.TestStepResultAttachment]) -> None:
         for item in items:
             self._retry_on_error(self._single_delete, item)
-    
+
     def _single_delete(self, item: dm.TestStepResultAttachment) -> None:
         """Delete the given teststep result attachment."""
         response = delete_test_step_result_attachment.sync_detailed(
             project_id=self._project_id,
             test_run_id=item.test_run_id,
-            test_case_project_id= item.test_case_project_id,
+            test_case_project_id=item.test_case_project_id,
             test_case_id=item.test_case_id,
             iteration=item.iteration,
             test_step_index=item.test_step_index,
@@ -415,18 +417,21 @@ class TestStepResultAttachments(bc.SingleGetClient[dm.TestStepResultAttachment],
             client=self._client.client,
         )
         self._raise_on_error(response)
-    
-    
-    async def _async_delete(self, items: list[dm.TestStepResultAttachment] ) -> None:
+
+    async def _async_delete(
+        self, items: list[dm.TestStepResultAttachment]
+    ) -> None:
         for item in items:
             await self._async_retry_on_error(self._async_single_delete, item)
 
-    async def _async_single_delete(self, item: dm.TestStepResultAttachment) -> None:
+    async def _async_single_delete(
+        self, item: dm.TestStepResultAttachment
+    ) -> None:
         """Async delete the given teststep result attachment."""
         response = await delete_test_step_result_attachment.asyncio_detailed(
             project_id=self._project_id,
             test_run_id=item.test_run_id,
-            test_case_project_id= item.test_case_project_id,
+            test_case_project_id=item.test_case_project_id,
             test_case_id=item.test_case_id,
             iteration=item.iteration,
             test_step_index=item.test_step_index,

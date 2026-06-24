@@ -383,6 +383,7 @@ class TestStep:
         default_factory=dict
     )
 
+
 @dataclasses.dataclass
 class TestStepResult:
     """A data class for test step result data."""
@@ -396,13 +397,15 @@ class TestStepResult:
     comment: TextContent | None = None
     executed: datetime.datetime | None = None
 
+
 @dataclasses.dataclass
 class TestStepResultAttachment:
     """An Attachment of a test step result."""
+
     test_run_id: str
     test_case_project_id: str
     test_case_id: str
-    test_step_index: str 
+    test_step_index: str
     iteration: str
     id: str
     title: str | None = None
