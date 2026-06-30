@@ -1,0 +1,13 @@
+{#
+Copyright DB InfraGO AG and contributors
+SPDX-License-Identifier: Apache-2.0
+#}
+
+{{ heading(1, "System Overview", session) }}
+<p>This section was generated from a Jinja template.</p>
+{{ insert_work_item(requirement_id, session) }}
+<p>See also: {{ requirement_id | link_work_item }}</p>
+
+<workitem id="txt-introduction">
+  <p><strong>Introduction:</strong> This text block is managed as a text work item.</p>
+</workitem>

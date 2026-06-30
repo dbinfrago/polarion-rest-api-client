@@ -9,6 +9,8 @@ Welcome to polarion-rest-api-client's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   document_rendering
+
 .. toctree::
    :maxdepth: 3
    :caption: API reference
