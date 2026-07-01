@@ -11,6 +11,8 @@ import enum
 import typing as t
 import warnings
 
+from polarion_rest_api_client import errors
+
 __all__ = [
     "AbstractTestParameter",
     "Document",
@@ -33,13 +35,18 @@ __all__ = [
     "WorkItemLink",
 ]
 
-BOOLEAN_RENDERING_PROPERTIES = ["fieldsAtEndAsTable", "hidden"]
+BOOLEAN_RENDERING_PROPERTIES = [
+    "fieldsAtEndAsTable",
+    "hidden",
+    "noPageBreak",
+]
 RENDERING_LAYOUT_FIELDS = {
     "fieldsAtEndAsTable": "fields_at_end_as_table",
     "fieldsAtStart": "fields_at_start",
     "fieldsAtEnd": "fields_at_end",
     "sidebarWorkItemFields": "sidebar_work_item_fields",
     "hidden": "hidden",
+    "noPageBreak": "no_page_break",
 }
 
 
@@ -286,11 +293,17 @@ class RenderingLayout:
             for prop in _properties:
                 key = prop["key"]
                 value = prop.get("value", "")
+                try:
+                    snake_key = RENDERING_LAYOUT_FIELDS[key]
+                except KeyError:
+                    raise errors.PolarionApiInternalException(
+                        f"Unexpected rendering layout field {key!r} with value {value!r}"
+                    ) from None
                 if key in BOOLEAN_RENDERING_PROPERTIES:
                     value = value == "true"
                 else:
                     value = value.split(",")
-                setattr(properties, RENDERING_LAYOUT_FIELDS[key], value)
+                setattr(properties, snake_key, value)
 
         self.label = label
         self.layouter = layouter
@@ -318,6 +331,7 @@ class RenderingProperties:
     sidebar_work_item_fields: list[str] | None = None
     fields_at_end_as_table: bool = False
     hidden: bool = False
+    no_page_break: bool = False
 
     def serialize(self) -> list[dict[str, t.Any]]:
         """Serialize an instance of this class to be sent via the API."""

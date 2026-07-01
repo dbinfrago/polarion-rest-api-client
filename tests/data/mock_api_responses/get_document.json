@@ -35,6 +35,10 @@
             {
               "key": "fieldsAtEndAsTable",
               "value": "true"
+            },
+            {
+              "key": "noPageBreak",
+              "value": "true"
             }
           ]
         }
