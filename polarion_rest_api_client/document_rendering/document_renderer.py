@@ -4,25 +4,19 @@
 
 from __future__ import annotations
 
+import collections.abc as cabc
 import html
 import logging
 import pathlib
 import typing as t
-from collections.abc import Mapping
 
 import jinja2
 from lxml import html as lxmlhtml
 
 from polarion_rest_api_client import data_models as polarion_api
 
-from . import html_utils
-from .rendering_session import (
-    DocumentData,
-    RenderingSession,
-    WorkItemLookup,
-    WorkItemLookupResult,
-)
-from .text_work_item_provider import TextWorkItemProvider
+from . import html_utils, rendering_session
+from . import text_work_item_provider as text_work_item_provider_module
 
 PROJ_WI_PAIR_LEN = 2
 
@@ -49,9 +43,9 @@ class DocumentRenderer:
         self,
         default_project_id: str | None = None,
         *,
-        work_item_lookup: WorkItemLookup | None = None,
+        work_item_lookup: rendering_session.WorkItemLookup | None = None,
         work_item_repository: (
-            Mapping[tuple[str, str], polarion_api.WorkItem] | None
+            cabc.Mapping[tuple[str, str], polarion_api.WorkItem] | None
         ) = None,
         area_start_class: str = DEFAULT_AREA_START_CLS,
         area_end_class: str = DEFAULT_AREA_END_CLS,
@@ -93,16 +87,18 @@ class DocumentRenderer:
         return dict(self._extra_template_context)
 
     @t.overload
-    def resolve_work_item(self, obj: object) -> WorkItemLookupResult: ...
+    def resolve_work_item(
+        self, obj: object
+    ) -> rendering_session.WorkItemLookupResult: ...
 
     @t.overload
     def resolve_work_item(
         self, project_id: str, work_item_id: str
-    ) -> WorkItemLookupResult: ...
+    ) -> rendering_session.WorkItemLookupResult: ...
 
     def resolve_work_item(
         self, obj: object, work_item_id: str | None = None
-    ) -> WorkItemLookupResult:
+    ) -> rendering_session.WorkItemLookupResult:
         """Resolve a custom object into a Polarion work item.
 
         The default implementation supports lookups by ``(project_id,
@@ -137,7 +133,7 @@ class DocumentRenderer:
 
     def _resolve_work_item_from_repository(
         self, project_id: str, work_item_id: str
-    ) -> WorkItemLookupResult:
+    ) -> rendering_session.WorkItemLookupResult:
         work_item = self._work_item_repository.get((project_id, work_item_id))
         if work_item is None:
             logger.info(
@@ -148,7 +144,9 @@ class DocumentRenderer:
             return project_id, None
         return project_id, work_item
 
-    def _get_work_item(self, obj: object) -> WorkItemLookupResult:
+    def _get_work_item(
+        self, obj: object
+    ) -> rendering_session.WorkItemLookupResult:
         if isinstance(obj, tuple) and len(obj) == PROJ_WI_PAIR_LEN:
             proj_id, work_item = obj
             if isinstance(proj_id, str) and isinstance(
@@ -174,7 +172,10 @@ class DocumentRenderer:
         return self.resolve_work_item(obj)
 
     def _insert_work_item(
-        self, obj: object, session: RenderingSession, level: int | None = None
+        self,
+        obj: object,
+        session: rendering_session.RenderingSession,
+        level: int | None = None,
     ) -> str:
         proj_id, work_item = self._get_work_item(obj)
 
@@ -229,7 +230,10 @@ class DocumentRenderer:
         return html_utils.RED_TEXT.format(text="Error linking work item.")
 
     def _heading(
-        self, level: int, text: str, session: RenderingSession
+        self,
+        level: int,
+        text: str,
+        session: rendering_session.RenderingSession,
     ) -> str:
         if session.heading_ids:
             hid = session.heading_ids.pop(0)
@@ -265,10 +269,12 @@ class DocumentRenderer:
         heading_numbering: bool = False,  # noqa: FBT002
         rendering_layouts: list[polarion_api.RenderingLayout] | None = None,
         *,
-        text_work_item_provider: TextWorkItemProvider | None = None,
+        text_work_item_provider: (
+            text_work_item_provider_module.TextWorkItemProvider | None
+        ) = None,
         document_project_id: str | None = None,
         **kwargs: t.Any,
-    ) -> DocumentData:
+    ) -> rendering_session.DocumentData:
         """Render a new Polarion document."""
 
     @t.overload
@@ -278,10 +284,12 @@ class DocumentRenderer:
         template_name: str,
         *,
         document: polarion_api.Document,
-        text_work_item_provider: TextWorkItemProvider | None = None,
+        text_work_item_provider: (
+            text_work_item_provider_module.TextWorkItemProvider | None
+        ) = None,
         document_project_id: str | None = None,
         **kwargs: t.Any,
-    ) -> DocumentData:
+    ) -> rendering_session.DocumentData:
         """Update an existing Polarion document."""
 
     def render_document(
@@ -295,13 +303,16 @@ class DocumentRenderer:
         heading_numbering: bool = False,  # noqa: FBT002
         rendering_layouts: list[polarion_api.RenderingLayout] | None = None,
         document: polarion_api.Document | None = None,
-        text_work_item_provider: TextWorkItemProvider | None = None,
+        text_work_item_provider: (
+            text_work_item_provider_module.TextWorkItemProvider | None
+        ) = None,
         document_project_id: str | None = None,
         **kwargs: t.Any,
-    ) -> DocumentData:
+    ) -> rendering_session.DocumentData:
         """Render a Polarion document."""
         text_work_item_provider = (
-            text_work_item_provider or TextWorkItemProvider()
+            text_work_item_provider
+            or text_work_item_provider_module.TextWorkItemProvider()
         )
         if document is not None:
             polarion_folder = document.module_folder
@@ -317,7 +328,7 @@ class DocumentRenderer:
         env = self._get_jinja_env(template_folder)
         template = env.get_template(template_name)
 
-        session = RenderingSession(
+        session = rendering_session.RenderingSession(
             document_project_id=document_project_id or self.default_project_id
         )
         if document is not None:
@@ -350,7 +361,7 @@ class DocumentRenderer:
         )
         document.rendering_layouts = session.rendering_layouts
 
-        return DocumentData(
+        return rendering_session.DocumentData(
             document,
             session.headings,
             text_work_item_provider,
@@ -363,13 +374,16 @@ class DocumentRenderer:
         sections: dict[str, str],
         global_parameters: dict[str, t.Any],
         section_parameters: dict[str, dict[str, t.Any]],
-        text_work_item_provider: TextWorkItemProvider | None = None,
+        text_work_item_provider: (
+            text_work_item_provider_module.TextWorkItemProvider | None
+        ) = None,
         document_project_id: str | None = None,
-    ) -> DocumentData:
+    ) -> rendering_session.DocumentData:
         """Update a mixed-authority document."""
         document.type = None
         text_work_item_provider = (
-            text_work_item_provider or TextWorkItemProvider()
+            text_work_item_provider
+            or text_work_item_provider_module.TextWorkItemProvider()
         )
         assert document.home_page_content, (
             "In mixed authority the document must have content"
@@ -381,7 +395,7 @@ class DocumentRenderer:
             document.home_page_content.value
         )
 
-        session = RenderingSession(
+        session = rendering_session.RenderingSession(
             rendering_layouts=document.rendering_layouts or [],
             document_project_id=document_project_id or self.default_project_id,
         )
@@ -432,7 +446,7 @@ class DocumentRenderer:
         )
         document.rendering_layouts = session.rendering_layouts
 
-        return DocumentData(
+        return rendering_session.DocumentData(
             document,
             session.headings,
             text_work_item_provider,
@@ -441,7 +455,7 @@ class DocumentRenderer:
     def _extract_section_areas(
         self,
         html_elements: list[t.Any],
-        session: RenderingSession,
+        session: rendering_session.RenderingSession,
     ) -> dict[str, tuple[int, int]]:
         section_areas: dict[str, tuple[int, int]] = {}
         current_area_id = None

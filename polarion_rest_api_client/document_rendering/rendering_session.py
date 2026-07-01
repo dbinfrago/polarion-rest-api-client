@@ -10,8 +10,8 @@ import typing as t
 from polarion_rest_api_client import data_models as polarion_api
 
 if t.TYPE_CHECKING:
-    from polarion_rest_api_client.document_rendering.text_work_item_provider import (
-        TextWorkItemProvider,
+    from polarion_rest_api_client.document_rendering import (
+        text_work_item_provider,
     )
 
 WorkItemLookupResult = tuple[
@@ -47,4 +47,4 @@ class DocumentData:
 
     document: polarion_api.Document
     headings: list[polarion_api.WorkItem]
-    text_work_item_provider: TextWorkItemProvider
+    text_work_item_provider: text_work_item_provider.TextWorkItemProvider
