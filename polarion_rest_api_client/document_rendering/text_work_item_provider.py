@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 """Provides a class to generate and insert text work items in documents."""
 
-from lxml import html
+from lxml import html as lxmlhtml
 
 from polarion_rest_api_client import data_models as polarion_api
 
@@ -47,7 +47,7 @@ class TextWorkItemProvider:
 
     def generate_text_work_items(
         self,
-        content: list[html.HtmlElement | str],
+        content: list[lxmlhtml.HtmlElement | str],
         work_item_id_filter: list[str] | None = None,
     ) -> None:
         """Generate text work items from the provided html.
@@ -88,8 +88,8 @@ class TextWorkItemProvider:
             inner_content = "".join(
                 [
                     (
-                        html.tostring(child, encoding="unicode")
-                        if isinstance(child, html.HtmlElement)
+                        lxmlhtml.tostring(child, encoding="unicode")
+                        if isinstance(child, lxmlhtml.HtmlElement)
                         else child
                     )
                     for child in element.iterchildren()
@@ -123,10 +123,10 @@ class TextWorkItemProvider:
         html_fragments = html_utils.ensure_fragments(
             document.home_page_content.value or ""
         )
-        new_content: list[html.HtmlElement | str] = []
+        new_content: list[lxmlhtml.HtmlElement | str] = []
         last_match = -1
         for index, element in enumerate(html_fragments):
-            if not isinstance(element, html.HtmlElement):
+            if not isinstance(element, lxmlhtml.HtmlElement):
                 continue
 
             if element.tag == html_utils.WORK_ITEM_TAG:
@@ -136,7 +136,7 @@ class TextWorkItemProvider:
                     element.get("id", "")
                 ):
                     new_content.append(
-                        html.fromstring(
+                        lxmlhtml.fromstring(
                             html_utils.POLARION_WORK_ITEM_DOCUMENT.format(
                                 pid=work_item.id,
                                 lid=layout_index,
@@ -147,7 +147,7 @@ class TextWorkItemProvider:
 
         new_content += html_fragments[last_match + 1 :]
         document.home_page_content.value = "\n".join(
-            html.tostring(element).decode("utf-8")
+            lxmlhtml.tostring(element).decode("utf-8")
             for element in new_content
-            if isinstance(element, html.HtmlElement)
+            if isinstance(element, lxmlhtml.HtmlElement)
         )

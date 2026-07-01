@@ -11,7 +11,7 @@ import typing as t
 from collections.abc import Mapping
 
 import jinja2
-from lxml import html as lxmlhtml  # type: ignore[import-not-found]
+from lxml import html as lxmlhtml
 
 from polarion_rest_api_client import data_models as polarion_api
 
@@ -341,7 +341,7 @@ class DocumentRenderer:
             **(self.get_template_context() | kwargs | {"session": session})
         )
         text_work_item_provider.generate_text_work_items(
-            lxmlhtml.fragments_fromstring(rendering_result),
+            html_utils.ensure_fragments(rendering_result),
         )
 
         document.home_page_content = polarion_api.TextContent(
@@ -377,7 +377,7 @@ class DocumentRenderer:
         assert document.home_page_content.value, (
             "In mixed authority the document must have content"
         )
-        html_elements = lxmlhtml.fragments_fromstring(
+        html_elements = html_utils.ensure_fragments(
             document.home_page_content.value
         )
 
@@ -412,7 +412,7 @@ class DocumentRenderer:
                 )
             )
             work_item_ids = html_utils.extract_work_items(current_content)
-            html_fragments = lxmlhtml.fragments_fromstring(content)
+            html_fragments = html_utils.ensure_fragments(content)
             text_work_item_provider.generate_text_work_items(
                 html_fragments,
                 work_item_ids,
@@ -478,7 +478,7 @@ class DocumentRenderer:
             for child in element.iterchildren():
                 if child.get("class") == "polarion-dle-wiki-block-source":
                     text = html.unescape(child.text or "")
-                    content = lxmlhtml.fragments_fromstring(text)
+                    content = html_utils.ensure_fragments(text)
                     if (
                         content
                         and not isinstance(content[0], str)

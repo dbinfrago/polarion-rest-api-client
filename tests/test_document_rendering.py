@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging
 import textwrap
 
-from lxml import html  # type: ignore[import-not-found]
+from lxml import html as lxmlhtml
 
 import polarion_rest_api_client as polarion_api
 from polarion_rest_api_client import document_rendering
@@ -37,7 +37,7 @@ def test_render_document_with_tuple_work_item(tmp_path):
         item=item,
     )
 
-    content = html.fragments_fromstring(
+    content = lxmlhtml.fragments_fromstring(
         rendered.document.home_page_content.value
     )
 
@@ -79,7 +79,7 @@ def test_render_document_with_work_item_id_lookup(tmp_path):
         item_id="REQ-2",
     )
 
-    content = html.fragments_fromstring(
+    content = lxmlhtml.fragments_fromstring(
         rendered.document.home_page_content.value
     )
     assert content[0].tag == "div"
@@ -118,7 +118,7 @@ def test_render_document_falls_back_to_callback_lookup(tmp_path):
         custom_obj={"source": "custom"},
     )
 
-    content = html.fragments_fromstring(
+    content = lxmlhtml.fragments_fromstring(
         rendered.document.home_page_content.value
     )
     assert content[0].tag == "div"
@@ -223,7 +223,7 @@ def test_update_mixed_authority_document_reuses_heading_ids(tmp_path):
         {},
     )
 
-    content = html.fragments_fromstring(
+    content = lxmlhtml.fragments_fromstring(
         rendered.document.home_page_content.value
     )
 

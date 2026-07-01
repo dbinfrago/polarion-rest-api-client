@@ -3,7 +3,7 @@
 
 from __future__ import annotations
 
-from lxml import html
+from lxml import html as lxmlhtml
 
 from polarion_rest_api_client import data_models as polarion_api
 from polarion_rest_api_client.document_rendering import html_utils
@@ -25,7 +25,7 @@ def test_generate_image_html_with_caption():
         caption=("Figure", "Logical architecture"),
     )
 
-    fragments = html.fragments_fromstring(rendered)
+    fragments = lxmlhtml.fragments_fromstring(rendered)
     assert fragments[0].tag == "span"
     assert fragments[0][0].tag == "img"
     assert fragments[0][0].attrib["src"] == "workitemimg:arch.svg"

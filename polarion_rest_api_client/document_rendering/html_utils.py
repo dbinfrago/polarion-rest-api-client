@@ -4,9 +4,11 @@
 
 from __future__ import annotations
 
+import collections.abc as cabc
 import re
+import typing as t
 
-from lxml import html as lxmlhtml  # type: ignore[import-not-found]
+from lxml import html as lxmlhtml
 
 from polarion_rest_api_client import data_models as polarion_api
 
@@ -43,6 +45,7 @@ POLARION_CAPTION = (
 )
 RED_TEXT = '<p style="color:red">{text}</p>'
 WORK_ITEM_TAG = "workitem"
+type HtmlFragment = lxmlhtml.HtmlElement | str
 
 
 def strike_through(string: str) -> str:
@@ -84,23 +87,26 @@ def camel_case_to_words(camel_case_str: str) -> str:
 
 
 def ensure_fragments(
-    html_content: str | list[lxmlhtml.HtmlElement | str],
-) -> list[lxmlhtml.HtmlElement | str]:
+    html_content: str | cabc.Sequence[HtmlFragment],
+) -> list[HtmlFragment]:
     """Convert string to html elements."""
     if isinstance(html_content, str):
-        return lxmlhtml.fragments_fromstring(html_content)
-    return html_content
+        return t.cast(
+            list[HtmlFragment],
+            lxmlhtml.fragments_fromstring(html_content),
+        )
+    return list(html_content)
 
 
 def extract_headings(
-    html_content: str | list[lxmlhtml.HtmlElement | str],
+    html_content: str | cabc.Sequence[HtmlFragment],
 ) -> list[str]:
     """Return work item IDs for headings."""
     return extract_work_items(html_content, H_REGEX)
 
 
 def extract_work_items(
-    html_content: str | list[lxmlhtml.HtmlElement | str],
+    html_content: str | cabc.Sequence[HtmlFragment],
     tag_regex: re.Pattern[str] | None = None,
 ) -> list[str]:
     """Return work item IDs from content."""
@@ -144,8 +150,8 @@ def get_layout_index(
 
 
 def remove_table_ids(
-    html_content: str | list[lxmlhtml.HtmlElement | str],
-) -> list[lxmlhtml.HtmlElement | str]:
+    html_content: str | cabc.Sequence[HtmlFragment],
+) -> list[HtmlFragment]:
     """Remove the ID field from all tables.
 
     This works around a Polarion limitation where duplicate table IDs in
