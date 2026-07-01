@@ -28,7 +28,18 @@ class PolarionWorkItemException(PolarionApiInternalException):
 
     def __init__(self, message: str, work_item: dm.WorkItem):
         self.work_item = work_item
-        message = f"{message} (WorkItem Title: {work_item.title})"
+
+        fields: list[str] = []
+        if work_item.id is not None:
+            fields.append(f"ID: {work_item.id!r}")
+        if work_item.title is not None:
+            fields.append(f"Title: {work_item.title!r}")
+        if work_item.type is not None:
+            fields.append(f"Type: {work_item.type!r}")
+
+        if fields:
+            message = f"{message} (WorkItem {', '.join(fields)})"
+
         super().__init__(message)
 
 
