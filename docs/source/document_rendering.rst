@@ -157,7 +157,7 @@ In the Polarion UI, a typical marker source can look like this:
 
 .. code-block:: html
 
-   <div class="c2pAreaStart" id="IcdContent">
+   <div class="autoRenderAreaStart" id="IcdContent">
    #set($statusList = ["draft", "planned", "inReview"])
    #if ($statusList.contains($document.getStatus().id))
    <p style="font-weight: bold;background-color: #FFFF00;text-align: center;">
@@ -169,12 +169,12 @@ In the Polarion UI, a typical marker source can look like this:
 
    <!-- ... generated content goes here ... -->
 
-   <div class="c2pAreaEnd" id="IcdContent"></div>
+   <div class="autoRenderAreaEnd" id="IcdContent"></div>
 
 Important rules:
 
 - area IDs must match between start and end markers
-- marker classes must be exactly ``c2pAreaStart`` and ``c2pAreaEnd``
+- marker classes must match the configured renderer marker classes
 - each start marker must have a corresponding end marker
 - each marker must be inside a Polarion wiki block source section
 - only content between markers is overwritten during mixed-authority updates

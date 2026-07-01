@@ -18,7 +18,7 @@ H_REGEX = re.compile("h[0-9]")
 WI_ID_REGEX = re.compile(WI_ID_PREFIX + r"([A-Za-z0-9]*-[0-9]+)")
 WI_PROJECT_REGEX = re.compile(WI_PROJECT_PREFIX + r"([A-Za-z0-9\-_]+)")
 
-TEXT_WORK_ITEM_ID_FIELD = "__C2P__id"
+TEXT_WORK_ITEM_ID_FIELD = "__AUTO_RENDER__id"
 TEXT_WORK_ITEM_TYPE = "text"
 POLARION_WORK_ITEM_URL = (
     '<span class="polarion-rte-link" data-type="workItem" '

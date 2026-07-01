@@ -179,7 +179,12 @@ def test_render_document_generates_text_work_items(tmp_path):
 
     work_item = rendered.text_work_item_provider.new_text_work_items["txt-1"]
     assert work_item.type == "text"
-    assert work_item.additional_attributes["__C2P__id"] == "txt-1"
+    assert (
+        work_item.additional_attributes[
+            document_rendering.TEXT_WORK_ITEM_ID_FIELD
+        ]
+        == "txt-1"
+    )
     assert work_item.description is not None
     assert work_item.description.value == "<p>Hello</p>"
 
