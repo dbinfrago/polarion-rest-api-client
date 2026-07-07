@@ -13,7 +13,7 @@ import typing as t
 import jinja2
 from lxml import html as lxmlhtml
 
-from polarion_rest_api_client import data_models as polarion_api
+from polarion_rest_api_client import data_models
 
 from . import html_utils, rendering_session
 from . import text_work_item_provider as text_work_item_provider_module
@@ -26,6 +26,10 @@ DEFAULT_AREA_END_CLS = "autoRenderAreaEnd"
 """Default marker class for the wiki macro that ends a rendering area."""
 
 logger = logging.getLogger(__name__)
+WorkItemLookupResult = tuple[
+    str | None,
+    data_models.WorkItem | None,
+]
 
 
 class DocumentRenderer:
@@ -43,9 +47,10 @@ class DocumentRenderer:
         self,
         default_project_id: str | None = None,
         *,
-        work_item_lookup: rendering_session.WorkItemLookup | None = None,
+        work_item_lookup: t.Callable[[object], WorkItemLookupResult]
+        | None = None,
         work_item_repository: (
-            cabc.Mapping[tuple[str, str], polarion_api.WorkItem] | None
+            cabc.Mapping[tuple[str, str], data_models.WorkItem] | None
         ) = None,
         area_start_class: str = DEFAULT_AREA_START_CLS,
         area_end_class: str = DEFAULT_AREA_END_CLS,
@@ -87,18 +92,16 @@ class DocumentRenderer:
         return dict(self._extra_template_context)
 
     @t.overload
-    def resolve_work_item(
-        self, obj: object
-    ) -> rendering_session.WorkItemLookupResult: ...
+    def resolve_work_item(self, obj: object) -> WorkItemLookupResult: ...
 
     @t.overload
     def resolve_work_item(
         self, project_id: str, work_item_id: str
-    ) -> rendering_session.WorkItemLookupResult: ...
+    ) -> WorkItemLookupResult: ...
 
     def resolve_work_item(
         self, obj: object, work_item_id: str | None = None
-    ) -> rendering_session.WorkItemLookupResult:
+    ) -> WorkItemLookupResult:
         """Resolve a custom object into a Polarion work item.
 
         The default implementation supports lookups by ``(project_id,
@@ -133,7 +136,7 @@ class DocumentRenderer:
 
     def _resolve_work_item_from_repository(
         self, project_id: str, work_item_id: str
-    ) -> rendering_session.WorkItemLookupResult:
+    ) -> WorkItemLookupResult:
         work_item = self._work_item_repository.get((project_id, work_item_id))
         if work_item is None:
             logger.info(
@@ -144,13 +147,11 @@ class DocumentRenderer:
             return project_id, None
         return project_id, work_item
 
-    def _get_work_item(
-        self, obj: object
-    ) -> rendering_session.WorkItemLookupResult:
+    def _get_work_item(self, obj: object) -> WorkItemLookupResult:
         if isinstance(obj, tuple) and len(obj) == PROJ_WI_PAIR_LEN:
             proj_id, work_item = obj
             if isinstance(proj_id, str) and isinstance(
-                work_item, polarion_api.WorkItem
+                work_item, data_models.WorkItem
             ):
                 if work_item.id:
                     self._work_item_repository[(proj_id, work_item.id)] = (
@@ -237,9 +238,9 @@ class DocumentRenderer:
     ) -> str:
         if session.heading_ids:
             hid = session.heading_ids.pop(0)
-            session.headings.append(polarion_api.WorkItem(id=hid, title=text))
+            session.headings.append(data_models.WorkItem(id=hid, title=text))
             return f'<h{level} id="{html_utils.WI_ID_PREFIX}{hid}"></h{level}>'
-        return f"<h{level}>{text}</h{level}>"
+        return f"<h{level}>{html.escape(text)}</h{level}>"
 
     def _work_item_field(self, obj: object, field: str) -> t.Any:
         _, work_item = self._get_work_item(obj)
@@ -267,7 +268,7 @@ class DocumentRenderer:
         polarion_type: str | None = None,
         document_title: str | None = None,
         heading_numbering: bool = False,  # noqa: FBT002
-        rendering_layouts: list[polarion_api.RenderingLayout] | None = None,
+        rendering_layouts: list[data_models.RenderingLayout] | None = None,
         *,
         text_work_item_provider: (
             text_work_item_provider_module.TextWorkItemProvider | None
@@ -283,7 +284,7 @@ class DocumentRenderer:
         template_folder: str | pathlib.Path,
         template_name: str,
         *,
-        document: polarion_api.Document,
+        document: data_models.Document,
         text_work_item_provider: (
             text_work_item_provider_module.TextWorkItemProvider | None
         ) = None,
@@ -301,8 +302,8 @@ class DocumentRenderer:
         polarion_type: str | None = None,
         document_title: str | None = None,
         heading_numbering: bool = False,  # noqa: FBT002
-        rendering_layouts: list[polarion_api.RenderingLayout] | None = None,
-        document: polarion_api.Document | None = None,
+        rendering_layouts: list[data_models.RenderingLayout] | None = None,
+        document: data_models.Document | None = None,
         text_work_item_provider: (
             text_work_item_provider_module.TextWorkItemProvider | None
         ) = None,
@@ -338,7 +339,7 @@ class DocumentRenderer:
                     document.home_page_content.value
                 )
         else:
-            document = polarion_api.Document(
+            document = data_models.Document(
                 title=document_title,
                 module_folder=polarion_folder,
                 module_name=polarion_name,
@@ -355,7 +356,7 @@ class DocumentRenderer:
             html_utils.ensure_fragments(rendering_result),
         )
 
-        document.home_page_content = polarion_api.TextContent(
+        document.home_page_content = data_models.TextContent(
             "text/html",
             rendering_result,
         )
@@ -369,7 +370,7 @@ class DocumentRenderer:
 
     def update_mixed_authority_document(
         self,
-        document: polarion_api.Document,
+        document: data_models.Document,
         template_folder: str | pathlib.Path,
         sections: dict[str, str],
         global_parameters: dict[str, t.Any],
@@ -436,7 +437,7 @@ class DocumentRenderer:
         new_content += html_elements[last_section_end:]
         new_content = html_utils.remove_table_ids(new_content)
 
-        document.home_page_content = polarion_api.TextContent(
+        document.home_page_content = data_models.TextContent(
             "text/html",
             "\n".join(
                 lxmlhtml.tostring(element).decode("utf-8")

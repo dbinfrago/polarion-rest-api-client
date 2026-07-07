@@ -4,7 +4,7 @@
 
 from lxml import html as lxmlhtml
 
-from polarion_rest_api_client import data_models as polarion_api
+from polarion_rest_api_client import data_models
 
 from . import html_utils
 
@@ -16,7 +16,7 @@ class TextWorkItemProvider:
         self,
         text_work_item_id_field: str = html_utils.TEXT_WORK_ITEM_ID_FIELD,
         text_work_item_type: str = html_utils.TEXT_WORK_ITEM_TYPE,
-        existing_text_work_items: list[polarion_api.WorkItem] | None = None,
+        existing_text_work_items: list[data_models.WorkItem] | None = None,
     ) -> None:
         """Initialize the text work item provider.
 
@@ -29,7 +29,7 @@ class TextWorkItemProvider:
         existing_text_work_items
             Existing text work items to reuse.
         """
-        self.old_text_work_items: dict[str, polarion_api.WorkItem] = {}
+        self.old_text_work_items: dict[str, data_models.WorkItem] = {}
         for work_item in existing_text_work_items or []:
             if text_id := work_item.additional_attributes.get(
                 text_work_item_id_field
@@ -43,7 +43,7 @@ class TextWorkItemProvider:
 
         self.text_work_item_id_field = text_work_item_id_field
         self.text_work_item_type = text_work_item_type
-        self.new_text_work_items: dict[str, polarion_api.WorkItem] = {}
+        self.new_text_work_items: dict[str, data_models.WorkItem] = {}
 
     def generate_text_work_items(
         self,
@@ -76,7 +76,7 @@ class TextWorkItemProvider:
                     or work_item.id in work_item_id_filter
                 )
             ):
-                work_item = polarion_api.WorkItem(
+                work_item = data_models.WorkItem(
                     type=self.text_work_item_type,
                     title="",
                     status="open",
@@ -98,12 +98,12 @@ class TextWorkItemProvider:
             if element.text:
                 inner_content = element.text + inner_content
 
-            work_item.description = polarion_api.HtmlContent(inner_content)
+            work_item.description = data_models.HtmlContent(inner_content)
             self.new_text_work_items[text_id] = work_item
 
     def insert_text_work_items(
         self,
-        document: polarion_api.Document,
+        document: data_models.Document,
     ) -> None:
         """Insert text work items into the given document.
 

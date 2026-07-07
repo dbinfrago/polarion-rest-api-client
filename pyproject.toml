@@ -51,7 +51,7 @@ tests = [
 dev = [
   {include-group = "tests"},
   "codespell==2.4.1",
-  "lxml-stubs>=0.5.1",
+  "types-lxml>=2026.2.16",
   "mypy==1.16.1",
   "openapi-python-client==0.25.1",
   "pre-commit>=4.2.0",

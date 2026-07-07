@@ -89,6 +89,30 @@ def test_render_document_with_work_item_id_lookup(tmp_path):
     )
 
 
+def test_render_document_escapes_heading_text(tmp_path):
+    template_dir = tmp_path / "templates"
+    template_dir.mkdir()
+    (template_dir / "doc.j2").write_text(
+        "{{ heading(1, 'Main <Heading> & \"Title\"', session) }}",
+        encoding="utf-8",
+    )
+
+    renderer = document_rendering.DocumentRenderer(default_project_id="PRJ")
+    rendered = renderer.render_document(
+        template_dir,
+        "doc.j2",
+        "_default",
+        "DOC-ESCAPE",
+    )
+
+    assert rendered.document.home_page_content is not None
+    assert rendered.document.home_page_content.value is not None
+    assert (
+        rendered.document.home_page_content.value.strip()
+        == "<h1>Main &lt;Heading&gt; &amp; &quot;Title&quot;</h1>"
+    )
+
+
 def test_render_document_falls_back_to_callback_lookup(tmp_path):
     template_dir = tmp_path / "templates"
     template_dir.mkdir()

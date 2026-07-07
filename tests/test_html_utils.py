@@ -5,32 +5,37 @@ from __future__ import annotations
 
 from lxml import html as lxmlhtml
 
-from polarion_rest_api_client import data_models as polarion_api
+from polarion_rest_api_client import data_models
 from polarion_rest_api_client.document_rendering import html_utils
 
 
 def test_strike_through_wraps_text():
-    rendered = html_utils.strike_through("removed")
+    rendered = html_utils.strike_through("removed <danger>")
     assert rendered == (
-        '<span style="text-decoration: line-through;">removed</span>'
+        '<span style="text-decoration: line-through;">'
+        "removed &lt;danger&gt;"
+        "</span>"
     )
 
 
 def test_generate_image_html_with_caption():
     rendered = html_utils.generate_image_html(
-        title="Architecture",
-        attachment_id="arch.svg",
+        title='Architecture "v2"',
+        attachment_id="arch&.svg",
         max_width=640,
-        css_class="diagram",
-        caption=("Figure", "Logical architecture"),
+        css_class="diagram main",
+        caption=("Figure <A>", "Logical architecture & dependencies"),
     )
 
     fragments = lxmlhtml.fragments_fromstring(rendered)
     assert fragments[0].tag == "span"
     assert fragments[0][0].tag == "img"
-    assert fragments[0][0].attrib["src"] == "workitemimg:arch.svg"
+    assert fragments[0][0].attrib["title"] == 'Architecture "v2"'
+    assert fragments[0][0].attrib["src"] == "workitemimg:arch&.svg"
     assert fragments[1].tag == "p"
-    assert "Logical architecture" in fragments[1].text_content()
+    caption_text = "".join(fragments[1].itertext())
+    assert "Figure <A>" in caption_text
+    assert "Logical architecture & dependencies" in caption_text
 
 
 def test_extract_headings_and_work_items():
@@ -47,7 +52,7 @@ def test_extract_headings_and_work_items():
 
 def test_get_layout_index_returns_existing_layout():
     layouts = [
-        polarion_api.RenderingLayout(type="requirement", layouter="section")
+        data_models.RenderingLayout(type="requirement", layouter="section")
     ]
 
     idx = html_utils.get_layout_index("section", layouts, "requirement")
@@ -57,7 +62,7 @@ def test_get_layout_index_returns_existing_layout():
 
 
 def test_get_layout_index_appends_layout_if_missing():
-    layouts: list[polarion_api.RenderingLayout] = []
+    layouts: list[data_models.RenderingLayout] = []
 
     idx = html_utils.get_layout_index("section", layouts, "systemFunction")
 

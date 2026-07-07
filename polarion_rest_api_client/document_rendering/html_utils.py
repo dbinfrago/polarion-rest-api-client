@@ -5,16 +5,16 @@
 from __future__ import annotations
 
 import collections.abc as cabc
+import html
 import re
-import typing as t
 
 from lxml import html as lxmlhtml
 
-from polarion_rest_api_client import data_models as polarion_api
+from polarion_rest_api_client import data_models
 
 WI_ID_PREFIX = "polarion_wiki macro name=module-workitem;params=id="
 WI_PROJECT_PREFIX = "polarion_wiki macro name=module-workitem;.*project="
-H_REGEX = re.compile("h[0-9]")
+H_REGEX = re.compile("h[0-9]+")
 WI_ID_REGEX = re.compile(WI_ID_PREFIX + r"([A-Za-z0-9]*-[0-9]+)")
 WI_PROJECT_REGEX = re.compile(WI_PROJECT_PREFIX + r"([A-Za-z0-9\-_]+)")
 
@@ -50,7 +50,11 @@ type HtmlFragment = lxmlhtml.HtmlElement | str
 
 def strike_through(string: str) -> str:
     """Return a striked-through HTML span from the given string."""
-    return f'<span style="text-decoration: line-through;">{string}</span>'
+    return (
+        '<span style="text-decoration: line-through;">'
+        f"{html.escape(string)}"
+        "</span>"
+    )
 
 
 def generate_image_html(
@@ -61,14 +65,16 @@ def generate_image_html(
     caption: tuple[str, str] | None = None,
 ) -> str:
     """Generate Polarion HTML for an attached image."""
+    escaped_title = html.escape(title)
     description = (
-        f'<span><img title="{title}" class="{css_class}" '
+        f'<span><img title="{escaped_title}" class="{css_class}" '
         f'src="workitemimg:{attachment_id}" '
         f'style="max-width: {max_width}px;"/></span>'
     )
     if caption:
         description += POLARION_CAPTION.format(
-            label=caption[0], caption=caption[1]
+            label=html.escape(caption[0]),
+            caption=html.escape(caption[1]),
         )
     return description
 
@@ -91,10 +97,7 @@ def ensure_fragments(
 ) -> list[HtmlFragment]:
     """Convert string to html elements."""
     if isinstance(html_content, str):
-        return t.cast(
-            list[HtmlFragment],
-            lxmlhtml.fragments_fromstring(html_content),
-        )
+        return lxmlhtml.fragments_fromstring(html_content)
     return list(html_content)
 
 
@@ -129,7 +132,7 @@ def extract_work_items(
 
 def get_layout_index(
     default_layouter: str,
-    rendering_layouts: list[polarion_api.RenderingLayout],
+    rendering_layouts: list[data_models.RenderingLayout],
     work_item_type: str,
 ) -> int:
     """Return the index of layout for work item."""
@@ -140,7 +143,7 @@ def get_layout_index(
         layout_index += 1
     if layout_index >= len(rendering_layouts):
         rendering_layouts.append(
-            polarion_api.RenderingLayout(
+            data_models.RenderingLayout(
                 type=work_item_type,
                 layouter=default_layouter,
                 label=camel_case_to_words(work_item_type),
