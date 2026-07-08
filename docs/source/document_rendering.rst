@@ -1,0 +1,265 @@
+..
+   Copyright DB InfraGO AG and contributors
+   SPDX-License-Identifier: Apache-2.0
+
+Document Rendering
+==================
+
+The package provides a generic, non-project-specific rendering layer for
+Polarion documents in ``polarion_rest_api_client.document_rendering``.
+
+Import the rendering API from the dedicated submodule:
+
+.. code-block:: python
+
+   import polarion_rest_api_client as polarion_api
+   import polarion_rest_api_client.document_rendering as rendering
+
+Core entry points
+-----------------
+
+- ``DocumentRenderer`` renders full documents from Jinja templates and can
+  update existing documents.
+- ``update_mixed_authority_document`` updates configurable areas in
+  mixed-authority documents while preserving user-managed content.
+- ``TextWorkItemProvider`` creates and reuses text work items represented as
+  ``<workitem id="...">`` placeholders in templates.
+
+
+How The Rendering Pipeline Works
+--------------------------------
+
+``DocumentRenderer`` has two modes:
+
+- ``render_document`` for complete document rendering from a template
+- ``update_mixed_authority_document`` for section-only updates in existing
+  documents
+
+Both modes render Jinja first and then process generated HTML fragments.
+``TextWorkItemProvider`` is used to detect ``<workitem id="...">`` elements,
+create/update matching text work items, and replace placeholders with
+Polarion macro DIV elements.
+
+
+Rendering a document
+--------------------
+
+Minimal example with explicit work item tuple:
+
+.. code-block:: python
+
+   renderer = rendering.DocumentRenderer(default_project_id="PROJ")
+   req = polarion_api.WorkItem(id="REQ-1", type="requirement")
+
+   result = renderer.render_document(
+       template_folder="templates",
+       template_name="document.j2",
+       polarion_folder="_default",
+       polarion_name="SPEC-001",
+       item=("PROJ", req),
+   )
+
+   document = result.document
+
+
+Work item lookup modes
+----------------------
+
+``DocumentRenderer`` supports multiple lookup approaches:
+
+- explicit ``(project_id, WorkItem)`` tuples in templates
+- ``work_item_repository`` lookups by ``(project_id, work_item_id)``
+- string IDs with ``default_project_id``
+- a custom ``work_item_lookup`` callback
+
+Repository lookup example:
+
+.. code-block:: python
+
+   renderer = rendering.DocumentRenderer(
+       default_project_id="PROJ",
+       work_item_repository={
+           ("PROJ", "REQ-2"): polarion_api.WorkItem(
+               id="REQ-2",
+               type="requirement",
+               title="Safety requirement",
+           )
+       },
+   )
+
+   # In Jinja, ``item_id`` can now be "REQ-2"
+   # and it will be resolved via the repository.
+
+Callback lookup example:
+
+.. code-block:: python
+
+   def lookup_custom_object(obj: object) -> tuple[str | None, polarion_api.WorkItem | None]:
+       if isinstance(obj, dict) and obj.get("id") == "REQ-5":
+           return "PROJ", polarion_api.WorkItem(
+               id="REQ-5",
+               type="requirement",
+           )
+       return None, None
+
+   renderer = rendering.DocumentRenderer(
+       default_project_id="PROJ",
+       work_item_lookup=lookup_custom_object,
+   )
+
+Subclassing is still supported; project-specific renderers can override
+``resolve_work_item`` and optionally call ``super().resolve_work_item(...)``
+for fallback behavior.
+
+Jinja helpers
+-------------
+
+``DocumentRenderer`` registers template helpers:
+
+- ``insert_work_item(obj, session, level=None)``
+- ``heading(level, text, session)``
+- ``work_item_field(obj, field)``
+- ``generate_image_html(title, attachment_id, max_width, css_class, caption=None)``
+- filter ``link_work_item``
+
+Template example:
+
+.. code-block:: jinja
+
+   {{ heading(1, "System requirements", session) }}
+   {{ insert_work_item(item_id, session) }}
+   <p>Reference: {{ item_id | link_work_item }}</p>
+
+Mixed-authority updates
+-----------------------
+
+Use ``update_mixed_authority_document`` to replace template-managed sections
+while preserving manually maintained content.
+
+.. code-block:: python
+
+   result = renderer.update_mixed_authority_document(
+       document=existing_document,
+       template_folder="templates",
+       sections={"overview": "overview.j2"},
+       global_parameters={"version": "1.2"},
+       section_parameters={"overview": {"author": "DB"}},
+   )
+
+
+Defining Mixed-Authority Areas With Wiki Macros
+------------------------------------------------
+
+For mixed-authority updates, each auto-generated section must be wrapped by
+a start/end area marker inside Polarion wiki-macro source blocks.
+
+In the Polarion UI, a typical marker source can look like this:
+
+.. code-block:: html
+
+   <div class="autoRenderAreaStart" id="IcdContent">
+   #set($statusList = ["draft", "planned", "inReview"])
+   #if ($statusList.contains($document.getStatus().id))
+   <p style="font-weight: bold;background-color: #FFFF00;text-align: center;">
+   DON'T REMOVE THIS<br>
+   ↓↓↓Below this point all content is autogenerated and will be overwritten↓↓↓
+   </p>
+   #end
+   </div>
+
+   <!-- ... generated content goes here ... -->
+
+   <div class="autoRenderAreaEnd" id="IcdContent"></div>
+
+Important rules:
+
+- area IDs must match between start and end markers
+- marker classes must match the configured renderer marker classes
+- each start marker must have a corresponding end marker
+- each marker must be inside a Polarion wiki block source section
+- only content between markers is overwritten during mixed-authority updates
+
+By default, ``DocumentRenderer`` expects marker classes
+``autoRenderAreaStart`` and ``autoRenderAreaEnd``. You can override these via
+``area_start_class=...`` and ``area_end_class=...`` in the constructor.
+
+Internally, the parser reads these markers from HTML rendered by Polarion
+wiki macros (``div.polarion-dle-wiki-block`` +
+``div.polarion-dle-wiki-block-source``).
+
+
+TextWorkItemProvider In Practice
+--------------------------------
+
+``TextWorkItemProvider`` supports both creation and reuse of text work items.
+
+1. add ``<workitem id="...">...</workitem>`` in templates
+2. call ``generate_text_work_items(...)`` on rendered fragments
+3. create/update those work items via API using
+   ``new_text_work_items.values()``
+4. call ``insert_text_work_items(document)`` to replace placeholders in
+   document HTML with Polarion macro DIV elements
+
+Minimal pattern:
+
+.. code-block:: python
+
+   provider = rendering.TextWorkItemProvider(
+       existing_text_work_items=already_existing_text_wis,
+   )
+
+   result = renderer.render_document(
+       template_folder="templates",
+       template_name="basic_document.j2",
+       polarion_folder="_default",
+       polarion_name="SPEC-1",
+       text_work_item_provider=provider,
+   )
+
+   # Create/update result.text_work_item_provider.new_text_work_items via API,
+   # then place references into result.document HTML.
+   result.text_work_item_provider.insert_text_work_items(result.document)
+
+
+HTML helper functions
+---------------------
+
+Utility functions in ``polarion_rest_api_client.document_rendering.html_utils``
+can be used independently from ``DocumentRenderer``.
+
+Common helpers:
+
+- ``generate_image_html``: generate Polarion image HTML with optional caption
+- ``extract_work_items`` / ``extract_headings``: parse work item references
+- ``get_layout_index``: find or append rendering layout entries
+- ``remove_table_ids``: strip table IDs to avoid Polarion duplicate-ID issues
+- ``camel_case_to_words``: user-friendly labels from type names
+- ``strike_through``: mark removed references in generated HTML
+
+Examples
+--------
+
+Usable examples are provided in the repository:
+
+- notebook: ``docs/examples/document_rendering_examples.ipynb``
+- basic document template: ``docs/examples/templates/basic_document.j2``
+- mixed-authority section template:
+  ``docs/examples/templates/mixed_authority_section.j2``
+- mixed-authority sample content with area markers:
+  ``docs/examples/mixed_authority_document.html``
+
+.. code-block:: python
+
+   from polarion_rest_api_client.document_rendering import html_utils
+
+   html = html_utils.generate_image_html(
+       title="Architecture",
+       attachment_id="arch.svg",
+       max_width=900,
+       css_class="diagram",
+       caption=("Figure", "Logical architecture"),
+   )
+
+   ids = html_utils.extract_work_items(
+       '<div id="polarion_wiki macro name=module-workitem;params=id=REQ-10"></div>'
+   )

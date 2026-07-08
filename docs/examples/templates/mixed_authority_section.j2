@@ -1,0 +1,13 @@
+{#
+Copyright DB InfraGO AG and contributors
+SPDX-License-Identifier: Apache-2.0
+#}
+
+{{ heading(2, "ICD Auto Content", session) }}
+<p>Generated for release {{ release_name }}.</p>
+
+<workitem id="txt-icd-summary">
+  <p>Auto-generated summary for {{ system_name }}.</p>
+</workitem>
+
+{{ insert_work_item(primary_requirement, session) }}
