@@ -113,6 +113,38 @@ def get_and_fix_spec(src: str, path: str | os.PathLike):
     return spec
 
 
+def fix_nonjson_errors(api_path: pathlib.Path) -> None:
+    """Wrap Errors.from_dict(response.json()) calls in try/except.
+
+    The generated _parse_response functions call response.json() unconditionally
+    for every error status code. When Polarion returns an HTML error page or an
+    empty body, this raises json.decoder.JSONDecodeError instead of a proper
+    PolarionApiException. Wrapping in try/except lets _raise_on_error emit a
+    PolarionApiUnexpectedException instead.
+    """
+    pattern = re.compile(
+        r"^( +)(response_\w+ = Errors\.from_dict\(response\.json\(\)\))",
+        re.MULTILINE,
+    )
+
+    def _replace(m: re.Match) -> str:
+        indent = m.group(1)
+        stmt = m.group(2)
+        var_name = stmt.split(" =")[0].strip()
+        return (
+            f"{indent}try:\n"
+            f"{indent}    {stmt}\n"
+            f"{indent}except Exception:\n"
+            f"{indent}    {var_name} = None"
+        )
+
+    for path in api_path.rglob("*.py"):
+        original = path.read_text(encoding="utf-8")
+        fixed = pattern.sub(_replace, original)
+        if fixed != original:
+            path.write_text(fixed, encoding="utf-8")
+
+
 def generate_client(spec):
     with tempfile.NamedTemporaryFile("w", delete=False) as f:
         json.dump(spec, f)
@@ -140,6 +172,7 @@ def generate_client(spec):
             cwd=rest_api_path,
             check=True,
         )
+    fix_nonjson_errors(output_path / "api")
     subprocess.run(["git", "add", output_path], check=True, cwd=rest_api_path)
     p = subprocess.run(
         ["pre-commit", "run", "-a"], cwd=rest_api_path, check=False
