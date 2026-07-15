@@ -4,6 +4,7 @@
 
 from polarion_rest_api_client.document_rendering.document_renderer import (
     DocumentRenderer,
+    WorkItemLookupResult,
 )
 from polarion_rest_api_client.document_rendering.html_utils import (
     POLARION_WORK_ITEM_DOCUMENT,
@@ -50,6 +51,7 @@ __all__ = [
     "DocumentRenderer",
     "RenderingSession",
     "TextWorkItemProvider",
+    "WorkItemLookupResult",
     "camel_case_to_words",
     "ensure_fragments",
     "extract_headings",
