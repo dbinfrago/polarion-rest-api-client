@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -27,25 +28,25 @@ T = TypeVar("T", bound="UsersSingleGetResponseDataAttributes")
 class UsersSingleGetResponseDataAttributes:
     """
     Attributes:
-        avatar_url (Union[Unset, str]):  Example: http://server-host-name/application-
+        avatar_url (str | Unset):  Example: http://server-host-name/application-
             path/icons/avatar/MyUserId/avatar.png?revision=1234.
-        description (Union[Unset, UsersSingleGetResponseDataAttributesDescription]):
-        disabled_notifications (Union[Unset, bool]):
-        email (Union[Unset, str]):  Example: Email.
-        id (Union[Unset, str]):  Example: MyUserId.
-        initials (Union[Unset, str]):  Example: Initials.
-        name (Union[Unset, str]):  Example: Name.
+        description (UsersSingleGetResponseDataAttributesDescription | Unset):
+        disabled_notifications (bool | Unset):
+        email (str | Unset):  Example: Email.
+        id (str | Unset):  Example: MyUserId.
+        initials (str | Unset):  Example: Initials.
+        name (str | Unset):  Example: Name.
     """
 
-    avatar_url: Union[Unset, str] = UNSET
-    description: Union[
-        Unset, "UsersSingleGetResponseDataAttributesDescription"
-    ] = UNSET
-    disabled_notifications: Union[Unset, bool] = UNSET
-    email: Union[Unset, str] = UNSET
-    id: Union[Unset, str] = UNSET
-    initials: Union[Unset, str] = UNSET
-    name: Union[Unset, str] = UNSET
+    avatar_url: str | Unset = UNSET
+    description: UsersSingleGetResponseDataAttributesDescription | Unset = (
+        UNSET
+    )
+    disabled_notifications: bool | Unset = UNSET
+    email: str | Unset = UNSET
+    id: str | Unset = UNSET
+    initials: str | Unset = UNSET
+    name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -53,7 +54,7 @@ class UsersSingleGetResponseDataAttributes:
     def to_dict(self) -> dict[str, Any]:
         avatar_url = self.avatar_url
 
-        description: Union[Unset, dict[str, Any]] = UNSET
+        description: dict[str, Any] | Unset = UNSET
         if not isinstance(self.description, Unset):
             description = self.description.to_dict()
 
@@ -97,9 +98,7 @@ class UsersSingleGetResponseDataAttributes:
         avatar_url = d.pop("avatarUrl", UNSET)
 
         _description = d.pop("description", UNSET)
-        description: Union[
-            Unset, UsersSingleGetResponseDataAttributesDescription
-        ]
+        description: UsersSingleGetResponseDataAttributesDescription | Unset
         if isinstance(_description, Unset):
             description = UNSET
         else:

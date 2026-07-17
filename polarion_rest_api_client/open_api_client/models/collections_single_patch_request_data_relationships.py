@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -21,6 +22,9 @@ if TYPE_CHECKING:
     from ..models.collections_single_patch_request_data_relationships_rich_pages import (
         CollectionsSinglePatchRequestDataRelationshipsRichPages,
     )
+    from ..models.collections_single_patch_request_data_relationships_test_runs import (
+        CollectionsSinglePatchRequestDataRelationshipsTestRuns,
+    )
     from ..models.collections_single_patch_request_data_relationships_upstream_collections import (
         CollectionsSinglePatchRequestDataRelationshipsUpstreamCollections,
     )
@@ -33,35 +37,43 @@ T = TypeVar("T", bound="CollectionsSinglePatchRequestDataRelationships")
 class CollectionsSinglePatchRequestDataRelationships:
     """
     Attributes:
-        documents (Union[Unset, CollectionsSinglePatchRequestDataRelationshipsDocuments]):
-        rich_pages (Union[Unset, CollectionsSinglePatchRequestDataRelationshipsRichPages]):
-        upstream_collections (Union[Unset, CollectionsSinglePatchRequestDataRelationshipsUpstreamCollections]):
+        documents (CollectionsSinglePatchRequestDataRelationshipsDocuments | Unset):
+        rich_pages (CollectionsSinglePatchRequestDataRelationshipsRichPages | Unset):
+        test_runs (CollectionsSinglePatchRequestDataRelationshipsTestRuns | Unset):
+        upstream_collections (CollectionsSinglePatchRequestDataRelationshipsUpstreamCollections | Unset):
     """
 
-    documents: Union[
-        Unset, "CollectionsSinglePatchRequestDataRelationshipsDocuments"
-    ] = UNSET
-    rich_pages: Union[
-        Unset, "CollectionsSinglePatchRequestDataRelationshipsRichPages"
-    ] = UNSET
-    upstream_collections: Union[
-        Unset,
-        "CollectionsSinglePatchRequestDataRelationshipsUpstreamCollections",
-    ] = UNSET
+    documents: (
+        CollectionsSinglePatchRequestDataRelationshipsDocuments | Unset
+    ) = UNSET
+    rich_pages: (
+        CollectionsSinglePatchRequestDataRelationshipsRichPages | Unset
+    ) = UNSET
+    test_runs: (
+        CollectionsSinglePatchRequestDataRelationshipsTestRuns | Unset
+    ) = UNSET
+    upstream_collections: (
+        CollectionsSinglePatchRequestDataRelationshipsUpstreamCollections
+        | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        documents: Union[Unset, dict[str, Any]] = UNSET
+        documents: dict[str, Any] | Unset = UNSET
         if not isinstance(self.documents, Unset):
             documents = self.documents.to_dict()
 
-        rich_pages: Union[Unset, dict[str, Any]] = UNSET
+        rich_pages: dict[str, Any] | Unset = UNSET
         if not isinstance(self.rich_pages, Unset):
             rich_pages = self.rich_pages.to_dict()
 
-        upstream_collections: Union[Unset, dict[str, Any]] = UNSET
+        test_runs: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.test_runs, Unset):
+            test_runs = self.test_runs.to_dict()
+
+        upstream_collections: dict[str, Any] | Unset = UNSET
         if not isinstance(self.upstream_collections, Unset):
             upstream_collections = self.upstream_collections.to_dict()
 
@@ -72,6 +84,8 @@ class CollectionsSinglePatchRequestDataRelationships:
             field_dict["documents"] = documents
         if rich_pages is not UNSET:
             field_dict["richPages"] = rich_pages
+        if test_runs is not UNSET:
+            field_dict["testRuns"] = test_runs
         if upstream_collections is not UNSET:
             field_dict["upstreamCollections"] = upstream_collections
 
@@ -85,15 +99,18 @@ class CollectionsSinglePatchRequestDataRelationships:
         from ..models.collections_single_patch_request_data_relationships_rich_pages import (
             CollectionsSinglePatchRequestDataRelationshipsRichPages,
         )
+        from ..models.collections_single_patch_request_data_relationships_test_runs import (
+            CollectionsSinglePatchRequestDataRelationshipsTestRuns,
+        )
         from ..models.collections_single_patch_request_data_relationships_upstream_collections import (
             CollectionsSinglePatchRequestDataRelationshipsUpstreamCollections,
         )
 
         d = dict(src_dict)
         _documents = d.pop("documents", UNSET)
-        documents: Union[
-            Unset, CollectionsSinglePatchRequestDataRelationshipsDocuments
-        ]
+        documents: (
+            CollectionsSinglePatchRequestDataRelationshipsDocuments | Unset
+        )
         if isinstance(_documents, Unset):
             documents = UNSET
         else:
@@ -102,9 +119,9 @@ class CollectionsSinglePatchRequestDataRelationships:
             )
 
         _rich_pages = d.pop("richPages", UNSET)
-        rich_pages: Union[
-            Unset, CollectionsSinglePatchRequestDataRelationshipsRichPages
-        ]
+        rich_pages: (
+            CollectionsSinglePatchRequestDataRelationshipsRichPages | Unset
+        )
         if isinstance(_rich_pages, Unset):
             rich_pages = UNSET
         else:
@@ -112,11 +129,22 @@ class CollectionsSinglePatchRequestDataRelationships:
                 _rich_pages
             )
 
+        _test_runs = d.pop("testRuns", UNSET)
+        test_runs: (
+            CollectionsSinglePatchRequestDataRelationshipsTestRuns | Unset
+        )
+        if isinstance(_test_runs, Unset):
+            test_runs = UNSET
+        else:
+            test_runs = CollectionsSinglePatchRequestDataRelationshipsTestRuns.from_dict(
+                _test_runs
+            )
+
         _upstream_collections = d.pop("upstreamCollections", UNSET)
-        upstream_collections: Union[
-            Unset,
-            CollectionsSinglePatchRequestDataRelationshipsUpstreamCollections,
-        ]
+        upstream_collections: (
+            CollectionsSinglePatchRequestDataRelationshipsUpstreamCollections
+            | Unset
+        )
         if isinstance(_upstream_collections, Unset):
             upstream_collections = UNSET
         else:
@@ -127,6 +155,7 @@ class CollectionsSinglePatchRequestDataRelationships:
         collections_single_patch_request_data_relationships_obj = cls(
             documents=documents,
             rich_pages=rich_pages,
+            test_runs=test_runs,
             upstream_collections=upstream_collections,
         )
 

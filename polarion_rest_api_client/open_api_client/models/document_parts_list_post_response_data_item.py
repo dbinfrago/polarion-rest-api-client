@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -30,26 +31,26 @@ T = TypeVar("T", bound="DocumentPartsListPostResponseDataItem")
 class DocumentPartsListPostResponseDataItem:
     """
     Attributes:
-        type_ (Union[Unset, DocumentPartsListPostResponseDataItemType]):
-        id (Union[Unset, str]):  Example: MyProjectId/MySpaceId/MyDocumentId/workitem_MyWorkItemId.
-        links (Union[Unset, DocumentPartsListPostResponseDataItemLinks]):
+        type_ (DocumentPartsListPostResponseDataItemType | Unset):
+        id (str | Unset):  Example: MyProjectId/MySpaceId/MyDocumentId/workitem_MyWorkItemId.
+        links (DocumentPartsListPostResponseDataItemLinks | Unset):
     """
 
-    type_: Union[Unset, DocumentPartsListPostResponseDataItemType] = UNSET
-    id: Union[Unset, str] = UNSET
-    links: Union[Unset, "DocumentPartsListPostResponseDataItemLinks"] = UNSET
+    type_: DocumentPartsListPostResponseDataItemType | Unset = UNSET
+    id: str | Unset = UNSET
+    links: DocumentPartsListPostResponseDataItemLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
         id = self.id
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
@@ -73,7 +74,7 @@ class DocumentPartsListPostResponseDataItem:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, DocumentPartsListPostResponseDataItemType]
+        type_: DocumentPartsListPostResponseDataItemType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -82,7 +83,7 @@ class DocumentPartsListPostResponseDataItem:
         id = d.pop("id", UNSET)
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, DocumentPartsListPostResponseDataItemLinks]
+        links: DocumentPartsListPostResponseDataItemLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:

@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -39,32 +40,30 @@ T = TypeVar("T", bound="DocumentCommentsSingleGetResponseData")
 class DocumentCommentsSingleGetResponseData:
     """
     Attributes:
-        type_ (Union[Unset, DocumentCommentsSingleGetResponseDataType]):
-        id (Union[Unset, str]):  Example: MyProjectId/MySpaceId/MyDocumentId/MyCommentId.
-        revision (Union[Unset, str]):  Example: 1234.
-        attributes (Union[Unset, DocumentCommentsSingleGetResponseDataAttributes]):
-        relationships (Union[Unset, DocumentCommentsSingleGetResponseDataRelationships]):
-        links (Union[Unset, DocumentCommentsSingleGetResponseDataLinks]):
-        meta (Union[Unset, DocumentCommentsSingleGetResponseDataMeta]):
+        type_ (DocumentCommentsSingleGetResponseDataType | Unset):
+        id (str | Unset):  Example: MyProjectId/MySpaceId/MyDocumentId/MyCommentId.
+        revision (str | Unset):  Example: 1234.
+        attributes (DocumentCommentsSingleGetResponseDataAttributes | Unset):
+        relationships (DocumentCommentsSingleGetResponseDataRelationships | Unset):
+        links (DocumentCommentsSingleGetResponseDataLinks | Unset):
+        meta (DocumentCommentsSingleGetResponseDataMeta | Unset):
     """
 
-    type_: Union[Unset, DocumentCommentsSingleGetResponseDataType] = UNSET
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    attributes: Union[
-        Unset, "DocumentCommentsSingleGetResponseDataAttributes"
-    ] = UNSET
-    relationships: Union[
-        Unset, "DocumentCommentsSingleGetResponseDataRelationships"
-    ] = UNSET
-    links: Union[Unset, "DocumentCommentsSingleGetResponseDataLinks"] = UNSET
-    meta: Union[Unset, "DocumentCommentsSingleGetResponseDataMeta"] = UNSET
+    type_: DocumentCommentsSingleGetResponseDataType | Unset = UNSET
+    id: str | Unset = UNSET
+    revision: str | Unset = UNSET
+    attributes: DocumentCommentsSingleGetResponseDataAttributes | Unset = UNSET
+    relationships: (
+        DocumentCommentsSingleGetResponseDataRelationships | Unset
+    ) = UNSET
+    links: DocumentCommentsSingleGetResponseDataLinks | Unset = UNSET
+    meta: DocumentCommentsSingleGetResponseDataMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -72,19 +71,19 @@ class DocumentCommentsSingleGetResponseData:
 
         revision = self.revision
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        relationships: Union[Unset, dict[str, Any]] = UNSET
+        relationships: dict[str, Any] | Unset = UNSET
         if not isinstance(self.relationships, Unset):
             relationships = self.relationships.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -125,7 +124,7 @@ class DocumentCommentsSingleGetResponseData:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, DocumentCommentsSingleGetResponseDataType]
+        type_: DocumentCommentsSingleGetResponseDataType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -136,9 +135,7 @@ class DocumentCommentsSingleGetResponseData:
         revision = d.pop("revision", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[
-            Unset, DocumentCommentsSingleGetResponseDataAttributes
-        ]
+        attributes: DocumentCommentsSingleGetResponseDataAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -149,9 +146,9 @@ class DocumentCommentsSingleGetResponseData:
             )
 
         _relationships = d.pop("relationships", UNSET)
-        relationships: Union[
-            Unset, DocumentCommentsSingleGetResponseDataRelationships
-        ]
+        relationships: (
+            DocumentCommentsSingleGetResponseDataRelationships | Unset
+        )
         if isinstance(_relationships, Unset):
             relationships = UNSET
         else:
@@ -162,7 +159,7 @@ class DocumentCommentsSingleGetResponseData:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, DocumentCommentsSingleGetResponseDataLinks]
+        links: DocumentCommentsSingleGetResponseDataLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
@@ -171,7 +168,7 @@ class DocumentCommentsSingleGetResponseData:
             )
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, DocumentCommentsSingleGetResponseDataMeta]
+        meta: DocumentCommentsSingleGetResponseDataMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -78,160 +79,153 @@ T = TypeVar("T", bound="WorkitemsListGetResponseDataItemRelationships")
 class WorkitemsListGetResponseDataItemRelationships:
     """
     Attributes:
-        approvals (Union[Unset, WorkitemsListGetResponseDataItemRelationshipsApprovals]):
-        assignee (Union[Unset, WorkitemsListGetResponseDataItemRelationshipsAssignee]):
-        attachments (Union[Unset, WorkitemsListGetResponseDataItemRelationshipsAttachments]):
-        author (Union[Unset, WorkitemsListGetResponseDataItemRelationshipsAuthor]):
-        backlinked_work_items (Union[Unset, WorkitemsListGetResponseDataItemRelationshipsBacklinkedWorkItems]):
-        categories (Union[Unset, WorkitemsListGetResponseDataItemRelationshipsCategories]):
-        comments (Union[Unset, WorkitemsListGetResponseDataItemRelationshipsComments]):
-        externally_linked_work_items (Union[Unset,
-            WorkitemsListGetResponseDataItemRelationshipsExternallyLinkedWorkItems]):
-        linked_oslc_resources (Union[Unset, WorkitemsListGetResponseDataItemRelationshipsLinkedOslcResources]):
-        linked_revisions (Union[Unset, WorkitemsListGetResponseDataItemRelationshipsLinkedRevisions]):
-        linked_work_items (Union[Unset, WorkitemsListGetResponseDataItemRelationshipsLinkedWorkItems]):
-        module (Union[Unset, WorkitemsListGetResponseDataItemRelationshipsModule]):
-        planned_in (Union[Unset, WorkitemsListGetResponseDataItemRelationshipsPlannedIn]):
-        project (Union[Unset, WorkitemsListGetResponseDataItemRelationshipsProject]):
-        test_steps (Union[Unset, WorkitemsListGetResponseDataItemRelationshipsTestSteps]):
-        votes (Union[Unset, WorkitemsListGetResponseDataItemRelationshipsVotes]):
-        watches (Union[Unset, WorkitemsListGetResponseDataItemRelationshipsWatches]):
-        work_records (Union[Unset, WorkitemsListGetResponseDataItemRelationshipsWorkRecords]):
+        approvals (WorkitemsListGetResponseDataItemRelationshipsApprovals | Unset):
+        assignee (WorkitemsListGetResponseDataItemRelationshipsAssignee | Unset):
+        attachments (WorkitemsListGetResponseDataItemRelationshipsAttachments | Unset):
+        author (WorkitemsListGetResponseDataItemRelationshipsAuthor | Unset):
+        backlinked_work_items (WorkitemsListGetResponseDataItemRelationshipsBacklinkedWorkItems | Unset):
+        categories (WorkitemsListGetResponseDataItemRelationshipsCategories | Unset):
+        comments (WorkitemsListGetResponseDataItemRelationshipsComments | Unset):
+        externally_linked_work_items (WorkitemsListGetResponseDataItemRelationshipsExternallyLinkedWorkItems | Unset):
+        linked_oslc_resources (WorkitemsListGetResponseDataItemRelationshipsLinkedOslcResources | Unset):
+        linked_revisions (WorkitemsListGetResponseDataItemRelationshipsLinkedRevisions | Unset):
+        linked_work_items (WorkitemsListGetResponseDataItemRelationshipsLinkedWorkItems | Unset):
+        module (WorkitemsListGetResponseDataItemRelationshipsModule | Unset):
+        planned_in (WorkitemsListGetResponseDataItemRelationshipsPlannedIn | Unset):
+        project (WorkitemsListGetResponseDataItemRelationshipsProject | Unset):
+        test_steps (WorkitemsListGetResponseDataItemRelationshipsTestSteps | Unset):
+        votes (WorkitemsListGetResponseDataItemRelationshipsVotes | Unset):
+        watches (WorkitemsListGetResponseDataItemRelationshipsWatches | Unset):
+        work_records (WorkitemsListGetResponseDataItemRelationshipsWorkRecords | Unset):
     """
 
-    approvals: Union[
-        Unset, "WorkitemsListGetResponseDataItemRelationshipsApprovals"
-    ] = UNSET
-    assignee: Union[
-        Unset, "WorkitemsListGetResponseDataItemRelationshipsAssignee"
-    ] = UNSET
-    attachments: Union[
-        Unset, "WorkitemsListGetResponseDataItemRelationshipsAttachments"
-    ] = UNSET
-    author: Union[
-        Unset, "WorkitemsListGetResponseDataItemRelationshipsAuthor"
-    ] = UNSET
-    backlinked_work_items: Union[
-        Unset,
-        "WorkitemsListGetResponseDataItemRelationshipsBacklinkedWorkItems",
-    ] = UNSET
-    categories: Union[
-        Unset, "WorkitemsListGetResponseDataItemRelationshipsCategories"
-    ] = UNSET
-    comments: Union[
-        Unset, "WorkitemsListGetResponseDataItemRelationshipsComments"
-    ] = UNSET
-    externally_linked_work_items: Union[
-        Unset,
-        "WorkitemsListGetResponseDataItemRelationshipsExternallyLinkedWorkItems",
-    ] = UNSET
-    linked_oslc_resources: Union[
-        Unset,
-        "WorkitemsListGetResponseDataItemRelationshipsLinkedOslcResources",
-    ] = UNSET
-    linked_revisions: Union[
-        Unset, "WorkitemsListGetResponseDataItemRelationshipsLinkedRevisions"
-    ] = UNSET
-    linked_work_items: Union[
-        Unset, "WorkitemsListGetResponseDataItemRelationshipsLinkedWorkItems"
-    ] = UNSET
-    module: Union[
-        Unset, "WorkitemsListGetResponseDataItemRelationshipsModule"
-    ] = UNSET
-    planned_in: Union[
-        Unset, "WorkitemsListGetResponseDataItemRelationshipsPlannedIn"
-    ] = UNSET
-    project: Union[
-        Unset, "WorkitemsListGetResponseDataItemRelationshipsProject"
-    ] = UNSET
-    test_steps: Union[
-        Unset, "WorkitemsListGetResponseDataItemRelationshipsTestSteps"
-    ] = UNSET
-    votes: Union[
-        Unset, "WorkitemsListGetResponseDataItemRelationshipsVotes"
-    ] = UNSET
-    watches: Union[
-        Unset, "WorkitemsListGetResponseDataItemRelationshipsWatches"
-    ] = UNSET
-    work_records: Union[
-        Unset, "WorkitemsListGetResponseDataItemRelationshipsWorkRecords"
-    ] = UNSET
+    approvals: (
+        WorkitemsListGetResponseDataItemRelationshipsApprovals | Unset
+    ) = UNSET
+    assignee: WorkitemsListGetResponseDataItemRelationshipsAssignee | Unset = (
+        UNSET
+    )
+    attachments: (
+        WorkitemsListGetResponseDataItemRelationshipsAttachments | Unset
+    ) = UNSET
+    author: WorkitemsListGetResponseDataItemRelationshipsAuthor | Unset = UNSET
+    backlinked_work_items: (
+        WorkitemsListGetResponseDataItemRelationshipsBacklinkedWorkItems
+        | Unset
+    ) = UNSET
+    categories: (
+        WorkitemsListGetResponseDataItemRelationshipsCategories | Unset
+    ) = UNSET
+    comments: WorkitemsListGetResponseDataItemRelationshipsComments | Unset = (
+        UNSET
+    )
+    externally_linked_work_items: (
+        WorkitemsListGetResponseDataItemRelationshipsExternallyLinkedWorkItems
+        | Unset
+    ) = UNSET
+    linked_oslc_resources: (
+        WorkitemsListGetResponseDataItemRelationshipsLinkedOslcResources
+        | Unset
+    ) = UNSET
+    linked_revisions: (
+        WorkitemsListGetResponseDataItemRelationshipsLinkedRevisions | Unset
+    ) = UNSET
+    linked_work_items: (
+        WorkitemsListGetResponseDataItemRelationshipsLinkedWorkItems | Unset
+    ) = UNSET
+    module: WorkitemsListGetResponseDataItemRelationshipsModule | Unset = UNSET
+    planned_in: (
+        WorkitemsListGetResponseDataItemRelationshipsPlannedIn | Unset
+    ) = UNSET
+    project: WorkitemsListGetResponseDataItemRelationshipsProject | Unset = (
+        UNSET
+    )
+    test_steps: (
+        WorkitemsListGetResponseDataItemRelationshipsTestSteps | Unset
+    ) = UNSET
+    votes: WorkitemsListGetResponseDataItemRelationshipsVotes | Unset = UNSET
+    watches: WorkitemsListGetResponseDataItemRelationshipsWatches | Unset = (
+        UNSET
+    )
+    work_records: (
+        WorkitemsListGetResponseDataItemRelationshipsWorkRecords | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        approvals: Union[Unset, dict[str, Any]] = UNSET
+        approvals: dict[str, Any] | Unset = UNSET
         if not isinstance(self.approvals, Unset):
             approvals = self.approvals.to_dict()
 
-        assignee: Union[Unset, dict[str, Any]] = UNSET
+        assignee: dict[str, Any] | Unset = UNSET
         if not isinstance(self.assignee, Unset):
             assignee = self.assignee.to_dict()
 
-        attachments: Union[Unset, dict[str, Any]] = UNSET
+        attachments: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attachments, Unset):
             attachments = self.attachments.to_dict()
 
-        author: Union[Unset, dict[str, Any]] = UNSET
+        author: dict[str, Any] | Unset = UNSET
         if not isinstance(self.author, Unset):
             author = self.author.to_dict()
 
-        backlinked_work_items: Union[Unset, dict[str, Any]] = UNSET
+        backlinked_work_items: dict[str, Any] | Unset = UNSET
         if not isinstance(self.backlinked_work_items, Unset):
             backlinked_work_items = self.backlinked_work_items.to_dict()
 
-        categories: Union[Unset, dict[str, Any]] = UNSET
+        categories: dict[str, Any] | Unset = UNSET
         if not isinstance(self.categories, Unset):
             categories = self.categories.to_dict()
 
-        comments: Union[Unset, dict[str, Any]] = UNSET
+        comments: dict[str, Any] | Unset = UNSET
         if not isinstance(self.comments, Unset):
             comments = self.comments.to_dict()
 
-        externally_linked_work_items: Union[Unset, dict[str, Any]] = UNSET
+        externally_linked_work_items: dict[str, Any] | Unset = UNSET
         if not isinstance(self.externally_linked_work_items, Unset):
             externally_linked_work_items = (
                 self.externally_linked_work_items.to_dict()
             )
 
-        linked_oslc_resources: Union[Unset, dict[str, Any]] = UNSET
+        linked_oslc_resources: dict[str, Any] | Unset = UNSET
         if not isinstance(self.linked_oslc_resources, Unset):
             linked_oslc_resources = self.linked_oslc_resources.to_dict()
 
-        linked_revisions: Union[Unset, dict[str, Any]] = UNSET
+        linked_revisions: dict[str, Any] | Unset = UNSET
         if not isinstance(self.linked_revisions, Unset):
             linked_revisions = self.linked_revisions.to_dict()
 
-        linked_work_items: Union[Unset, dict[str, Any]] = UNSET
+        linked_work_items: dict[str, Any] | Unset = UNSET
         if not isinstance(self.linked_work_items, Unset):
             linked_work_items = self.linked_work_items.to_dict()
 
-        module: Union[Unset, dict[str, Any]] = UNSET
+        module: dict[str, Any] | Unset = UNSET
         if not isinstance(self.module, Unset):
             module = self.module.to_dict()
 
-        planned_in: Union[Unset, dict[str, Any]] = UNSET
+        planned_in: dict[str, Any] | Unset = UNSET
         if not isinstance(self.planned_in, Unset):
             planned_in = self.planned_in.to_dict()
 
-        project: Union[Unset, dict[str, Any]] = UNSET
+        project: dict[str, Any] | Unset = UNSET
         if not isinstance(self.project, Unset):
             project = self.project.to_dict()
 
-        test_steps: Union[Unset, dict[str, Any]] = UNSET
+        test_steps: dict[str, Any] | Unset = UNSET
         if not isinstance(self.test_steps, Unset):
             test_steps = self.test_steps.to_dict()
 
-        votes: Union[Unset, dict[str, Any]] = UNSET
+        votes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.votes, Unset):
             votes = self.votes.to_dict()
 
-        watches: Union[Unset, dict[str, Any]] = UNSET
+        watches: dict[str, Any] | Unset = UNSET
         if not isinstance(self.watches, Unset):
             watches = self.watches.to_dict()
 
-        work_records: Union[Unset, dict[str, Any]] = UNSET
+        work_records: dict[str, Any] | Unset = UNSET
         if not isinstance(self.work_records, Unset):
             work_records = self.work_records.to_dict()
 
@@ -338,9 +332,9 @@ class WorkitemsListGetResponseDataItemRelationships:
 
         d = dict(src_dict)
         _approvals = d.pop("approvals", UNSET)
-        approvals: Union[
-            Unset, WorkitemsListGetResponseDataItemRelationshipsApprovals
-        ]
+        approvals: (
+            WorkitemsListGetResponseDataItemRelationshipsApprovals | Unset
+        )
         if isinstance(_approvals, Unset):
             approvals = UNSET
         else:
@@ -349,9 +343,7 @@ class WorkitemsListGetResponseDataItemRelationships:
             )
 
         _assignee = d.pop("assignee", UNSET)
-        assignee: Union[
-            Unset, WorkitemsListGetResponseDataItemRelationshipsAssignee
-        ]
+        assignee: WorkitemsListGetResponseDataItemRelationshipsAssignee | Unset
         if isinstance(_assignee, Unset):
             assignee = UNSET
         else:
@@ -360,9 +352,9 @@ class WorkitemsListGetResponseDataItemRelationships:
             )
 
         _attachments = d.pop("attachments", UNSET)
-        attachments: Union[
-            Unset, WorkitemsListGetResponseDataItemRelationshipsAttachments
-        ]
+        attachments: (
+            WorkitemsListGetResponseDataItemRelationshipsAttachments | Unset
+        )
         if isinstance(_attachments, Unset):
             attachments = UNSET
         else:
@@ -371,9 +363,7 @@ class WorkitemsListGetResponseDataItemRelationships:
             )
 
         _author = d.pop("author", UNSET)
-        author: Union[
-            Unset, WorkitemsListGetResponseDataItemRelationshipsAuthor
-        ]
+        author: WorkitemsListGetResponseDataItemRelationshipsAuthor | Unset
         if isinstance(_author, Unset):
             author = UNSET
         else:
@@ -384,10 +374,10 @@ class WorkitemsListGetResponseDataItemRelationships:
             )
 
         _backlinked_work_items = d.pop("backlinkedWorkItems", UNSET)
-        backlinked_work_items: Union[
-            Unset,
-            WorkitemsListGetResponseDataItemRelationshipsBacklinkedWorkItems,
-        ]
+        backlinked_work_items: (
+            WorkitemsListGetResponseDataItemRelationshipsBacklinkedWorkItems
+            | Unset
+        )
         if isinstance(_backlinked_work_items, Unset):
             backlinked_work_items = UNSET
         else:
@@ -396,9 +386,9 @@ class WorkitemsListGetResponseDataItemRelationships:
             )
 
         _categories = d.pop("categories", UNSET)
-        categories: Union[
-            Unset, WorkitemsListGetResponseDataItemRelationshipsCategories
-        ]
+        categories: (
+            WorkitemsListGetResponseDataItemRelationshipsCategories | Unset
+        )
         if isinstance(_categories, Unset):
             categories = UNSET
         else:
@@ -407,9 +397,7 @@ class WorkitemsListGetResponseDataItemRelationships:
             )
 
         _comments = d.pop("comments", UNSET)
-        comments: Union[
-            Unset, WorkitemsListGetResponseDataItemRelationshipsComments
-        ]
+        comments: WorkitemsListGetResponseDataItemRelationshipsComments | Unset
         if isinstance(_comments, Unset):
             comments = UNSET
         else:
@@ -420,10 +408,10 @@ class WorkitemsListGetResponseDataItemRelationships:
         _externally_linked_work_items = d.pop(
             "externallyLinkedWorkItems", UNSET
         )
-        externally_linked_work_items: Union[
-            Unset,
-            WorkitemsListGetResponseDataItemRelationshipsExternallyLinkedWorkItems,
-        ]
+        externally_linked_work_items: (
+            WorkitemsListGetResponseDataItemRelationshipsExternallyLinkedWorkItems
+            | Unset
+        )
         if isinstance(_externally_linked_work_items, Unset):
             externally_linked_work_items = UNSET
         else:
@@ -432,10 +420,10 @@ class WorkitemsListGetResponseDataItemRelationships:
             )
 
         _linked_oslc_resources = d.pop("linkedOslcResources", UNSET)
-        linked_oslc_resources: Union[
-            Unset,
-            WorkitemsListGetResponseDataItemRelationshipsLinkedOslcResources,
-        ]
+        linked_oslc_resources: (
+            WorkitemsListGetResponseDataItemRelationshipsLinkedOslcResources
+            | Unset
+        )
         if isinstance(_linked_oslc_resources, Unset):
             linked_oslc_resources = UNSET
         else:
@@ -444,9 +432,10 @@ class WorkitemsListGetResponseDataItemRelationships:
             )
 
         _linked_revisions = d.pop("linkedRevisions", UNSET)
-        linked_revisions: Union[
-            Unset, WorkitemsListGetResponseDataItemRelationshipsLinkedRevisions
-        ]
+        linked_revisions: (
+            WorkitemsListGetResponseDataItemRelationshipsLinkedRevisions
+            | Unset
+        )
         if isinstance(_linked_revisions, Unset):
             linked_revisions = UNSET
         else:
@@ -455,9 +444,10 @@ class WorkitemsListGetResponseDataItemRelationships:
             )
 
         _linked_work_items = d.pop("linkedWorkItems", UNSET)
-        linked_work_items: Union[
-            Unset, WorkitemsListGetResponseDataItemRelationshipsLinkedWorkItems
-        ]
+        linked_work_items: (
+            WorkitemsListGetResponseDataItemRelationshipsLinkedWorkItems
+            | Unset
+        )
         if isinstance(_linked_work_items, Unset):
             linked_work_items = UNSET
         else:
@@ -466,9 +456,7 @@ class WorkitemsListGetResponseDataItemRelationships:
             )
 
         _module = d.pop("module", UNSET)
-        module: Union[
-            Unset, WorkitemsListGetResponseDataItemRelationshipsModule
-        ]
+        module: WorkitemsListGetResponseDataItemRelationshipsModule | Unset
         if isinstance(_module, Unset):
             module = UNSET
         else:
@@ -479,9 +467,9 @@ class WorkitemsListGetResponseDataItemRelationships:
             )
 
         _planned_in = d.pop("plannedIn", UNSET)
-        planned_in: Union[
-            Unset, WorkitemsListGetResponseDataItemRelationshipsPlannedIn
-        ]
+        planned_in: (
+            WorkitemsListGetResponseDataItemRelationshipsPlannedIn | Unset
+        )
         if isinstance(_planned_in, Unset):
             planned_in = UNSET
         else:
@@ -490,9 +478,7 @@ class WorkitemsListGetResponseDataItemRelationships:
             )
 
         _project = d.pop("project", UNSET)
-        project: Union[
-            Unset, WorkitemsListGetResponseDataItemRelationshipsProject
-        ]
+        project: WorkitemsListGetResponseDataItemRelationshipsProject | Unset
         if isinstance(_project, Unset):
             project = UNSET
         else:
@@ -503,9 +489,9 @@ class WorkitemsListGetResponseDataItemRelationships:
             )
 
         _test_steps = d.pop("testSteps", UNSET)
-        test_steps: Union[
-            Unset, WorkitemsListGetResponseDataItemRelationshipsTestSteps
-        ]
+        test_steps: (
+            WorkitemsListGetResponseDataItemRelationshipsTestSteps | Unset
+        )
         if isinstance(_test_steps, Unset):
             test_steps = UNSET
         else:
@@ -514,7 +500,7 @@ class WorkitemsListGetResponseDataItemRelationships:
             )
 
         _votes = d.pop("votes", UNSET)
-        votes: Union[Unset, WorkitemsListGetResponseDataItemRelationshipsVotes]
+        votes: WorkitemsListGetResponseDataItemRelationshipsVotes | Unset
         if isinstance(_votes, Unset):
             votes = UNSET
         else:
@@ -525,9 +511,7 @@ class WorkitemsListGetResponseDataItemRelationships:
             )
 
         _watches = d.pop("watches", UNSET)
-        watches: Union[
-            Unset, WorkitemsListGetResponseDataItemRelationshipsWatches
-        ]
+        watches: WorkitemsListGetResponseDataItemRelationshipsWatches | Unset
         if isinstance(_watches, Unset):
             watches = UNSET
         else:
@@ -538,9 +522,9 @@ class WorkitemsListGetResponseDataItemRelationships:
             )
 
         _work_records = d.pop("workRecords", UNSET)
-        work_records: Union[
-            Unset, WorkitemsListGetResponseDataItemRelationshipsWorkRecords
-        ]
+        work_records: (
+            WorkitemsListGetResponseDataItemRelationshipsWorkRecords | Unset
+        )
         if isinstance(_work_records, Unset):
             work_records = UNSET
         else:

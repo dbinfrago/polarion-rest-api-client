@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -23,18 +21,18 @@ T = TypeVar("T", bound="WorkitemApprovalsListGetResponseDataItemAttributes")
 class WorkitemApprovalsListGetResponseDataItemAttributes:
     """
     Attributes:
-        status (Union[Unset, WorkitemApprovalsListGetResponseDataItemAttributesStatus]):  Example: waiting.
+        status (WorkitemApprovalsListGetResponseDataItemAttributesStatus | Unset):  Example: waiting.
     """
 
-    status: Union[
-        Unset, WorkitemApprovalsListGetResponseDataItemAttributesStatus
-    ] = UNSET
+    status: (
+        WorkitemApprovalsListGetResponseDataItemAttributesStatus | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        status: Union[Unset, str] = UNSET
+        status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
 
@@ -50,9 +48,9 @@ class WorkitemApprovalsListGetResponseDataItemAttributes:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _status = d.pop("status", UNSET)
-        status: Union[
-            Unset, WorkitemApprovalsListGetResponseDataItemAttributesStatus
-        ]
+        status: (
+            WorkitemApprovalsListGetResponseDataItemAttributesStatus | Unset
+        )
         if isinstance(_status, Unset):
             status = UNSET
         else:

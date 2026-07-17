@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -33,34 +34,34 @@ T = TypeVar("T", bound="TestrunsSinglePatchRequestDataRelationships")
 class TestrunsSinglePatchRequestDataRelationships:
     """
     Attributes:
-        document (Union[Unset, TestrunsSinglePatchRequestDataRelationshipsDocument]):
-        project_span (Union[Unset, TestrunsSinglePatchRequestDataRelationshipsProjectSpan]):
-        summary_defect (Union[Unset, TestrunsSinglePatchRequestDataRelationshipsSummaryDefect]):
+        document (TestrunsSinglePatchRequestDataRelationshipsDocument | Unset):
+        project_span (TestrunsSinglePatchRequestDataRelationshipsProjectSpan | Unset):
+        summary_defect (TestrunsSinglePatchRequestDataRelationshipsSummaryDefect | Unset):
     """
 
-    document: Union[
-        Unset, "TestrunsSinglePatchRequestDataRelationshipsDocument"
-    ] = UNSET
-    project_span: Union[
-        Unset, "TestrunsSinglePatchRequestDataRelationshipsProjectSpan"
-    ] = UNSET
-    summary_defect: Union[
-        Unset, "TestrunsSinglePatchRequestDataRelationshipsSummaryDefect"
-    ] = UNSET
+    document: TestrunsSinglePatchRequestDataRelationshipsDocument | Unset = (
+        UNSET
+    )
+    project_span: (
+        TestrunsSinglePatchRequestDataRelationshipsProjectSpan | Unset
+    ) = UNSET
+    summary_defect: (
+        TestrunsSinglePatchRequestDataRelationshipsSummaryDefect | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        document: Union[Unset, dict[str, Any]] = UNSET
+        document: dict[str, Any] | Unset = UNSET
         if not isinstance(self.document, Unset):
             document = self.document.to_dict()
 
-        project_span: Union[Unset, dict[str, Any]] = UNSET
+        project_span: dict[str, Any] | Unset = UNSET
         if not isinstance(self.project_span, Unset):
             project_span = self.project_span.to_dict()
 
-        summary_defect: Union[Unset, dict[str, Any]] = UNSET
+        summary_defect: dict[str, Any] | Unset = UNSET
         if not isinstance(self.summary_defect, Unset):
             summary_defect = self.summary_defect.to_dict()
 
@@ -90,9 +91,7 @@ class TestrunsSinglePatchRequestDataRelationships:
 
         d = dict(src_dict)
         _document = d.pop("document", UNSET)
-        document: Union[
-            Unset, TestrunsSinglePatchRequestDataRelationshipsDocument
-        ]
+        document: TestrunsSinglePatchRequestDataRelationshipsDocument | Unset
         if isinstance(_document, Unset):
             document = UNSET
         else:
@@ -103,9 +102,9 @@ class TestrunsSinglePatchRequestDataRelationships:
             )
 
         _project_span = d.pop("projectSpan", UNSET)
-        project_span: Union[
-            Unset, TestrunsSinglePatchRequestDataRelationshipsProjectSpan
-        ]
+        project_span: (
+            TestrunsSinglePatchRequestDataRelationshipsProjectSpan | Unset
+        )
         if isinstance(_project_span, Unset):
             project_span = UNSET
         else:
@@ -114,9 +113,9 @@ class TestrunsSinglePatchRequestDataRelationships:
             )
 
         _summary_defect = d.pop("summaryDefect", UNSET)
-        summary_defect: Union[
-            Unset, TestrunsSinglePatchRequestDataRelationshipsSummaryDefect
-        ]
+        summary_defect: (
+            TestrunsSinglePatchRequestDataRelationshipsSummaryDefect | Unset
+        )
         if isinstance(_summary_defect, Unset):
             summary_defect = UNSET
         else:

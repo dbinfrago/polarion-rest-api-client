@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -39,50 +40,46 @@ T = TypeVar("T", bound="WorkitemsListPostRequestDataItemRelationships")
 class WorkitemsListPostRequestDataItemRelationships:
     """
     Attributes:
-        assignee (Union[Unset, WorkitemsListPostRequestDataItemRelationshipsAssignee]):
-        author (Union[Unset, WorkitemsListPostRequestDataItemRelationshipsAuthor]):
-        categories (Union[Unset, WorkitemsListPostRequestDataItemRelationshipsCategories]):
-        linked_revisions (Union[Unset, WorkitemsListPostRequestDataItemRelationshipsLinkedRevisions]):
-        module (Union[Unset, WorkitemsListPostRequestDataItemRelationshipsModule]):
+        assignee (WorkitemsListPostRequestDataItemRelationshipsAssignee | Unset):
+        author (WorkitemsListPostRequestDataItemRelationshipsAuthor | Unset):
+        categories (WorkitemsListPostRequestDataItemRelationshipsCategories | Unset):
+        linked_revisions (WorkitemsListPostRequestDataItemRelationshipsLinkedRevisions | Unset):
+        module (WorkitemsListPostRequestDataItemRelationshipsModule | Unset):
     """
 
-    assignee: Union[
-        Unset, "WorkitemsListPostRequestDataItemRelationshipsAssignee"
-    ] = UNSET
-    author: Union[
-        Unset, "WorkitemsListPostRequestDataItemRelationshipsAuthor"
-    ] = UNSET
-    categories: Union[
-        Unset, "WorkitemsListPostRequestDataItemRelationshipsCategories"
-    ] = UNSET
-    linked_revisions: Union[
-        Unset, "WorkitemsListPostRequestDataItemRelationshipsLinkedRevisions"
-    ] = UNSET
-    module: Union[
-        Unset, "WorkitemsListPostRequestDataItemRelationshipsModule"
-    ] = UNSET
+    assignee: WorkitemsListPostRequestDataItemRelationshipsAssignee | Unset = (
+        UNSET
+    )
+    author: WorkitemsListPostRequestDataItemRelationshipsAuthor | Unset = UNSET
+    categories: (
+        WorkitemsListPostRequestDataItemRelationshipsCategories | Unset
+    ) = UNSET
+    linked_revisions: (
+        WorkitemsListPostRequestDataItemRelationshipsLinkedRevisions | Unset
+    ) = UNSET
+    module: WorkitemsListPostRequestDataItemRelationshipsModule | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        assignee: Union[Unset, dict[str, Any]] = UNSET
+        assignee: dict[str, Any] | Unset = UNSET
         if not isinstance(self.assignee, Unset):
             assignee = self.assignee.to_dict()
 
-        author: Union[Unset, dict[str, Any]] = UNSET
+        author: dict[str, Any] | Unset = UNSET
         if not isinstance(self.author, Unset):
             author = self.author.to_dict()
 
-        categories: Union[Unset, dict[str, Any]] = UNSET
+        categories: dict[str, Any] | Unset = UNSET
         if not isinstance(self.categories, Unset):
             categories = self.categories.to_dict()
 
-        linked_revisions: Union[Unset, dict[str, Any]] = UNSET
+        linked_revisions: dict[str, Any] | Unset = UNSET
         if not isinstance(self.linked_revisions, Unset):
             linked_revisions = self.linked_revisions.to_dict()
 
-        module: Union[Unset, dict[str, Any]] = UNSET
+        module: dict[str, Any] | Unset = UNSET
         if not isinstance(self.module, Unset):
             module = self.module.to_dict()
 
@@ -122,9 +119,7 @@ class WorkitemsListPostRequestDataItemRelationships:
 
         d = dict(src_dict)
         _assignee = d.pop("assignee", UNSET)
-        assignee: Union[
-            Unset, WorkitemsListPostRequestDataItemRelationshipsAssignee
-        ]
+        assignee: WorkitemsListPostRequestDataItemRelationshipsAssignee | Unset
         if isinstance(_assignee, Unset):
             assignee = UNSET
         else:
@@ -133,9 +128,7 @@ class WorkitemsListPostRequestDataItemRelationships:
             )
 
         _author = d.pop("author", UNSET)
-        author: Union[
-            Unset, WorkitemsListPostRequestDataItemRelationshipsAuthor
-        ]
+        author: WorkitemsListPostRequestDataItemRelationshipsAuthor | Unset
         if isinstance(_author, Unset):
             author = UNSET
         else:
@@ -146,9 +139,9 @@ class WorkitemsListPostRequestDataItemRelationships:
             )
 
         _categories = d.pop("categories", UNSET)
-        categories: Union[
-            Unset, WorkitemsListPostRequestDataItemRelationshipsCategories
-        ]
+        categories: (
+            WorkitemsListPostRequestDataItemRelationshipsCategories | Unset
+        )
         if isinstance(_categories, Unset):
             categories = UNSET
         else:
@@ -157,9 +150,10 @@ class WorkitemsListPostRequestDataItemRelationships:
             )
 
         _linked_revisions = d.pop("linkedRevisions", UNSET)
-        linked_revisions: Union[
-            Unset, WorkitemsListPostRequestDataItemRelationshipsLinkedRevisions
-        ]
+        linked_revisions: (
+            WorkitemsListPostRequestDataItemRelationshipsLinkedRevisions
+            | Unset
+        )
         if isinstance(_linked_revisions, Unset):
             linked_revisions = UNSET
         else:
@@ -168,9 +162,7 @@ class WorkitemsListPostRequestDataItemRelationships:
             )
 
         _module = d.pop("module", UNSET)
-        module: Union[
-            Unset, WorkitemsListPostRequestDataItemRelationshipsModule
-        ]
+        module: WorkitemsListPostRequestDataItemRelationshipsModule | Unset
         if isinstance(_module, Unset):
             module = UNSET
         else:

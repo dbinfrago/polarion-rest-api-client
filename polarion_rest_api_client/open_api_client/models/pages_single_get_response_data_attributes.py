@@ -1,19 +1,26 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
 from typing import (
+    TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.pages_single_get_response_data_attributes_home_page_content import (
+        PagesSingleGetResponseDataAttributesHomePageContent,
+    )
+
 
 T = TypeVar("T", bound="PagesSingleGetResponseDataAttributes")
 
@@ -22,26 +29,34 @@ T = TypeVar("T", bound="PagesSingleGetResponseDataAttributes")
 class PagesSingleGetResponseDataAttributes:
     """
     Attributes:
-        created (Union[Unset, datetime.datetime]):  Example: 1970-01-01T00:00:00Z.
-        page_name (Union[Unset, str]):  Example: MyRichPageId.
-        space_id (Union[Unset, str]):  Example: MySpaceId.
-        title (Union[Unset, str]):  Example: Title.
-        updated (Union[Unset, datetime.datetime]):  Example: 1970-01-01T00:00:00Z.
+        created (datetime.datetime | Unset):  Example: 1970-01-01T00:00:00Z.
+        home_page_content (PagesSingleGetResponseDataAttributesHomePageContent | Unset):
+        page_name (str | Unset):  Example: MyRichPageId.
+        space_id (str | Unset):  Example: MySpaceId.
+        title (str | Unset):  Example: Title.
+        updated (datetime.datetime | Unset):  Example: 1970-01-01T00:00:00Z.
     """
 
-    created: Union[Unset, datetime.datetime] = UNSET
-    page_name: Union[Unset, str] = UNSET
-    space_id: Union[Unset, str] = UNSET
-    title: Union[Unset, str] = UNSET
-    updated: Union[Unset, datetime.datetime] = UNSET
+    created: datetime.datetime | Unset = UNSET
+    home_page_content: (
+        PagesSingleGetResponseDataAttributesHomePageContent | Unset
+    ) = UNSET
+    page_name: str | Unset = UNSET
+    space_id: str | Unset = UNSET
+    title: str | Unset = UNSET
+    updated: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        created: Union[Unset, str] = UNSET
+        created: str | Unset = UNSET
         if not isinstance(self.created, Unset):
             created = self.created.isoformat()
+
+        home_page_content: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.home_page_content, Unset):
+            home_page_content = self.home_page_content.to_dict()
 
         page_name = self.page_name
 
@@ -49,7 +64,7 @@ class PagesSingleGetResponseDataAttributes:
 
         title = self.title
 
-        updated: Union[Unset, str] = UNSET
+        updated: str | Unset = UNSET
         if not isinstance(self.updated, Unset):
             updated = self.updated.isoformat()
 
@@ -58,6 +73,8 @@ class PagesSingleGetResponseDataAttributes:
         field_dict.update({})
         if created is not UNSET:
             field_dict["created"] = created
+        if home_page_content is not UNSET:
+            field_dict["homePageContent"] = home_page_content
         if page_name is not UNSET:
             field_dict["pageName"] = page_name
         if space_id is not UNSET:
@@ -71,13 +88,30 @@ class PagesSingleGetResponseDataAttributes:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.pages_single_get_response_data_attributes_home_page_content import (
+            PagesSingleGetResponseDataAttributesHomePageContent,
+        )
+
         d = dict(src_dict)
         _created = d.pop("created", UNSET)
-        created: Union[Unset, datetime.datetime]
+        created: datetime.datetime | Unset
         if isinstance(_created, Unset):
             created = UNSET
         else:
-            created = isoparse(_created)
+            created = datetime.datetime.fromisoformat(_created)
+
+        _home_page_content = d.pop("homePageContent", UNSET)
+        home_page_content: (
+            PagesSingleGetResponseDataAttributesHomePageContent | Unset
+        )
+        if isinstance(_home_page_content, Unset):
+            home_page_content = UNSET
+        else:
+            home_page_content = (
+                PagesSingleGetResponseDataAttributesHomePageContent.from_dict(
+                    _home_page_content
+                )
+            )
 
         page_name = d.pop("pageName", UNSET)
 
@@ -86,14 +120,15 @@ class PagesSingleGetResponseDataAttributes:
         title = d.pop("title", UNSET)
 
         _updated = d.pop("updated", UNSET)
-        updated: Union[Unset, datetime.datetime]
+        updated: datetime.datetime | Unset
         if isinstance(_updated, Unset):
             updated = UNSET
         else:
-            updated = isoparse(_updated)
+            updated = datetime.datetime.fromisoformat(_updated)
 
         pages_single_get_response_data_attributes_obj = cls(
             created=created,
+            home_page_content=home_page_content,
             page_name=page_name,
             space_id=space_id,
             title=title,

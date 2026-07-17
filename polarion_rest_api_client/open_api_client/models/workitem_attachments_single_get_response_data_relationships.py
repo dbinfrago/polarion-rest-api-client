@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -30,26 +31,26 @@ T = TypeVar("T", bound="WorkitemAttachmentsSingleGetResponseDataRelationships")
 class WorkitemAttachmentsSingleGetResponseDataRelationships:
     """
     Attributes:
-        author (Union[Unset, WorkitemAttachmentsSingleGetResponseDataRelationshipsAuthor]):
-        project (Union[Unset, WorkitemAttachmentsSingleGetResponseDataRelationshipsProject]):
+        author (WorkitemAttachmentsSingleGetResponseDataRelationshipsAuthor | Unset):
+        project (WorkitemAttachmentsSingleGetResponseDataRelationshipsProject | Unset):
     """
 
-    author: Union[
-        Unset, "WorkitemAttachmentsSingleGetResponseDataRelationshipsAuthor"
-    ] = UNSET
-    project: Union[
-        Unset, "WorkitemAttachmentsSingleGetResponseDataRelationshipsProject"
-    ] = UNSET
+    author: (
+        WorkitemAttachmentsSingleGetResponseDataRelationshipsAuthor | Unset
+    ) = UNSET
+    project: (
+        WorkitemAttachmentsSingleGetResponseDataRelationshipsProject | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        author: Union[Unset, dict[str, Any]] = UNSET
+        author: dict[str, Any] | Unset = UNSET
         if not isinstance(self.author, Unset):
             author = self.author.to_dict()
 
-        project: Union[Unset, dict[str, Any]] = UNSET
+        project: dict[str, Any] | Unset = UNSET
         if not isinstance(self.project, Unset):
             project = self.project.to_dict()
 
@@ -74,9 +75,9 @@ class WorkitemAttachmentsSingleGetResponseDataRelationships:
 
         d = dict(src_dict)
         _author = d.pop("author", UNSET)
-        author: Union[
-            Unset, WorkitemAttachmentsSingleGetResponseDataRelationshipsAuthor
-        ]
+        author: (
+            WorkitemAttachmentsSingleGetResponseDataRelationshipsAuthor | Unset
+        )
         if isinstance(_author, Unset):
             author = UNSET
         else:
@@ -85,9 +86,10 @@ class WorkitemAttachmentsSingleGetResponseDataRelationships:
             )
 
         _project = d.pop("project", UNSET)
-        project: Union[
-            Unset, WorkitemAttachmentsSingleGetResponseDataRelationshipsProject
-        ]
+        project: (
+            WorkitemAttachmentsSingleGetResponseDataRelationshipsProject
+            | Unset
+        )
         if isinstance(_project, Unset):
             project = UNSET
         else:

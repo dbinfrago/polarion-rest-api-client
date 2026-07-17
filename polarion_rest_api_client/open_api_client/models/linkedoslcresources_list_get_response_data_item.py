@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -36,34 +37,30 @@ T = TypeVar("T", bound="LinkedoslcresourcesListGetResponseDataItem")
 class LinkedoslcresourcesListGetResponseDataItem:
     """
     Attributes:
-        type_ (Union[Unset, LinkedoslcresourcesListGetResponseDataItemType]):
-        id (Union[Unset, str]):  Example: MyProjectId/MyWorkItemId/http://server-host-
+        type_ (LinkedoslcresourcesListGetResponseDataItemType | Unset):
+        id (str | Unset):  Example: MyProjectId/MyWorkItemId/http://server-host-
             name/ns/cm#relatedChangeRequest/http://server-host-name/application-
             path/oslc/services/projects/MyProjectId/workitems/MyWorkItemId.
-        revision (Union[Unset, str]):  Example: 1234.
-        attributes (Union[Unset, LinkedoslcresourcesListGetResponseDataItemAttributes]):
-        links (Union[Unset, LinkedoslcresourcesListGetResponseDataItemLinks]):
-        meta (Union[Unset, LinkedoslcresourcesListGetResponseDataItemMeta]):
+        revision (str | Unset):  Example: 1234.
+        attributes (LinkedoslcresourcesListGetResponseDataItemAttributes | Unset):
+        links (LinkedoslcresourcesListGetResponseDataItemLinks | Unset):
+        meta (LinkedoslcresourcesListGetResponseDataItemMeta | Unset):
     """
 
-    type_: Union[Unset, LinkedoslcresourcesListGetResponseDataItemType] = UNSET
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    attributes: Union[
-        Unset, "LinkedoslcresourcesListGetResponseDataItemAttributes"
-    ] = UNSET
-    links: Union[Unset, "LinkedoslcresourcesListGetResponseDataItemLinks"] = (
-        UNSET
-    )
-    meta: Union[Unset, "LinkedoslcresourcesListGetResponseDataItemMeta"] = (
-        UNSET
-    )
+    type_: LinkedoslcresourcesListGetResponseDataItemType | Unset = UNSET
+    id: str | Unset = UNSET
+    revision: str | Unset = UNSET
+    attributes: (
+        LinkedoslcresourcesListGetResponseDataItemAttributes | Unset
+    ) = UNSET
+    links: LinkedoslcresourcesListGetResponseDataItemLinks | Unset = UNSET
+    meta: LinkedoslcresourcesListGetResponseDataItemMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -71,15 +68,15 @@ class LinkedoslcresourcesListGetResponseDataItem:
 
         revision = self.revision
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -115,7 +112,7 @@ class LinkedoslcresourcesListGetResponseDataItem:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, LinkedoslcresourcesListGetResponseDataItemType]
+        type_: LinkedoslcresourcesListGetResponseDataItemType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -126,9 +123,9 @@ class LinkedoslcresourcesListGetResponseDataItem:
         revision = d.pop("revision", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[
-            Unset, LinkedoslcresourcesListGetResponseDataItemAttributes
-        ]
+        attributes: (
+            LinkedoslcresourcesListGetResponseDataItemAttributes | Unset
+        )
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -139,7 +136,7 @@ class LinkedoslcresourcesListGetResponseDataItem:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, LinkedoslcresourcesListGetResponseDataItemLinks]
+        links: LinkedoslcresourcesListGetResponseDataItemLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
@@ -148,7 +145,7 @@ class LinkedoslcresourcesListGetResponseDataItem:
             )
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, LinkedoslcresourcesListGetResponseDataItemMeta]
+        meta: LinkedoslcresourcesListGetResponseDataItemMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -30,26 +31,26 @@ T = TypeVar("T", bound="DocumentAttachmentsSingleGetResponseDataRelationships")
 class DocumentAttachmentsSingleGetResponseDataRelationships:
     """
     Attributes:
-        author (Union[Unset, DocumentAttachmentsSingleGetResponseDataRelationshipsAuthor]):
-        project (Union[Unset, DocumentAttachmentsSingleGetResponseDataRelationshipsProject]):
+        author (DocumentAttachmentsSingleGetResponseDataRelationshipsAuthor | Unset):
+        project (DocumentAttachmentsSingleGetResponseDataRelationshipsProject | Unset):
     """
 
-    author: Union[
-        Unset, "DocumentAttachmentsSingleGetResponseDataRelationshipsAuthor"
-    ] = UNSET
-    project: Union[
-        Unset, "DocumentAttachmentsSingleGetResponseDataRelationshipsProject"
-    ] = UNSET
+    author: (
+        DocumentAttachmentsSingleGetResponseDataRelationshipsAuthor | Unset
+    ) = UNSET
+    project: (
+        DocumentAttachmentsSingleGetResponseDataRelationshipsProject | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        author: Union[Unset, dict[str, Any]] = UNSET
+        author: dict[str, Any] | Unset = UNSET
         if not isinstance(self.author, Unset):
             author = self.author.to_dict()
 
-        project: Union[Unset, dict[str, Any]] = UNSET
+        project: dict[str, Any] | Unset = UNSET
         if not isinstance(self.project, Unset):
             project = self.project.to_dict()
 
@@ -74,9 +75,9 @@ class DocumentAttachmentsSingleGetResponseDataRelationships:
 
         d = dict(src_dict)
         _author = d.pop("author", UNSET)
-        author: Union[
-            Unset, DocumentAttachmentsSingleGetResponseDataRelationshipsAuthor
-        ]
+        author: (
+            DocumentAttachmentsSingleGetResponseDataRelationshipsAuthor | Unset
+        )
         if isinstance(_author, Unset):
             author = UNSET
         else:
@@ -85,9 +86,10 @@ class DocumentAttachmentsSingleGetResponseDataRelationships:
             )
 
         _project = d.pop("project", UNSET)
-        project: Union[
-            Unset, DocumentAttachmentsSingleGetResponseDataRelationshipsProject
-        ]
+        project: (
+            DocumentAttachmentsSingleGetResponseDataRelationshipsProject
+            | Unset
+        )
         if isinstance(_project, Unset):
             project = UNSET
         else:

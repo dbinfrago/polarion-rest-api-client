@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,12 +18,12 @@ T = TypeVar("T", bound="TestparametersListPostRequestDataItemAttributes")
 class TestparametersListPostRequestDataItemAttributes:
     """
     Attributes:
-        name (Union[Unset, str]):  Example: Example Test Parameter value.
-        value (Union[Unset, str]):  Example: Example Test Parameter value.
+        name (str | Unset):  Example: Example Test Parameter value.
+        value (str | Unset):  Example: Example Test Parameter value.
     """
 
-    name: Union[Unset, str] = UNSET
-    value: Union[Unset, str] = UNSET
+    name: str | Unset = UNSET
+    value: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )

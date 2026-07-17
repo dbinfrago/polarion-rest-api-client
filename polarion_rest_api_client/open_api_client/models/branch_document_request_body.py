@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,19 +18,19 @@ T = TypeVar("T", bound="BranchDocumentRequestBody")
 class BranchDocumentRequestBody:
     """
     Attributes:
-        copy_workflow_status_and_signatures (Union[Unset, bool]): Specifies that workflow status and signatures should
-            be copied to the branched document.
-        query (Union[Unset, str]): Specifies optional filtering query. Example: status:open.
-        target_document_name (Union[Unset, str]): Name for new Document. Example: MyDocumentId.
-        target_project_id (Union[Unset, str]): Project where new document will be created. Example: MyProjectId.
-        target_space_id (Union[Unset, str]): Space where new document will be created. Example: MySpaceId.
+        copy_workflow_status_and_signatures (bool | Unset): Specifies that workflow status and signatures should be
+            copied to the branched document.
+        query (str | Unset): Specifies optional filtering query. Example: status:open.
+        target_document_name (str | Unset): Name for new Document. Example: MyDocumentId.
+        target_project_id (str | Unset): Project where new document will be created. Example: MyProjectId.
+        target_space_id (str | Unset): Space where new document will be created. Example: MySpaceId.
     """
 
-    copy_workflow_status_and_signatures: Union[Unset, bool] = UNSET
-    query: Union[Unset, str] = UNSET
-    target_document_name: Union[Unset, str] = UNSET
-    target_project_id: Union[Unset, str] = UNSET
-    target_space_id: Union[Unset, str] = UNSET
+    copy_workflow_status_and_signatures: bool | Unset = UNSET
+    query: str | Unset = UNSET
+    target_document_name: str | Unset = UNSET
+    target_project_id: str | Unset = UNSET
+    target_space_id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )

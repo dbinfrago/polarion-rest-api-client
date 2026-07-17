@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -29,18 +30,18 @@ T = TypeVar(
 class TestrunsSinglePatchRequestDataRelationshipsSummaryDefect:
     """
     Attributes:
-        data (Union[Unset, TestrunsSinglePatchRequestDataRelationshipsSummaryDefectData]):
+        data (TestrunsSinglePatchRequestDataRelationshipsSummaryDefectData | Unset):
     """
 
-    data: Union[
-        Unset, "TestrunsSinglePatchRequestDataRelationshipsSummaryDefectData"
-    ] = UNSET
+    data: (
+        TestrunsSinglePatchRequestDataRelationshipsSummaryDefectData | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        data: Union[Unset, dict[str, Any]] = UNSET
+        data: dict[str, Any] | Unset = UNSET
         if not isinstance(self.data, Unset):
             data = self.data.to_dict()
 
@@ -60,9 +61,10 @@ class TestrunsSinglePatchRequestDataRelationshipsSummaryDefect:
 
         d = dict(src_dict)
         _data = d.pop("data", UNSET)
-        data: Union[
-            Unset, TestrunsSinglePatchRequestDataRelationshipsSummaryDefectData
-        ]
+        data: (
+            TestrunsSinglePatchRequestDataRelationshipsSummaryDefectData
+            | Unset
+        )
         if isinstance(_data, Unset):
             data = UNSET
         else:

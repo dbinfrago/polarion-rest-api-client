@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
     cast,
 )
 
@@ -28,16 +29,14 @@ T = TypeVar("T", bound="ErrorsErrorsItemSourceType0")
 class ErrorsErrorsItemSourceType0:
     """
     Attributes:
-        parameter (Union[Unset, str]): String indicating which URI query parameter caused the error. Example: revision.
-        pointer (Union[Unset, str]): JSON Pointer to the associated entity in the request document. Example: $.data.
-        resource (Union['ErrorsErrorsItemSourceType0ResourceType0', None, Unset]): Resource causing the error.
+        parameter (str | Unset): String indicating which URI query parameter caused the error. Example: revision.
+        pointer (str | Unset): JSON Pointer to the associated entity in the request document. Example: $.data.
+        resource (ErrorsErrorsItemSourceType0ResourceType0 | None | Unset): Resource causing the error.
     """
 
-    parameter: Union[Unset, str] = UNSET
-    pointer: Union[Unset, str] = UNSET
-    resource: Union[
-        "ErrorsErrorsItemSourceType0ResourceType0", None, Unset
-    ] = UNSET
+    parameter: str | Unset = UNSET
+    pointer: str | Unset = UNSET
+    resource: ErrorsErrorsItemSourceType0ResourceType0 | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -51,7 +50,7 @@ class ErrorsErrorsItemSourceType0:
 
         pointer = self.pointer
 
-        resource: Union[None, Unset, dict[str, Any]]
+        resource: dict[str, Any] | None | Unset
         if isinstance(self.resource, Unset):
             resource = UNSET
         elif isinstance(
@@ -86,7 +85,7 @@ class ErrorsErrorsItemSourceType0:
 
         def _parse_resource(
             data: object,
-        ) -> Union["ErrorsErrorsItemSourceType0ResourceType0", None, Unset]:
+        ) -> ErrorsErrorsItemSourceType0ResourceType0 | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -99,11 +98,10 @@ class ErrorsErrorsItemSourceType0:
                 )
 
                 return resource_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(
-                Union["ErrorsErrorsItemSourceType0ResourceType0", None, Unset],
-                data,
+                ErrorsErrorsItemSourceType0ResourceType0 | None | Unset, data
             )
 
         resource = _parse_resource(d.pop("resource", UNSET))

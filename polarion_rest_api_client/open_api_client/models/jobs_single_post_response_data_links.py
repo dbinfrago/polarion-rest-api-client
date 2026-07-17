@@ -1,11 +1,12 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     Any,
     TypeVar,
-    Union,
     cast,
 )
 
@@ -21,21 +22,21 @@ T = TypeVar("T", bound="JobsSinglePostResponseDataLinks")
 class JobsSinglePostResponseDataLinks:
     """
     Attributes:
-        downloads (Union[Unset, list[str]]):  Example: ['https://example.com/polarion/download/filename1',
+        downloads (list[str] | Unset):  Example: ['https://example.com/polarion/download/filename1',
             'https://example.com/polarion/download/filename2'].
-        log (Union[Unset, str]):  Example: server-host-name/application-path/polarion/job-report?jobId=MyJobId.
-        self_ (Union[Unset, str]):  Example: server-host-name/application-path/jobs/MyJobId.
+        log (str | Unset):  Example: server-host-name/application-path/polarion/job-report?jobId=MyJobId.
+        self_ (str | Unset):  Example: server-host-name/application-path/jobs/MyJobId.
     """
 
-    downloads: Union[Unset, list[str]] = UNSET
-    log: Union[Unset, str] = UNSET
-    self_: Union[Unset, str] = UNSET
+    downloads: list[str] | Unset = UNSET
+    log: str | Unset = UNSET
+    self_: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        downloads: Union[Unset, list[str]] = UNSET
+        downloads: list[str] | Unset = UNSET
         if not isinstance(self.downloads, Unset):
             downloads = self.downloads
 

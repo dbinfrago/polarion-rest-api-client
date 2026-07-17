@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Optional, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,7 +16,7 @@ from ..types import UNSET, Unset
 {{ relative }}
 {% endfor %}
 
-{% for lazy_import in model.lazy_imports %}
+{% for lazy_import in model.lazy_imports | sort %}
 {% if loop.first %}
 if TYPE_CHECKING:
 {% endif %}
@@ -23,7 +25,7 @@ if TYPE_CHECKING:
 
 
 {% if model.additional_properties %}
-{% set additional_property_type = 'Any' if model.additional_properties == True else model.additional_properties.get_type_string(quoted=not model.additional_properties.is_base_type) %}
+{% set additional_property_type = 'Any' if model.additional_properties == True else model.additional_properties.get_type_string() %}
 {% endif %}
 
 {% set class_name = model.class_info.name %}
@@ -142,13 +144,16 @@ return field_dict
 {% endmacro %}
 
     def to_dict(self) -> dict[str, Any]:
-    {% for lazy_import in model.lazy_imports %}
+    {% for lazy_import in model.lazy_imports | sort %}
         {{ lazy_import }}
     {% endfor %}
         {{ _to_dict() | indent(8) }}
 
 {% if model.is_multipart_body %}
     def to_multipart(self) -> types.RequestFiles:
+    {% for lazy_import in model.lazy_imports | sort %}
+        {{ lazy_import }}
+    {% endfor %}
         files: types.RequestFiles = []
 
         {% for property in model.required_properties + model.optional_properties %}
@@ -168,7 +173,7 @@ return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-    {% for lazy_import in model.lazy_imports %}
+    {% for lazy_import in model.lazy_imports | sort %}
         {{ lazy_import }}
     {% endfor %}
 {% if (model.required_properties or model.optional_properties or model.additional_properties) %}
@@ -199,7 +204,7 @@ return field_dict
         {% import "property_templates/" + model.additional_properties.template as prop_template %}
 
 {% if model.additional_properties.lazy_imports %}
-    {% for lazy_import in model.additional_properties.lazy_imports %}
+    {% for lazy_import in model.additional_properties.lazy_imports | sort %}
         {{ lazy_import }}
     {% endfor %}
 {% endif %}

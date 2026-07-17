@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -27,18 +28,18 @@ T = TypeVar("T", bound="TeststepResultsListGetResponseDataItemRelationships")
 class TeststepResultsListGetResponseDataItemRelationships:
     """
     Attributes:
-        test_step (Union[Unset, TeststepResultsListGetResponseDataItemRelationshipsTestStep]):
+        test_step (TeststepResultsListGetResponseDataItemRelationshipsTestStep | Unset):
     """
 
-    test_step: Union[
-        Unset, "TeststepResultsListGetResponseDataItemRelationshipsTestStep"
-    ] = UNSET
+    test_step: (
+        TeststepResultsListGetResponseDataItemRelationshipsTestStep | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        test_step: Union[Unset, dict[str, Any]] = UNSET
+        test_step: dict[str, Any] | Unset = UNSET
         if not isinstance(self.test_step, Unset):
             test_step = self.test_step.to_dict()
 
@@ -58,9 +59,9 @@ class TeststepResultsListGetResponseDataItemRelationships:
 
         d = dict(src_dict)
         _test_step = d.pop("testStep", UNSET)
-        test_step: Union[
-            Unset, TeststepResultsListGetResponseDataItemRelationshipsTestStep
-        ]
+        test_step: (
+            TeststepResultsListGetResponseDataItemRelationshipsTestStep | Unset
+        )
         if isinstance(_test_step, Unset):
             test_step = UNSET
         else:

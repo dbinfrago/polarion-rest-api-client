@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -21,6 +22,9 @@ if TYPE_CHECKING:
     from ..models.pages_single_patch_request_data_attributes import (
         PagesSinglePatchRequestDataAttributes,
     )
+    from ..models.pages_single_patch_request_data_relationships import (
+        PagesSinglePatchRequestDataRelationships,
+    )
 
 
 T = TypeVar("T", bound="PagesSinglePatchRequestData")
@@ -30,28 +34,34 @@ T = TypeVar("T", bound="PagesSinglePatchRequestData")
 class PagesSinglePatchRequestData:
     """
     Attributes:
-        type_ (Union[Unset, PagesSinglePatchRequestDataType]):
-        id (Union[Unset, str]):  Example: MyProjectId/MySpaceId/MyRichPageId.
-        attributes (Union[Unset, PagesSinglePatchRequestDataAttributes]):
+        type_ (PagesSinglePatchRequestDataType | Unset):
+        id (str | Unset):  Example: MyProjectId/MySpaceId/MyRichPageId.
+        attributes (PagesSinglePatchRequestDataAttributes | Unset):
+        relationships (PagesSinglePatchRequestDataRelationships | Unset):
     """
 
-    type_: Union[Unset, PagesSinglePatchRequestDataType] = UNSET
-    id: Union[Unset, str] = UNSET
-    attributes: Union[Unset, "PagesSinglePatchRequestDataAttributes"] = UNSET
+    type_: PagesSinglePatchRequestDataType | Unset = UNSET
+    id: str | Unset = UNSET
+    attributes: PagesSinglePatchRequestDataAttributes | Unset = UNSET
+    relationships: PagesSinglePatchRequestDataRelationships | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
         id = self.id
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
+
+        relationships: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.relationships, Unset):
+            relationships = self.relationships.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -62,6 +72,8 @@ class PagesSinglePatchRequestData:
             field_dict["id"] = id
         if attributes is not UNSET:
             field_dict["attributes"] = attributes
+        if relationships is not UNSET:
+            field_dict["relationships"] = relationships
 
         return field_dict
 
@@ -70,10 +82,13 @@ class PagesSinglePatchRequestData:
         from ..models.pages_single_patch_request_data_attributes import (
             PagesSinglePatchRequestDataAttributes,
         )
+        from ..models.pages_single_patch_request_data_relationships import (
+            PagesSinglePatchRequestDataRelationships,
+        )
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, PagesSinglePatchRequestDataType]
+        type_: PagesSinglePatchRequestDataType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -82,7 +97,7 @@ class PagesSinglePatchRequestData:
         id = d.pop("id", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[Unset, PagesSinglePatchRequestDataAttributes]
+        attributes: PagesSinglePatchRequestDataAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -90,10 +105,20 @@ class PagesSinglePatchRequestData:
                 _attributes
             )
 
+        _relationships = d.pop("relationships", UNSET)
+        relationships: PagesSinglePatchRequestDataRelationships | Unset
+        if isinstance(_relationships, Unset):
+            relationships = UNSET
+        else:
+            relationships = PagesSinglePatchRequestDataRelationships.from_dict(
+                _relationships
+            )
+
         pages_single_patch_request_data_obj = cls(
             type_=type_,
             id=id,
             attributes=attributes,
+            relationships=relationships,
         )
 
         pages_single_patch_request_data_obj.additional_properties = d

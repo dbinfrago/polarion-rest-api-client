@@ -2,7 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from http import HTTPStatus
-from typing import Any, Union
+from typing import Any
+from urllib.parse import quote
 
 import httpx
 
@@ -31,7 +32,13 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/projects/{project_id}/testruns/{test_run_id}/testrecords/{test_case_project_id}/{test_case_id}/{iteration}/teststepresults",
+        "url": "/projects/{project_id}/testruns/{test_run_id}/testrecords/{test_case_project_id}/{test_case_id}/{iteration}/teststepresults".format(
+            project_id=quote(str(project_id), safe=""),
+            test_run_id=quote(str(test_run_id), safe=""),
+            test_case_project_id=quote(str(test_case_project_id), safe=""),
+            test_case_id=quote(str(test_case_id), safe=""),
+            iteration=quote(str(iteration), safe=""),
+        ),
     }
 
     _kwargs["json"] = body.to_dict()
@@ -43,62 +50,73 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Union[Errors, TeststepResultsListPostResponse] | None:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Errors | TeststepResultsListPostResponse | None:
     if response.status_code == 201:
         response_201 = TeststepResultsListPostResponse.from_dict(
             response.json()
         )
 
         return response_201
+
     if response.status_code == 400:
         response_400 = Errors.from_dict(response.json())
 
         return response_400
+
     if response.status_code == 401:
         response_401 = Errors.from_dict(response.json())
 
         return response_401
+
     if response.status_code == 403:
         response_403 = Errors.from_dict(response.json())
 
         return response_403
+
     if response.status_code == 404:
         response_404 = Errors.from_dict(response.json())
 
         return response_404
+
     if response.status_code == 406:
         response_406 = Errors.from_dict(response.json())
 
         return response_406
+
     if response.status_code == 409:
         response_409 = Errors.from_dict(response.json())
 
         return response_409
+
     if response.status_code == 413:
         response_413 = Errors.from_dict(response.json())
 
         return response_413
+
     if response.status_code == 415:
         response_415 = Errors.from_dict(response.json())
 
         return response_415
+
     if response.status_code == 500:
         response_500 = Errors.from_dict(response.json())
 
         return response_500
+
     if response.status_code == 503:
         response_503 = Errors.from_dict(response.json())
 
         return response_503
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     return None
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Errors, TeststepResultsListPostResponse]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Errors | TeststepResultsListPostResponse]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -114,9 +132,9 @@ def sync_detailed(
     test_case_id: str,
     iteration: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: TeststepResultsListPostRequest,
-) -> Response[Union[Errors, TeststepResultsListPostResponse]]:
+) -> Response[Errors | TeststepResultsListPostResponse]:
     """Creates a list of Test Step Results.
 
     Args:
@@ -132,7 +150,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Errors, TeststepResultsListPostResponse]]
+        Response[Errors | TeststepResultsListPostResponse]
     """
 
     kwargs = _get_kwargs(
@@ -158,9 +176,9 @@ def sync(
     test_case_id: str,
     iteration: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: TeststepResultsListPostRequest,
-) -> Union[Errors, TeststepResultsListPostResponse] | None:
+) -> Errors | TeststepResultsListPostResponse | None:
     """Creates a list of Test Step Results.
 
     Args:
@@ -176,7 +194,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Errors, TeststepResultsListPostResponse]
+        Errors | TeststepResultsListPostResponse
     """
 
     return sync_detailed(
@@ -197,9 +215,9 @@ async def asyncio_detailed(
     test_case_id: str,
     iteration: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: TeststepResultsListPostRequest,
-) -> Response[Union[Errors, TeststepResultsListPostResponse]]:
+) -> Response[Errors | TeststepResultsListPostResponse]:
     """Creates a list of Test Step Results.
 
     Args:
@@ -215,7 +233,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Errors, TeststepResultsListPostResponse]]
+        Response[Errors | TeststepResultsListPostResponse]
     """
 
     kwargs = _get_kwargs(
@@ -239,9 +257,9 @@ async def asyncio(
     test_case_id: str,
     iteration: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: TeststepResultsListPostRequest,
-) -> Union[Errors, TeststepResultsListPostResponse] | None:
+) -> Errors | TeststepResultsListPostResponse | None:
     """Creates a list of Test Step Results.
 
     Args:
@@ -257,7 +275,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Errors, TeststepResultsListPostResponse]
+        Errors | TeststepResultsListPostResponse
     """
 
     return (

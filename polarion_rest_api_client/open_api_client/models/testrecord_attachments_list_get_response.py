@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -36,47 +37,45 @@ T = TypeVar("T", bound="TestrecordAttachmentsListGetResponse")
 class TestrecordAttachmentsListGetResponse:
     """
     Attributes:
-        data (Union[Unset, list['TestrecordAttachmentsListGetResponseDataItem']]):
-        included (Union[Unset, list['TestrecordAttachmentsListGetResponseIncludedItem']]): Related entities might be
-            returned, see <a href="https://docs.sw.siemens.com/en-
-            US/doc/230235217/PL20241023686685479.polarion_help_sc.xid2134849/xid2134871" target="_blank">REST API User
+        data (list[TestrecordAttachmentsListGetResponseDataItem] | Unset):
+        included (list[TestrecordAttachmentsListGetResponseIncludedItem] | Unset): Related entities might be returned,
+            see <a href="https://docs.sw.siemens.com/en-
+            US/doc/230235217/PL20250606201928474.polarion_help_sc.xid2134849/xid2134871" target="_blank">REST API User
             Guide</a>.
-        links (Union[Unset, TestrecordAttachmentsListGetResponseLinks]):
-        meta (Union[Unset, TestrecordAttachmentsListGetResponseMeta]):
+        links (TestrecordAttachmentsListGetResponseLinks | Unset):
+        meta (TestrecordAttachmentsListGetResponseMeta | Unset):
     """
 
-    data: Union[
-        Unset, list["TestrecordAttachmentsListGetResponseDataItem"]
-    ] = UNSET
-    included: Union[
-        Unset, list["TestrecordAttachmentsListGetResponseIncludedItem"]
-    ] = UNSET
-    links: Union[Unset, "TestrecordAttachmentsListGetResponseLinks"] = UNSET
-    meta: Union[Unset, "TestrecordAttachmentsListGetResponseMeta"] = UNSET
+    data: list[TestrecordAttachmentsListGetResponseDataItem] | Unset = UNSET
+    included: (
+        list[TestrecordAttachmentsListGetResponseIncludedItem] | Unset
+    ) = UNSET
+    links: TestrecordAttachmentsListGetResponseLinks | Unset = UNSET
+    meta: TestrecordAttachmentsListGetResponseMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        data: Union[Unset, list[dict[str, Any]]] = UNSET
+        data: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.data, Unset):
             data = []
             for data_item_data in self.data:
                 data_item = data_item_data.to_dict()
                 data.append(data_item)
 
-        included: Union[Unset, list[dict[str, Any]]] = UNSET
+        included: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.included, Unset):
             included = []
             for included_item_data in self.included:
                 included_item = included_item_data.to_dict()
                 included.append(included_item)
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -110,35 +109,45 @@ class TestrecordAttachmentsListGetResponse:
         )
 
         d = dict(src_dict)
-        data = []
         _data = d.pop("data", UNSET)
-        for data_item_data in _data or []:
-            data_item = TestrecordAttachmentsListGetResponseDataItem.from_dict(
-                data_item_data
-            )
-
-            data.append(data_item)
-
-        included = []
-        _included = d.pop("included", UNSET)
-        for included_item_data in _included or []:
-            included_item = (
-                TestrecordAttachmentsListGetResponseIncludedItem.from_dict(
-                    included_item_data
+        data: list[TestrecordAttachmentsListGetResponseDataItem] | Unset = (
+            UNSET
+        )
+        if _data is not UNSET:
+            data = []
+            for data_item_data in _data:
+                data_item = (
+                    TestrecordAttachmentsListGetResponseDataItem.from_dict(
+                        data_item_data
+                    )
                 )
-            )
 
-            included.append(included_item)
+                data.append(data_item)
+
+        _included = d.pop("included", UNSET)
+        included: (
+            list[TestrecordAttachmentsListGetResponseIncludedItem] | Unset
+        ) = UNSET
+        if _included is not UNSET:
+            included = []
+            for included_item_data in _included:
+                included_item = (
+                    TestrecordAttachmentsListGetResponseIncludedItem.from_dict(
+                        included_item_data
+                    )
+                )
+
+                included.append(included_item)
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, TestrecordAttachmentsListGetResponseLinks]
+        links: TestrecordAttachmentsListGetResponseLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
             links = TestrecordAttachmentsListGetResponseLinks.from_dict(_links)
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, TestrecordAttachmentsListGetResponseMeta]
+        meta: TestrecordAttachmentsListGetResponseMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

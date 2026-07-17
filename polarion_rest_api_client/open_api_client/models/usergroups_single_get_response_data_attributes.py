@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -27,26 +28,26 @@ T = TypeVar("T", bound="UsergroupsSingleGetResponseDataAttributes")
 class UsergroupsSingleGetResponseDataAttributes:
     """
     Attributes:
-        description (Union[Unset, UsergroupsSingleGetResponseDataAttributesDescription]):
-        id (Union[Unset, str]):  Example: MyUserGroupId.
-        ldap_search_filter (Union[Unset, str]):  Example: LDAP Search Filter.
-        name (Union[Unset, str]):  Example: Name.
-        sso_synchronization_allowed (Union[Unset, bool]):
+        description (UsergroupsSingleGetResponseDataAttributesDescription | Unset):
+        id (str | Unset):  Example: MyUserGroupId.
+        ldap_search_filter (str | Unset):  Example: LDAP Search Filter.
+        name (str | Unset):  Example: Name.
+        sso_synchronization_allowed (bool | Unset):
     """
 
-    description: Union[
-        Unset, "UsergroupsSingleGetResponseDataAttributesDescription"
-    ] = UNSET
-    id: Union[Unset, str] = UNSET
-    ldap_search_filter: Union[Unset, str] = UNSET
-    name: Union[Unset, str] = UNSET
-    sso_synchronization_allowed: Union[Unset, bool] = UNSET
+    description: (
+        UsergroupsSingleGetResponseDataAttributesDescription | Unset
+    ) = UNSET
+    id: str | Unset = UNSET
+    ldap_search_filter: str | Unset = UNSET
+    name: str | Unset = UNSET
+    sso_synchronization_allowed: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        description: Union[Unset, dict[str, Any]] = UNSET
+        description: dict[str, Any] | Unset = UNSET
         if not isinstance(self.description, Unset):
             description = self.description.to_dict()
 
@@ -84,9 +85,9 @@ class UsergroupsSingleGetResponseDataAttributes:
 
         d = dict(src_dict)
         _description = d.pop("description", UNSET)
-        description: Union[
-            Unset, UsergroupsSingleGetResponseDataAttributesDescription
-        ]
+        description: (
+            UsergroupsSingleGetResponseDataAttributesDescription | Unset
+        )
         if isinstance(_description, Unset):
             description = UNSET
         else:

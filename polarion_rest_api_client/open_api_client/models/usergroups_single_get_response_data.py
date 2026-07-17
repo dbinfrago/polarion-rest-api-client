@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -39,32 +40,28 @@ T = TypeVar("T", bound="UsergroupsSingleGetResponseData")
 class UsergroupsSingleGetResponseData:
     """
     Attributes:
-        type_ (Union[Unset, UsergroupsSingleGetResponseDataType]):
-        id (Union[Unset, str]):  Example: MyUserGroupId.
-        revision (Union[Unset, str]):  Example: 1234.
-        attributes (Union[Unset, UsergroupsSingleGetResponseDataAttributes]):
-        relationships (Union[Unset, UsergroupsSingleGetResponseDataRelationships]):
-        links (Union[Unset, UsergroupsSingleGetResponseDataLinks]):
-        meta (Union[Unset, UsergroupsSingleGetResponseDataMeta]):
+        type_ (UsergroupsSingleGetResponseDataType | Unset):
+        id (str | Unset):  Example: MyUserGroupId.
+        revision (str | Unset):  Example: 1234.
+        attributes (UsergroupsSingleGetResponseDataAttributes | Unset):
+        relationships (UsergroupsSingleGetResponseDataRelationships | Unset):
+        links (UsergroupsSingleGetResponseDataLinks | Unset):
+        meta (UsergroupsSingleGetResponseDataMeta | Unset):
     """
 
-    type_: Union[Unset, UsergroupsSingleGetResponseDataType] = UNSET
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    attributes: Union[Unset, "UsergroupsSingleGetResponseDataAttributes"] = (
-        UNSET
-    )
-    relationships: Union[
-        Unset, "UsergroupsSingleGetResponseDataRelationships"
-    ] = UNSET
-    links: Union[Unset, "UsergroupsSingleGetResponseDataLinks"] = UNSET
-    meta: Union[Unset, "UsergroupsSingleGetResponseDataMeta"] = UNSET
+    type_: UsergroupsSingleGetResponseDataType | Unset = UNSET
+    id: str | Unset = UNSET
+    revision: str | Unset = UNSET
+    attributes: UsergroupsSingleGetResponseDataAttributes | Unset = UNSET
+    relationships: UsergroupsSingleGetResponseDataRelationships | Unset = UNSET
+    links: UsergroupsSingleGetResponseDataLinks | Unset = UNSET
+    meta: UsergroupsSingleGetResponseDataMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -72,19 +69,19 @@ class UsergroupsSingleGetResponseData:
 
         revision = self.revision
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        relationships: Union[Unset, dict[str, Any]] = UNSET
+        relationships: dict[str, Any] | Unset = UNSET
         if not isinstance(self.relationships, Unset):
             relationships = self.relationships.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -125,7 +122,7 @@ class UsergroupsSingleGetResponseData:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, UsergroupsSingleGetResponseDataType]
+        type_: UsergroupsSingleGetResponseDataType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -136,7 +133,7 @@ class UsergroupsSingleGetResponseData:
         revision = d.pop("revision", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[Unset, UsergroupsSingleGetResponseDataAttributes]
+        attributes: UsergroupsSingleGetResponseDataAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -145,9 +142,7 @@ class UsergroupsSingleGetResponseData:
             )
 
         _relationships = d.pop("relationships", UNSET)
-        relationships: Union[
-            Unset, UsergroupsSingleGetResponseDataRelationships
-        ]
+        relationships: UsergroupsSingleGetResponseDataRelationships | Unset
         if isinstance(_relationships, Unset):
             relationships = UNSET
         else:
@@ -158,14 +153,14 @@ class UsergroupsSingleGetResponseData:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, UsergroupsSingleGetResponseDataLinks]
+        links: UsergroupsSingleGetResponseDataLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
             links = UsergroupsSingleGetResponseDataLinks.from_dict(_links)
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, UsergroupsSingleGetResponseDataMeta]
+        meta: UsergroupsSingleGetResponseDataMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

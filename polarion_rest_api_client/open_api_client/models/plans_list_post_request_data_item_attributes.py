@@ -1,19 +1,19 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
     cast,
 )
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..models.plans_list_post_request_data_item_attributes_calculation_type import (
     PlansListPostRequestDataItemAttributesCalculationType,
@@ -36,64 +36,64 @@ T = TypeVar("T", bound="PlansListPostRequestDataItemAttributes")
 class PlansListPostRequestDataItemAttributes:
     """
     Attributes:
-        allowed_types (Union[Unset, list[str]]):
-        calculation_type (Union[Unset, PlansListPostRequestDataItemAttributesCalculationType]):  Example: timeBased.
-        capacity (Union[Unset, float]):
-        color (Union[Unset, str]):  Example: Color.
-        default_estimate (Union[Unset, float]):
-        description (Union[Unset, PlansListPostRequestDataItemAttributesDescription]):
-        due_date (Union[Unset, datetime.date]):  Example: 1970-01-01.
-        estimation_field (Union[Unset, str]):  Example: Estimation Field.
-        finished_on (Union[Unset, datetime.datetime]):  Example: 1970-01-01T00:00:00Z.
-        home_page_content (Union[Unset, PlansListPostRequestDataItemAttributesHomePageContent]):
-        id (Union[Unset, str]):  Example: ID.
-        is_template (Union[Unset, bool]):
-        name (Union[Unset, str]):  Example: Name.
-        previous_time_spent (Union[Unset, str]):  Example: 5 1/2d.
-        prioritization_field (Union[Unset, str]):  Example: Prioritization Field.
-        sort_order (Union[Unset, int]):
-        start_date (Union[Unset, datetime.date]):  Example: 1970-01-01.
-        started_on (Union[Unset, datetime.datetime]):  Example: 1970-01-01T00:00:00Z.
-        status (Union[Unset, str]):
-        use_report_from_template (Union[Unset, bool]):
+        allowed_types (list[str] | Unset):
+        calculation_type (PlansListPostRequestDataItemAttributesCalculationType | Unset):  Example: timeBased.
+        capacity (float | Unset):
+        color (str | Unset):  Example: Color.
+        default_estimate (float | Unset):
+        description (PlansListPostRequestDataItemAttributesDescription | Unset):
+        due_date (datetime.date | Unset):  Example: 1970-01-01.
+        estimation_field (str | Unset):  Example: Estimation Field.
+        finished_on (datetime.datetime | Unset):  Example: 1970-01-01T00:00:00Z.
+        home_page_content (PlansListPostRequestDataItemAttributesHomePageContent | Unset):
+        id (str | Unset):  Example: ID.
+        is_template (bool | Unset):
+        name (str | Unset):  Example: Name.
+        previous_time_spent (str | Unset):  Example: 5 1/2d.
+        prioritization_field (str | Unset):  Example: Prioritization Field.
+        sort_order (int | Unset):
+        start_date (datetime.date | Unset):  Example: 1970-01-01.
+        started_on (datetime.datetime | Unset):  Example: 1970-01-01T00:00:00Z.
+        status (str | Unset):
+        use_report_from_template (bool | Unset):
     """
 
-    allowed_types: Union[Unset, list[str]] = UNSET
-    calculation_type: Union[
-        Unset, PlansListPostRequestDataItemAttributesCalculationType
-    ] = UNSET
-    capacity: Union[Unset, float] = UNSET
-    color: Union[Unset, str] = UNSET
-    default_estimate: Union[Unset, float] = UNSET
-    description: Union[
-        Unset, "PlansListPostRequestDataItemAttributesDescription"
-    ] = UNSET
-    due_date: Union[Unset, datetime.date] = UNSET
-    estimation_field: Union[Unset, str] = UNSET
-    finished_on: Union[Unset, datetime.datetime] = UNSET
-    home_page_content: Union[
-        Unset, "PlansListPostRequestDataItemAttributesHomePageContent"
-    ] = UNSET
-    id: Union[Unset, str] = UNSET
-    is_template: Union[Unset, bool] = UNSET
-    name: Union[Unset, str] = UNSET
-    previous_time_spent: Union[Unset, str] = UNSET
-    prioritization_field: Union[Unset, str] = UNSET
-    sort_order: Union[Unset, int] = UNSET
-    start_date: Union[Unset, datetime.date] = UNSET
-    started_on: Union[Unset, datetime.datetime] = UNSET
-    status: Union[Unset, str] = UNSET
-    use_report_from_template: Union[Unset, bool] = UNSET
+    allowed_types: list[str] | Unset = UNSET
+    calculation_type: (
+        PlansListPostRequestDataItemAttributesCalculationType | Unset
+    ) = UNSET
+    capacity: float | Unset = UNSET
+    color: str | Unset = UNSET
+    default_estimate: float | Unset = UNSET
+    description: PlansListPostRequestDataItemAttributesDescription | Unset = (
+        UNSET
+    )
+    due_date: datetime.date | Unset = UNSET
+    estimation_field: str | Unset = UNSET
+    finished_on: datetime.datetime | Unset = UNSET
+    home_page_content: (
+        PlansListPostRequestDataItemAttributesHomePageContent | Unset
+    ) = UNSET
+    id: str | Unset = UNSET
+    is_template: bool | Unset = UNSET
+    name: str | Unset = UNSET
+    previous_time_spent: str | Unset = UNSET
+    prioritization_field: str | Unset = UNSET
+    sort_order: int | Unset = UNSET
+    start_date: datetime.date | Unset = UNSET
+    started_on: datetime.datetime | Unset = UNSET
+    status: str | Unset = UNSET
+    use_report_from_template: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        allowed_types: Union[Unset, list[str]] = UNSET
+        allowed_types: list[str] | Unset = UNSET
         if not isinstance(self.allowed_types, Unset):
             allowed_types = self.allowed_types
 
-        calculation_type: Union[Unset, str] = UNSET
+        calculation_type: str | Unset = UNSET
         if not isinstance(self.calculation_type, Unset):
             calculation_type = self.calculation_type.value
 
@@ -103,21 +103,21 @@ class PlansListPostRequestDataItemAttributes:
 
         default_estimate = self.default_estimate
 
-        description: Union[Unset, dict[str, Any]] = UNSET
+        description: dict[str, Any] | Unset = UNSET
         if not isinstance(self.description, Unset):
             description = self.description.to_dict()
 
-        due_date: Union[Unset, str] = UNSET
+        due_date: str | Unset = UNSET
         if not isinstance(self.due_date, Unset):
             due_date = self.due_date.isoformat()
 
         estimation_field = self.estimation_field
 
-        finished_on: Union[Unset, str] = UNSET
+        finished_on: str | Unset = UNSET
         if not isinstance(self.finished_on, Unset):
             finished_on = self.finished_on.isoformat()
 
-        home_page_content: Union[Unset, dict[str, Any]] = UNSET
+        home_page_content: dict[str, Any] | Unset = UNSET
         if not isinstance(self.home_page_content, Unset):
             home_page_content = self.home_page_content.to_dict()
 
@@ -133,11 +133,11 @@ class PlansListPostRequestDataItemAttributes:
 
         sort_order = self.sort_order
 
-        start_date: Union[Unset, str] = UNSET
+        start_date: str | Unset = UNSET
         if not isinstance(self.start_date, Unset):
             start_date = self.start_date.isoformat()
 
-        started_on: Union[Unset, str] = UNSET
+        started_on: str | Unset = UNSET
         if not isinstance(self.started_on, Unset):
             started_on = self.started_on.isoformat()
 
@@ -204,9 +204,9 @@ class PlansListPostRequestDataItemAttributes:
         allowed_types = cast(list[str], d.pop("allowedTypes", UNSET))
 
         _calculation_type = d.pop("calculationType", UNSET)
-        calculation_type: Union[
-            Unset, PlansListPostRequestDataItemAttributesCalculationType
-        ]
+        calculation_type: (
+            PlansListPostRequestDataItemAttributesCalculationType | Unset
+        )
         if isinstance(_calculation_type, Unset):
             calculation_type = UNSET
         else:
@@ -223,9 +223,7 @@ class PlansListPostRequestDataItemAttributes:
         default_estimate = d.pop("defaultEstimate", UNSET)
 
         _description = d.pop("description", UNSET)
-        description: Union[
-            Unset, PlansListPostRequestDataItemAttributesDescription
-        ]
+        description: PlansListPostRequestDataItemAttributesDescription | Unset
         if isinstance(_description, Unset):
             description = UNSET
         else:
@@ -236,25 +234,25 @@ class PlansListPostRequestDataItemAttributes:
             )
 
         _due_date = d.pop("dueDate", UNSET)
-        due_date: Union[Unset, datetime.date]
+        due_date: datetime.date | Unset
         if isinstance(_due_date, Unset):
             due_date = UNSET
         else:
-            due_date = isoparse(_due_date).date()
+            due_date = datetime.date.fromisoformat(_due_date)
 
         estimation_field = d.pop("estimationField", UNSET)
 
         _finished_on = d.pop("finishedOn", UNSET)
-        finished_on: Union[Unset, datetime.datetime]
+        finished_on: datetime.datetime | Unset
         if isinstance(_finished_on, Unset):
             finished_on = UNSET
         else:
-            finished_on = isoparse(_finished_on)
+            finished_on = datetime.datetime.fromisoformat(_finished_on)
 
         _home_page_content = d.pop("homePageContent", UNSET)
-        home_page_content: Union[
-            Unset, PlansListPostRequestDataItemAttributesHomePageContent
-        ]
+        home_page_content: (
+            PlansListPostRequestDataItemAttributesHomePageContent | Unset
+        )
         if isinstance(_home_page_content, Unset):
             home_page_content = UNSET
         else:
@@ -275,18 +273,18 @@ class PlansListPostRequestDataItemAttributes:
         sort_order = d.pop("sortOrder", UNSET)
 
         _start_date = d.pop("startDate", UNSET)
-        start_date: Union[Unset, datetime.date]
+        start_date: datetime.date | Unset
         if isinstance(_start_date, Unset):
             start_date = UNSET
         else:
-            start_date = isoparse(_start_date).date()
+            start_date = datetime.date.fromisoformat(_start_date)
 
         _started_on = d.pop("startedOn", UNSET)
-        started_on: Union[Unset, datetime.datetime]
+        started_on: datetime.datetime | Unset
         if isinstance(_started_on, Unset):
             started_on = UNSET
         else:
-            started_on = isoparse(_started_on)
+            started_on = datetime.datetime.fromisoformat(_started_on)
 
         status = d.pop("status", UNSET)
 

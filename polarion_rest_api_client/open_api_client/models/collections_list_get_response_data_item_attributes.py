@@ -1,18 +1,18 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
@@ -29,36 +29,36 @@ T = TypeVar("T", bound="CollectionsListGetResponseDataItemAttributes")
 class CollectionsListGetResponseDataItemAttributes:
     """
     Attributes:
-        closed_on (Union[Unset, datetime.datetime]):  Example: 1970-01-01T00:00:00Z.
-        created (Union[Unset, datetime.datetime]):  Example: 1970-01-01T00:00:00Z.
-        description (Union[Unset, CollectionsListGetResponseDataItemAttributesDescription]):
-        id (Union[Unset, str]):  Example: ID.
-        name (Union[Unset, str]):  Example: Name.
-        updated (Union[Unset, datetime.datetime]):  Example: 1970-01-01T00:00:00Z.
+        closed_on (datetime.datetime | Unset):  Example: 1970-01-01T00:00:00Z.
+        created (datetime.datetime | Unset):  Example: 1970-01-01T00:00:00Z.
+        description (CollectionsListGetResponseDataItemAttributesDescription | Unset):
+        id (str | Unset):  Example: ID.
+        name (str | Unset):  Example: Name.
+        updated (datetime.datetime | Unset):  Example: 1970-01-01T00:00:00Z.
     """
 
-    closed_on: Union[Unset, datetime.datetime] = UNSET
-    created: Union[Unset, datetime.datetime] = UNSET
-    description: Union[
-        Unset, "CollectionsListGetResponseDataItemAttributesDescription"
-    ] = UNSET
-    id: Union[Unset, str] = UNSET
-    name: Union[Unset, str] = UNSET
-    updated: Union[Unset, datetime.datetime] = UNSET
+    closed_on: datetime.datetime | Unset = UNSET
+    created: datetime.datetime | Unset = UNSET
+    description: (
+        CollectionsListGetResponseDataItemAttributesDescription | Unset
+    ) = UNSET
+    id: str | Unset = UNSET
+    name: str | Unset = UNSET
+    updated: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        closed_on: Union[Unset, str] = UNSET
+        closed_on: str | Unset = UNSET
         if not isinstance(self.closed_on, Unset):
             closed_on = self.closed_on.isoformat()
 
-        created: Union[Unset, str] = UNSET
+        created: str | Unset = UNSET
         if not isinstance(self.created, Unset):
             created = self.created.isoformat()
 
-        description: Union[Unset, dict[str, Any]] = UNSET
+        description: dict[str, Any] | Unset = UNSET
         if not isinstance(self.description, Unset):
             description = self.description.to_dict()
 
@@ -66,7 +66,7 @@ class CollectionsListGetResponseDataItemAttributes:
 
         name = self.name
 
-        updated: Union[Unset, str] = UNSET
+        updated: str | Unset = UNSET
         if not isinstance(self.updated, Unset):
             updated = self.updated.isoformat()
 
@@ -96,23 +96,23 @@ class CollectionsListGetResponseDataItemAttributes:
 
         d = dict(src_dict)
         _closed_on = d.pop("closedOn", UNSET)
-        closed_on: Union[Unset, datetime.datetime]
+        closed_on: datetime.datetime | Unset
         if isinstance(_closed_on, Unset):
             closed_on = UNSET
         else:
-            closed_on = isoparse(_closed_on)
+            closed_on = datetime.datetime.fromisoformat(_closed_on)
 
         _created = d.pop("created", UNSET)
-        created: Union[Unset, datetime.datetime]
+        created: datetime.datetime | Unset
         if isinstance(_created, Unset):
             created = UNSET
         else:
-            created = isoparse(_created)
+            created = datetime.datetime.fromisoformat(_created)
 
         _description = d.pop("description", UNSET)
-        description: Union[
-            Unset, CollectionsListGetResponseDataItemAttributesDescription
-        ]
+        description: (
+            CollectionsListGetResponseDataItemAttributesDescription | Unset
+        )
         if isinstance(_description, Unset):
             description = UNSET
         else:
@@ -125,11 +125,11 @@ class CollectionsListGetResponseDataItemAttributes:
         name = d.pop("name", UNSET)
 
         _updated = d.pop("updated", UNSET)
-        updated: Union[Unset, datetime.datetime]
+        updated: datetime.datetime | Unset
         if isinstance(_updated, Unset):
             updated = UNSET
         else:
-            updated = isoparse(_updated)
+            updated = datetime.datetime.fromisoformat(_updated)
 
         collections_list_get_response_data_item_attributes_obj = cls(
             closed_on=closed_on,

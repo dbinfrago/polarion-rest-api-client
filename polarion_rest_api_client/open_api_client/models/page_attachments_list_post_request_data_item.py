@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -30,26 +31,26 @@ T = TypeVar("T", bound="PageAttachmentsListPostRequestDataItem")
 class PageAttachmentsListPostRequestDataItem:
     """
     Attributes:
-        type_ (Union[Unset, PageAttachmentsListPostRequestDataItemType]):
-        attributes (Union[Unset, PageAttachmentsListPostRequestDataItemAttributes]):
-        lid (Union[Unset, str]):
+        type_ (PageAttachmentsListPostRequestDataItemType | Unset):
+        attributes (PageAttachmentsListPostRequestDataItemAttributes | Unset):
+        lid (str | Unset):
     """
 
-    type_: Union[Unset, PageAttachmentsListPostRequestDataItemType] = UNSET
-    attributes: Union[
-        Unset, "PageAttachmentsListPostRequestDataItemAttributes"
-    ] = UNSET
-    lid: Union[Unset, str] = UNSET
+    type_: PageAttachmentsListPostRequestDataItemType | Unset = UNSET
+    attributes: PageAttachmentsListPostRequestDataItemAttributes | Unset = (
+        UNSET
+    )
+    lid: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
@@ -75,16 +76,14 @@ class PageAttachmentsListPostRequestDataItem:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, PageAttachmentsListPostRequestDataItemType]
+        type_: PageAttachmentsListPostRequestDataItemType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
             type_ = PageAttachmentsListPostRequestDataItemType(_type_)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[
-            Unset, PageAttachmentsListPostRequestDataItemAttributes
-        ]
+        attributes: PageAttachmentsListPostRequestDataItemAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:

@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -27,18 +28,16 @@ T = TypeVar("T", bound="GlobalrolesSingleGetResponseDataRelationships")
 class GlobalrolesSingleGetResponseDataRelationships:
     """
     Attributes:
-        users (Union[Unset, GlobalrolesSingleGetResponseDataRelationshipsUsers]):
+        users (GlobalrolesSingleGetResponseDataRelationshipsUsers | Unset):
     """
 
-    users: Union[
-        Unset, "GlobalrolesSingleGetResponseDataRelationshipsUsers"
-    ] = UNSET
+    users: GlobalrolesSingleGetResponseDataRelationshipsUsers | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        users: Union[Unset, dict[str, Any]] = UNSET
+        users: dict[str, Any] | Unset = UNSET
         if not isinstance(self.users, Unset):
             users = self.users.to_dict()
 
@@ -58,7 +57,7 @@ class GlobalrolesSingleGetResponseDataRelationships:
 
         d = dict(src_dict)
         _users = d.pop("users", UNSET)
-        users: Union[Unset, GlobalrolesSingleGetResponseDataRelationshipsUsers]
+        users: GlobalrolesSingleGetResponseDataRelationshipsUsers | Unset
         if isinstance(_users, Unset):
             users = UNSET
         else:

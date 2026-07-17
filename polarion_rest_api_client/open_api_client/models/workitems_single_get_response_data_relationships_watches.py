@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -30,30 +31,30 @@ T = TypeVar("T", bound="WorkitemsSingleGetResponseDataRelationshipsWatches")
 class WorkitemsSingleGetResponseDataRelationshipsWatches:
     """
     Attributes:
-        data (Union[Unset, list['WorkitemsSingleGetResponseDataRelationshipsWatchesDataItem']]):
-        meta (Union[Unset, WorkitemsSingleGetResponseDataRelationshipsWatchesMeta]):
+        data (list[WorkitemsSingleGetResponseDataRelationshipsWatchesDataItem] | Unset):
+        meta (WorkitemsSingleGetResponseDataRelationshipsWatchesMeta | Unset):
     """
 
-    data: Union[
-        Unset,
-        list["WorkitemsSingleGetResponseDataRelationshipsWatchesDataItem"],
-    ] = UNSET
-    meta: Union[
-        Unset, "WorkitemsSingleGetResponseDataRelationshipsWatchesMeta"
-    ] = UNSET
+    data: (
+        list[WorkitemsSingleGetResponseDataRelationshipsWatchesDataItem]
+        | Unset
+    ) = UNSET
+    meta: WorkitemsSingleGetResponseDataRelationshipsWatchesMeta | Unset = (
+        UNSET
+    )
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        data: Union[Unset, list[dict[str, Any]]] = UNSET
+        data: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.data, Unset):
             data = []
             for data_item_data in self.data:
                 data_item = data_item_data.to_dict()
                 data.append(data_item)
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -77,19 +78,22 @@ class WorkitemsSingleGetResponseDataRelationshipsWatches:
         )
 
         d = dict(src_dict)
-        data = []
         _data = d.pop("data", UNSET)
-        for data_item_data in _data or []:
-            data_item = WorkitemsSingleGetResponseDataRelationshipsWatchesDataItem.from_dict(
-                data_item_data
-            )
+        data: (
+            list[WorkitemsSingleGetResponseDataRelationshipsWatchesDataItem]
+            | Unset
+        ) = UNSET
+        if _data is not UNSET:
+            data = []
+            for data_item_data in _data:
+                data_item = WorkitemsSingleGetResponseDataRelationshipsWatchesDataItem.from_dict(
+                    data_item_data
+                )
 
-            data.append(data_item)
+                data.append(data_item)
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[
-            Unset, WorkitemsSingleGetResponseDataRelationshipsWatchesMeta
-        ]
+        meta: WorkitemsSingleGetResponseDataRelationshipsWatchesMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

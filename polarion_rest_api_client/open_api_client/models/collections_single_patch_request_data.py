@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -33,36 +34,34 @@ T = TypeVar("T", bound="CollectionsSinglePatchRequestData")
 class CollectionsSinglePatchRequestData:
     """
     Attributes:
-        type_ (Union[Unset, CollectionsSinglePatchRequestDataType]):
-        id (Union[Unset, str]):  Example: MyProjectId/MyCollectionId.
-        attributes (Union[Unset, CollectionsSinglePatchRequestDataAttributes]):
-        relationships (Union[Unset, CollectionsSinglePatchRequestDataRelationships]):
+        type_ (CollectionsSinglePatchRequestDataType | Unset):
+        id (str | Unset):  Example: MyProjectId/MyCollectionId.
+        attributes (CollectionsSinglePatchRequestDataAttributes | Unset):
+        relationships (CollectionsSinglePatchRequestDataRelationships | Unset):
     """
 
-    type_: Union[Unset, CollectionsSinglePatchRequestDataType] = UNSET
-    id: Union[Unset, str] = UNSET
-    attributes: Union[Unset, "CollectionsSinglePatchRequestDataAttributes"] = (
+    type_: CollectionsSinglePatchRequestDataType | Unset = UNSET
+    id: str | Unset = UNSET
+    attributes: CollectionsSinglePatchRequestDataAttributes | Unset = UNSET
+    relationships: CollectionsSinglePatchRequestDataRelationships | Unset = (
         UNSET
     )
-    relationships: Union[
-        Unset, "CollectionsSinglePatchRequestDataRelationships"
-    ] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
         id = self.id
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        relationships: Union[Unset, dict[str, Any]] = UNSET
+        relationships: dict[str, Any] | Unset = UNSET
         if not isinstance(self.relationships, Unset):
             relationships = self.relationships.to_dict()
 
@@ -91,7 +90,7 @@ class CollectionsSinglePatchRequestData:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, CollectionsSinglePatchRequestDataType]
+        type_: CollectionsSinglePatchRequestDataType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -100,7 +99,7 @@ class CollectionsSinglePatchRequestData:
         id = d.pop("id", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[Unset, CollectionsSinglePatchRequestDataAttributes]
+        attributes: CollectionsSinglePatchRequestDataAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -109,9 +108,7 @@ class CollectionsSinglePatchRequestData:
             )
 
         _relationships = d.pop("relationships", UNSET)
-        relationships: Union[
-            Unset, CollectionsSinglePatchRequestDataRelationships
-        ]
+        relationships: CollectionsSinglePatchRequestDataRelationships | Unset
         if isinstance(_relationships, Unset):
             relationships = UNSET
         else:

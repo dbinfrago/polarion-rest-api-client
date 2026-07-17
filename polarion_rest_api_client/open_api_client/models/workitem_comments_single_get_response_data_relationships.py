@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -36,44 +37,42 @@ T = TypeVar("T", bound="WorkitemCommentsSingleGetResponseDataRelationships")
 class WorkitemCommentsSingleGetResponseDataRelationships:
     """
     Attributes:
-        author (Union[Unset, WorkitemCommentsSingleGetResponseDataRelationshipsAuthor]):
-        child_comments (Union[Unset, WorkitemCommentsSingleGetResponseDataRelationshipsChildComments]):
-        parent_comment (Union[Unset, WorkitemCommentsSingleGetResponseDataRelationshipsParentComment]):
-        project (Union[Unset, WorkitemCommentsSingleGetResponseDataRelationshipsProject]):
+        author (WorkitemCommentsSingleGetResponseDataRelationshipsAuthor | Unset):
+        child_comments (WorkitemCommentsSingleGetResponseDataRelationshipsChildComments | Unset):
+        parent_comment (WorkitemCommentsSingleGetResponseDataRelationshipsParentComment | Unset):
+        project (WorkitemCommentsSingleGetResponseDataRelationshipsProject | Unset):
     """
 
-    author: Union[
-        Unset, "WorkitemCommentsSingleGetResponseDataRelationshipsAuthor"
-    ] = UNSET
-    child_comments: Union[
-        Unset,
-        "WorkitemCommentsSingleGetResponseDataRelationshipsChildComments",
-    ] = UNSET
-    parent_comment: Union[
-        Unset,
-        "WorkitemCommentsSingleGetResponseDataRelationshipsParentComment",
-    ] = UNSET
-    project: Union[
-        Unset, "WorkitemCommentsSingleGetResponseDataRelationshipsProject"
-    ] = UNSET
+    author: (
+        WorkitemCommentsSingleGetResponseDataRelationshipsAuthor | Unset
+    ) = UNSET
+    child_comments: (
+        WorkitemCommentsSingleGetResponseDataRelationshipsChildComments | Unset
+    ) = UNSET
+    parent_comment: (
+        WorkitemCommentsSingleGetResponseDataRelationshipsParentComment | Unset
+    ) = UNSET
+    project: (
+        WorkitemCommentsSingleGetResponseDataRelationshipsProject | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        author: Union[Unset, dict[str, Any]] = UNSET
+        author: dict[str, Any] | Unset = UNSET
         if not isinstance(self.author, Unset):
             author = self.author.to_dict()
 
-        child_comments: Union[Unset, dict[str, Any]] = UNSET
+        child_comments: dict[str, Any] | Unset = UNSET
         if not isinstance(self.child_comments, Unset):
             child_comments = self.child_comments.to_dict()
 
-        parent_comment: Union[Unset, dict[str, Any]] = UNSET
+        parent_comment: dict[str, Any] | Unset = UNSET
         if not isinstance(self.parent_comment, Unset):
             parent_comment = self.parent_comment.to_dict()
 
-        project: Union[Unset, dict[str, Any]] = UNSET
+        project: dict[str, Any] | Unset = UNSET
         if not isinstance(self.project, Unset):
             project = self.project.to_dict()
 
@@ -108,9 +107,9 @@ class WorkitemCommentsSingleGetResponseDataRelationships:
 
         d = dict(src_dict)
         _author = d.pop("author", UNSET)
-        author: Union[
-            Unset, WorkitemCommentsSingleGetResponseDataRelationshipsAuthor
-        ]
+        author: (
+            WorkitemCommentsSingleGetResponseDataRelationshipsAuthor | Unset
+        )
         if isinstance(_author, Unset):
             author = UNSET
         else:
@@ -119,10 +118,10 @@ class WorkitemCommentsSingleGetResponseDataRelationships:
             )
 
         _child_comments = d.pop("childComments", UNSET)
-        child_comments: Union[
-            Unset,
-            WorkitemCommentsSingleGetResponseDataRelationshipsChildComments,
-        ]
+        child_comments: (
+            WorkitemCommentsSingleGetResponseDataRelationshipsChildComments
+            | Unset
+        )
         if isinstance(_child_comments, Unset):
             child_comments = UNSET
         else:
@@ -131,10 +130,10 @@ class WorkitemCommentsSingleGetResponseDataRelationships:
             )
 
         _parent_comment = d.pop("parentComment", UNSET)
-        parent_comment: Union[
-            Unset,
-            WorkitemCommentsSingleGetResponseDataRelationshipsParentComment,
-        ]
+        parent_comment: (
+            WorkitemCommentsSingleGetResponseDataRelationshipsParentComment
+            | Unset
+        )
         if isinstance(_parent_comment, Unset):
             parent_comment = UNSET
         else:
@@ -143,9 +142,9 @@ class WorkitemCommentsSingleGetResponseDataRelationships:
             )
 
         _project = d.pop("project", UNSET)
-        project: Union[
-            Unset, WorkitemCommentsSingleGetResponseDataRelationshipsProject
-        ]
+        project: (
+            WorkitemCommentsSingleGetResponseDataRelationshipsProject | Unset
+        )
         if isinstance(_project, Unset):
             project = UNSET
         else:

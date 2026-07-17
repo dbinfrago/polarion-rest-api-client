@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,84 +18,100 @@ T = TypeVar("T", bound="SparseFields")
 class SparseFields:
     """
     Attributes:
-        categories (Union[Unset, str]): Requested fields Example: @all.
-        collections (Union[Unset, str]): Requested fields Example: @all.
-        document_attachments (Union[Unset, str]): Requested fields Example: @all.
-        document_comments (Union[Unset, str]): Requested fields Example: @all.
-        document_parts (Union[Unset, str]): Requested fields Example: @all.
-        documents (Union[Unset, str]): Requested fields Example: @all.
-        enumerations (Union[Unset, str]): Requested fields Example: @all.
-        externallylinkedworkitems (Union[Unset, str]): Requested fields Example: @all.
-        featureselections (Union[Unset, str]): Requested fields Example: @all.
-        globalroles (Union[Unset, str]): Requested fields Example: @all.
-        icons (Union[Unset, str]): Requested fields Example: @all.
-        jobs (Union[Unset, str]): Requested fields Example: @all.
-        linkedoslcresources (Union[Unset, str]): Requested fields Example: @all.
-        linkedworkitems (Union[Unset, str]): Requested fields Example: @all.
-        page_attachments (Union[Unset, str]): Requested fields Example: @all.
-        pages (Union[Unset, str]): Requested fields Example: @all.
-        plans (Union[Unset, str]): Requested fields Example: @all.
-        projectroles (Union[Unset, str]): Requested fields Example: @all.
-        projects (Union[Unset, str]): Requested fields Example: @all.
-        projecttemplates (Union[Unset, str]): Requested fields Example: @all.
-        revisions (Union[Unset, str]): Requested fields Example: @all.
-        testparameter_definitions (Union[Unset, str]): Requested fields Example: @all.
-        testparameters (Union[Unset, str]): Requested fields Example: @all.
-        testrecord_attachments (Union[Unset, str]): Requested fields Example: @all.
-        testrecords (Union[Unset, str]): Requested fields Example: @all.
-        testrun_attachments (Union[Unset, str]): Requested fields Example: @all.
-        testrun_comments (Union[Unset, str]): Requested fields Example: @all.
-        testruns (Union[Unset, str]): Requested fields Example: @all.
-        teststep_results (Union[Unset, str]): Requested fields Example: @all.
-        teststepresult_attachments (Union[Unset, str]): Requested fields Example: @all.
-        teststeps (Union[Unset, str]): Requested fields Example: @all.
-        usergroups (Union[Unset, str]): Requested fields Example: @all.
-        users (Union[Unset, str]): Requested fields Example: @all.
-        workitem_approvals (Union[Unset, str]): Requested fields Example: @all.
-        workitem_attachments (Union[Unset, str]): Requested fields Example: @all.
-        workitem_comments (Union[Unset, str]): Requested fields Example: @all.
-        workitems (Union[Unset, str]): Requested fields Example: @all.
-        workrecords (Union[Unset, str]): Requested fields Example: @all.
+        categories (str | Unset): Requested fields Example: @all.
+        collections (str | Unset): Requested fields Example: @all.
+        customfields (str | Unset): Requested fields Example: @all.
+        document_attachments (str | Unset): Requested fields Example: @all.
+        document_comments (str | Unset): Requested fields Example: @all.
+        document_parts (str | Unset): Requested fields Example: @all.
+        documents (str | Unset): Requested fields Example: @all.
+        enumerations (str | Unset): Requested fields Example: @all.
+        externallylinkedworkitems (str | Unset): Requested fields Example: @all.
+        featureselections (str | Unset): Requested fields Example: @all.
+        globalroles (str | Unset): Requested fields Example: @all.
+        icons (str | Unset): Requested fields Example: @all.
+        jobs (str | Unset): Requested fields Example: @all.
+        license_ (str | Unset): Requested fields Example: @all.
+        license_assignments (str | Unset): Requested fields Example: @all.
+        license_slots (str | Unset): Requested fields Example: @all.
+        license_types (str | Unset): Requested fields Example: @all.
+        linkedoslcresources (str | Unset): Requested fields Example: @all.
+        linkedworkitems (str | Unset): Requested fields Example: @all.
+        llms (str | Unset): Requested fields Example: @all.
+        metadata (str | Unset): Requested fields Example: @all.
+        page_attachments (str | Unset): Requested fields Example: @all.
+        page_comments (str | Unset): Requested fields Example: @all.
+        pages (str | Unset): Requested fields Example: @all.
+        plans (str | Unset): Requested fields Example: @all.
+        projectroles (str | Unset): Requested fields Example: @all.
+        projects (str | Unset): Requested fields Example: @all.
+        projecttemplates (str | Unset): Requested fields Example: @all.
+        revisions (str | Unset): Requested fields Example: @all.
+        testparameter_definitions (str | Unset): Requested fields Example: @all.
+        testparameters (str | Unset): Requested fields Example: @all.
+        testrecord_attachments (str | Unset): Requested fields Example: @all.
+        testrecords (str | Unset): Requested fields Example: @all.
+        testrun_attachments (str | Unset): Requested fields Example: @all.
+        testrun_comments (str | Unset): Requested fields Example: @all.
+        testruns (str | Unset): Requested fields Example: @all.
+        teststep_results (str | Unset): Requested fields Example: @all.
+        teststepresult_attachments (str | Unset): Requested fields Example: @all.
+        teststeps (str | Unset): Requested fields Example: @all.
+        usergroups (str | Unset): Requested fields Example: @all.
+        users (str | Unset): Requested fields Example: @all.
+        workitem_approvals (str | Unset): Requested fields Example: @all.
+        workitem_attachments (str | Unset): Requested fields Example: @all.
+        workitem_comments (str | Unset): Requested fields Example: @all.
+        workitems (str | Unset): Requested fields Example: @all.
+        workrecords (str | Unset): Requested fields Example: @all.
     """
 
-    categories: Union[Unset, str] = UNSET
-    collections: Union[Unset, str] = UNSET
-    document_attachments: Union[Unset, str] = UNSET
-    document_comments: Union[Unset, str] = UNSET
-    document_parts: Union[Unset, str] = UNSET
-    documents: Union[Unset, str] = UNSET
-    enumerations: Union[Unset, str] = UNSET
-    externallylinkedworkitems: Union[Unset, str] = UNSET
-    featureselections: Union[Unset, str] = UNSET
-    globalroles: Union[Unset, str] = UNSET
-    icons: Union[Unset, str] = UNSET
-    jobs: Union[Unset, str] = UNSET
-    linkedoslcresources: Union[Unset, str] = UNSET
-    linkedworkitems: Union[Unset, str] = UNSET
-    page_attachments: Union[Unset, str] = UNSET
-    pages: Union[Unset, str] = UNSET
-    plans: Union[Unset, str] = UNSET
-    projectroles: Union[Unset, str] = UNSET
-    projects: Union[Unset, str] = UNSET
-    projecttemplates: Union[Unset, str] = UNSET
-    revisions: Union[Unset, str] = UNSET
-    testparameter_definitions: Union[Unset, str] = UNSET
-    testparameters: Union[Unset, str] = UNSET
-    testrecord_attachments: Union[Unset, str] = UNSET
-    testrecords: Union[Unset, str] = UNSET
-    testrun_attachments: Union[Unset, str] = UNSET
-    testrun_comments: Union[Unset, str] = UNSET
-    testruns: Union[Unset, str] = UNSET
-    teststep_results: Union[Unset, str] = UNSET
-    teststepresult_attachments: Union[Unset, str] = UNSET
-    teststeps: Union[Unset, str] = UNSET
-    usergroups: Union[Unset, str] = UNSET
-    users: Union[Unset, str] = UNSET
-    workitem_approvals: Union[Unset, str] = UNSET
-    workitem_attachments: Union[Unset, str] = UNSET
-    workitem_comments: Union[Unset, str] = UNSET
-    workitems: Union[Unset, str] = UNSET
-    workrecords: Union[Unset, str] = UNSET
+    categories: str | Unset = UNSET
+    collections: str | Unset = UNSET
+    customfields: str | Unset = UNSET
+    document_attachments: str | Unset = UNSET
+    document_comments: str | Unset = UNSET
+    document_parts: str | Unset = UNSET
+    documents: str | Unset = UNSET
+    enumerations: str | Unset = UNSET
+    externallylinkedworkitems: str | Unset = UNSET
+    featureselections: str | Unset = UNSET
+    globalroles: str | Unset = UNSET
+    icons: str | Unset = UNSET
+    jobs: str | Unset = UNSET
+    license_: str | Unset = UNSET
+    license_assignments: str | Unset = UNSET
+    license_slots: str | Unset = UNSET
+    license_types: str | Unset = UNSET
+    linkedoslcresources: str | Unset = UNSET
+    linkedworkitems: str | Unset = UNSET
+    llms: str | Unset = UNSET
+    metadata: str | Unset = UNSET
+    page_attachments: str | Unset = UNSET
+    page_comments: str | Unset = UNSET
+    pages: str | Unset = UNSET
+    plans: str | Unset = UNSET
+    projectroles: str | Unset = UNSET
+    projects: str | Unset = UNSET
+    projecttemplates: str | Unset = UNSET
+    revisions: str | Unset = UNSET
+    testparameter_definitions: str | Unset = UNSET
+    testparameters: str | Unset = UNSET
+    testrecord_attachments: str | Unset = UNSET
+    testrecords: str | Unset = UNSET
+    testrun_attachments: str | Unset = UNSET
+    testrun_comments: str | Unset = UNSET
+    testruns: str | Unset = UNSET
+    teststep_results: str | Unset = UNSET
+    teststepresult_attachments: str | Unset = UNSET
+    teststeps: str | Unset = UNSET
+    usergroups: str | Unset = UNSET
+    users: str | Unset = UNSET
+    workitem_approvals: str | Unset = UNSET
+    workitem_attachments: str | Unset = UNSET
+    workitem_comments: str | Unset = UNSET
+    workitems: str | Unset = UNSET
+    workrecords: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -106,6 +120,8 @@ class SparseFields:
         categories = self.categories
 
         collections = self.collections
+
+        customfields = self.customfields
 
         document_attachments = self.document_attachments
 
@@ -127,11 +143,25 @@ class SparseFields:
 
         jobs = self.jobs
 
+        license_ = self.license_
+
+        license_assignments = self.license_assignments
+
+        license_slots = self.license_slots
+
+        license_types = self.license_types
+
         linkedoslcresources = self.linkedoslcresources
 
         linkedworkitems = self.linkedworkitems
 
+        llms = self.llms
+
+        metadata = self.metadata
+
         page_attachments = self.page_attachments
+
+        page_comments = self.page_comments
 
         pages = self.pages
 
@@ -186,6 +216,8 @@ class SparseFields:
             field_dict["categories"] = categories
         if collections is not UNSET:
             field_dict["collections"] = collections
+        if customfields is not UNSET:
+            field_dict["customfields"] = customfields
         if document_attachments is not UNSET:
             field_dict["document_attachments"] = document_attachments
         if document_comments is not UNSET:
@@ -206,12 +238,26 @@ class SparseFields:
             field_dict["icons"] = icons
         if jobs is not UNSET:
             field_dict["jobs"] = jobs
+        if license_ is not UNSET:
+            field_dict["license"] = license_
+        if license_assignments is not UNSET:
+            field_dict["license_assignments"] = license_assignments
+        if license_slots is not UNSET:
+            field_dict["license_slots"] = license_slots
+        if license_types is not UNSET:
+            field_dict["license_types"] = license_types
         if linkedoslcresources is not UNSET:
             field_dict["linkedoslcresources"] = linkedoslcresources
         if linkedworkitems is not UNSET:
             field_dict["linkedworkitems"] = linkedworkitems
+        if llms is not UNSET:
+            field_dict["llms"] = llms
+        if metadata is not UNSET:
+            field_dict["metadata"] = metadata
         if page_attachments is not UNSET:
             field_dict["page_attachments"] = page_attachments
+        if page_comments is not UNSET:
+            field_dict["page_comments"] = page_comments
         if pages is not UNSET:
             field_dict["pages"] = pages
         if plans is not UNSET:
@@ -270,6 +316,8 @@ class SparseFields:
 
         collections = d.pop("collections", UNSET)
 
+        customfields = d.pop("customfields", UNSET)
+
         document_attachments = d.pop("document_attachments", UNSET)
 
         document_comments = d.pop("document_comments", UNSET)
@@ -290,11 +338,25 @@ class SparseFields:
 
         jobs = d.pop("jobs", UNSET)
 
+        license_ = d.pop("license", UNSET)
+
+        license_assignments = d.pop("license_assignments", UNSET)
+
+        license_slots = d.pop("license_slots", UNSET)
+
+        license_types = d.pop("license_types", UNSET)
+
         linkedoslcresources = d.pop("linkedoslcresources", UNSET)
 
         linkedworkitems = d.pop("linkedworkitems", UNSET)
 
+        llms = d.pop("llms", UNSET)
+
+        metadata = d.pop("metadata", UNSET)
+
         page_attachments = d.pop("page_attachments", UNSET)
+
+        page_comments = d.pop("page_comments", UNSET)
 
         pages = d.pop("pages", UNSET)
 
@@ -345,6 +407,7 @@ class SparseFields:
         sparse_fields_obj = cls(
             categories=categories,
             collections=collections,
+            customfields=customfields,
             document_attachments=document_attachments,
             document_comments=document_comments,
             document_parts=document_parts,
@@ -355,9 +418,16 @@ class SparseFields:
             globalroles=globalroles,
             icons=icons,
             jobs=jobs,
+            license_=license_,
+            license_assignments=license_assignments,
+            license_slots=license_slots,
+            license_types=license_types,
             linkedoslcresources=linkedoslcresources,
             linkedworkitems=linkedworkitems,
+            llms=llms,
+            metadata=metadata,
             page_attachments=page_attachments,
+            page_comments=page_comments,
             pages=pages,
             plans=plans,
             projectroles=projectroles,

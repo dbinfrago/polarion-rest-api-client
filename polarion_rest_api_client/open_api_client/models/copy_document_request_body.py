@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,19 +18,18 @@ T = TypeVar("T", bound="CopyDocumentRequestBody")
 class CopyDocumentRequestBody:
     """
     Attributes:
-        link_original_items_with_role (Union[Unset, str]): Link a copy of the document to the original. Example:
-            duplicates.
-        remove_outgoing_links (Union[Unset, bool]): Should outgoing links be removed? Example: True.
-        target_document_name (Union[Unset, str]): Name for new Document. Example: MyDocumentId.
-        target_project_id (Union[Unset, str]): Project where new document will be created. Example: MyProjectId.
-        target_space_id (Union[Unset, str]): Space where new document will be created. Example: MySpaceId.
+        link_original_items_with_role (str | Unset): Link a copy of the document to the original. Example: duplicates.
+        remove_outgoing_links (bool | Unset): Should outgoing links be removed? Example: True.
+        target_document_name (str | Unset): Name for new Document. Example: MyDocumentId.
+        target_project_id (str | Unset): Project where new document will be created. Example: MyProjectId.
+        target_space_id (str | Unset): Space where new document will be created. Example: MySpaceId.
     """
 
-    link_original_items_with_role: Union[Unset, str] = UNSET
-    remove_outgoing_links: Union[Unset, bool] = UNSET
-    target_document_name: Union[Unset, str] = UNSET
-    target_project_id: Union[Unset, str] = UNSET
-    target_space_id: Union[Unset, str] = UNSET
+    link_original_items_with_role: str | Unset = UNSET
+    remove_outgoing_links: bool | Unset = UNSET
+    target_document_name: str | Unset = UNSET
+    target_project_id: str | Unset = UNSET
+    target_space_id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )

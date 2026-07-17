@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -27,18 +28,18 @@ T = TypeVar("T", bound="EnumerationsSinglePatchRequestDataAttributes")
 class EnumerationsSinglePatchRequestDataAttributes:
     """
     Attributes:
-        options (Union[Unset, list['EnumerationsSinglePatchRequestDataAttributesOptionsItem']]):
+        options (list[EnumerationsSinglePatchRequestDataAttributesOptionsItem] | Unset):
     """
 
-    options: Union[
-        Unset, list["EnumerationsSinglePatchRequestDataAttributesOptionsItem"]
-    ] = UNSET
+    options: (
+        list[EnumerationsSinglePatchRequestDataAttributesOptionsItem] | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        options: Union[Unset, list[dict[str, Any]]] = UNSET
+        options: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.options, Unset):
             options = []
             for options_item_data in self.options:
@@ -60,14 +61,19 @@ class EnumerationsSinglePatchRequestDataAttributes:
         )
 
         d = dict(src_dict)
-        options = []
         _options = d.pop("options", UNSET)
-        for options_item_data in _options or []:
-            options_item = EnumerationsSinglePatchRequestDataAttributesOptionsItem.from_dict(
-                options_item_data
-            )
+        options: (
+            list[EnumerationsSinglePatchRequestDataAttributesOptionsItem]
+            | Unset
+        ) = UNSET
+        if _options is not UNSET:
+            options = []
+            for options_item_data in _options:
+                options_item = EnumerationsSinglePatchRequestDataAttributesOptionsItem.from_dict(
+                    options_item_data
+                )
 
-            options.append(options_item)
+                options.append(options_item)
 
         enumerations_single_patch_request_data_attributes_obj = cls(
             options=options,

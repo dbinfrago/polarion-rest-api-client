@@ -1,17 +1,17 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
 from typing import (
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
@@ -22,24 +22,24 @@ T = TypeVar("T", bound="RevisionsSingleGetResponseDataAttributes")
 class RevisionsSingleGetResponseDataAttributes:
     """
     Attributes:
-        created (Union[Unset, datetime.datetime]):  Example: 1970-01-01T00:00:00Z.
-        id (Union[Unset, str]):
-        internal_commit (Union[Unset, bool]):
-        message (Union[Unset, str]):  Example: Message.
-        repository_name (Union[Unset, str]):  Example: Repository name.
+        created (datetime.datetime | Unset):  Example: 1970-01-01T00:00:00Z.
+        id (str | Unset):
+        internal_commit (bool | Unset):
+        message (str | Unset):  Example: Message.
+        repository_name (str | Unset):  Example: Repository name.
     """
 
-    created: Union[Unset, datetime.datetime] = UNSET
-    id: Union[Unset, str] = UNSET
-    internal_commit: Union[Unset, bool] = UNSET
-    message: Union[Unset, str] = UNSET
-    repository_name: Union[Unset, str] = UNSET
+    created: datetime.datetime | Unset = UNSET
+    id: str | Unset = UNSET
+    internal_commit: bool | Unset = UNSET
+    message: str | Unset = UNSET
+    repository_name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        created: Union[Unset, str] = UNSET
+        created: str | Unset = UNSET
         if not isinstance(self.created, Unset):
             created = self.created.isoformat()
 
@@ -71,11 +71,11 @@ class RevisionsSingleGetResponseDataAttributes:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _created = d.pop("created", UNSET)
-        created: Union[Unset, datetime.datetime]
+        created: datetime.datetime | Unset
         if isinstance(_created, Unset):
             created = UNSET
         else:
-            created = isoparse(_created)
+            created = datetime.datetime.fromisoformat(_created)
 
         id = d.pop("id", UNSET)
 

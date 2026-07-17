@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -27,20 +28,20 @@ T = TypeVar("T", bound="TeststepResultsListGetResponseDataItemAttributes")
 class TeststepResultsListGetResponseDataItemAttributes:
     """
     Attributes:
-        comment (Union[Unset, TeststepResultsListGetResponseDataItemAttributesComment]):
-        result (Union[Unset, str]):  Example: passed.
+        comment (TeststepResultsListGetResponseDataItemAttributesComment | Unset):
+        result (str | Unset):  Example: passed.
     """
 
-    comment: Union[
-        Unset, "TeststepResultsListGetResponseDataItemAttributesComment"
-    ] = UNSET
-    result: Union[Unset, str] = UNSET
+    comment: (
+        TeststepResultsListGetResponseDataItemAttributesComment | Unset
+    ) = UNSET
+    result: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        comment: Union[Unset, dict[str, Any]] = UNSET
+        comment: dict[str, Any] | Unset = UNSET
         if not isinstance(self.comment, Unset):
             comment = self.comment.to_dict()
 
@@ -64,9 +65,9 @@ class TeststepResultsListGetResponseDataItemAttributes:
 
         d = dict(src_dict)
         _comment = d.pop("comment", UNSET)
-        comment: Union[
-            Unset, TeststepResultsListGetResponseDataItemAttributesComment
-        ]
+        comment: (
+            TeststepResultsListGetResponseDataItemAttributesComment | Unset
+        )
         if isinstance(_comment, Unset):
             comment = UNSET
         else:

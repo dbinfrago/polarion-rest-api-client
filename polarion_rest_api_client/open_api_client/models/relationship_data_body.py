@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,12 +19,12 @@ T = TypeVar("T", bound="RelationshipDataBody")
 class RelationshipDataBody:
     """
     Attributes:
-        id (Union[Unset, str]):  Example: MyProjectId/MyResourceId.
-        type_ (Union[Unset, RelationshipDataBodyType]):
+        id (str | Unset):  Example: MyResourceId.
+        type_ (RelationshipDataBodyType | Unset):
     """
 
-    id: Union[Unset, str] = UNSET
-    type_: Union[Unset, RelationshipDataBodyType] = UNSET
+    id: str | Unset = UNSET
+    type_: RelationshipDataBodyType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -34,7 +32,7 @@ class RelationshipDataBody:
     def to_dict(self) -> dict[str, Any]:
         id = self.id
 
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -54,7 +52,7 @@ class RelationshipDataBody:
         id = d.pop("id", UNSET)
 
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, RelationshipDataBodyType]
+        type_: RelationshipDataBodyType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:

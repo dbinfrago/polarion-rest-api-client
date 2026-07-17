@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -29,21 +30,21 @@ T = TypeVar(
 class DocumentsListPostRequestDataItemAttributesRenderingLayoutsItem:
     """
     Attributes:
-        label (Union[Unset, str]):  Example: My label.
-        layouter (Union[Unset, str]):  Example: paragraph.
-        properties (Union[Unset, list['DocumentsListPostRequestDataItemAttributesRenderingLayoutsItemPropertiesItem']]):
-        type_ (Union[Unset, str]):  Example: task.
+        label (str | Unset):  Example: My label.
+        layouter (str | Unset):  Example: paragraph.
+        properties (list[DocumentsListPostRequestDataItemAttributesRenderingLayoutsItemPropertiesItem] | Unset):
+        type_ (str | Unset):  Example: task.
     """
 
-    label: Union[Unset, str] = UNSET
-    layouter: Union[Unset, str] = UNSET
-    properties: Union[
-        Unset,
+    label: str | Unset = UNSET
+    layouter: str | Unset = UNSET
+    properties: (
         list[
-            "DocumentsListPostRequestDataItemAttributesRenderingLayoutsItemPropertiesItem"
-        ],
-    ] = UNSET
-    type_: Union[Unset, str] = UNSET
+            DocumentsListPostRequestDataItemAttributesRenderingLayoutsItemPropertiesItem
+        ]
+        | Unset
+    ) = UNSET
+    type_: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -53,7 +54,7 @@ class DocumentsListPostRequestDataItemAttributesRenderingLayoutsItem:
 
         layouter = self.layouter
 
-        properties: Union[Unset, list[dict[str, Any]]] = UNSET
+        properties: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.properties, Unset):
             properties = []
             for properties_item_data in self.properties:
@@ -87,14 +88,21 @@ class DocumentsListPostRequestDataItemAttributesRenderingLayoutsItem:
 
         layouter = d.pop("layouter", UNSET)
 
-        properties = []
         _properties = d.pop("properties", UNSET)
-        for properties_item_data in _properties or []:
-            properties_item = DocumentsListPostRequestDataItemAttributesRenderingLayoutsItemPropertiesItem.from_dict(
-                properties_item_data
-            )
+        properties: (
+            list[
+                DocumentsListPostRequestDataItemAttributesRenderingLayoutsItemPropertiesItem
+            ]
+            | Unset
+        ) = UNSET
+        if _properties is not UNSET:
+            properties = []
+            for properties_item_data in _properties:
+                properties_item = DocumentsListPostRequestDataItemAttributesRenderingLayoutsItemPropertiesItem.from_dict(
+                    properties_item_data
+                )
 
-            properties.append(properties_item)
+                properties.append(properties_item)
 
         type_ = d.pop("type", UNSET)
 

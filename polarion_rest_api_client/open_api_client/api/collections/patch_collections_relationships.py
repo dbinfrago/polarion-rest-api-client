@@ -2,7 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from http import HTTPStatus
-from typing import Any, Union, cast
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
@@ -23,18 +24,19 @@ def _get_kwargs(
     collection_id: str,
     relationship_id: str,
     *,
-    body: Union[
-        "RelationshipDataListRequest", "RelationshipDataSingleRequest"
-    ],
+    body: RelationshipDataListRequest | RelationshipDataSingleRequest,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
     _kwargs: dict[str, Any] = {
         "method": "patch",
-        "url": f"/projects/{project_id}/collections/{collection_id}/relationships/{relationship_id}",
+        "url": "/projects/{project_id}/collections/{collection_id}/relationships/{relationship_id}".format(
+            project_id=quote(str(project_id), safe=""),
+            collection_id=quote(str(collection_id), safe=""),
+            relationship_id=quote(str(relationship_id), safe=""),
+        ),
     }
 
-    _kwargs["json"]: dict[str, Any]
     if isinstance(body, RelationshipDataSingleRequest):
         _kwargs["json"] = body.to_dict()
     else:
@@ -47,55 +49,65 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Union[Any, Errors] | None:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Any | Errors | None:
     if response.status_code == 204:
         response_204 = cast(Any, None)
         return response_204
+
     if response.status_code == 400:
         response_400 = Errors.from_dict(response.json())
 
         return response_400
+
     if response.status_code == 401:
         response_401 = Errors.from_dict(response.json())
 
         return response_401
+
     if response.status_code == 403:
         response_403 = Errors.from_dict(response.json())
 
         return response_403
+
     if response.status_code == 404:
         response_404 = Errors.from_dict(response.json())
 
         return response_404
+
     if response.status_code == 409:
         response_409 = Errors.from_dict(response.json())
 
         return response_409
+
     if response.status_code == 413:
         response_413 = Errors.from_dict(response.json())
 
         return response_413
+
     if response.status_code == 415:
         response_415 = Errors.from_dict(response.json())
 
         return response_415
+
     if response.status_code == 500:
         response_500 = Errors.from_dict(response.json())
 
         return response_500
+
     if response.status_code == 503:
         response_503 = Errors.from_dict(response.json())
 
         return response_503
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     return None
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, Errors]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Any | Errors]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -109,27 +121,25 @@ def sync_detailed(
     collection_id: str,
     relationship_id: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "RelationshipDataListRequest", "RelationshipDataSingleRequest"
-    ],
-) -> Response[Union[Any, Errors]]:
+    client: AuthenticatedClient | Client,
+    body: RelationshipDataListRequest | RelationshipDataSingleRequest,
+) -> Response[Any | Errors]:
     """Updates a list of Collection Relationships.
 
     Args:
         project_id (str):
         collection_id (str):
         relationship_id (str):
-        body (Union['RelationshipDataListRequest', 'RelationshipDataSingleRequest']): List of
-            generic contents Example: {'data': [{'type': 'MyResourceType', 'id':
-            'MyProjectId/MyResourceId', 'revision': '1234'}]}.
+        body (RelationshipDataListRequest | RelationshipDataSingleRequest): List of generic
+            contents Example: {'data': [{'type': 'workitems', 'id': 'MyProjectId/WI-123', 'revision':
+            '1234'}]}.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, Errors]]
+        Response[Any | Errors]
     """
 
     kwargs = _get_kwargs(
@@ -151,27 +161,25 @@ def sync(
     collection_id: str,
     relationship_id: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "RelationshipDataListRequest", "RelationshipDataSingleRequest"
-    ],
-) -> Union[Any, Errors] | None:
+    client: AuthenticatedClient | Client,
+    body: RelationshipDataListRequest | RelationshipDataSingleRequest,
+) -> Any | Errors | None:
     """Updates a list of Collection Relationships.
 
     Args:
         project_id (str):
         collection_id (str):
         relationship_id (str):
-        body (Union['RelationshipDataListRequest', 'RelationshipDataSingleRequest']): List of
-            generic contents Example: {'data': [{'type': 'MyResourceType', 'id':
-            'MyProjectId/MyResourceId', 'revision': '1234'}]}.
+        body (RelationshipDataListRequest | RelationshipDataSingleRequest): List of generic
+            contents Example: {'data': [{'type': 'workitems', 'id': 'MyProjectId/WI-123', 'revision':
+            '1234'}]}.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, Errors]
+        Any | Errors
     """
 
     return sync_detailed(
@@ -188,27 +196,25 @@ async def asyncio_detailed(
     collection_id: str,
     relationship_id: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "RelationshipDataListRequest", "RelationshipDataSingleRequest"
-    ],
-) -> Response[Union[Any, Errors]]:
+    client: AuthenticatedClient | Client,
+    body: RelationshipDataListRequest | RelationshipDataSingleRequest,
+) -> Response[Any | Errors]:
     """Updates a list of Collection Relationships.
 
     Args:
         project_id (str):
         collection_id (str):
         relationship_id (str):
-        body (Union['RelationshipDataListRequest', 'RelationshipDataSingleRequest']): List of
-            generic contents Example: {'data': [{'type': 'MyResourceType', 'id':
-            'MyProjectId/MyResourceId', 'revision': '1234'}]}.
+        body (RelationshipDataListRequest | RelationshipDataSingleRequest): List of generic
+            contents Example: {'data': [{'type': 'workitems', 'id': 'MyProjectId/WI-123', 'revision':
+            '1234'}]}.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, Errors]]
+        Response[Any | Errors]
     """
 
     kwargs = _get_kwargs(
@@ -228,27 +234,25 @@ async def asyncio(
     collection_id: str,
     relationship_id: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "RelationshipDataListRequest", "RelationshipDataSingleRequest"
-    ],
-) -> Union[Any, Errors] | None:
+    client: AuthenticatedClient | Client,
+    body: RelationshipDataListRequest | RelationshipDataSingleRequest,
+) -> Any | Errors | None:
     """Updates a list of Collection Relationships.
 
     Args:
         project_id (str):
         collection_id (str):
         relationship_id (str):
-        body (Union['RelationshipDataListRequest', 'RelationshipDataSingleRequest']): List of
-            generic contents Example: {'data': [{'type': 'MyResourceType', 'id':
-            'MyProjectId/MyResourceId', 'revision': '1234'}]}.
+        body (RelationshipDataListRequest | RelationshipDataSingleRequest): List of generic
+            contents Example: {'data': [{'type': 'workitems', 'id': 'MyProjectId/WI-123', 'revision':
+            '1234'}]}.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, Errors]
+        Any | Errors
     """
 
     return (

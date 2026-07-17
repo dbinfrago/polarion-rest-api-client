@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -23,14 +21,14 @@ T = TypeVar("T", bound="SetLicenseRequestBody")
 class SetLicenseRequestBody:
     """
     Attributes:
-        concurrent (Union[Unset, bool]): Is concurrent user Example: True.
-        group (Union[Unset, str]): License group Example: Department.
-        license_ (Union[Unset, SetLicenseRequestBodyLicense]): User's license type
+        concurrent (bool | Unset): Is concurrent user Example: True.
+        group (str | Unset): License group Example: Department.
+        license_ (SetLicenseRequestBodyLicense | Unset): User's license type
     """
 
-    concurrent: Union[Unset, bool] = UNSET
-    group: Union[Unset, str] = UNSET
-    license_: Union[Unset, SetLicenseRequestBodyLicense] = UNSET
+    concurrent: bool | Unset = UNSET
+    group: str | Unset = UNSET
+    license_: SetLicenseRequestBodyLicense | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -40,7 +38,7 @@ class SetLicenseRequestBody:
 
         group = self.group
 
-        license_: Union[Unset, str] = UNSET
+        license_: str | Unset = UNSET
         if not isinstance(self.license_, Unset):
             license_ = self.license_.value
 
@@ -64,7 +62,7 @@ class SetLicenseRequestBody:
         group = d.pop("group", UNSET)
 
         _license_ = d.pop("license", UNSET)
-        license_: Union[Unset, SetLicenseRequestBodyLicense]
+        license_: SetLicenseRequestBodyLicense | Unset
         if isinstance(_license_, Unset):
             license_ = UNSET
         else:

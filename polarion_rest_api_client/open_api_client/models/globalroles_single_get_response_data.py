@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -36,40 +37,40 @@ T = TypeVar("T", bound="GlobalrolesSingleGetResponseData")
 class GlobalrolesSingleGetResponseData:
     """
     Attributes:
-        type_ (Union[Unset, GlobalrolesSingleGetResponseDataType]):
-        id (Union[Unset, str]):  Example: MyRoleId.
-        relationships (Union[Unset, GlobalrolesSingleGetResponseDataRelationships]):
-        links (Union[Unset, GlobalrolesSingleGetResponseDataLinks]):
-        meta (Union[Unset, GlobalrolesSingleGetResponseDataMeta]):
+        type_ (GlobalrolesSingleGetResponseDataType | Unset):
+        id (str | Unset):  Example: MyRoleId.
+        relationships (GlobalrolesSingleGetResponseDataRelationships | Unset):
+        links (GlobalrolesSingleGetResponseDataLinks | Unset):
+        meta (GlobalrolesSingleGetResponseDataMeta | Unset):
     """
 
-    type_: Union[Unset, GlobalrolesSingleGetResponseDataType] = UNSET
-    id: Union[Unset, str] = UNSET
-    relationships: Union[
-        Unset, "GlobalrolesSingleGetResponseDataRelationships"
-    ] = UNSET
-    links: Union[Unset, "GlobalrolesSingleGetResponseDataLinks"] = UNSET
-    meta: Union[Unset, "GlobalrolesSingleGetResponseDataMeta"] = UNSET
+    type_: GlobalrolesSingleGetResponseDataType | Unset = UNSET
+    id: str | Unset = UNSET
+    relationships: GlobalrolesSingleGetResponseDataRelationships | Unset = (
+        UNSET
+    )
+    links: GlobalrolesSingleGetResponseDataLinks | Unset = UNSET
+    meta: GlobalrolesSingleGetResponseDataMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
         id = self.id
 
-        relationships: Union[Unset, dict[str, Any]] = UNSET
+        relationships: dict[str, Any] | Unset = UNSET
         if not isinstance(self.relationships, Unset):
             relationships = self.relationships.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -103,7 +104,7 @@ class GlobalrolesSingleGetResponseData:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, GlobalrolesSingleGetResponseDataType]
+        type_: GlobalrolesSingleGetResponseDataType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -112,9 +113,7 @@ class GlobalrolesSingleGetResponseData:
         id = d.pop("id", UNSET)
 
         _relationships = d.pop("relationships", UNSET)
-        relationships: Union[
-            Unset, GlobalrolesSingleGetResponseDataRelationships
-        ]
+        relationships: GlobalrolesSingleGetResponseDataRelationships | Unset
         if isinstance(_relationships, Unset):
             relationships = UNSET
         else:
@@ -125,14 +124,14 @@ class GlobalrolesSingleGetResponseData:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, GlobalrolesSingleGetResponseDataLinks]
+        links: GlobalrolesSingleGetResponseDataLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
             links = GlobalrolesSingleGetResponseDataLinks.from_dict(_links)
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, GlobalrolesSingleGetResponseDataMeta]
+        meta: GlobalrolesSingleGetResponseDataMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -27,14 +28,12 @@ T = TypeVar("T", bound="DocumentCommentsListPostRequestDataItemAttributes")
 class DocumentCommentsListPostRequestDataItemAttributes:
     """
     Attributes:
-        resolved (Union[Unset, bool]):
-        text (Union[Unset, DocumentCommentsListPostRequestDataItemAttributesText]):
+        resolved (bool | Unset):
+        text (DocumentCommentsListPostRequestDataItemAttributesText | Unset):
     """
 
-    resolved: Union[Unset, bool] = UNSET
-    text: Union[
-        Unset, "DocumentCommentsListPostRequestDataItemAttributesText"
-    ] = UNSET
+    resolved: bool | Unset = UNSET
+    text: DocumentCommentsListPostRequestDataItemAttributesText | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -42,7 +41,7 @@ class DocumentCommentsListPostRequestDataItemAttributes:
     def to_dict(self) -> dict[str, Any]:
         resolved = self.resolved
 
-        text: Union[Unset, dict[str, Any]] = UNSET
+        text: dict[str, Any] | Unset = UNSET
         if not isinstance(self.text, Unset):
             text = self.text.to_dict()
 
@@ -66,9 +65,7 @@ class DocumentCommentsListPostRequestDataItemAttributes:
         resolved = d.pop("resolved", UNSET)
 
         _text = d.pop("text", UNSET)
-        text: Union[
-            Unset, DocumentCommentsListPostRequestDataItemAttributesText
-        ]
+        text: DocumentCommentsListPostRequestDataItemAttributesText | Unset
         if isinstance(_text, Unset):
             text = UNSET
         else:

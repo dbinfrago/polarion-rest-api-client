@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -39,32 +40,30 @@ T = TypeVar("T", bound="CollectionsSingleGetResponseData")
 class CollectionsSingleGetResponseData:
     """
     Attributes:
-        type_ (Union[Unset, CollectionsSingleGetResponseDataType]):
-        id (Union[Unset, str]):  Example: MyProjectId/MyCollectionId.
-        revision (Union[Unset, str]):  Example: 1234.
-        attributes (Union[Unset, CollectionsSingleGetResponseDataAttributes]):
-        relationships (Union[Unset, CollectionsSingleGetResponseDataRelationships]):
-        links (Union[Unset, CollectionsSingleGetResponseDataLinks]):
-        meta (Union[Unset, CollectionsSingleGetResponseDataMeta]):
+        type_ (CollectionsSingleGetResponseDataType | Unset):
+        id (str | Unset):  Example: MyProjectId/MyCollectionId.
+        revision (str | Unset):  Example: 1234.
+        attributes (CollectionsSingleGetResponseDataAttributes | Unset):
+        relationships (CollectionsSingleGetResponseDataRelationships | Unset):
+        links (CollectionsSingleGetResponseDataLinks | Unset):
+        meta (CollectionsSingleGetResponseDataMeta | Unset):
     """
 
-    type_: Union[Unset, CollectionsSingleGetResponseDataType] = UNSET
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    attributes: Union[Unset, "CollectionsSingleGetResponseDataAttributes"] = (
+    type_: CollectionsSingleGetResponseDataType | Unset = UNSET
+    id: str | Unset = UNSET
+    revision: str | Unset = UNSET
+    attributes: CollectionsSingleGetResponseDataAttributes | Unset = UNSET
+    relationships: CollectionsSingleGetResponseDataRelationships | Unset = (
         UNSET
     )
-    relationships: Union[
-        Unset, "CollectionsSingleGetResponseDataRelationships"
-    ] = UNSET
-    links: Union[Unset, "CollectionsSingleGetResponseDataLinks"] = UNSET
-    meta: Union[Unset, "CollectionsSingleGetResponseDataMeta"] = UNSET
+    links: CollectionsSingleGetResponseDataLinks | Unset = UNSET
+    meta: CollectionsSingleGetResponseDataMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -72,19 +71,19 @@ class CollectionsSingleGetResponseData:
 
         revision = self.revision
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        relationships: Union[Unset, dict[str, Any]] = UNSET
+        relationships: dict[str, Any] | Unset = UNSET
         if not isinstance(self.relationships, Unset):
             relationships = self.relationships.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -125,7 +124,7 @@ class CollectionsSingleGetResponseData:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, CollectionsSingleGetResponseDataType]
+        type_: CollectionsSingleGetResponseDataType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -136,7 +135,7 @@ class CollectionsSingleGetResponseData:
         revision = d.pop("revision", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[Unset, CollectionsSingleGetResponseDataAttributes]
+        attributes: CollectionsSingleGetResponseDataAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -145,9 +144,7 @@ class CollectionsSingleGetResponseData:
             )
 
         _relationships = d.pop("relationships", UNSET)
-        relationships: Union[
-            Unset, CollectionsSingleGetResponseDataRelationships
-        ]
+        relationships: CollectionsSingleGetResponseDataRelationships | Unset
         if isinstance(_relationships, Unset):
             relationships = UNSET
         else:
@@ -158,14 +155,14 @@ class CollectionsSingleGetResponseData:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, CollectionsSingleGetResponseDataLinks]
+        links: CollectionsSingleGetResponseDataLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
             links = CollectionsSingleGetResponseDataLinks.from_dict(_links)
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, CollectionsSingleGetResponseDataMeta]
+        meta: CollectionsSingleGetResponseDataMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -33,34 +34,32 @@ T = TypeVar("T", bound="PlansSinglePatchRequestDataRelationships")
 class PlansSinglePatchRequestDataRelationships:
     """
     Attributes:
-        parent (Union[Unset, PlansSinglePatchRequestDataRelationshipsParent]):
-        project_span (Union[Unset, PlansSinglePatchRequestDataRelationshipsProjectSpan]):
-        work_items (Union[Unset, PlansSinglePatchRequestDataRelationshipsWorkItems]):
+        parent (PlansSinglePatchRequestDataRelationshipsParent | Unset):
+        project_span (PlansSinglePatchRequestDataRelationshipsProjectSpan | Unset):
+        work_items (PlansSinglePatchRequestDataRelationshipsWorkItems | Unset):
     """
 
-    parent: Union[Unset, "PlansSinglePatchRequestDataRelationshipsParent"] = (
+    parent: PlansSinglePatchRequestDataRelationshipsParent | Unset = UNSET
+    project_span: (
+        PlansSinglePatchRequestDataRelationshipsProjectSpan | Unset
+    ) = UNSET
+    work_items: PlansSinglePatchRequestDataRelationshipsWorkItems | Unset = (
         UNSET
     )
-    project_span: Union[
-        Unset, "PlansSinglePatchRequestDataRelationshipsProjectSpan"
-    ] = UNSET
-    work_items: Union[
-        Unset, "PlansSinglePatchRequestDataRelationshipsWorkItems"
-    ] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        parent: Union[Unset, dict[str, Any]] = UNSET
+        parent: dict[str, Any] | Unset = UNSET
         if not isinstance(self.parent, Unset):
             parent = self.parent.to_dict()
 
-        project_span: Union[Unset, dict[str, Any]] = UNSET
+        project_span: dict[str, Any] | Unset = UNSET
         if not isinstance(self.project_span, Unset):
             project_span = self.project_span.to_dict()
 
-        work_items: Union[Unset, dict[str, Any]] = UNSET
+        work_items: dict[str, Any] | Unset = UNSET
         if not isinstance(self.work_items, Unset):
             work_items = self.work_items.to_dict()
 
@@ -90,7 +89,7 @@ class PlansSinglePatchRequestDataRelationships:
 
         d = dict(src_dict)
         _parent = d.pop("parent", UNSET)
-        parent: Union[Unset, PlansSinglePatchRequestDataRelationshipsParent]
+        parent: PlansSinglePatchRequestDataRelationshipsParent | Unset
         if isinstance(_parent, Unset):
             parent = UNSET
         else:
@@ -99,9 +98,9 @@ class PlansSinglePatchRequestDataRelationships:
             )
 
         _project_span = d.pop("projectSpan", UNSET)
-        project_span: Union[
-            Unset, PlansSinglePatchRequestDataRelationshipsProjectSpan
-        ]
+        project_span: (
+            PlansSinglePatchRequestDataRelationshipsProjectSpan | Unset
+        )
         if isinstance(_project_span, Unset):
             project_span = UNSET
         else:
@@ -112,9 +111,7 @@ class PlansSinglePatchRequestDataRelationships:
             )
 
         _work_items = d.pop("workItems", UNSET)
-        work_items: Union[
-            Unset, PlansSinglePatchRequestDataRelationshipsWorkItems
-        ]
+        work_items: PlansSinglePatchRequestDataRelationshipsWorkItems | Unset
         if isinstance(_work_items, Unset):
             work_items = UNSET
         else:

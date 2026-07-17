@@ -1,6 +1,8 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
@@ -24,11 +26,11 @@ T = TypeVar("T", bound="BranchDocumentsRequestBody")
 class BranchDocumentsRequestBody:
     """
     Attributes:
-        document_configurations (list['BranchDocumentsRequestBodyDocumentConfigurationsItem']):
+        document_configurations (list[BranchDocumentsRequestBodyDocumentConfigurationsItem]):
     """
 
     document_configurations: list[
-        "BranchDocumentsRequestBodyDocumentConfigurationsItem"
+        BranchDocumentsRequestBodyDocumentConfigurationsItem
     ]
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict

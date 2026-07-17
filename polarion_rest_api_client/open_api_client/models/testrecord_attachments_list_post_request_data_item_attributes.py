@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -22,12 +20,12 @@ T = TypeVar(
 class TestrecordAttachmentsListPostRequestDataItemAttributes:
     """
     Attributes:
-        file_name (Union[Unset, str]):  Example: File Name.
-        title (Union[Unset, str]):  Example: Title.
+        file_name (str | Unset):  Example: File Name.
+        title (str | Unset):  Example: Title.
     """
 
-    file_name: Union[Unset, str] = UNSET
-    title: Union[Unset, str] = UNSET
+    file_name: str | Unset = UNSET
+    title: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )

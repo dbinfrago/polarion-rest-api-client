@@ -1,21 +1,18 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 import json
 from collections.abc import Mapping
 from io import BytesIO
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from .. import types
-from ..types import UNSET, File, Unset
+from ..types import UNSET, File, FileTypes, Unset
 
 if TYPE_CHECKING:
     from ..models.icons_list_post_request import IconsListPostRequest
@@ -28,18 +25,18 @@ T = TypeVar("T", bound="PostIconsRequestBody")
 class PostIconsRequestBody:
     """
     Attributes:
-        files (Union[Unset, list[File]]):
-        resource (Union[Unset, IconsListPostRequest]):
+        files (list[File] | Unset):
+        resource (IconsListPostRequest | Unset):
     """
 
-    files: Union[Unset, list[File]] = UNSET
-    resource: Union[Unset, "IconsListPostRequest"] = UNSET
+    files: list[File] | Unset = UNSET
+    resource: IconsListPostRequest | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        files: Union[Unset, list[types.FileTypes]] = UNSET
+        files: list[FileTypes] | Unset = UNSET
         if not isinstance(self.files, Unset):
             files = []
             for files_item_data in self.files:
@@ -47,7 +44,7 @@ class PostIconsRequestBody:
 
                 files.append(files_item)
 
-        resource: Union[Unset, dict[str, Any]] = UNSET
+        resource: dict[str, Any] | Unset = UNSET
         if not isinstance(self.resource, Unset):
             resource = self.resource.to_dict()
 
@@ -90,15 +87,17 @@ class PostIconsRequestBody:
         from ..models.icons_list_post_request import IconsListPostRequest
 
         d = dict(src_dict)
-        files = []
         _files = d.pop("files", UNSET)
-        for files_item_data in _files or []:
-            files_item = File(payload=BytesIO(files_item_data))
+        files: list[File] | Unset = UNSET
+        if _files is not UNSET:
+            files = []
+            for files_item_data in _files:
+                files_item = File(payload=BytesIO(files_item_data))
 
-            files.append(files_item)
+                files.append(files_item)
 
         _resource = d.pop("resource", UNSET)
-        resource: Union[Unset, IconsListPostRequest]
+        resource: IconsListPostRequest | Unset
         if isinstance(_resource, Unset):
             resource = UNSET
         else:

@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -33,34 +34,34 @@ T = TypeVar("T", bound="TestrecordsListGetResponseDataItemRelationships")
 class TestrecordsListGetResponseDataItemRelationships:
     """
     Attributes:
-        defect (Union[Unset, TestrecordsListGetResponseDataItemRelationshipsDefect]):
-        executed_by (Union[Unset, TestrecordsListGetResponseDataItemRelationshipsExecutedBy]):
-        test_case (Union[Unset, TestrecordsListGetResponseDataItemRelationshipsTestCase]):
+        defect (TestrecordsListGetResponseDataItemRelationshipsDefect | Unset):
+        executed_by (TestrecordsListGetResponseDataItemRelationshipsExecutedBy | Unset):
+        test_case (TestrecordsListGetResponseDataItemRelationshipsTestCase | Unset):
     """
 
-    defect: Union[
-        Unset, "TestrecordsListGetResponseDataItemRelationshipsDefect"
-    ] = UNSET
-    executed_by: Union[
-        Unset, "TestrecordsListGetResponseDataItemRelationshipsExecutedBy"
-    ] = UNSET
-    test_case: Union[
-        Unset, "TestrecordsListGetResponseDataItemRelationshipsTestCase"
-    ] = UNSET
+    defect: TestrecordsListGetResponseDataItemRelationshipsDefect | Unset = (
+        UNSET
+    )
+    executed_by: (
+        TestrecordsListGetResponseDataItemRelationshipsExecutedBy | Unset
+    ) = UNSET
+    test_case: (
+        TestrecordsListGetResponseDataItemRelationshipsTestCase | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        defect: Union[Unset, dict[str, Any]] = UNSET
+        defect: dict[str, Any] | Unset = UNSET
         if not isinstance(self.defect, Unset):
             defect = self.defect.to_dict()
 
-        executed_by: Union[Unset, dict[str, Any]] = UNSET
+        executed_by: dict[str, Any] | Unset = UNSET
         if not isinstance(self.executed_by, Unset):
             executed_by = self.executed_by.to_dict()
 
-        test_case: Union[Unset, dict[str, Any]] = UNSET
+        test_case: dict[str, Any] | Unset = UNSET
         if not isinstance(self.test_case, Unset):
             test_case = self.test_case.to_dict()
 
@@ -90,9 +91,7 @@ class TestrecordsListGetResponseDataItemRelationships:
 
         d = dict(src_dict)
         _defect = d.pop("defect", UNSET)
-        defect: Union[
-            Unset, TestrecordsListGetResponseDataItemRelationshipsDefect
-        ]
+        defect: TestrecordsListGetResponseDataItemRelationshipsDefect | Unset
         if isinstance(_defect, Unset):
             defect = UNSET
         else:
@@ -101,9 +100,9 @@ class TestrecordsListGetResponseDataItemRelationships:
             )
 
         _executed_by = d.pop("executedBy", UNSET)
-        executed_by: Union[
-            Unset, TestrecordsListGetResponseDataItemRelationshipsExecutedBy
-        ]
+        executed_by: (
+            TestrecordsListGetResponseDataItemRelationshipsExecutedBy | Unset
+        )
         if isinstance(_executed_by, Unset):
             executed_by = UNSET
         else:
@@ -112,9 +111,9 @@ class TestrecordsListGetResponseDataItemRelationships:
             )
 
         _test_case = d.pop("testCase", UNSET)
-        test_case: Union[
-            Unset, TestrecordsListGetResponseDataItemRelationshipsTestCase
-        ]
+        test_case: (
+            TestrecordsListGetResponseDataItemRelationshipsTestCase | Unset
+        )
         if isinstance(_test_case, Unset):
             test_case = UNSET
         else:

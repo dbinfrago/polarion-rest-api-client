@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,14 +18,14 @@ T = TypeVar("T", bound="MoveWorkItemToDocumentRequestBody")
 class MoveWorkItemToDocumentRequestBody:
     """
     Attributes:
-        next_part (Union[Unset, str]):  Example: MyProjectId/MySpaceId/MyDocumentId/workitem_MyWorkItemId.
-        previous_part (Union[Unset, str]):  Example: MyProjectId/MySpaceId/MyDocumentId/workitem_MyWorkItemId.
-        target_document (Union[Unset, str]):  Example: MyProjectId/MySpaceId/MyDocumentId.
+        next_part (str | Unset):  Example: MyProjectId/MySpaceId/MyDocumentId/workitem_MyWorkItemId.
+        previous_part (str | Unset):  Example: MyProjectId/MySpaceId/MyDocumentId/workitem_MyWorkItemId.
+        target_document (str | Unset):  Example: MyProjectId/MySpaceId/MyDocumentId.
     """
 
-    next_part: Union[Unset, str] = UNSET
-    previous_part: Union[Unset, str] = UNSET
-    target_document: Union[Unset, str] = UNSET
+    next_part: str | Unset = UNSET
+    previous_part: str | Unset = UNSET
+    target_document: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )

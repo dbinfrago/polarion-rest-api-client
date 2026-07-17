@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,11 +18,11 @@ T = TypeVar("T", bound="TeststepresultAttachmentsSingleGetResponseLinks")
 class TeststepresultAttachmentsSingleGetResponseLinks:
     """
     Attributes:
-        self_ (Union[Unset, str]):  Example: server-host-name/application-path/projects/MyProjectId/testruns/MyTestRunId
-            /testrecords/MyProjectId/MyTestcaseId/0/teststepresults/1/attachments/MyAttachmentId.
+        self_ (str | Unset):  Example: server-host-name/application-path/projects/MyProjectId/testruns/MyTestRunId/testr
+            ecords/MyProjectId/MyTestcaseId/0/teststepresults/1/attachments/MyAttachmentId.
     """
 
-    self_: Union[Unset, str] = UNSET
+    self_: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )

@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -33,30 +34,28 @@ T = TypeVar("T", bound="UsersListPostRequestDataItem")
 class UsersListPostRequestDataItem:
     """
     Attributes:
-        type_ (Union[Unset, UsersListPostRequestDataItemType]):
-        attributes (Union[Unset, UsersListPostRequestDataItemAttributes]):
-        relationships (Union[Unset, UsersListPostRequestDataItemRelationships]):
+        type_ (UsersListPostRequestDataItemType | Unset):
+        attributes (UsersListPostRequestDataItemAttributes | Unset):
+        relationships (UsersListPostRequestDataItemRelationships | Unset):
     """
 
-    type_: Union[Unset, UsersListPostRequestDataItemType] = UNSET
-    attributes: Union[Unset, "UsersListPostRequestDataItemAttributes"] = UNSET
-    relationships: Union[
-        Unset, "UsersListPostRequestDataItemRelationships"
-    ] = UNSET
+    type_: UsersListPostRequestDataItemType | Unset = UNSET
+    attributes: UsersListPostRequestDataItemAttributes | Unset = UNSET
+    relationships: UsersListPostRequestDataItemRelationships | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        relationships: Union[Unset, dict[str, Any]] = UNSET
+        relationships: dict[str, Any] | Unset = UNSET
         if not isinstance(self.relationships, Unset):
             relationships = self.relationships.to_dict()
 
@@ -83,14 +82,14 @@ class UsersListPostRequestDataItem:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, UsersListPostRequestDataItemType]
+        type_: UsersListPostRequestDataItemType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
             type_ = UsersListPostRequestDataItemType(_type_)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[Unset, UsersListPostRequestDataItemAttributes]
+        attributes: UsersListPostRequestDataItemAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -99,7 +98,7 @@ class UsersListPostRequestDataItem:
             )
 
         _relationships = d.pop("relationships", UNSET)
-        relationships: Union[Unset, UsersListPostRequestDataItemRelationships]
+        relationships: UsersListPostRequestDataItemRelationships | Unset
         if isinstance(_relationships, Unset):
             relationships = UNSET
         else:

@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -36,28 +37,26 @@ T = TypeVar("T", bound="TeststepsListGetResponseDataItem")
 class TeststepsListGetResponseDataItem:
     """
     Attributes:
-        type_ (Union[Unset, TeststepsListGetResponseDataItemType]):
-        id (Union[Unset, str]):  Example: MyProjectId/MyWorkItemId/MyTestStepIndex.
-        revision (Union[Unset, str]):  Example: 1234.
-        attributes (Union[Unset, TeststepsListGetResponseDataItemAttributes]):
-        links (Union[Unset, TeststepsListGetResponseDataItemLinks]):
-        meta (Union[Unset, TeststepsListGetResponseDataItemMeta]):
+        type_ (TeststepsListGetResponseDataItemType | Unset):
+        id (str | Unset):  Example: MyProjectId/MyWorkItemId/MyTestStepIndex.
+        revision (str | Unset):  Example: 1234.
+        attributes (TeststepsListGetResponseDataItemAttributes | Unset):
+        links (TeststepsListGetResponseDataItemLinks | Unset):
+        meta (TeststepsListGetResponseDataItemMeta | Unset):
     """
 
-    type_: Union[Unset, TeststepsListGetResponseDataItemType] = UNSET
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    attributes: Union[Unset, "TeststepsListGetResponseDataItemAttributes"] = (
-        UNSET
-    )
-    links: Union[Unset, "TeststepsListGetResponseDataItemLinks"] = UNSET
-    meta: Union[Unset, "TeststepsListGetResponseDataItemMeta"] = UNSET
+    type_: TeststepsListGetResponseDataItemType | Unset = UNSET
+    id: str | Unset = UNSET
+    revision: str | Unset = UNSET
+    attributes: TeststepsListGetResponseDataItemAttributes | Unset = UNSET
+    links: TeststepsListGetResponseDataItemLinks | Unset = UNSET
+    meta: TeststepsListGetResponseDataItemMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -65,15 +64,15 @@ class TeststepsListGetResponseDataItem:
 
         revision = self.revision
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -109,7 +108,7 @@ class TeststepsListGetResponseDataItem:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, TeststepsListGetResponseDataItemType]
+        type_: TeststepsListGetResponseDataItemType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -120,7 +119,7 @@ class TeststepsListGetResponseDataItem:
         revision = d.pop("revision", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[Unset, TeststepsListGetResponseDataItemAttributes]
+        attributes: TeststepsListGetResponseDataItemAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -129,14 +128,14 @@ class TeststepsListGetResponseDataItem:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, TeststepsListGetResponseDataItemLinks]
+        links: TeststepsListGetResponseDataItemLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
             links = TeststepsListGetResponseDataItemLinks.from_dict(_links)
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, TeststepsListGetResponseDataItemMeta]
+        meta: TeststepsListGetResponseDataItemMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

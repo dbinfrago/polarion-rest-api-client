@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,23 +18,18 @@ T = TypeVar("T", bound="UsersListGetResponseLinks")
 class UsersListGetResponseLinks:
     """
     Attributes:
-        first (Union[Unset, str]):  Example: server-host-name/application-
-            path/users?page%5Bsize%5D=10&page%5Bnumber%5D=1.
-        last (Union[Unset, str]):  Example: server-host-name/application-
-            path/users?page%5Bsize%5D=10&page%5Bnumber%5D=9.
-        next_ (Union[Unset, str]):  Example: server-host-name/application-
-            path/users?page%5Bsize%5D=10&page%5Bnumber%5D=6.
-        prev (Union[Unset, str]):  Example: server-host-name/application-
-            path/users?page%5Bsize%5D=10&page%5Bnumber%5D=4.
-        self_ (Union[Unset, str]):  Example: server-host-name/application-
-            path/users?page%5Bsize%5D=10&page%5Bnumber%5D=5.
+        first (str | Unset):  Example: server-host-name/application-path/users?page%5Bsize%5D=10&page%5Bnumber%5D=1.
+        last (str | Unset):  Example: server-host-name/application-path/users?page%5Bsize%5D=10&page%5Bnumber%5D=9.
+        next_ (str | Unset):  Example: server-host-name/application-path/users?page%5Bsize%5D=10&page%5Bnumber%5D=6.
+        prev (str | Unset):  Example: server-host-name/application-path/users?page%5Bsize%5D=10&page%5Bnumber%5D=4.
+        self_ (str | Unset):  Example: server-host-name/application-path/users?page%5Bsize%5D=10&page%5Bnumber%5D=5.
     """
 
-    first: Union[Unset, str] = UNSET
-    last: Union[Unset, str] = UNSET
-    next_: Union[Unset, str] = UNSET
-    prev: Union[Unset, str] = UNSET
-    self_: Union[Unset, str] = UNSET
+    first: str | Unset = UNSET
+    last: str | Unset = UNSET
+    next_: str | Unset = UNSET
+    prev: str | Unset = UNSET
+    self_: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )

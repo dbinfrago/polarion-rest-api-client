@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,14 +18,14 @@ T = TypeVar("T", bound="LinkedoslcresourcesListPostRequestDataItemAttributes")
 class LinkedoslcresourcesListPostRequestDataItemAttributes:
     """
     Attributes:
-        label (Union[Unset, str]):  Example: Label.
-        role (Union[Unset, str]):  Example: http://open-services.net/ns/cm#relatedChangeRequest.
-        uri (Union[Unset, str]):  Example: Uri.
+        label (str | Unset):  Example: Label.
+        role (str | Unset):  Example: http://open-services.net/ns/cm#relatedChangeRequest.
+        uri (str | Unset):  Example: URI.
     """
 
-    label: Union[Unset, str] = UNSET
-    role: Union[Unset, str] = UNSET
-    uri: Union[Unset, str] = UNSET
+    label: str | Unset = UNSET
+    role: str | Unset = UNSET
+    uri: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )

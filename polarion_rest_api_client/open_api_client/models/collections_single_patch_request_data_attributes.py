@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -27,20 +28,20 @@ T = TypeVar("T", bound="CollectionsSinglePatchRequestDataAttributes")
 class CollectionsSinglePatchRequestDataAttributes:
     """
     Attributes:
-        description (Union[Unset, CollectionsSinglePatchRequestDataAttributesDescription]):
-        name (Union[Unset, str]):  Example: Name.
+        description (CollectionsSinglePatchRequestDataAttributesDescription | Unset):
+        name (str | Unset):  Example: Name.
     """
 
-    description: Union[
-        Unset, "CollectionsSinglePatchRequestDataAttributesDescription"
-    ] = UNSET
-    name: Union[Unset, str] = UNSET
+    description: (
+        CollectionsSinglePatchRequestDataAttributesDescription | Unset
+    ) = UNSET
+    name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        description: Union[Unset, dict[str, Any]] = UNSET
+        description: dict[str, Any] | Unset = UNSET
         if not isinstance(self.description, Unset):
             description = self.description.to_dict()
 
@@ -64,9 +65,9 @@ class CollectionsSinglePatchRequestDataAttributes:
 
         d = dict(src_dict)
         _description = d.pop("description", UNSET)
-        description: Union[
-            Unset, CollectionsSinglePatchRequestDataAttributesDescription
-        ]
+        description: (
+            CollectionsSinglePatchRequestDataAttributesDescription | Unset
+        )
         if isinstance(_description, Unset):
             description = UNSET
         else:

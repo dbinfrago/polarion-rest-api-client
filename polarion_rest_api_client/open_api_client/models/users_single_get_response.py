@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -33,34 +34,34 @@ T = TypeVar("T", bound="UsersSingleGetResponse")
 class UsersSingleGetResponse:
     """
     Attributes:
-        data (Union[Unset, UsersSingleGetResponseData]):
-        included (Union[Unset, list['UsersSingleGetResponseIncludedItem']]): Related entities might be returned, see <a
+        data (UsersSingleGetResponseData | Unset):
+        included (list[UsersSingleGetResponseIncludedItem] | Unset): Related entities might be returned, see <a
             href="https://docs.sw.siemens.com/en-
-            US/doc/230235217/PL20241023686685479.polarion_help_sc.xid2134849/xid2134871" target="_blank">REST API User
+            US/doc/230235217/PL20250606201928474.polarion_help_sc.xid2134849/xid2134871" target="_blank">REST API User
             Guide</a>.
-        links (Union[Unset, UsersSingleGetResponseLinks]):
+        links (UsersSingleGetResponseLinks | Unset):
     """
 
-    data: Union[Unset, "UsersSingleGetResponseData"] = UNSET
-    included: Union[Unset, list["UsersSingleGetResponseIncludedItem"]] = UNSET
-    links: Union[Unset, "UsersSingleGetResponseLinks"] = UNSET
+    data: UsersSingleGetResponseData | Unset = UNSET
+    included: list[UsersSingleGetResponseIncludedItem] | Unset = UNSET
+    links: UsersSingleGetResponseLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        data: Union[Unset, dict[str, Any]] = UNSET
+        data: dict[str, Any] | Unset = UNSET
         if not isinstance(self.data, Unset):
             data = self.data.to_dict()
 
-        included: Union[Unset, list[dict[str, Any]]] = UNSET
+        included: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.included, Unset):
             included = []
             for included_item_data in self.included:
                 included_item = included_item_data.to_dict()
                 included.append(included_item)
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
@@ -90,23 +91,25 @@ class UsersSingleGetResponse:
 
         d = dict(src_dict)
         _data = d.pop("data", UNSET)
-        data: Union[Unset, UsersSingleGetResponseData]
+        data: UsersSingleGetResponseData | Unset
         if isinstance(_data, Unset):
             data = UNSET
         else:
             data = UsersSingleGetResponseData.from_dict(_data)
 
-        included = []
         _included = d.pop("included", UNSET)
-        for included_item_data in _included or []:
-            included_item = UsersSingleGetResponseIncludedItem.from_dict(
-                included_item_data
-            )
+        included: list[UsersSingleGetResponseIncludedItem] | Unset = UNSET
+        if _included is not UNSET:
+            included = []
+            for included_item_data in _included:
+                included_item = UsersSingleGetResponseIncludedItem.from_dict(
+                    included_item_data
+                )
 
-            included.append(included_item)
+                included.append(included_item)
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, UsersSingleGetResponseLinks]
+        links: UsersSingleGetResponseLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:

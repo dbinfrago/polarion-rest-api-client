@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -30,24 +31,24 @@ T = TypeVar("T", bound="TeststepResultsListPostRequestDataItem")
 class TeststepResultsListPostRequestDataItem:
     """
     Attributes:
-        type_ (Union[Unset, TeststepResultsListPostRequestDataItemType]):
-        attributes (Union[Unset, TeststepResultsListPostRequestDataItemAttributes]):
+        type_ (TeststepResultsListPostRequestDataItemType | Unset):
+        attributes (TeststepResultsListPostRequestDataItemAttributes | Unset):
     """
 
-    type_: Union[Unset, TeststepResultsListPostRequestDataItemType] = UNSET
-    attributes: Union[
-        Unset, "TeststepResultsListPostRequestDataItemAttributes"
-    ] = UNSET
+    type_: TeststepResultsListPostRequestDataItemType | Unset = UNSET
+    attributes: TeststepResultsListPostRequestDataItemAttributes | Unset = (
+        UNSET
+    )
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
@@ -69,16 +70,14 @@ class TeststepResultsListPostRequestDataItem:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, TeststepResultsListPostRequestDataItemType]
+        type_: TeststepResultsListPostRequestDataItemType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
             type_ = TeststepResultsListPostRequestDataItemType(_type_)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[
-            Unset, TeststepResultsListPostRequestDataItemAttributes
-        ]
+        attributes: TeststepResultsListPostRequestDataItemAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:

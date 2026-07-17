@@ -1,17 +1,17 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
 from typing import (
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
@@ -22,16 +22,16 @@ T = TypeVar("T", bound="WorkrecordsListPostRequestDataItemAttributes")
 class WorkrecordsListPostRequestDataItemAttributes:
     """
     Attributes:
-        comment (Union[Unset, str]):  Example: Comment.
-        date (Union[Unset, datetime.date]):  Example: 1970-01-01.
-        time_spent (Union[Unset, str]):  Example: 5 1/2d.
-        type_ (Union[Unset, str]):  Example: task.
+        comment (str | Unset):  Example: Comment.
+        date (datetime.date | Unset):  Example: 1970-01-01.
+        time_spent (str | Unset):  Example: 5 1/2d.
+        type_ (str | Unset):  Example: task.
     """
 
-    comment: Union[Unset, str] = UNSET
-    date: Union[Unset, datetime.date] = UNSET
-    time_spent: Union[Unset, str] = UNSET
-    type_: Union[Unset, str] = UNSET
+    comment: str | Unset = UNSET
+    date: datetime.date | Unset = UNSET
+    time_spent: str | Unset = UNSET
+    type_: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -39,7 +39,7 @@ class WorkrecordsListPostRequestDataItemAttributes:
     def to_dict(self) -> dict[str, Any]:
         comment = self.comment
 
-        date: Union[Unset, str] = UNSET
+        date: str | Unset = UNSET
         if not isinstance(self.date, Unset):
             date = self.date.isoformat()
 
@@ -67,11 +67,11 @@ class WorkrecordsListPostRequestDataItemAttributes:
         comment = d.pop("comment", UNSET)
 
         _date = d.pop("date", UNSET)
-        date: Union[Unset, datetime.date]
+        date: datetime.date | Unset
         if isinstance(_date, Unset):
             date = UNSET
         else:
-            date = isoparse(_date).date()
+            date = datetime.date.fromisoformat(_date)
 
         time_spent = d.pop("timeSpent", UNSET)
 

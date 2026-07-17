@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -30,26 +31,26 @@ T = TypeVar("T", bound="TestrecordsSinglePatchRequestDataRelationships")
 class TestrecordsSinglePatchRequestDataRelationships:
     """
     Attributes:
-        defect (Union[Unset, TestrecordsSinglePatchRequestDataRelationshipsDefect]):
-        executed_by (Union[Unset, TestrecordsSinglePatchRequestDataRelationshipsExecutedBy]):
+        defect (TestrecordsSinglePatchRequestDataRelationshipsDefect | Unset):
+        executed_by (TestrecordsSinglePatchRequestDataRelationshipsExecutedBy | Unset):
     """
 
-    defect: Union[
-        Unset, "TestrecordsSinglePatchRequestDataRelationshipsDefect"
-    ] = UNSET
-    executed_by: Union[
-        Unset, "TestrecordsSinglePatchRequestDataRelationshipsExecutedBy"
-    ] = UNSET
+    defect: TestrecordsSinglePatchRequestDataRelationshipsDefect | Unset = (
+        UNSET
+    )
+    executed_by: (
+        TestrecordsSinglePatchRequestDataRelationshipsExecutedBy | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        defect: Union[Unset, dict[str, Any]] = UNSET
+        defect: dict[str, Any] | Unset = UNSET
         if not isinstance(self.defect, Unset):
             defect = self.defect.to_dict()
 
-        executed_by: Union[Unset, dict[str, Any]] = UNSET
+        executed_by: dict[str, Any] | Unset = UNSET
         if not isinstance(self.executed_by, Unset):
             executed_by = self.executed_by.to_dict()
 
@@ -74,9 +75,7 @@ class TestrecordsSinglePatchRequestDataRelationships:
 
         d = dict(src_dict)
         _defect = d.pop("defect", UNSET)
-        defect: Union[
-            Unset, TestrecordsSinglePatchRequestDataRelationshipsDefect
-        ]
+        defect: TestrecordsSinglePatchRequestDataRelationshipsDefect | Unset
         if isinstance(_defect, Unset):
             defect = UNSET
         else:
@@ -87,9 +86,9 @@ class TestrecordsSinglePatchRequestDataRelationships:
             )
 
         _executed_by = d.pop("executedBy", UNSET)
-        executed_by: Union[
-            Unset, TestrecordsSinglePatchRequestDataRelationshipsExecutedBy
-        ]
+        executed_by: (
+            TestrecordsSinglePatchRequestDataRelationshipsExecutedBy | Unset
+        )
         if isinstance(_executed_by, Unset):
             executed_by = UNSET
         else:

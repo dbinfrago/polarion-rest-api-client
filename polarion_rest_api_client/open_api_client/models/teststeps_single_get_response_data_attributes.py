@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
     cast,
 )
 
@@ -28,16 +29,16 @@ T = TypeVar("T", bound="TeststepsSingleGetResponseDataAttributes")
 class TeststepsSingleGetResponseDataAttributes:
     """
     Attributes:
-        index (Union[Unset, str]):
-        keys (Union[Unset, list[str]]):
-        values (Union[Unset, list['TeststepsSingleGetResponseDataAttributesValuesItem']]):
+        index (str | Unset):
+        keys (list[str] | Unset):
+        values (list[TeststepsSingleGetResponseDataAttributesValuesItem] | Unset):
     """
 
-    index: Union[Unset, str] = UNSET
-    keys: Union[Unset, list[str]] = UNSET
-    values: Union[
-        Unset, list["TeststepsSingleGetResponseDataAttributesValuesItem"]
-    ] = UNSET
+    index: str | Unset = UNSET
+    keys: list[str] | Unset = UNSET
+    values: (
+        list[TeststepsSingleGetResponseDataAttributesValuesItem] | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -45,11 +46,11 @@ class TeststepsSingleGetResponseDataAttributes:
     def to_dict(self) -> dict[str, Any]:
         index = self.index
 
-        keys: Union[Unset, list[str]] = UNSET
+        keys: list[str] | Unset = UNSET
         if not isinstance(self.keys, Unset):
             keys = self.keys
 
-        values: Union[Unset, list[dict[str, Any]]] = UNSET
+        values: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.values, Unset):
             values = []
             for values_item_data in self.values:
@@ -79,16 +80,18 @@ class TeststepsSingleGetResponseDataAttributes:
 
         keys = cast(list[str], d.pop("keys", UNSET))
 
-        values = []
         _values = d.pop("values", UNSET)
-        for values_item_data in _values or []:
-            values_item = (
-                TeststepsSingleGetResponseDataAttributesValuesItem.from_dict(
+        values: (
+            list[TeststepsSingleGetResponseDataAttributesValuesItem] | Unset
+        ) = UNSET
+        if _values is not UNSET:
+            values = []
+            for values_item_data in _values:
+                values_item = TeststepsSingleGetResponseDataAttributesValuesItem.from_dict(
                     values_item_data
                 )
-            )
 
-            values.append(values_item)
+                values.append(values_item)
 
         teststeps_single_get_response_data_attributes_obj = cls(
             index=index,
