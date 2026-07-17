@@ -1,0 +1,26 @@
+polarion\_rest\_api\_client.open\_api\_client.api.ai package
+============================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.ai
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.ai.generate\_completion module
+--------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.ai.generate_completion
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.ai.get\_llms module
+---------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.ai.get_llms
+   :members:
+   :show-inheritance:
+   :undoc-members:

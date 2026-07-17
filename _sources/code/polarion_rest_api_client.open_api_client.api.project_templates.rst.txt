@@ -1,0 +1,18 @@
+polarion\_rest\_api\_client.open\_api\_client.api.project\_templates package
+============================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.project_templates
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.project\_templates.get\_project\_templates module
+---------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.project_templates.get_project_templates
+   :members:
+   :show-inheritance:
+   :undoc-members:

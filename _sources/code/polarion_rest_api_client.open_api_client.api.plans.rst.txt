@@ -1,0 +1,98 @@
+polarion\_rest\_api\_client.open\_api\_client.api.plans package
+===============================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.plans
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.plans.delete\_plan module
+---------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.plans.delete_plan
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.plans.delete\_plan\_relationship module
+-----------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.plans.delete_plan_relationship
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.plans.delete\_plans module
+----------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.plans.delete_plans
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.plans.get\_fields\_metadata\_for\_plan module
+-----------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.plans.get_fields_metadata_for_plan
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.plans.get\_plan module
+------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.plans.get_plan
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.plans.get\_plan\_relationship module
+--------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.plans.get_plan_relationship
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.plans.get\_plans module
+-------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.plans.get_plans
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.plans.patch\_plan module
+--------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.plans.patch_plan
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.plans.patch\_plan\_relationships module
+-----------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.plans.patch_plan_relationships
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.plans.post\_plan\_relationships module
+----------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.plans.post_plan_relationships
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.plans.post\_plans module
+--------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.plans.post_plans
+   :members:
+   :show-inheritance:
+   :undoc-members:

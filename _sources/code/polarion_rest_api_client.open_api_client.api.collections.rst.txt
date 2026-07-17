@@ -1,0 +1,122 @@
+polarion\_rest\_api\_client.open\_api\_client.api.collections package
+=====================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.collections
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.collections.close\_collection module
+--------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.collections.close_collection
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.collections.delete\_collection module
+---------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.collections.delete_collection
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.collections.delete\_collections module
+----------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.collections.delete_collections
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.collections.delete\_collections\_relationship module
+------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.collections.delete_collections_relationship
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.collections.get\_collection module
+------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.collections.get_collection
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.collections.get\_collections module
+-------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.collections.get_collections
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.collections.get\_collections\_relationship module
+---------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.collections.get_collections_relationship
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.collections.get\_fields\_metadata\_for\_collection module
+-----------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.collections.get_fields_metadata_for_collection
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.collections.patch\_collections module
+---------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.collections.patch_collections
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.collections.patch\_collections\_relationships module
+------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.collections.patch_collections_relationships
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.collections.post\_collections module
+--------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.collections.post_collections
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.collections.post\_collections\_relationships module
+-----------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.collections.post_collections_relationships
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.collections.reopen\_collection module
+---------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.collections.reopen_collection
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.collections.reuse\_collection module
+--------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.collections.reuse_collection
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,66 @@
+polarion\_rest\_api\_client.open\_api\_client.api.work\_item\_approvals package
+===============================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_item_approvals
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_item\_approvals.delete\_approval module
+-----------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_item_approvals.delete_approval
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_item\_approvals.delete\_approvals module
+------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_item_approvals.delete_approvals
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_item\_approvals.get\_work\_item\_approval module
+--------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_item_approvals.get_work_item_approval
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_item\_approvals.get\_work\_item\_approvals module
+---------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_item_approvals.get_work_item_approvals
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_item\_approvals.patch\_work\_item\_approval module
+----------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_item_approvals.patch_work_item_approval
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_item\_approvals.patch\_work\_item\_approvals module
+-----------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_item_approvals.patch_work_item_approvals
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_item\_approvals.post\_work\_item\_approvals module
+----------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_item_approvals.post_work_item_approvals
+   :members:
+   :show-inheritance:
+   :undoc-members:

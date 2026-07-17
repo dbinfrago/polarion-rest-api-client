@@ -1,0 +1,194 @@
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items package
+=====================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.delete\_all\_work\_items module
+---------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.delete_all_work_items
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.delete\_work\_items module
+----------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.delete_work_items
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.delete\_work\_items\_relationship module
+------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.delete_work_items_relationship
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.get\_all\_work\_items module
+------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.get_all_work_items
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.get\_available\_enum\_options\_for\_work\_item module
+-------------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.get_available_enum_options_for_work_item
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.get\_available\_enum\_options\_for\_work\_item\_type module
+-------------------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.get_available_enum_options_for_work_item_type
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.get\_current\_enum\_options\_for\_work\_item module
+-----------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.get_current_enum_options_for_work_item
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.get\_fields\_metadata\_for\_work\_item module
+-----------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.get_fields_metadata_for_work_item
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.get\_work\_item module
+------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.get_work_item
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.get\_work\_item\_test\_parameter\_definition module
+-----------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.get_work_item_test_parameter_definition
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.get\_work\_item\_test\_parameter\_definitions module
+------------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.get_work_item_test_parameter_definitions
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.get\_work\_items module
+-------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.get_work_items
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.get\_work\_items\_relationships module
+----------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.get_work_items_relationships
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.get\_workflow\_actions\_for\_work\_item module
+------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.get_workflow_actions_for_work_item
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.move\_from\_document module
+-----------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.move_from_document
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.move\_to\_document module
+---------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.move_to_document
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.move\_work\_items\_to\_document module
+----------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.move_work_items_to_document
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.patch\_all\_work\_items module
+--------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.patch_all_work_items
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.patch\_work\_item module
+--------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.patch_work_item
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.patch\_work\_item\_relationships module
+-----------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.patch_work_item_relationships
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.patch\_work\_items module
+---------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.patch_work_items
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.post\_work\_item\_relationships module
+----------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.post_work_item_relationships
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_items.post\_work\_items module
+--------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_items.post_work_items
+   :members:
+   :show-inheritance:
+   :undoc-members:

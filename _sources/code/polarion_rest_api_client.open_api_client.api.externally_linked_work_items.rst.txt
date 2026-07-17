@@ -1,0 +1,50 @@
+polarion\_rest\_api\_client.open\_api\_client.api.externally\_linked\_work\_items package
+=========================================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.externally_linked_work_items
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.externally\_linked\_work\_items.delete\_externally\_linked\_work\_item module
+-------------------------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.externally_linked_work_items.delete_externally_linked_work_item
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.externally\_linked\_work\_items.delete\_externally\_linked\_work\_items module
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.externally_linked_work_items.delete_externally_linked_work_items
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.externally\_linked\_work\_items.get\_externally\_linked\_work\_item module
+----------------------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.externally_linked_work_items.get_externally_linked_work_item
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.externally\_linked\_work\_items.get\_externally\_linked\_work\_items module
+-----------------------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.externally_linked_work_items.get_externally_linked_work_items
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.externally\_linked\_work\_items.post\_externally\_linked\_work\_items module
+------------------------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.externally_linked_work_items.post_externally_linked_work_items
+   :members:
+   :show-inheritance:
+   :undoc-members:

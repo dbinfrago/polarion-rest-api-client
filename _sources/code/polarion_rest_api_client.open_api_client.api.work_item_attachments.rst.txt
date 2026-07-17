@@ -1,0 +1,58 @@
+polarion\_rest\_api\_client.open\_api\_client.api.work\_item\_attachments package
+=================================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_item_attachments
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_item\_attachments.delete\_work\_item\_attachment module
+---------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_item_attachments.delete_work_item_attachment
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_item\_attachments.get\_work\_item\_attachment module
+------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_item_attachments.get_work_item_attachment
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_item\_attachments.get\_work\_item\_attachment\_content module
+---------------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_item_attachments.get_work_item_attachment_content
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_item\_attachments.get\_work\_item\_attachments module
+-------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_item_attachments.get_work_item_attachments
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_item\_attachments.patch\_work\_item\_attachment module
+--------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_item_attachments.patch_work_item_attachment
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_item\_attachments.post\_work\_item\_attachments module
+--------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_item_attachments.post_work_item_attachments
+   :members:
+   :show-inheritance:
+   :undoc-members:

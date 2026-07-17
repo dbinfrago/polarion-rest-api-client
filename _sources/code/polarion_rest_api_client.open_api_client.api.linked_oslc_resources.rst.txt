@@ -1,0 +1,34 @@
+polarion\_rest\_api\_client.open\_api\_client.api.linked\_oslc\_resources package
+=================================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.linked_oslc_resources
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.linked\_oslc\_resources.delete\_oslc\_resources module
+--------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.linked_oslc_resources.delete_oslc_resources
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.linked\_oslc\_resources.get\_oslc\_resources module
+-----------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.linked_oslc_resources.get_oslc_resources
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.linked\_oslc\_resources.post\_oslc\_resources module
+------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.linked_oslc_resources.post_oslc_resources
+   :members:
+   :show-inheritance:
+   :undoc-members:

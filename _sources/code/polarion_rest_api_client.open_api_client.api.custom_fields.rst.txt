@@ -1,0 +1,74 @@
+polarion\_rest\_api\_client.open\_api\_client.api.custom\_fields package
+========================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.custom_fields
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.custom\_fields.delete\_global\_custom\_fields module
+------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.custom_fields.delete_global_custom_fields
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.custom\_fields.delete\_project\_custom\_fields module
+-------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.custom_fields.delete_project_custom_fields
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.custom\_fields.get\_global\_custom\_fields module
+---------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.custom_fields.get_global_custom_fields
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.custom\_fields.get\_project\_custom\_fields module
+----------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.custom_fields.get_project_custom_fields
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.custom\_fields.patch\_custom\_field module
+--------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.custom_fields.patch_custom_field
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.custom\_fields.patch\_global\_custom\_fields module
+-----------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.custom_fields.patch_global_custom_fields
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.custom\_fields.post\_global\_custom\_fields module
+----------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.custom_fields.post_global_custom_fields
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.custom\_fields.post\_project\_custom\_fields module
+-----------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.custom_fields.post_project_custom_fields
+   :members:
+   :show-inheritance:
+   :undoc-members:

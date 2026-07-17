@@ -1,0 +1,90 @@
+polarion\_rest\_api\_client.open\_api\_client.api.enumerations package
+======================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.enumerations
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.enumerations.delete\_global\_enumeration module
+-------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.enumerations.delete_global_enumeration
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.enumerations.delete\_project\_enumeration module
+--------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.enumerations.delete_project_enumeration
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.enumerations.get\_global\_enumeration module
+----------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.enumerations.get_global_enumeration
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.enumerations.get\_global\_enumerations module
+-----------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.enumerations.get_global_enumerations
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.enumerations.get\_project\_enumeration module
+-----------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.enumerations.get_project_enumeration
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.enumerations.get\_project\_enumerations module
+------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.enumerations.get_project_enumerations
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.enumerations.patch\_global\_enumeration module
+------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.enumerations.patch_global_enumeration
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.enumerations.patch\_project\_enumeration module
+-------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.enumerations.patch_project_enumeration
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.enumerations.post\_global\_enumeration module
+-----------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.enumerations.post_global_enumeration
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.enumerations.post\_project\_enumeration module
+------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.enumerations.post_project_enumeration
+   :members:
+   :show-inheritance:
+   :undoc-members:

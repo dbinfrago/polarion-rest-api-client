@@ -1,0 +1,26 @@
+polarion\_rest\_api\_client.open\_api\_client.api.revisions package
+===================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.revisions
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.revisions.get\_revision module
+--------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.revisions.get_revision
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.revisions.get\_revisions module
+---------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.revisions.get_revisions
+   :members:
+   :show-inheritance:
+   :undoc-members:

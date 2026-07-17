@@ -1,0 +1,34 @@
+polarion\_rest\_api\_client.open\_api\_client.api.metadata package
+==================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.metadata
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.metadata.get\_global\_fields\_metadata module
+-----------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.metadata.get_global_fields_metadata
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.metadata.get\_metadata module
+-------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.metadata.get_metadata
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.metadata.get\_project\_fields\_metadata module
+------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.metadata.get_project_fields_metadata
+   :members:
+   :show-inheritance:
+   :undoc-members:

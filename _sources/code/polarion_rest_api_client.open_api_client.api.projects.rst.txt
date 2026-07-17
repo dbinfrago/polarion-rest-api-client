@@ -1,0 +1,114 @@
+polarion\_rest\_api\_client.open\_api\_client.api.projects package
+==================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.projects
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.projects.create\_project module
+---------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.projects.create_project
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.projects.delete\_project module
+---------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.projects.delete_project
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.projects.delete\_project\_test\_parameter\_definition module
+--------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.projects.delete_project_test_parameter_definition
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.projects.delete\_project\_test\_parameter\_definitions module
+---------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.projects.delete_project_test_parameter_definitions
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.projects.get\_project module
+------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.projects.get_project
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.projects.get\_project\_test\_parameter\_definition module
+-----------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.projects.get_project_test_parameter_definition
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.projects.get\_project\_test\_parameter\_definitions module
+------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.projects.get_project_test_parameter_definitions
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.projects.get\_projects module
+-------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.projects.get_projects
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.projects.mark\_project module
+-------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.projects.mark_project
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.projects.move\_project\_action module
+---------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.projects.move_project_action
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.projects.patch\_project module
+--------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.projects.patch_project
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.projects.post\_project\_test\_parameter\_definitions module
+-------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.projects.post_project_test_parameter_definitions
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.projects.unmark\_project module
+---------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.projects.unmark_project
+   :members:
+   :show-inheritance:
+   :undoc-members:

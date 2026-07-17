@@ -1,0 +1,801 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="polarion_rest_api_client.open_api_client.api.test_runs package" href="polarion_rest_api_client.open_api_client.api.test_runs.html"><link rel="prev" title="polarion_rest_api_client.open_api_client.api.test_run_attachments package" href="polarion_rest_api_client.open_api_client.api.test_run_attachments.html">
+
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>polarion_rest_api_client.open_api_client.api.test_run_comments package - polarion-rest-api-client documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">polarion-rest-api-client  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <span class="sidebar-brand-text">polarion-rest-api-client  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../document_rendering.html">Document Rendering</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">polarion-rest-api-client</a><input aria-label="Toggle navigation of polarion-rest-api-client" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="polarion_rest_api_client.html">polarion_rest_api_client package</a><input aria-label="Toggle navigation of polarion_rest_api_client package" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="polarion_rest_api_client.clients.html">polarion_rest_api_client.clients package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="polarion_rest_api_client.document_rendering.html">polarion_rest_api_client.document_rendering package</a></li>
+<li class="toctree-l3 current has-children"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html">polarion_rest_api_client.open_api_client package</a><input aria-label="Toggle navigation of polarion_rest_api_client.open_api_client package" checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l4 current has-children"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.html">polarion_rest_api_client.open_api_client.api package</a><input aria-label="Toggle navigation of polarion_rest_api_client.open_api_client.api package" checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.ai.html">polarion_rest_api_client.open_api_client.api.ai package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.collections.html">polarion_rest_api_client.open_api_client.api.collections package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.custom_fields.html">polarion_rest_api_client.open_api_client.api.custom_fields package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.document_attachments.html">polarion_rest_api_client.open_api_client.api.document_attachments package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.document_comments.html">polarion_rest_api_client.open_api_client.api.document_comments package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.document_parts.html">polarion_rest_api_client.open_api_client.api.document_parts package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.documents.html">polarion_rest_api_client.open_api_client.api.documents package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.enumerations.html">polarion_rest_api_client.open_api_client.api.enumerations package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.externally_linked_work_items.html">polarion_rest_api_client.open_api_client.api.externally_linked_work_items package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.feature_selections.html">polarion_rest_api_client.open_api_client.api.feature_selections package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.icons.html">polarion_rest_api_client.open_api_client.api.icons package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.jobs.html">polarion_rest_api_client.open_api_client.api.jobs package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.license_.html">polarion_rest_api_client.open_api_client.api.license_ package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.linked_oslc_resources.html">polarion_rest_api_client.open_api_client.api.linked_oslc_resources package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.linked_work_items.html">polarion_rest_api_client.open_api_client.api.linked_work_items package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.metadata.html">polarion_rest_api_client.open_api_client.api.metadata package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.page_attachments.html">polarion_rest_api_client.open_api_client.api.page_attachments package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.page_comments.html">polarion_rest_api_client.open_api_client.api.page_comments package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.pages.html">polarion_rest_api_client.open_api_client.api.pages package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.plans.html">polarion_rest_api_client.open_api_client.api.plans package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.project_templates.html">polarion_rest_api_client.open_api_client.api.project_templates package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.projects.html">polarion_rest_api_client.open_api_client.api.projects package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.revisions.html">polarion_rest_api_client.open_api_client.api.revisions package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.roles.html">polarion_rest_api_client.open_api_client.api.roles package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.test_record_attachments.html">polarion_rest_api_client.open_api_client.api.test_record_attachments package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.test_records.html">polarion_rest_api_client.open_api_client.api.test_records package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.test_run_attachments.html">polarion_rest_api_client.open_api_client.api.test_run_attachments package</a></li>
+<li class="toctree-l5 current current-page"><a class="current reference internal" href="#">polarion_rest_api_client.open_api_client.api.test_run_comments package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.test_runs.html">polarion_rest_api_client.open_api_client.api.test_runs package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.test_step_result_attachments.html">polarion_rest_api_client.open_api_client.api.test_step_result_attachments package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.test_step_results.html">polarion_rest_api_client.open_api_client.api.test_step_results package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.test_steps.html">polarion_rest_api_client.open_api_client.api.test_steps package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.user_groups.html">polarion_rest_api_client.open_api_client.api.user_groups package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.users.html">polarion_rest_api_client.open_api_client.api.users package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.work_item_approvals.html">polarion_rest_api_client.open_api_client.api.work_item_approvals package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.work_item_attachments.html">polarion_rest_api_client.open_api_client.api.work_item_attachments package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.work_item_comments.html">polarion_rest_api_client.open_api_client.api.work_item_comments package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.work_item_work_records.html">polarion_rest_api_client.open_api_client.api.work_item_work_records package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="polarion_rest_api_client.open_api_client.api.work_items.html">polarion_rest_api_client.open_api_client.api.work_items package</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html">polarion_rest_api_client.open_api_client.models package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html">tests package</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/code/polarion_rest_api_client.open_api_client.api.test_run_comments.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="module-polarion_rest_api_client.open_api_client.api.test_run_comments">
+<span id="polarion-rest-api-client-open-api-client-api-test-run-comments-package"></span><h1>polarion_rest_api_client.open_api_client.api.test_run_comments package<a class="headerlink" href="#module-polarion_rest_api_client.open_api_client.api.test_run_comments" title="Link to this heading">¶</a></h1>
+<p>Contains endpoint functions for accessing the API</p>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment">
+<span id="polarion-rest-api-client-open-api-client-api-test-run-comments-get-test-run-comment-module"></span><h2>polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment module<a class="headerlink" href="#module-polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment.asyncio">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment.</span></span><span class="sig-name descname"><span class="pre">asyncio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.AuthenticatedClient" title="polarion_rest_api_client.open_api_client.client.AuthenticatedClient"><span class="pre">AuthenticatedClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.Client" title="polarion_rest_api_client.open_api_client.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.sparse_fields.SparseFields" title="polarion_rest_api_client.open_api_client.models.sparse_fields.SparseFields"><span class="pre">SparseFields</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.errors.Errors" title="polarion_rest_api_client.open_api_client.models.errors.Errors"><span class="pre">Errors</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_single_get_response.TestrunCommentsSingleGetResponse" title="polarion_rest_api_client.open_api_client.models.testrun_comments_single_get_response.TestrunCommentsSingleGetResponse"><span class="pre">TestrunCommentsSingleGetResponse</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment.asyncio" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the specified Test Run Comment.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>project_id (str):
+test_run_id (str):
+comment_id (str):
+fields (SparseFields | Unset):
+include (str | Unset):
+revision (str | Unset):</p>
+</dd>
+<dt>Raises:</dt><dd><p>errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+httpx.TimeoutException: If the request takes longer than Client.timeout.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Errors | TestrunCommentsSingleGetResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment.asyncio_detailed">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment.</span></span><span class="sig-name descname"><span class="pre">asyncio_detailed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.AuthenticatedClient" title="polarion_rest_api_client.open_api_client.client.AuthenticatedClient"><span class="pre">AuthenticatedClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.Client" title="polarion_rest_api_client.open_api_client.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.sparse_fields.SparseFields" title="polarion_rest_api_client.open_api_client.models.sparse_fields.SparseFields"><span class="pre">SparseFields</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Response" title="polarion_rest_api_client.open_api_client.types.Response"><span class="pre">Response</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.errors.Errors" title="polarion_rest_api_client.open_api_client.models.errors.Errors"><span class="pre">Errors</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_single_get_response.TestrunCommentsSingleGetResponse" title="polarion_rest_api_client.open_api_client.models.testrun_comments_single_get_response.TestrunCommentsSingleGetResponse"><span class="pre">TestrunCommentsSingleGetResponse</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment.asyncio_detailed" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the specified Test Run Comment.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>project_id (str):
+test_run_id (str):
+comment_id (str):
+fields (SparseFields | Unset):
+include (str | Unset):
+revision (str | Unset):</p>
+</dd>
+<dt>Raises:</dt><dd><p>errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+httpx.TimeoutException: If the request takes longer than Client.timeout.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Response[Errors | TestrunCommentsSingleGetResponse]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment.sync">
+<span class="sig-prename descclassname"><span class="pre">polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment.</span></span><span class="sig-name descname"><span class="pre">sync</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.AuthenticatedClient" title="polarion_rest_api_client.open_api_client.client.AuthenticatedClient"><span class="pre">AuthenticatedClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.Client" title="polarion_rest_api_client.open_api_client.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.sparse_fields.SparseFields" title="polarion_rest_api_client.open_api_client.models.sparse_fields.SparseFields"><span class="pre">SparseFields</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.errors.Errors" title="polarion_rest_api_client.open_api_client.models.errors.Errors"><span class="pre">Errors</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_single_get_response.TestrunCommentsSingleGetResponse" title="polarion_rest_api_client.open_api_client.models.testrun_comments_single_get_response.TestrunCommentsSingleGetResponse"><span class="pre">TestrunCommentsSingleGetResponse</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment.sync" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the specified Test Run Comment.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>project_id (str):
+test_run_id (str):
+comment_id (str):
+fields (SparseFields | Unset):
+include (str | Unset):
+revision (str | Unset):</p>
+</dd>
+<dt>Raises:</dt><dd><p>errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+httpx.TimeoutException: If the request takes longer than Client.timeout.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Errors | TestrunCommentsSingleGetResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment.sync_detailed">
+<span class="sig-prename descclassname"><span class="pre">polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment.</span></span><span class="sig-name descname"><span class="pre">sync_detailed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.AuthenticatedClient" title="polarion_rest_api_client.open_api_client.client.AuthenticatedClient"><span class="pre">AuthenticatedClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.Client" title="polarion_rest_api_client.open_api_client.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.sparse_fields.SparseFields" title="polarion_rest_api_client.open_api_client.models.sparse_fields.SparseFields"><span class="pre">SparseFields</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Response" title="polarion_rest_api_client.open_api_client.types.Response"><span class="pre">Response</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.errors.Errors" title="polarion_rest_api_client.open_api_client.models.errors.Errors"><span class="pre">Errors</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_single_get_response.TestrunCommentsSingleGetResponse" title="polarion_rest_api_client.open_api_client.models.testrun_comments_single_get_response.TestrunCommentsSingleGetResponse"><span class="pre">TestrunCommentsSingleGetResponse</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment.sync_detailed" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the specified Test Run Comment.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>project_id (str):
+test_run_id (str):
+comment_id (str):
+fields (SparseFields | Unset):
+include (str | Unset):
+revision (str | Unset):</p>
+</dd>
+<dt>Raises:</dt><dd><p>errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+httpx.TimeoutException: If the request takes longer than Client.timeout.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Response[Errors | TestrunCommentsSingleGetResponse]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments">
+<span id="polarion-rest-api-client-open-api-client-api-test-run-comments-get-test-run-comments-module"></span><h2>polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments module<a class="headerlink" href="#module-polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments.asyncio">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments.</span></span><span class="sig-name descname"><span class="pre">asyncio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.AuthenticatedClient" title="polarion_rest_api_client.open_api_client.client.AuthenticatedClient"><span class="pre">AuthenticatedClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.Client" title="polarion_rest_api_client.open_api_client.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pagesize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pagenumber</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.sparse_fields.SparseFields" title="polarion_rest_api_client.open_api_client.models.sparse_fields.SparseFields"><span class="pre">SparseFields</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.errors.Errors" title="polarion_rest_api_client.open_api_client.models.errors.Errors"><span class="pre">Errors</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_list_get_response.TestrunCommentsListGetResponse" title="polarion_rest_api_client.open_api_client.models.testrun_comments_list_get_response.TestrunCommentsListGetResponse"><span class="pre">TestrunCommentsListGetResponse</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments.asyncio" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a list of Test Run Comments.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>project_id (str):
+test_run_id (str):
+pagesize (int | Unset):
+pagenumber (int | Unset):
+fields (SparseFields | Unset):
+include (str | Unset):
+revision (str | Unset):</p>
+</dd>
+<dt>Raises:</dt><dd><p>errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+httpx.TimeoutException: If the request takes longer than Client.timeout.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Errors | TestrunCommentsListGetResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments.asyncio_detailed">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments.</span></span><span class="sig-name descname"><span class="pre">asyncio_detailed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.AuthenticatedClient" title="polarion_rest_api_client.open_api_client.client.AuthenticatedClient"><span class="pre">AuthenticatedClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.Client" title="polarion_rest_api_client.open_api_client.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pagesize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pagenumber</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.sparse_fields.SparseFields" title="polarion_rest_api_client.open_api_client.models.sparse_fields.SparseFields"><span class="pre">SparseFields</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Response" title="polarion_rest_api_client.open_api_client.types.Response"><span class="pre">Response</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.errors.Errors" title="polarion_rest_api_client.open_api_client.models.errors.Errors"><span class="pre">Errors</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_list_get_response.TestrunCommentsListGetResponse" title="polarion_rest_api_client.open_api_client.models.testrun_comments_list_get_response.TestrunCommentsListGetResponse"><span class="pre">TestrunCommentsListGetResponse</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments.asyncio_detailed" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a list of Test Run Comments.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>project_id (str):
+test_run_id (str):
+pagesize (int | Unset):
+pagenumber (int | Unset):
+fields (SparseFields | Unset):
+include (str | Unset):
+revision (str | Unset):</p>
+</dd>
+<dt>Raises:</dt><dd><p>errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+httpx.TimeoutException: If the request takes longer than Client.timeout.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Response[Errors | TestrunCommentsListGetResponse]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments.sync">
+<span class="sig-prename descclassname"><span class="pre">polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments.</span></span><span class="sig-name descname"><span class="pre">sync</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.AuthenticatedClient" title="polarion_rest_api_client.open_api_client.client.AuthenticatedClient"><span class="pre">AuthenticatedClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.Client" title="polarion_rest_api_client.open_api_client.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pagesize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pagenumber</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.sparse_fields.SparseFields" title="polarion_rest_api_client.open_api_client.models.sparse_fields.SparseFields"><span class="pre">SparseFields</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.errors.Errors" title="polarion_rest_api_client.open_api_client.models.errors.Errors"><span class="pre">Errors</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_list_get_response.TestrunCommentsListGetResponse" title="polarion_rest_api_client.open_api_client.models.testrun_comments_list_get_response.TestrunCommentsListGetResponse"><span class="pre">TestrunCommentsListGetResponse</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments.sync" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a list of Test Run Comments.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>project_id (str):
+test_run_id (str):
+pagesize (int | Unset):
+pagenumber (int | Unset):
+fields (SparseFields | Unset):
+include (str | Unset):
+revision (str | Unset):</p>
+</dd>
+<dt>Raises:</dt><dd><p>errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+httpx.TimeoutException: If the request takes longer than Client.timeout.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Errors | TestrunCommentsListGetResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments.sync_detailed">
+<span class="sig-prename descclassname"><span class="pre">polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments.</span></span><span class="sig-name descname"><span class="pre">sync_detailed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.AuthenticatedClient" title="polarion_rest_api_client.open_api_client.client.AuthenticatedClient"><span class="pre">AuthenticatedClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.Client" title="polarion_rest_api_client.open_api_client.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pagesize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pagenumber</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.sparse_fields.SparseFields" title="polarion_rest_api_client.open_api_client.models.sparse_fields.SparseFields"><span class="pre">SparseFields</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Unset" title="polarion_rest_api_client.open_api_client.types.Unset"><span class="pre">Unset</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;polarion_rest_api_client.open_api_client.types.Unset</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Response" title="polarion_rest_api_client.open_api_client.types.Response"><span class="pre">Response</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.errors.Errors" title="polarion_rest_api_client.open_api_client.models.errors.Errors"><span class="pre">Errors</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_list_get_response.TestrunCommentsListGetResponse" title="polarion_rest_api_client.open_api_client.models.testrun_comments_list_get_response.TestrunCommentsListGetResponse"><span class="pre">TestrunCommentsListGetResponse</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments.sync_detailed" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a list of Test Run Comments.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>project_id (str):
+test_run_id (str):
+pagesize (int | Unset):
+pagenumber (int | Unset):
+fields (SparseFields | Unset):
+include (str | Unset):
+revision (str | Unset):</p>
+</dd>
+<dt>Raises:</dt><dd><p>errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+httpx.TimeoutException: If the request takes longer than Client.timeout.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Response[Errors | TestrunCommentsListGetResponse]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment">
+<span id="polarion-rest-api-client-open-api-client-api-test-run-comments-patch-test-run-comment-module"></span><h2>polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment module<a class="headerlink" href="#module-polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment.asyncio">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment.</span></span><span class="sig-name descname"><span class="pre">asyncio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.AuthenticatedClient" title="polarion_rest_api_client.open_api_client.client.AuthenticatedClient"><span class="pre">AuthenticatedClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.Client" title="polarion_rest_api_client.open_api_client.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_single_patch_request.TestrunCommentsSinglePatchRequest" title="polarion_rest_api_client.open_api_client.models.testrun_comments_single_patch_request.TestrunCommentsSinglePatchRequest"><span class="pre">TestrunCommentsSinglePatchRequest</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.errors.Errors" title="polarion_rest_api_client.open_api_client.models.errors.Errors"><span class="pre">Errors</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment.asyncio" title="Link to this definition">¶</a></dt>
+<dd><p>Updates the specified Test Run Comment.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>project_id (str):
+test_run_id (str):
+comment_id (str):
+body (TestrunCommentsSinglePatchRequest):</p>
+</dd>
+<dt>Raises:</dt><dd><p>errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+httpx.TimeoutException: If the request takes longer than Client.timeout.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Any | Errors</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment.asyncio_detailed">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment.</span></span><span class="sig-name descname"><span class="pre">asyncio_detailed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.AuthenticatedClient" title="polarion_rest_api_client.open_api_client.client.AuthenticatedClient"><span class="pre">AuthenticatedClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.Client" title="polarion_rest_api_client.open_api_client.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_single_patch_request.TestrunCommentsSinglePatchRequest" title="polarion_rest_api_client.open_api_client.models.testrun_comments_single_patch_request.TestrunCommentsSinglePatchRequest"><span class="pre">TestrunCommentsSinglePatchRequest</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Response" title="polarion_rest_api_client.open_api_client.types.Response"><span class="pre">Response</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.errors.Errors" title="polarion_rest_api_client.open_api_client.models.errors.Errors"><span class="pre">Errors</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment.asyncio_detailed" title="Link to this definition">¶</a></dt>
+<dd><p>Updates the specified Test Run Comment.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>project_id (str):
+test_run_id (str):
+comment_id (str):
+body (TestrunCommentsSinglePatchRequest):</p>
+</dd>
+<dt>Raises:</dt><dd><p>errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+httpx.TimeoutException: If the request takes longer than Client.timeout.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Response[Any | Errors]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment.sync">
+<span class="sig-prename descclassname"><span class="pre">polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment.</span></span><span class="sig-name descname"><span class="pre">sync</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.AuthenticatedClient" title="polarion_rest_api_client.open_api_client.client.AuthenticatedClient"><span class="pre">AuthenticatedClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.Client" title="polarion_rest_api_client.open_api_client.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_single_patch_request.TestrunCommentsSinglePatchRequest" title="polarion_rest_api_client.open_api_client.models.testrun_comments_single_patch_request.TestrunCommentsSinglePatchRequest"><span class="pre">TestrunCommentsSinglePatchRequest</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.errors.Errors" title="polarion_rest_api_client.open_api_client.models.errors.Errors"><span class="pre">Errors</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment.sync" title="Link to this definition">¶</a></dt>
+<dd><p>Updates the specified Test Run Comment.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>project_id (str):
+test_run_id (str):
+comment_id (str):
+body (TestrunCommentsSinglePatchRequest):</p>
+</dd>
+<dt>Raises:</dt><dd><p>errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+httpx.TimeoutException: If the request takes longer than Client.timeout.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Any | Errors</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment.sync_detailed">
+<span class="sig-prename descclassname"><span class="pre">polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment.</span></span><span class="sig-name descname"><span class="pre">sync_detailed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.AuthenticatedClient" title="polarion_rest_api_client.open_api_client.client.AuthenticatedClient"><span class="pre">AuthenticatedClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.Client" title="polarion_rest_api_client.open_api_client.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_single_patch_request.TestrunCommentsSinglePatchRequest" title="polarion_rest_api_client.open_api_client.models.testrun_comments_single_patch_request.TestrunCommentsSinglePatchRequest"><span class="pre">TestrunCommentsSinglePatchRequest</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Response" title="polarion_rest_api_client.open_api_client.types.Response"><span class="pre">Response</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.errors.Errors" title="polarion_rest_api_client.open_api_client.models.errors.Errors"><span class="pre">Errors</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment.sync_detailed" title="Link to this definition">¶</a></dt>
+<dd><p>Updates the specified Test Run Comment.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>project_id (str):
+test_run_id (str):
+comment_id (str):
+body (TestrunCommentsSinglePatchRequest):</p>
+</dd>
+<dt>Raises:</dt><dd><p>errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+httpx.TimeoutException: If the request takes longer than Client.timeout.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Response[Any | Errors]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments">
+<span id="polarion-rest-api-client-open-api-client-api-test-run-comments-patch-test-run-comments-module"></span><h2>polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments module<a class="headerlink" href="#module-polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments.asyncio">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments.</span></span><span class="sig-name descname"><span class="pre">asyncio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.AuthenticatedClient" title="polarion_rest_api_client.open_api_client.client.AuthenticatedClient"><span class="pre">AuthenticatedClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.Client" title="polarion_rest_api_client.open_api_client.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_list_patch_request.TestrunCommentsListPatchRequest" title="polarion_rest_api_client.open_api_client.models.testrun_comments_list_patch_request.TestrunCommentsListPatchRequest"><span class="pre">TestrunCommentsListPatchRequest</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.errors.Errors" title="polarion_rest_api_client.open_api_client.models.errors.Errors"><span class="pre">Errors</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments.asyncio" title="Link to this definition">¶</a></dt>
+<dd><p>Updates a list of Test Run Comments.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>project_id (str):
+test_run_id (str):
+body (TestrunCommentsListPatchRequest):</p>
+</dd>
+<dt>Raises:</dt><dd><p>errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+httpx.TimeoutException: If the request takes longer than Client.timeout.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Any | Errors</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments.asyncio_detailed">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments.</span></span><span class="sig-name descname"><span class="pre">asyncio_detailed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.AuthenticatedClient" title="polarion_rest_api_client.open_api_client.client.AuthenticatedClient"><span class="pre">AuthenticatedClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.Client" title="polarion_rest_api_client.open_api_client.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_list_patch_request.TestrunCommentsListPatchRequest" title="polarion_rest_api_client.open_api_client.models.testrun_comments_list_patch_request.TestrunCommentsListPatchRequest"><span class="pre">TestrunCommentsListPatchRequest</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Response" title="polarion_rest_api_client.open_api_client.types.Response"><span class="pre">Response</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.errors.Errors" title="polarion_rest_api_client.open_api_client.models.errors.Errors"><span class="pre">Errors</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments.asyncio_detailed" title="Link to this definition">¶</a></dt>
+<dd><p>Updates a list of Test Run Comments.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>project_id (str):
+test_run_id (str):
+body (TestrunCommentsListPatchRequest):</p>
+</dd>
+<dt>Raises:</dt><dd><p>errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+httpx.TimeoutException: If the request takes longer than Client.timeout.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Response[Any | Errors]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments.sync">
+<span class="sig-prename descclassname"><span class="pre">polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments.</span></span><span class="sig-name descname"><span class="pre">sync</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.AuthenticatedClient" title="polarion_rest_api_client.open_api_client.client.AuthenticatedClient"><span class="pre">AuthenticatedClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.Client" title="polarion_rest_api_client.open_api_client.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_list_patch_request.TestrunCommentsListPatchRequest" title="polarion_rest_api_client.open_api_client.models.testrun_comments_list_patch_request.TestrunCommentsListPatchRequest"><span class="pre">TestrunCommentsListPatchRequest</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.errors.Errors" title="polarion_rest_api_client.open_api_client.models.errors.Errors"><span class="pre">Errors</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments.sync" title="Link to this definition">¶</a></dt>
+<dd><p>Updates a list of Test Run Comments.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>project_id (str):
+test_run_id (str):
+body (TestrunCommentsListPatchRequest):</p>
+</dd>
+<dt>Raises:</dt><dd><p>errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+httpx.TimeoutException: If the request takes longer than Client.timeout.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Any | Errors</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments.sync_detailed">
+<span class="sig-prename descclassname"><span class="pre">polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments.</span></span><span class="sig-name descname"><span class="pre">sync_detailed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.AuthenticatedClient" title="polarion_rest_api_client.open_api_client.client.AuthenticatedClient"><span class="pre">AuthenticatedClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.Client" title="polarion_rest_api_client.open_api_client.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_list_patch_request.TestrunCommentsListPatchRequest" title="polarion_rest_api_client.open_api_client.models.testrun_comments_list_patch_request.TestrunCommentsListPatchRequest"><span class="pre">TestrunCommentsListPatchRequest</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Response" title="polarion_rest_api_client.open_api_client.types.Response"><span class="pre">Response</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.errors.Errors" title="polarion_rest_api_client.open_api_client.models.errors.Errors"><span class="pre">Errors</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments.sync_detailed" title="Link to this definition">¶</a></dt>
+<dd><p>Updates a list of Test Run Comments.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>project_id (str):
+test_run_id (str):
+body (TestrunCommentsListPatchRequest):</p>
+</dd>
+<dt>Raises:</dt><dd><p>errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+httpx.TimeoutException: If the request takes longer than Client.timeout.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Response[Any | Errors]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments">
+<span id="polarion-rest-api-client-open-api-client-api-test-run-comments-post-test-run-comments-module"></span><h2>polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments module<a class="headerlink" href="#module-polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments.asyncio">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments.</span></span><span class="sig-name descname"><span class="pre">asyncio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.AuthenticatedClient" title="polarion_rest_api_client.open_api_client.client.AuthenticatedClient"><span class="pre">AuthenticatedClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.Client" title="polarion_rest_api_client.open_api_client.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_list_post_request.TestrunCommentsListPostRequest" title="polarion_rest_api_client.open_api_client.models.testrun_comments_list_post_request.TestrunCommentsListPostRequest"><span class="pre">TestrunCommentsListPostRequest</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.errors.Errors" title="polarion_rest_api_client.open_api_client.models.errors.Errors"><span class="pre">Errors</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_list_post_response.TestrunCommentsListPostResponse" title="polarion_rest_api_client.open_api_client.models.testrun_comments_list_post_response.TestrunCommentsListPostResponse"><span class="pre">TestrunCommentsListPostResponse</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments.asyncio" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a list of Test Run Comments.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>project_id (str):
+test_run_id (str):
+body (TestrunCommentsListPostRequest):</p>
+</dd>
+<dt>Raises:</dt><dd><p>errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+httpx.TimeoutException: If the request takes longer than Client.timeout.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Errors | TestrunCommentsListPostResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments.asyncio_detailed">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments.</span></span><span class="sig-name descname"><span class="pre">asyncio_detailed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.AuthenticatedClient" title="polarion_rest_api_client.open_api_client.client.AuthenticatedClient"><span class="pre">AuthenticatedClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.Client" title="polarion_rest_api_client.open_api_client.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_list_post_request.TestrunCommentsListPostRequest" title="polarion_rest_api_client.open_api_client.models.testrun_comments_list_post_request.TestrunCommentsListPostRequest"><span class="pre">TestrunCommentsListPostRequest</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Response" title="polarion_rest_api_client.open_api_client.types.Response"><span class="pre">Response</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.errors.Errors" title="polarion_rest_api_client.open_api_client.models.errors.Errors"><span class="pre">Errors</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_list_post_response.TestrunCommentsListPostResponse" title="polarion_rest_api_client.open_api_client.models.testrun_comments_list_post_response.TestrunCommentsListPostResponse"><span class="pre">TestrunCommentsListPostResponse</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments.asyncio_detailed" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a list of Test Run Comments.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>project_id (str):
+test_run_id (str):
+body (TestrunCommentsListPostRequest):</p>
+</dd>
+<dt>Raises:</dt><dd><p>errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+httpx.TimeoutException: If the request takes longer than Client.timeout.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Response[Errors | TestrunCommentsListPostResponse]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments.sync">
+<span class="sig-prename descclassname"><span class="pre">polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments.</span></span><span class="sig-name descname"><span class="pre">sync</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.AuthenticatedClient" title="polarion_rest_api_client.open_api_client.client.AuthenticatedClient"><span class="pre">AuthenticatedClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.Client" title="polarion_rest_api_client.open_api_client.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_list_post_request.TestrunCommentsListPostRequest" title="polarion_rest_api_client.open_api_client.models.testrun_comments_list_post_request.TestrunCommentsListPostRequest"><span class="pre">TestrunCommentsListPostRequest</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.errors.Errors" title="polarion_rest_api_client.open_api_client.models.errors.Errors"><span class="pre">Errors</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_list_post_response.TestrunCommentsListPostResponse" title="polarion_rest_api_client.open_api_client.models.testrun_comments_list_post_response.TestrunCommentsListPostResponse"><span class="pre">TestrunCommentsListPostResponse</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments.sync" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a list of Test Run Comments.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>project_id (str):
+test_run_id (str):
+body (TestrunCommentsListPostRequest):</p>
+</dd>
+<dt>Raises:</dt><dd><p>errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+httpx.TimeoutException: If the request takes longer than Client.timeout.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Errors | TestrunCommentsListPostResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments.sync_detailed">
+<span class="sig-prename descclassname"><span class="pre">polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments.</span></span><span class="sig-name descname"><span class="pre">sync_detailed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.AuthenticatedClient" title="polarion_rest_api_client.open_api_client.client.AuthenticatedClient"><span class="pre">AuthenticatedClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.client.Client" title="polarion_rest_api_client.open_api_client.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_list_post_request.TestrunCommentsListPostRequest" title="polarion_rest_api_client.open_api_client.models.testrun_comments_list_post_request.TestrunCommentsListPostRequest"><span class="pre">TestrunCommentsListPostRequest</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polarion_rest_api_client.open_api_client.html#polarion_rest_api_client.open_api_client.types.Response" title="polarion_rest_api_client.open_api_client.types.Response"><span class="pre">Response</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.errors.Errors" title="polarion_rest_api_client.open_api_client.models.errors.Errors"><span class="pre">Errors</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="polarion_rest_api_client.open_api_client.models.html#polarion_rest_api_client.open_api_client.models.testrun_comments_list_post_response.TestrunCommentsListPostResponse" title="polarion_rest_api_client.open_api_client.models.testrun_comments_list_post_response.TestrunCommentsListPostResponse"><span class="pre">TestrunCommentsListPostResponse</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments.sync_detailed" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a list of Test Run Comments.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>project_id (str):
+test_run_id (str):
+body (TestrunCommentsListPostRequest):</p>
+</dd>
+<dt>Raises:</dt><dd><p>errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+httpx.TimeoutException: If the request takes longer than Client.timeout.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Response[Errors | TestrunCommentsListPostResponse]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="polarion_rest_api_client.open_api_client.api.test_runs.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">polarion_rest_api_client.open_api_client.api.test_runs package</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="polarion_rest_api_client.open_api_client.api.test_run_attachments.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">polarion_rest_api_client.open_api_client.api.test_run_attachments package</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; DB InfraGO AG and the polarion-rest-api-client contributors
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/dbinfrago/polarion-rest-api-client" aria-label="GitHub"><img src="/_static/img/github-logo.svg"/></a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">polarion_rest_api_client.open_api_client.api.test_run_comments package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment">polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment module</a><ul>
+<li><a class="reference internal" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment.asyncio"><code class="docutils literal notranslate"><span class="pre">asyncio()</span></code></a></li>
+<li><a class="reference internal" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment.asyncio_detailed"><code class="docutils literal notranslate"><span class="pre">asyncio_detailed()</span></code></a></li>
+<li><a class="reference internal" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment.sync"><code class="docutils literal notranslate"><span class="pre">sync()</span></code></a></li>
+<li><a class="reference internal" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comment.sync_detailed"><code class="docutils literal notranslate"><span class="pre">sync_detailed()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments">polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments module</a><ul>
+<li><a class="reference internal" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments.asyncio"><code class="docutils literal notranslate"><span class="pre">asyncio()</span></code></a></li>
+<li><a class="reference internal" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments.asyncio_detailed"><code class="docutils literal notranslate"><span class="pre">asyncio_detailed()</span></code></a></li>
+<li><a class="reference internal" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments.sync"><code class="docutils literal notranslate"><span class="pre">sync()</span></code></a></li>
+<li><a class="reference internal" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.get_test_run_comments.sync_detailed"><code class="docutils literal notranslate"><span class="pre">sync_detailed()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment">polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment module</a><ul>
+<li><a class="reference internal" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment.asyncio"><code class="docutils literal notranslate"><span class="pre">asyncio()</span></code></a></li>
+<li><a class="reference internal" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment.asyncio_detailed"><code class="docutils literal notranslate"><span class="pre">asyncio_detailed()</span></code></a></li>
+<li><a class="reference internal" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment.sync"><code class="docutils literal notranslate"><span class="pre">sync()</span></code></a></li>
+<li><a class="reference internal" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comment.sync_detailed"><code class="docutils literal notranslate"><span class="pre">sync_detailed()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments">polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments module</a><ul>
+<li><a class="reference internal" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments.asyncio"><code class="docutils literal notranslate"><span class="pre">asyncio()</span></code></a></li>
+<li><a class="reference internal" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments.asyncio_detailed"><code class="docutils literal notranslate"><span class="pre">asyncio_detailed()</span></code></a></li>
+<li><a class="reference internal" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments.sync"><code class="docutils literal notranslate"><span class="pre">sync()</span></code></a></li>
+<li><a class="reference internal" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.patch_test_run_comments.sync_detailed"><code class="docutils literal notranslate"><span class="pre">sync_detailed()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments">polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments module</a><ul>
+<li><a class="reference internal" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments.asyncio"><code class="docutils literal notranslate"><span class="pre">asyncio()</span></code></a></li>
+<li><a class="reference internal" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments.asyncio_detailed"><code class="docutils literal notranslate"><span class="pre">asyncio_detailed()</span></code></a></li>
+<li><a class="reference internal" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments.sync"><code class="docutils literal notranslate"><span class="pre">sync()</span></code></a></li>
+<li><a class="reference internal" href="#polarion_rest_api_client.open_api_client.api.test_run_comments.post_test_run_comments.sync_detailed"><code class="docutils literal notranslate"><span class="pre">sync_detailed()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=04ba4d4d"></script>
+    </body>
+</html>

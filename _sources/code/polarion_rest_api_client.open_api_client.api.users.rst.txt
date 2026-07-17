@@ -1,0 +1,74 @@
+polarion\_rest\_api\_client.open\_api\_client.api.users package
+===============================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.users
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.users.get\_avatar module
+--------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.users.get_avatar
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.users.get\_current\_user module
+---------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.users.get_current_user
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.users.get\_user module
+------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.users.get_user
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.users.get\_users module
+-------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.users.get_users
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.users.patch\_user module
+--------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.users.patch_user
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.users.post\_users module
+--------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.users.post_users
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.users.set\_license module
+---------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.users.set_license
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.users.update\_avatar module
+-----------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.users.update_avatar
+   :members:
+   :show-inheritance:
+   :undoc-members:
