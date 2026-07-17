@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -36,42 +37,42 @@ T = TypeVar("T", bound="TestrunsListPostRequestDataItemRelationships")
 class TestrunsListPostRequestDataItemRelationships:
     """
     Attributes:
-        document (Union[Unset, TestrunsListPostRequestDataItemRelationshipsDocument]):
-        project_span (Union[Unset, TestrunsListPostRequestDataItemRelationshipsProjectSpan]):
-        summary_defect (Union[Unset, TestrunsListPostRequestDataItemRelationshipsSummaryDefect]):
-        template (Union[Unset, TestrunsListPostRequestDataItemRelationshipsTemplate]):
+        document (TestrunsListPostRequestDataItemRelationshipsDocument | Unset):
+        project_span (TestrunsListPostRequestDataItemRelationshipsProjectSpan | Unset):
+        summary_defect (TestrunsListPostRequestDataItemRelationshipsSummaryDefect | Unset):
+        template (TestrunsListPostRequestDataItemRelationshipsTemplate | Unset):
     """
 
-    document: Union[
-        Unset, "TestrunsListPostRequestDataItemRelationshipsDocument"
-    ] = UNSET
-    project_span: Union[
-        Unset, "TestrunsListPostRequestDataItemRelationshipsProjectSpan"
-    ] = UNSET
-    summary_defect: Union[
-        Unset, "TestrunsListPostRequestDataItemRelationshipsSummaryDefect"
-    ] = UNSET
-    template: Union[
-        Unset, "TestrunsListPostRequestDataItemRelationshipsTemplate"
-    ] = UNSET
+    document: TestrunsListPostRequestDataItemRelationshipsDocument | Unset = (
+        UNSET
+    )
+    project_span: (
+        TestrunsListPostRequestDataItemRelationshipsProjectSpan | Unset
+    ) = UNSET
+    summary_defect: (
+        TestrunsListPostRequestDataItemRelationshipsSummaryDefect | Unset
+    ) = UNSET
+    template: TestrunsListPostRequestDataItemRelationshipsTemplate | Unset = (
+        UNSET
+    )
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        document: Union[Unset, dict[str, Any]] = UNSET
+        document: dict[str, Any] | Unset = UNSET
         if not isinstance(self.document, Unset):
             document = self.document.to_dict()
 
-        project_span: Union[Unset, dict[str, Any]] = UNSET
+        project_span: dict[str, Any] | Unset = UNSET
         if not isinstance(self.project_span, Unset):
             project_span = self.project_span.to_dict()
 
-        summary_defect: Union[Unset, dict[str, Any]] = UNSET
+        summary_defect: dict[str, Any] | Unset = UNSET
         if not isinstance(self.summary_defect, Unset):
             summary_defect = self.summary_defect.to_dict()
 
-        template: Union[Unset, dict[str, Any]] = UNSET
+        template: dict[str, Any] | Unset = UNSET
         if not isinstance(self.template, Unset):
             template = self.template.to_dict()
 
@@ -106,9 +107,7 @@ class TestrunsListPostRequestDataItemRelationships:
 
         d = dict(src_dict)
         _document = d.pop("document", UNSET)
-        document: Union[
-            Unset, TestrunsListPostRequestDataItemRelationshipsDocument
-        ]
+        document: TestrunsListPostRequestDataItemRelationshipsDocument | Unset
         if isinstance(_document, Unset):
             document = UNSET
         else:
@@ -119,9 +118,9 @@ class TestrunsListPostRequestDataItemRelationships:
             )
 
         _project_span = d.pop("projectSpan", UNSET)
-        project_span: Union[
-            Unset, TestrunsListPostRequestDataItemRelationshipsProjectSpan
-        ]
+        project_span: (
+            TestrunsListPostRequestDataItemRelationshipsProjectSpan | Unset
+        )
         if isinstance(_project_span, Unset):
             project_span = UNSET
         else:
@@ -130,9 +129,9 @@ class TestrunsListPostRequestDataItemRelationships:
             )
 
         _summary_defect = d.pop("summaryDefect", UNSET)
-        summary_defect: Union[
-            Unset, TestrunsListPostRequestDataItemRelationshipsSummaryDefect
-        ]
+        summary_defect: (
+            TestrunsListPostRequestDataItemRelationshipsSummaryDefect | Unset
+        )
         if isinstance(_summary_defect, Unset):
             summary_defect = UNSET
         else:
@@ -141,9 +140,7 @@ class TestrunsListPostRequestDataItemRelationships:
             )
 
         _template = d.pop("template", UNSET)
-        template: Union[
-            Unset, TestrunsListPostRequestDataItemRelationshipsTemplate
-        ]
+        template: TestrunsListPostRequestDataItemRelationshipsTemplate | Unset
         if isinstance(_template, Unset):
             template = UNSET
         else:

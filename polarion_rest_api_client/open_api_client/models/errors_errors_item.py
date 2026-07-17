@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
     cast,
 )
 
@@ -28,17 +29,17 @@ T = TypeVar("T", bound="ErrorsErrorsItem")
 class ErrorsErrorsItem:
     """
     Attributes:
-        status (Union[Unset, str]): HTTP status code applicable to this problem. Example: 400.
-        title (Union[Unset, str]): Short, human-readable summary of the problem. Example: Bad Request.
-        detail (Union[Unset, str]): Human-readable explanation specific to this occurrence of the problem. Example:
-            Unexpected token, BEGIN_ARRAY expected, but was : BEGIN_OBJECT (at $.data).
-        source (Union['ErrorsErrorsItemSourceType0', None, Unset]):
+        status (str | Unset): HTTP status code applicable to this problem. Example: 400.
+        title (str | Unset): Short, human-readable summary of the problem. Example: Bad Request.
+        detail (str | Unset): Human-readable explanation specific to this occurrence of the problem. Example: Unexpected
+            token, BEGIN_ARRAY expected, but was : BEGIN_OBJECT (at $.data).
+        source (ErrorsErrorsItemSourceType0 | None | Unset):
     """
 
-    status: Union[Unset, str] = UNSET
-    title: Union[Unset, str] = UNSET
-    detail: Union[Unset, str] = UNSET
-    source: Union["ErrorsErrorsItemSourceType0", None, Unset] = UNSET
+    status: str | Unset = UNSET
+    title: str | Unset = UNSET
+    detail: str | Unset = UNSET
+    source: ErrorsErrorsItemSourceType0 | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -54,7 +55,7 @@ class ErrorsErrorsItem:
 
         detail = self.detail
 
-        source: Union[None, Unset, dict[str, Any]]
+        source: dict[str, Any] | None | Unset
         if isinstance(self.source, Unset):
             source = UNSET
         elif isinstance(self.source, ErrorsErrorsItemSourceType0):
@@ -91,7 +92,7 @@ class ErrorsErrorsItem:
 
         def _parse_source(
             data: object,
-        ) -> Union["ErrorsErrorsItemSourceType0", None, Unset]:
+        ) -> ErrorsErrorsItemSourceType0 | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -102,11 +103,9 @@ class ErrorsErrorsItem:
                 source_type_0 = ErrorsErrorsItemSourceType0.from_dict(data)
 
                 return source_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
-            return cast(
-                Union["ErrorsErrorsItemSourceType0", None, Unset], data
-            )
+            return cast(ErrorsErrorsItemSourceType0 | None | Unset, data)
 
         source = _parse_source(d.pop("source", UNSET))
 

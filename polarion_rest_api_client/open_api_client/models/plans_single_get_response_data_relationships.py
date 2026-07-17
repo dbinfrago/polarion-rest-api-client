@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -42,58 +43,50 @@ T = TypeVar("T", bound="PlansSingleGetResponseDataRelationships")
 class PlansSingleGetResponseDataRelationships:
     """
     Attributes:
-        author (Union[Unset, PlansSingleGetResponseDataRelationshipsAuthor]):
-        parent (Union[Unset, PlansSingleGetResponseDataRelationshipsParent]):
-        project (Union[Unset, PlansSingleGetResponseDataRelationshipsProject]):
-        project_span (Union[Unset, PlansSingleGetResponseDataRelationshipsProjectSpan]):
-        template (Union[Unset, PlansSingleGetResponseDataRelationshipsTemplate]):
-        work_items (Union[Unset, PlansSingleGetResponseDataRelationshipsWorkItems]):
+        author (PlansSingleGetResponseDataRelationshipsAuthor | Unset):
+        parent (PlansSingleGetResponseDataRelationshipsParent | Unset):
+        project (PlansSingleGetResponseDataRelationshipsProject | Unset):
+        project_span (PlansSingleGetResponseDataRelationshipsProjectSpan | Unset):
+        template (PlansSingleGetResponseDataRelationshipsTemplate | Unset):
+        work_items (PlansSingleGetResponseDataRelationshipsWorkItems | Unset):
     """
 
-    author: Union[Unset, "PlansSingleGetResponseDataRelationshipsAuthor"] = (
+    author: PlansSingleGetResponseDataRelationshipsAuthor | Unset = UNSET
+    parent: PlansSingleGetResponseDataRelationshipsParent | Unset = UNSET
+    project: PlansSingleGetResponseDataRelationshipsProject | Unset = UNSET
+    project_span: (
+        PlansSingleGetResponseDataRelationshipsProjectSpan | Unset
+    ) = UNSET
+    template: PlansSingleGetResponseDataRelationshipsTemplate | Unset = UNSET
+    work_items: PlansSingleGetResponseDataRelationshipsWorkItems | Unset = (
         UNSET
     )
-    parent: Union[Unset, "PlansSingleGetResponseDataRelationshipsParent"] = (
-        UNSET
-    )
-    project: Union[Unset, "PlansSingleGetResponseDataRelationshipsProject"] = (
-        UNSET
-    )
-    project_span: Union[
-        Unset, "PlansSingleGetResponseDataRelationshipsProjectSpan"
-    ] = UNSET
-    template: Union[
-        Unset, "PlansSingleGetResponseDataRelationshipsTemplate"
-    ] = UNSET
-    work_items: Union[
-        Unset, "PlansSingleGetResponseDataRelationshipsWorkItems"
-    ] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        author: Union[Unset, dict[str, Any]] = UNSET
+        author: dict[str, Any] | Unset = UNSET
         if not isinstance(self.author, Unset):
             author = self.author.to_dict()
 
-        parent: Union[Unset, dict[str, Any]] = UNSET
+        parent: dict[str, Any] | Unset = UNSET
         if not isinstance(self.parent, Unset):
             parent = self.parent.to_dict()
 
-        project: Union[Unset, dict[str, Any]] = UNSET
+        project: dict[str, Any] | Unset = UNSET
         if not isinstance(self.project, Unset):
             project = self.project.to_dict()
 
-        project_span: Union[Unset, dict[str, Any]] = UNSET
+        project_span: dict[str, Any] | Unset = UNSET
         if not isinstance(self.project_span, Unset):
             project_span = self.project_span.to_dict()
 
-        template: Union[Unset, dict[str, Any]] = UNSET
+        template: dict[str, Any] | Unset = UNSET
         if not isinstance(self.template, Unset):
             template = self.template.to_dict()
 
-        work_items: Union[Unset, dict[str, Any]] = UNSET
+        work_items: dict[str, Any] | Unset = UNSET
         if not isinstance(self.work_items, Unset):
             work_items = self.work_items.to_dict()
 
@@ -138,7 +131,7 @@ class PlansSingleGetResponseDataRelationships:
 
         d = dict(src_dict)
         _author = d.pop("author", UNSET)
-        author: Union[Unset, PlansSingleGetResponseDataRelationshipsAuthor]
+        author: PlansSingleGetResponseDataRelationshipsAuthor | Unset
         if isinstance(_author, Unset):
             author = UNSET
         else:
@@ -147,7 +140,7 @@ class PlansSingleGetResponseDataRelationships:
             )
 
         _parent = d.pop("parent", UNSET)
-        parent: Union[Unset, PlansSingleGetResponseDataRelationshipsParent]
+        parent: PlansSingleGetResponseDataRelationshipsParent | Unset
         if isinstance(_parent, Unset):
             parent = UNSET
         else:
@@ -156,7 +149,7 @@ class PlansSingleGetResponseDataRelationships:
             )
 
         _project = d.pop("project", UNSET)
-        project: Union[Unset, PlansSingleGetResponseDataRelationshipsProject]
+        project: PlansSingleGetResponseDataRelationshipsProject | Unset
         if isinstance(_project, Unset):
             project = UNSET
         else:
@@ -165,9 +158,9 @@ class PlansSingleGetResponseDataRelationships:
             )
 
         _project_span = d.pop("projectSpan", UNSET)
-        project_span: Union[
-            Unset, PlansSingleGetResponseDataRelationshipsProjectSpan
-        ]
+        project_span: (
+            PlansSingleGetResponseDataRelationshipsProjectSpan | Unset
+        )
         if isinstance(_project_span, Unset):
             project_span = UNSET
         else:
@@ -178,7 +171,7 @@ class PlansSingleGetResponseDataRelationships:
             )
 
         _template = d.pop("template", UNSET)
-        template: Union[Unset, PlansSingleGetResponseDataRelationshipsTemplate]
+        template: PlansSingleGetResponseDataRelationshipsTemplate | Unset
         if isinstance(_template, Unset):
             template = UNSET
         else:
@@ -189,9 +182,7 @@ class PlansSingleGetResponseDataRelationships:
             )
 
         _work_items = d.pop("workItems", UNSET)
-        work_items: Union[
-            Unset, PlansSingleGetResponseDataRelationshipsWorkItems
-        ]
+        work_items: PlansSingleGetResponseDataRelationshipsWorkItems | Unset
         if isinstance(_work_items, Unset):
             work_items = UNSET
         else:

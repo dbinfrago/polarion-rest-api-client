@@ -1,17 +1,25 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
+    TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.enum_options_action_response_body_data_item_link_rules_item import (
+        EnumOptionsActionResponseBodyDataItemLinkRulesItem,
+    )
+
 
 T = TypeVar("T", bound="EnumOptionsActionResponseBodyDataItem")
 
@@ -20,40 +28,44 @@ T = TypeVar("T", bound="EnumOptionsActionResponseBodyDataItem")
 class EnumOptionsActionResponseBodyDataItem:
     """
     Attributes:
-        id (Union[Unset, str]):  Example: open.
-        color (Union[Unset, str]):  Example: #F9FF4D.
-        column_width (Union[Unset, str]):  Example: 90%.
-        create_defect (Union[Unset, bool]):  Example: True.
-        default (Union[Unset, bool]):  Example: True.
-        description (Union[Unset, str]):  Example: Description.
-        hidden (Union[Unset, bool]):
-        icon_url (Union[Unset, str]):  Example: /polarion/icons/default/enums/status_open.gif.
-        limited (Union[Unset, bool]):  Example: True.
-        min_value (Union[Unset, float]):  Example: 30.0.
-        name (Union[Unset, str]):  Example: Open.
-        opposite_name (Union[Unset, str]):  Example: Opposite Name.
-        parent (Union[Unset, bool]):  Example: True.
-        requires_signature_for_test_case_execution (Union[Unset, bool]):  Example: True.
-        template_work_item (Union[Unset, str]):  Example: exampleTemplate.
-        terminal (Union[Unset, bool]):  Example: True.
+        id (str | Unset):  Example: open.
+        color (str | Unset):  Example: #F9FF4D.
+        column_width (str | Unset):  Example: 90%.
+        create_defect (bool | Unset):  Example: True.
+        default (bool | Unset):  Example: True.
+        description (str | Unset):  Example: Description.
+        hidden (bool | Unset):
+        icon_url (str | Unset):  Example: /polarion/icons/default/enums/status_open.gif.
+        limited (bool | Unset):  Example: True.
+        link_rules (list[EnumOptionsActionResponseBodyDataItemLinkRulesItem] | Unset):
+        min_value (float | Unset):  Example: 30.0.
+        name (str | Unset):  Example: Open.
+        opposite_name (str | Unset):  Example: Opposite Name.
+        parent (bool | Unset):  Example: True.
+        requires_signature_for_test_case_execution (bool | Unset):  Example: True.
+        template_work_item (str | Unset):  Example: exampleTemplate.
+        terminal (bool | Unset):  Example: True.
     """
 
-    id: Union[Unset, str] = UNSET
-    color: Union[Unset, str] = UNSET
-    column_width: Union[Unset, str] = UNSET
-    create_defect: Union[Unset, bool] = UNSET
-    default: Union[Unset, bool] = UNSET
-    description: Union[Unset, str] = UNSET
-    hidden: Union[Unset, bool] = UNSET
-    icon_url: Union[Unset, str] = UNSET
-    limited: Union[Unset, bool] = UNSET
-    min_value: Union[Unset, float] = UNSET
-    name: Union[Unset, str] = UNSET
-    opposite_name: Union[Unset, str] = UNSET
-    parent: Union[Unset, bool] = UNSET
-    requires_signature_for_test_case_execution: Union[Unset, bool] = UNSET
-    template_work_item: Union[Unset, str] = UNSET
-    terminal: Union[Unset, bool] = UNSET
+    id: str | Unset = UNSET
+    color: str | Unset = UNSET
+    column_width: str | Unset = UNSET
+    create_defect: bool | Unset = UNSET
+    default: bool | Unset = UNSET
+    description: str | Unset = UNSET
+    hidden: bool | Unset = UNSET
+    icon_url: str | Unset = UNSET
+    limited: bool | Unset = UNSET
+    link_rules: (
+        list[EnumOptionsActionResponseBodyDataItemLinkRulesItem] | Unset
+    ) = UNSET
+    min_value: float | Unset = UNSET
+    name: str | Unset = UNSET
+    opposite_name: str | Unset = UNSET
+    parent: bool | Unset = UNSET
+    requires_signature_for_test_case_execution: bool | Unset = UNSET
+    template_work_item: str | Unset = UNSET
+    terminal: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -76,6 +88,13 @@ class EnumOptionsActionResponseBodyDataItem:
         icon_url = self.icon_url
 
         limited = self.limited
+
+        link_rules: list[dict[str, Any]] | Unset = UNSET
+        if not isinstance(self.link_rules, Unset):
+            link_rules = []
+            for link_rules_item_data in self.link_rules:
+                link_rules_item = link_rules_item_data.to_dict()
+                link_rules.append(link_rules_item)
 
         min_value = self.min_value
 
@@ -114,6 +133,8 @@ class EnumOptionsActionResponseBodyDataItem:
             field_dict["iconURL"] = icon_url
         if limited is not UNSET:
             field_dict["limited"] = limited
+        if link_rules is not UNSET:
+            field_dict["linkRules"] = link_rules
         if min_value is not UNSET:
             field_dict["minValue"] = min_value
         if name is not UNSET:
@@ -135,6 +156,10 @@ class EnumOptionsActionResponseBodyDataItem:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.enum_options_action_response_body_data_item_link_rules_item import (
+            EnumOptionsActionResponseBodyDataItemLinkRulesItem,
+        )
+
         d = dict(src_dict)
         id = d.pop("id", UNSET)
 
@@ -153,6 +178,19 @@ class EnumOptionsActionResponseBodyDataItem:
         icon_url = d.pop("iconURL", UNSET)
 
         limited = d.pop("limited", UNSET)
+
+        _link_rules = d.pop("linkRules", UNSET)
+        link_rules: (
+            list[EnumOptionsActionResponseBodyDataItemLinkRulesItem] | Unset
+        ) = UNSET
+        if _link_rules is not UNSET:
+            link_rules = []
+            for link_rules_item_data in _link_rules:
+                link_rules_item = EnumOptionsActionResponseBodyDataItemLinkRulesItem.from_dict(
+                    link_rules_item_data
+                )
+
+                link_rules.append(link_rules_item)
 
         min_value = d.pop("minValue", UNSET)
 
@@ -180,6 +218,7 @@ class EnumOptionsActionResponseBodyDataItem:
             hidden=hidden,
             icon_url=icon_url,
             limited=limited,
+            link_rules=link_rules,
             min_value=min_value,
             name=name,
             opposite_name=opposite_name,

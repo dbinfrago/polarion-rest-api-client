@@ -2,7 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from http import HTTPStatus
-from typing import Any, Union, cast
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
@@ -26,7 +27,11 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "patch",
-        "url": f"/enumerations/{enum_context}/{enum_name}/{target_type}",
+        "url": "/enumerations/{enum_context}/{enum_name}/{target_type}".format(
+            enum_context=quote(str(enum_context), safe=""),
+            enum_name=quote(str(enum_name), safe=""),
+            target_type=quote(str(target_type), safe=""),
+        ),
     }
 
     _kwargs["json"] = body.to_dict()
@@ -38,55 +43,65 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Union[Any, Errors] | None:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Any | Errors | None:
     if response.status_code == 204:
         response_204 = cast(Any, None)
         return response_204
+
     if response.status_code == 400:
         response_400 = Errors.from_dict(response.json())
 
         return response_400
+
     if response.status_code == 401:
         response_401 = Errors.from_dict(response.json())
 
         return response_401
+
     if response.status_code == 403:
         response_403 = Errors.from_dict(response.json())
 
         return response_403
+
     if response.status_code == 404:
         response_404 = Errors.from_dict(response.json())
 
         return response_404
+
     if response.status_code == 409:
         response_409 = Errors.from_dict(response.json())
 
         return response_409
+
     if response.status_code == 413:
         response_413 = Errors.from_dict(response.json())
 
         return response_413
+
     if response.status_code == 415:
         response_415 = Errors.from_dict(response.json())
 
         return response_415
+
     if response.status_code == 500:
         response_500 = Errors.from_dict(response.json())
 
         return response_500
+
     if response.status_code == 503:
         response_503 = Errors.from_dict(response.json())
 
         return response_503
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     return None
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, Errors]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Any | Errors]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -100,9 +115,9 @@ def sync_detailed(
     enum_name: str,
     target_type: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: EnumerationsSinglePatchRequest,
-) -> Response[Union[Any, Errors]]:
+) -> Response[Any | Errors]:
     """Updates the specified Enumeration in the Global context.
 
     Args:
@@ -116,7 +131,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, Errors]]
+        Response[Any | Errors]
     """
 
     kwargs = _get_kwargs(
@@ -138,9 +153,9 @@ def sync(
     enum_name: str,
     target_type: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: EnumerationsSinglePatchRequest,
-) -> Union[Any, Errors] | None:
+) -> Any | Errors | None:
     """Updates the specified Enumeration in the Global context.
 
     Args:
@@ -154,7 +169,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, Errors]
+        Any | Errors
     """
 
     return sync_detailed(
@@ -171,9 +186,9 @@ async def asyncio_detailed(
     enum_name: str,
     target_type: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: EnumerationsSinglePatchRequest,
-) -> Response[Union[Any, Errors]]:
+) -> Response[Any | Errors]:
     """Updates the specified Enumeration in the Global context.
 
     Args:
@@ -187,7 +202,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, Errors]]
+        Response[Any | Errors]
     """
 
     kwargs = _get_kwargs(
@@ -207,9 +222,9 @@ async def asyncio(
     enum_name: str,
     target_type: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: EnumerationsSinglePatchRequest,
-) -> Union[Any, Errors] | None:
+) -> Any | Errors | None:
     """Updates the specified Enumeration in the Global context.
 
     Args:
@@ -223,7 +238,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, Errors]
+        Any | Errors
     """
 
     return (

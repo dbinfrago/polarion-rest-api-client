@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -15,6 +16,12 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
+    from ..models.users_list_get_response_data_item_relationships_add_on_license_slots import (
+        UsersListGetResponseDataItemRelationshipsAddOnLicenseSlots,
+    )
+    from ..models.users_list_get_response_data_item_relationships_base_license_slot import (
+        UsersListGetResponseDataItemRelationshipsBaseLicenseSlot,
+    )
     from ..models.users_list_get_response_data_item_relationships_global_roles import (
         UsersListGetResponseDataItemRelationshipsGlobalRoles,
     )
@@ -33,40 +40,60 @@ T = TypeVar("T", bound="UsersListGetResponseDataItemRelationships")
 class UsersListGetResponseDataItemRelationships:
     """
     Attributes:
-        global_roles (Union[Unset, UsersListGetResponseDataItemRelationshipsGlobalRoles]):
-        project_roles (Union[Unset, UsersListGetResponseDataItemRelationshipsProjectRoles]):
-        user_groups (Union[Unset, UsersListGetResponseDataItemRelationshipsUserGroups]):
+        add_on_license_slots (UsersListGetResponseDataItemRelationshipsAddOnLicenseSlots | Unset):
+        base_license_slot (UsersListGetResponseDataItemRelationshipsBaseLicenseSlot | Unset):
+        global_roles (UsersListGetResponseDataItemRelationshipsGlobalRoles | Unset):
+        project_roles (UsersListGetResponseDataItemRelationshipsProjectRoles | Unset):
+        user_groups (UsersListGetResponseDataItemRelationshipsUserGroups | Unset):
     """
 
-    global_roles: Union[
-        Unset, "UsersListGetResponseDataItemRelationshipsGlobalRoles"
-    ] = UNSET
-    project_roles: Union[
-        Unset, "UsersListGetResponseDataItemRelationshipsProjectRoles"
-    ] = UNSET
-    user_groups: Union[
-        Unset, "UsersListGetResponseDataItemRelationshipsUserGroups"
-    ] = UNSET
+    add_on_license_slots: (
+        UsersListGetResponseDataItemRelationshipsAddOnLicenseSlots | Unset
+    ) = UNSET
+    base_license_slot: (
+        UsersListGetResponseDataItemRelationshipsBaseLicenseSlot | Unset
+    ) = UNSET
+    global_roles: (
+        UsersListGetResponseDataItemRelationshipsGlobalRoles | Unset
+    ) = UNSET
+    project_roles: (
+        UsersListGetResponseDataItemRelationshipsProjectRoles | Unset
+    ) = UNSET
+    user_groups: (
+        UsersListGetResponseDataItemRelationshipsUserGroups | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        global_roles: Union[Unset, dict[str, Any]] = UNSET
+        add_on_license_slots: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.add_on_license_slots, Unset):
+            add_on_license_slots = self.add_on_license_slots.to_dict()
+
+        base_license_slot: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.base_license_slot, Unset):
+            base_license_slot = self.base_license_slot.to_dict()
+
+        global_roles: dict[str, Any] | Unset = UNSET
         if not isinstance(self.global_roles, Unset):
             global_roles = self.global_roles.to_dict()
 
-        project_roles: Union[Unset, dict[str, Any]] = UNSET
+        project_roles: dict[str, Any] | Unset = UNSET
         if not isinstance(self.project_roles, Unset):
             project_roles = self.project_roles.to_dict()
 
-        user_groups: Union[Unset, dict[str, Any]] = UNSET
+        user_groups: dict[str, Any] | Unset = UNSET
         if not isinstance(self.user_groups, Unset):
             user_groups = self.user_groups.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
+        if add_on_license_slots is not UNSET:
+            field_dict["addOnLicenseSlots"] = add_on_license_slots
+        if base_license_slot is not UNSET:
+            field_dict["baseLicenseSlot"] = base_license_slot
         if global_roles is not UNSET:
             field_dict["globalRoles"] = global_roles
         if project_roles is not UNSET:
@@ -78,6 +105,12 @@ class UsersListGetResponseDataItemRelationships:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.users_list_get_response_data_item_relationships_add_on_license_slots import (
+            UsersListGetResponseDataItemRelationshipsAddOnLicenseSlots,
+        )
+        from ..models.users_list_get_response_data_item_relationships_base_license_slot import (
+            UsersListGetResponseDataItemRelationshipsBaseLicenseSlot,
+        )
         from ..models.users_list_get_response_data_item_relationships_global_roles import (
             UsersListGetResponseDataItemRelationshipsGlobalRoles,
         )
@@ -89,10 +122,32 @@ class UsersListGetResponseDataItemRelationships:
         )
 
         d = dict(src_dict)
+        _add_on_license_slots = d.pop("addOnLicenseSlots", UNSET)
+        add_on_license_slots: (
+            UsersListGetResponseDataItemRelationshipsAddOnLicenseSlots | Unset
+        )
+        if isinstance(_add_on_license_slots, Unset):
+            add_on_license_slots = UNSET
+        else:
+            add_on_license_slots = UsersListGetResponseDataItemRelationshipsAddOnLicenseSlots.from_dict(
+                _add_on_license_slots
+            )
+
+        _base_license_slot = d.pop("baseLicenseSlot", UNSET)
+        base_license_slot: (
+            UsersListGetResponseDataItemRelationshipsBaseLicenseSlot | Unset
+        )
+        if isinstance(_base_license_slot, Unset):
+            base_license_slot = UNSET
+        else:
+            base_license_slot = UsersListGetResponseDataItemRelationshipsBaseLicenseSlot.from_dict(
+                _base_license_slot
+            )
+
         _global_roles = d.pop("globalRoles", UNSET)
-        global_roles: Union[
-            Unset, UsersListGetResponseDataItemRelationshipsGlobalRoles
-        ]
+        global_roles: (
+            UsersListGetResponseDataItemRelationshipsGlobalRoles | Unset
+        )
         if isinstance(_global_roles, Unset):
             global_roles = UNSET
         else:
@@ -103,9 +158,9 @@ class UsersListGetResponseDataItemRelationships:
             )
 
         _project_roles = d.pop("projectRoles", UNSET)
-        project_roles: Union[
-            Unset, UsersListGetResponseDataItemRelationshipsProjectRoles
-        ]
+        project_roles: (
+            UsersListGetResponseDataItemRelationshipsProjectRoles | Unset
+        )
         if isinstance(_project_roles, Unset):
             project_roles = UNSET
         else:
@@ -114,9 +169,9 @@ class UsersListGetResponseDataItemRelationships:
             )
 
         _user_groups = d.pop("userGroups", UNSET)
-        user_groups: Union[
-            Unset, UsersListGetResponseDataItemRelationshipsUserGroups
-        ]
+        user_groups: (
+            UsersListGetResponseDataItemRelationshipsUserGroups | Unset
+        )
         if isinstance(_user_groups, Unset):
             user_groups = UNSET
         else:
@@ -127,6 +182,8 @@ class UsersListGetResponseDataItemRelationships:
             )
 
         users_list_get_response_data_item_relationships_obj = cls(
+            add_on_license_slots=add_on_license_slots,
+            base_license_slot=base_license_slot,
             global_roles=global_roles,
             project_roles=project_roles,
             user_groups=user_groups,

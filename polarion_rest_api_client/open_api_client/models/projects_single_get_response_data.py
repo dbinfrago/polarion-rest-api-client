@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -39,30 +40,28 @@ T = TypeVar("T", bound="ProjectsSingleGetResponseData")
 class ProjectsSingleGetResponseData:
     """
     Attributes:
-        type_ (Union[Unset, ProjectsSingleGetResponseDataType]):
-        id (Union[Unset, str]):  Example: MyProjectId.
-        revision (Union[Unset, str]):  Example: 1234.
-        attributes (Union[Unset, ProjectsSingleGetResponseDataAttributes]):
-        relationships (Union[Unset, ProjectsSingleGetResponseDataRelationships]):
-        links (Union[Unset, ProjectsSingleGetResponseDataLinks]):
-        meta (Union[Unset, ProjectsSingleGetResponseDataMeta]):
+        type_ (ProjectsSingleGetResponseDataType | Unset):
+        id (str | Unset):  Example: MyProjectId.
+        revision (str | Unset):  Example: 1234.
+        attributes (ProjectsSingleGetResponseDataAttributes | Unset):
+        relationships (ProjectsSingleGetResponseDataRelationships | Unset):
+        links (ProjectsSingleGetResponseDataLinks | Unset):
+        meta (ProjectsSingleGetResponseDataMeta | Unset):
     """
 
-    type_: Union[Unset, ProjectsSingleGetResponseDataType] = UNSET
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    attributes: Union[Unset, "ProjectsSingleGetResponseDataAttributes"] = UNSET
-    relationships: Union[
-        Unset, "ProjectsSingleGetResponseDataRelationships"
-    ] = UNSET
-    links: Union[Unset, "ProjectsSingleGetResponseDataLinks"] = UNSET
-    meta: Union[Unset, "ProjectsSingleGetResponseDataMeta"] = UNSET
+    type_: ProjectsSingleGetResponseDataType | Unset = UNSET
+    id: str | Unset = UNSET
+    revision: str | Unset = UNSET
+    attributes: ProjectsSingleGetResponseDataAttributes | Unset = UNSET
+    relationships: ProjectsSingleGetResponseDataRelationships | Unset = UNSET
+    links: ProjectsSingleGetResponseDataLinks | Unset = UNSET
+    meta: ProjectsSingleGetResponseDataMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -70,19 +69,19 @@ class ProjectsSingleGetResponseData:
 
         revision = self.revision
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        relationships: Union[Unset, dict[str, Any]] = UNSET
+        relationships: dict[str, Any] | Unset = UNSET
         if not isinstance(self.relationships, Unset):
             relationships = self.relationships.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -123,7 +122,7 @@ class ProjectsSingleGetResponseData:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, ProjectsSingleGetResponseDataType]
+        type_: ProjectsSingleGetResponseDataType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -134,7 +133,7 @@ class ProjectsSingleGetResponseData:
         revision = d.pop("revision", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[Unset, ProjectsSingleGetResponseDataAttributes]
+        attributes: ProjectsSingleGetResponseDataAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -143,7 +142,7 @@ class ProjectsSingleGetResponseData:
             )
 
         _relationships = d.pop("relationships", UNSET)
-        relationships: Union[Unset, ProjectsSingleGetResponseDataRelationships]
+        relationships: ProjectsSingleGetResponseDataRelationships | Unset
         if isinstance(_relationships, Unset):
             relationships = UNSET
         else:
@@ -154,14 +153,14 @@ class ProjectsSingleGetResponseData:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, ProjectsSingleGetResponseDataLinks]
+        links: ProjectsSingleGetResponseDataLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
             links = ProjectsSingleGetResponseDataLinks.from_dict(_links)
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, ProjectsSingleGetResponseDataMeta]
+        meta: ProjectsSingleGetResponseDataMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

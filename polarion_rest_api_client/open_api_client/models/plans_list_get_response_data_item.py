@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -39,30 +40,28 @@ T = TypeVar("T", bound="PlansListGetResponseDataItem")
 class PlansListGetResponseDataItem:
     """
     Attributes:
-        type_ (Union[Unset, PlansListGetResponseDataItemType]):
-        id (Union[Unset, str]):  Example: MyProjectId/MyPlanId.
-        revision (Union[Unset, str]):  Example: 1234.
-        attributes (Union[Unset, PlansListGetResponseDataItemAttributes]):
-        relationships (Union[Unset, PlansListGetResponseDataItemRelationships]):
-        links (Union[Unset, PlansListGetResponseDataItemLinks]):
-        meta (Union[Unset, PlansListGetResponseDataItemMeta]):
+        type_ (PlansListGetResponseDataItemType | Unset):
+        id (str | Unset):  Example: MyProjectId/MyPlanId.
+        revision (str | Unset):  Example: 1234.
+        attributes (PlansListGetResponseDataItemAttributes | Unset):
+        relationships (PlansListGetResponseDataItemRelationships | Unset):
+        links (PlansListGetResponseDataItemLinks | Unset):
+        meta (PlansListGetResponseDataItemMeta | Unset):
     """
 
-    type_: Union[Unset, PlansListGetResponseDataItemType] = UNSET
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    attributes: Union[Unset, "PlansListGetResponseDataItemAttributes"] = UNSET
-    relationships: Union[
-        Unset, "PlansListGetResponseDataItemRelationships"
-    ] = UNSET
-    links: Union[Unset, "PlansListGetResponseDataItemLinks"] = UNSET
-    meta: Union[Unset, "PlansListGetResponseDataItemMeta"] = UNSET
+    type_: PlansListGetResponseDataItemType | Unset = UNSET
+    id: str | Unset = UNSET
+    revision: str | Unset = UNSET
+    attributes: PlansListGetResponseDataItemAttributes | Unset = UNSET
+    relationships: PlansListGetResponseDataItemRelationships | Unset = UNSET
+    links: PlansListGetResponseDataItemLinks | Unset = UNSET
+    meta: PlansListGetResponseDataItemMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -70,19 +69,19 @@ class PlansListGetResponseDataItem:
 
         revision = self.revision
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        relationships: Union[Unset, dict[str, Any]] = UNSET
+        relationships: dict[str, Any] | Unset = UNSET
         if not isinstance(self.relationships, Unset):
             relationships = self.relationships.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -123,7 +122,7 @@ class PlansListGetResponseDataItem:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, PlansListGetResponseDataItemType]
+        type_: PlansListGetResponseDataItemType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -134,7 +133,7 @@ class PlansListGetResponseDataItem:
         revision = d.pop("revision", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[Unset, PlansListGetResponseDataItemAttributes]
+        attributes: PlansListGetResponseDataItemAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -143,7 +142,7 @@ class PlansListGetResponseDataItem:
             )
 
         _relationships = d.pop("relationships", UNSET)
-        relationships: Union[Unset, PlansListGetResponseDataItemRelationships]
+        relationships: PlansListGetResponseDataItemRelationships | Unset
         if isinstance(_relationships, Unset):
             relationships = UNSET
         else:
@@ -154,14 +153,14 @@ class PlansListGetResponseDataItem:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, PlansListGetResponseDataItemLinks]
+        links: PlansListGetResponseDataItemLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
             links = PlansListGetResponseDataItemLinks.from_dict(_links)
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, PlansListGetResponseDataItemMeta]
+        meta: PlansListGetResponseDataItemMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

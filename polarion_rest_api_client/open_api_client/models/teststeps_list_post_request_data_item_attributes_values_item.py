@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -23,20 +21,20 @@ T = TypeVar("T", bound="TeststepsListPostRequestDataItemAttributesValuesItem")
 class TeststepsListPostRequestDataItemAttributesValuesItem:
     """
     Attributes:
-        type_ (Union[Unset, TeststepsListPostRequestDataItemAttributesValuesItemType]):
-        value (Union[Unset, str]):  Example: My text value.
+        type_ (TeststepsListPostRequestDataItemAttributesValuesItemType | Unset):
+        value (str | Unset):  Example: My text value.
     """
 
-    type_: Union[
-        Unset, TeststepsListPostRequestDataItemAttributesValuesItemType
-    ] = UNSET
-    value: Union[Unset, str] = UNSET
+    type_: TeststepsListPostRequestDataItemAttributesValuesItemType | Unset = (
+        UNSET
+    )
+    value: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -56,9 +54,7 @@ class TeststepsListPostRequestDataItemAttributesValuesItem:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[
-            Unset, TeststepsListPostRequestDataItemAttributesValuesItemType
-        ]
+        type_: TeststepsListPostRequestDataItemAttributesValuesItemType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:

@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -33,36 +34,36 @@ T = TypeVar("T", bound="FeatureselectionsSingleGetResponse")
 class FeatureselectionsSingleGetResponse:
     """
     Attributes:
-        data (Union[Unset, FeatureselectionsSingleGetResponseData]):
-        included (Union[Unset, list['FeatureselectionsSingleGetResponseIncludedItem']]): Related entities might be
-            returned, see <a href="https://docs.sw.siemens.com/en-
-            US/doc/230235217/PL20241023686685479.polarion_help_sc.xid2134849/xid2134871" target="_blank">REST API User
+        data (FeatureselectionsSingleGetResponseData | Unset):
+        included (list[FeatureselectionsSingleGetResponseIncludedItem] | Unset): Related entities might be returned, see
+            <a href="https://docs.sw.siemens.com/en-
+            US/doc/230235217/PL20250606201928474.polarion_help_sc.xid2134849/xid2134871" target="_blank">REST API User
             Guide</a>.
-        links (Union[Unset, FeatureselectionsSingleGetResponseLinks]):
+        links (FeatureselectionsSingleGetResponseLinks | Unset):
     """
 
-    data: Union[Unset, "FeatureselectionsSingleGetResponseData"] = UNSET
-    included: Union[
-        Unset, list["FeatureselectionsSingleGetResponseIncludedItem"]
-    ] = UNSET
-    links: Union[Unset, "FeatureselectionsSingleGetResponseLinks"] = UNSET
+    data: FeatureselectionsSingleGetResponseData | Unset = UNSET
+    included: list[FeatureselectionsSingleGetResponseIncludedItem] | Unset = (
+        UNSET
+    )
+    links: FeatureselectionsSingleGetResponseLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        data: Union[Unset, dict[str, Any]] = UNSET
+        data: dict[str, Any] | Unset = UNSET
         if not isinstance(self.data, Unset):
             data = self.data.to_dict()
 
-        included: Union[Unset, list[dict[str, Any]]] = UNSET
+        included: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.included, Unset):
             included = []
             for included_item_data in self.included:
                 included_item = included_item_data.to_dict()
                 included.append(included_item)
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
@@ -92,25 +93,29 @@ class FeatureselectionsSingleGetResponse:
 
         d = dict(src_dict)
         _data = d.pop("data", UNSET)
-        data: Union[Unset, FeatureselectionsSingleGetResponseData]
+        data: FeatureselectionsSingleGetResponseData | Unset
         if isinstance(_data, Unset):
             data = UNSET
         else:
             data = FeatureselectionsSingleGetResponseData.from_dict(_data)
 
-        included = []
         _included = d.pop("included", UNSET)
-        for included_item_data in _included or []:
-            included_item = (
-                FeatureselectionsSingleGetResponseIncludedItem.from_dict(
-                    included_item_data
+        included: (
+            list[FeatureselectionsSingleGetResponseIncludedItem] | Unset
+        ) = UNSET
+        if _included is not UNSET:
+            included = []
+            for included_item_data in _included:
+                included_item = (
+                    FeatureselectionsSingleGetResponseIncludedItem.from_dict(
+                        included_item_data
+                    )
                 )
-            )
 
-            included.append(included_item)
+                included.append(included_item)
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, FeatureselectionsSingleGetResponseLinks]
+        links: FeatureselectionsSingleGetResponseLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:

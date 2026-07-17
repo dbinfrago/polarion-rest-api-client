@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -33,34 +34,34 @@ T = TypeVar("T", bound="DocumentPartsListGetResponseDataItemRelationships")
 class DocumentPartsListGetResponseDataItemRelationships:
     """
     Attributes:
-        next_part (Union[Unset, DocumentPartsListGetResponseDataItemRelationshipsNextPart]):
-        previous_part (Union[Unset, DocumentPartsListGetResponseDataItemRelationshipsPreviousPart]):
-        work_item (Union[Unset, DocumentPartsListGetResponseDataItemRelationshipsWorkItem]):
+        next_part (DocumentPartsListGetResponseDataItemRelationshipsNextPart | Unset):
+        previous_part (DocumentPartsListGetResponseDataItemRelationshipsPreviousPart | Unset):
+        work_item (DocumentPartsListGetResponseDataItemRelationshipsWorkItem | Unset):
     """
 
-    next_part: Union[
-        Unset, "DocumentPartsListGetResponseDataItemRelationshipsNextPart"
-    ] = UNSET
-    previous_part: Union[
-        Unset, "DocumentPartsListGetResponseDataItemRelationshipsPreviousPart"
-    ] = UNSET
-    work_item: Union[
-        Unset, "DocumentPartsListGetResponseDataItemRelationshipsWorkItem"
-    ] = UNSET
+    next_part: (
+        DocumentPartsListGetResponseDataItemRelationshipsNextPart | Unset
+    ) = UNSET
+    previous_part: (
+        DocumentPartsListGetResponseDataItemRelationshipsPreviousPart | Unset
+    ) = UNSET
+    work_item: (
+        DocumentPartsListGetResponseDataItemRelationshipsWorkItem | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        next_part: Union[Unset, dict[str, Any]] = UNSET
+        next_part: dict[str, Any] | Unset = UNSET
         if not isinstance(self.next_part, Unset):
             next_part = self.next_part.to_dict()
 
-        previous_part: Union[Unset, dict[str, Any]] = UNSET
+        previous_part: dict[str, Any] | Unset = UNSET
         if not isinstance(self.previous_part, Unset):
             previous_part = self.previous_part.to_dict()
 
-        work_item: Union[Unset, dict[str, Any]] = UNSET
+        work_item: dict[str, Any] | Unset = UNSET
         if not isinstance(self.work_item, Unset):
             work_item = self.work_item.to_dict()
 
@@ -90,9 +91,9 @@ class DocumentPartsListGetResponseDataItemRelationships:
 
         d = dict(src_dict)
         _next_part = d.pop("nextPart", UNSET)
-        next_part: Union[
-            Unset, DocumentPartsListGetResponseDataItemRelationshipsNextPart
-        ]
+        next_part: (
+            DocumentPartsListGetResponseDataItemRelationshipsNextPart | Unset
+        )
         if isinstance(_next_part, Unset):
             next_part = UNSET
         else:
@@ -101,10 +102,10 @@ class DocumentPartsListGetResponseDataItemRelationships:
             )
 
         _previous_part = d.pop("previousPart", UNSET)
-        previous_part: Union[
-            Unset,
-            DocumentPartsListGetResponseDataItemRelationshipsPreviousPart,
-        ]
+        previous_part: (
+            DocumentPartsListGetResponseDataItemRelationshipsPreviousPart
+            | Unset
+        )
         if isinstance(_previous_part, Unset):
             previous_part = UNSET
         else:
@@ -113,9 +114,9 @@ class DocumentPartsListGetResponseDataItemRelationships:
             )
 
         _work_item = d.pop("workItem", UNSET)
-        work_item: Union[
-            Unset, DocumentPartsListGetResponseDataItemRelationshipsWorkItem
-        ]
+        work_item: (
+            DocumentPartsListGetResponseDataItemRelationshipsWorkItem | Unset
+        )
         if isinstance(_work_item, Unset):
             work_item = UNSET
         else:

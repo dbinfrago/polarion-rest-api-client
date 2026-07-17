@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -39,50 +40,44 @@ T = TypeVar("T", bound="JobsSingleGetResponseData")
 class JobsSingleGetResponseData:
     """
     Attributes:
-        type_ (Union[Unset, JobsSingleGetResponseDataType]):
-        id (Union[Unset, str]):  Example: MyJobId.
-        revision (Union[Unset, str]):  Example: 1234.
-        attributes (Union[Unset, JobsSingleGetResponseDataAttributes]):
-        relationships (Union[Unset, JobsSingleGetResponseDataRelationships]):
-        links (Union[Unset, JobsSingleGetResponseDataLinks]):
-        meta (Union[Unset, JobsSingleGetResponseDataMeta]):
+        type_ (JobsSingleGetResponseDataType | Unset):
+        id (str | Unset):  Example: MyJobId.
+        attributes (JobsSingleGetResponseDataAttributes | Unset):
+        relationships (JobsSingleGetResponseDataRelationships | Unset):
+        links (JobsSingleGetResponseDataLinks | Unset):
+        meta (JobsSingleGetResponseDataMeta | Unset):
     """
 
-    type_: Union[Unset, JobsSingleGetResponseDataType] = UNSET
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    attributes: Union[Unset, "JobsSingleGetResponseDataAttributes"] = UNSET
-    relationships: Union[Unset, "JobsSingleGetResponseDataRelationships"] = (
-        UNSET
-    )
-    links: Union[Unset, "JobsSingleGetResponseDataLinks"] = UNSET
-    meta: Union[Unset, "JobsSingleGetResponseDataMeta"] = UNSET
+    type_: JobsSingleGetResponseDataType | Unset = UNSET
+    id: str | Unset = UNSET
+    attributes: JobsSingleGetResponseDataAttributes | Unset = UNSET
+    relationships: JobsSingleGetResponseDataRelationships | Unset = UNSET
+    links: JobsSingleGetResponseDataLinks | Unset = UNSET
+    meta: JobsSingleGetResponseDataMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
         id = self.id
 
-        revision = self.revision
-
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        relationships: Union[Unset, dict[str, Any]] = UNSET
+        relationships: dict[str, Any] | Unset = UNSET
         if not isinstance(self.relationships, Unset):
             relationships = self.relationships.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -93,8 +88,6 @@ class JobsSingleGetResponseData:
             field_dict["type"] = type_
         if id is not UNSET:
             field_dict["id"] = id
-        if revision is not UNSET:
-            field_dict["revision"] = revision
         if attributes is not UNSET:
             field_dict["attributes"] = attributes
         if relationships is not UNSET:
@@ -123,7 +116,7 @@ class JobsSingleGetResponseData:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, JobsSingleGetResponseDataType]
+        type_: JobsSingleGetResponseDataType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -131,10 +124,8 @@ class JobsSingleGetResponseData:
 
         id = d.pop("id", UNSET)
 
-        revision = d.pop("revision", UNSET)
-
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[Unset, JobsSingleGetResponseDataAttributes]
+        attributes: JobsSingleGetResponseDataAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -143,7 +134,7 @@ class JobsSingleGetResponseData:
             )
 
         _relationships = d.pop("relationships", UNSET)
-        relationships: Union[Unset, JobsSingleGetResponseDataRelationships]
+        relationships: JobsSingleGetResponseDataRelationships | Unset
         if isinstance(_relationships, Unset):
             relationships = UNSET
         else:
@@ -152,14 +143,14 @@ class JobsSingleGetResponseData:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, JobsSingleGetResponseDataLinks]
+        links: JobsSingleGetResponseDataLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
             links = JobsSingleGetResponseDataLinks.from_dict(_links)
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, JobsSingleGetResponseDataMeta]
+        meta: JobsSingleGetResponseDataMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:
@@ -168,7 +159,6 @@ class JobsSingleGetResponseData:
         jobs_single_get_response_data_obj = cls(
             type_=type_,
             id=id,
-            revision=revision,
             attributes=attributes,
             relationships=relationships,
             links=links,

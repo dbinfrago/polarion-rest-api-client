@@ -1,11 +1,12 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     Any,
     TypeVar,
-    Union,
     cast,
 )
 
@@ -22,33 +23,33 @@ class BranchDocumentsRequestBodyDocumentConfigurationsItem:
     """
     Attributes:
         source_document (str): Reference path of the source Document. Example: MyProjectId/MySpaceId/MyDocumentId.
-        copy_workflow_status_and_signatures (Union[Unset, bool]): Specifies that workflow status and signatures should
-            be copied to the branched document.
-        initialized_fields (Union[Unset, list[str]]): Specifies fields of overwritten Work Items that should be
-            initialized (instead of being copied from source Work Items).
-        overwrite_work_items (Union[Unset, bool]): Specifies that Work Items in the branched Document should be
-            overwritten (instead of being referenced).
-        query (Union[Unset, str]): Specifies optional filtering query. Example: status:open.
-        source_revision (Union[Unset, str]): Revision of the source Document. Example: 1234.
-        target_document_name (Union[Unset, str]): Name for new Document. Example: MyDocumentId.
-        target_document_title (Union[Unset, str]): Title for new Document. Example: My Document Title.
-        target_project_id (Union[Unset, str]): Project where new document will be created. Example: MyProjectId.
-        target_space_id (Union[Unset, str]): Space where new document will be created. Example: MySpaceId.
-        update_title_heading (Union[Unset, bool]): Specifies that title heading of the target Document should be set to
-            the new Document's title.
+        copy_workflow_status_and_signatures (bool | Unset): Specifies that workflow status and signatures should be
+            copied to the branched document.
+        initialized_fields (list[str] | Unset): Specifies fields of overwritten Work Items that should be initialized
+            (instead of being copied from source Work Items).
+        overwrite_work_items (bool | Unset): Specifies that Work Items in the branched Document should be overwritten
+            (instead of being referenced).
+        query (str | Unset): Specifies optional filtering query. Example: status:open.
+        source_revision (str | Unset): Revision of the source Document. Example: 1234.
+        target_document_name (str | Unset): Name for new Document. Example: MyDocumentId.
+        target_document_title (str | Unset): Title for new Document. Example: My Document Title.
+        target_project_id (str | Unset): Project where new document will be created. Example: MyProjectId.
+        target_space_id (str | Unset): Space where new document will be created. Example: MySpaceId.
+        update_title_heading (bool | Unset): Specifies that title heading of the target Document should be set to the
+            new Document's title.
     """
 
     source_document: str
-    copy_workflow_status_and_signatures: Union[Unset, bool] = UNSET
-    initialized_fields: Union[Unset, list[str]] = UNSET
-    overwrite_work_items: Union[Unset, bool] = UNSET
-    query: Union[Unset, str] = UNSET
-    source_revision: Union[Unset, str] = UNSET
-    target_document_name: Union[Unset, str] = UNSET
-    target_document_title: Union[Unset, str] = UNSET
-    target_project_id: Union[Unset, str] = UNSET
-    target_space_id: Union[Unset, str] = UNSET
-    update_title_heading: Union[Unset, bool] = UNSET
+    copy_workflow_status_and_signatures: bool | Unset = UNSET
+    initialized_fields: list[str] | Unset = UNSET
+    overwrite_work_items: bool | Unset = UNSET
+    query: str | Unset = UNSET
+    source_revision: str | Unset = UNSET
+    target_document_name: str | Unset = UNSET
+    target_document_title: str | Unset = UNSET
+    target_project_id: str | Unset = UNSET
+    target_space_id: str | Unset = UNSET
+    update_title_heading: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -60,7 +61,7 @@ class BranchDocumentsRequestBodyDocumentConfigurationsItem:
             self.copy_workflow_status_and_signatures
         )
 
-        initialized_fields: Union[Unset, list[str]] = UNSET
+        initialized_fields: list[str] | Unset = UNSET
         if not isinstance(self.initialized_fields, Unset):
             initialized_fields = self.initialized_fields
 

@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -33,34 +34,28 @@ T = TypeVar("T", bound="JobsSingleGetResponseDataRelationships")
 class JobsSingleGetResponseDataRelationships:
     """
     Attributes:
-        document (Union[Unset, JobsSingleGetResponseDataRelationshipsDocument]):
-        documents (Union[Unset, JobsSingleGetResponseDataRelationshipsDocuments]):
-        project (Union[Unset, JobsSingleGetResponseDataRelationshipsProject]):
+        document (JobsSingleGetResponseDataRelationshipsDocument | Unset):
+        documents (JobsSingleGetResponseDataRelationshipsDocuments | Unset):
+        project (JobsSingleGetResponseDataRelationshipsProject | Unset):
     """
 
-    document: Union[
-        Unset, "JobsSingleGetResponseDataRelationshipsDocument"
-    ] = UNSET
-    documents: Union[
-        Unset, "JobsSingleGetResponseDataRelationshipsDocuments"
-    ] = UNSET
-    project: Union[Unset, "JobsSingleGetResponseDataRelationshipsProject"] = (
-        UNSET
-    )
+    document: JobsSingleGetResponseDataRelationshipsDocument | Unset = UNSET
+    documents: JobsSingleGetResponseDataRelationshipsDocuments | Unset = UNSET
+    project: JobsSingleGetResponseDataRelationshipsProject | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        document: Union[Unset, dict[str, Any]] = UNSET
+        document: dict[str, Any] | Unset = UNSET
         if not isinstance(self.document, Unset):
             document = self.document.to_dict()
 
-        documents: Union[Unset, dict[str, Any]] = UNSET
+        documents: dict[str, Any] | Unset = UNSET
         if not isinstance(self.documents, Unset):
             documents = self.documents.to_dict()
 
-        project: Union[Unset, dict[str, Any]] = UNSET
+        project: dict[str, Any] | Unset = UNSET
         if not isinstance(self.project, Unset):
             project = self.project.to_dict()
 
@@ -90,7 +85,7 @@ class JobsSingleGetResponseDataRelationships:
 
         d = dict(src_dict)
         _document = d.pop("document", UNSET)
-        document: Union[Unset, JobsSingleGetResponseDataRelationshipsDocument]
+        document: JobsSingleGetResponseDataRelationshipsDocument | Unset
         if isinstance(_document, Unset):
             document = UNSET
         else:
@@ -101,9 +96,7 @@ class JobsSingleGetResponseDataRelationships:
             )
 
         _documents = d.pop("documents", UNSET)
-        documents: Union[
-            Unset, JobsSingleGetResponseDataRelationshipsDocuments
-        ]
+        documents: JobsSingleGetResponseDataRelationshipsDocuments | Unset
         if isinstance(_documents, Unset):
             documents = UNSET
         else:
@@ -114,7 +107,7 @@ class JobsSingleGetResponseDataRelationships:
             )
 
         _project = d.pop("project", UNSET)
-        project: Union[Unset, JobsSingleGetResponseDataRelationshipsProject]
+        project: JobsSingleGetResponseDataRelationshipsProject | Unset
         if isinstance(_project, Unset):
             project = UNSET
         else:

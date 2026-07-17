@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -27,16 +28,16 @@ T = TypeVar("T", bound="JobsSinglePostResponseDataAttributes")
 class JobsSinglePostResponseDataAttributes:
     """
     Attributes:
-        job_id (Union[Unset, str]):  Example: example.
-        name (Union[Unset, str]):  Example: example.
-        state (Union[Unset, str]):  Example: example.
-        status (Union[Unset, JobsSinglePostResponseDataAttributesStatus]):
+        job_id (str | Unset):  Example: example.
+        name (str | Unset):  Example: example.
+        state (str | Unset):  Example: example.
+        status (JobsSinglePostResponseDataAttributesStatus | Unset):
     """
 
-    job_id: Union[Unset, str] = UNSET
-    name: Union[Unset, str] = UNSET
-    state: Union[Unset, str] = UNSET
-    status: Union[Unset, "JobsSinglePostResponseDataAttributesStatus"] = UNSET
+    job_id: str | Unset = UNSET
+    name: str | Unset = UNSET
+    state: str | Unset = UNSET
+    status: JobsSinglePostResponseDataAttributesStatus | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -48,7 +49,7 @@ class JobsSinglePostResponseDataAttributes:
 
         state = self.state
 
-        status: Union[Unset, dict[str, Any]] = UNSET
+        status: dict[str, Any] | Unset = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.to_dict()
 
@@ -80,7 +81,7 @@ class JobsSinglePostResponseDataAttributes:
         state = d.pop("state", UNSET)
 
         _status = d.pop("status", UNSET)
-        status: Union[Unset, JobsSinglePostResponseDataAttributesStatus]
+        status: JobsSinglePostResponseDataAttributesStatus | Unset
         if isinstance(_status, Unset):
             status = UNSET
         else:

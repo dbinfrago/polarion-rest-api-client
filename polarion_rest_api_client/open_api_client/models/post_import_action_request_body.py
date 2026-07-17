@@ -1,15 +1,12 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 import json
 from collections.abc import Mapping
 from io import BytesIO
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -31,11 +28,11 @@ class PostImportActionRequestBody:
     """
     Attributes:
         file (File): excel file content
-        resource (Union[Unset, ImportTestResultsRequestBody]):
+        resource (ImportTestResultsRequestBody | Unset):
     """
 
     file: File
-    resource: Union[Unset, "ImportTestResultsRequestBody"] = UNSET
+    resource: ImportTestResultsRequestBody | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -43,7 +40,7 @@ class PostImportActionRequestBody:
     def to_dict(self) -> dict[str, Any]:
         file = self.file.to_tuple()
 
-        resource: Union[Unset, dict[str, Any]] = UNSET
+        resource: dict[str, Any] | Unset = UNSET
         if not isinstance(self.resource, Unset):
             resource = self.resource.to_dict()
 
@@ -91,7 +88,7 @@ class PostImportActionRequestBody:
         file = File(payload=BytesIO(d.pop("file")))
 
         _resource = d.pop("resource", UNSET)
-        resource: Union[Unset, ImportTestResultsRequestBody]
+        resource: ImportTestResultsRequestBody | Unset
         if isinstance(_resource, Unset):
             resource = UNSET
         else:

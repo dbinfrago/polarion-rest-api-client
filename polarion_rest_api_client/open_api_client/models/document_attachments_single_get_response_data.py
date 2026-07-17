@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -39,34 +40,32 @@ T = TypeVar("T", bound="DocumentAttachmentsSingleGetResponseData")
 class DocumentAttachmentsSingleGetResponseData:
     """
     Attributes:
-        type_ (Union[Unset, DocumentAttachmentsSingleGetResponseDataType]):
-        id (Union[Unset, str]):  Example: MyProjectId/MySpaceId/MyDocumentId/MyAttachmentId.
-        revision (Union[Unset, str]):  Example: 1234.
-        attributes (Union[Unset, DocumentAttachmentsSingleGetResponseDataAttributes]):
-        relationships (Union[Unset, DocumentAttachmentsSingleGetResponseDataRelationships]):
-        links (Union[Unset, DocumentAttachmentsSingleGetResponseDataLinks]):
-        meta (Union[Unset, DocumentAttachmentsSingleGetResponseDataMeta]):
+        type_ (DocumentAttachmentsSingleGetResponseDataType | Unset):
+        id (str | Unset):  Example: MyProjectId/MySpaceId/MyDocumentId/MyAttachmentId.
+        revision (str | Unset):  Example: 1234.
+        attributes (DocumentAttachmentsSingleGetResponseDataAttributes | Unset):
+        relationships (DocumentAttachmentsSingleGetResponseDataRelationships | Unset):
+        links (DocumentAttachmentsSingleGetResponseDataLinks | Unset):
+        meta (DocumentAttachmentsSingleGetResponseDataMeta | Unset):
     """
 
-    type_: Union[Unset, DocumentAttachmentsSingleGetResponseDataType] = UNSET
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    attributes: Union[
-        Unset, "DocumentAttachmentsSingleGetResponseDataAttributes"
-    ] = UNSET
-    relationships: Union[
-        Unset, "DocumentAttachmentsSingleGetResponseDataRelationships"
-    ] = UNSET
-    links: Union[Unset, "DocumentAttachmentsSingleGetResponseDataLinks"] = (
+    type_: DocumentAttachmentsSingleGetResponseDataType | Unset = UNSET
+    id: str | Unset = UNSET
+    revision: str | Unset = UNSET
+    attributes: DocumentAttachmentsSingleGetResponseDataAttributes | Unset = (
         UNSET
     )
-    meta: Union[Unset, "DocumentAttachmentsSingleGetResponseDataMeta"] = UNSET
+    relationships: (
+        DocumentAttachmentsSingleGetResponseDataRelationships | Unset
+    ) = UNSET
+    links: DocumentAttachmentsSingleGetResponseDataLinks | Unset = UNSET
+    meta: DocumentAttachmentsSingleGetResponseDataMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -74,19 +73,19 @@ class DocumentAttachmentsSingleGetResponseData:
 
         revision = self.revision
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        relationships: Union[Unset, dict[str, Any]] = UNSET
+        relationships: dict[str, Any] | Unset = UNSET
         if not isinstance(self.relationships, Unset):
             relationships = self.relationships.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -127,7 +126,7 @@ class DocumentAttachmentsSingleGetResponseData:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, DocumentAttachmentsSingleGetResponseDataType]
+        type_: DocumentAttachmentsSingleGetResponseDataType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -138,9 +137,7 @@ class DocumentAttachmentsSingleGetResponseData:
         revision = d.pop("revision", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[
-            Unset, DocumentAttachmentsSingleGetResponseDataAttributes
-        ]
+        attributes: DocumentAttachmentsSingleGetResponseDataAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -151,9 +148,9 @@ class DocumentAttachmentsSingleGetResponseData:
             )
 
         _relationships = d.pop("relationships", UNSET)
-        relationships: Union[
-            Unset, DocumentAttachmentsSingleGetResponseDataRelationships
-        ]
+        relationships: (
+            DocumentAttachmentsSingleGetResponseDataRelationships | Unset
+        )
         if isinstance(_relationships, Unset):
             relationships = UNSET
         else:
@@ -162,7 +159,7 @@ class DocumentAttachmentsSingleGetResponseData:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, DocumentAttachmentsSingleGetResponseDataLinks]
+        links: DocumentAttachmentsSingleGetResponseDataLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
@@ -171,7 +168,7 @@ class DocumentAttachmentsSingleGetResponseData:
             )
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, DocumentAttachmentsSingleGetResponseDataMeta]
+        meta: DocumentAttachmentsSingleGetResponseDataMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

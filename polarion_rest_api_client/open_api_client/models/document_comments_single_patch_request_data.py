@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -30,28 +31,28 @@ T = TypeVar("T", bound="DocumentCommentsSinglePatchRequestData")
 class DocumentCommentsSinglePatchRequestData:
     """
     Attributes:
-        type_ (Union[Unset, DocumentCommentsSinglePatchRequestDataType]):
-        id (Union[Unset, str]):  Example: MyProjectId/MySpaceId/MyDocumentId/MyCommentId.
-        attributes (Union[Unset, DocumentCommentsSinglePatchRequestDataAttributes]):
+        type_ (DocumentCommentsSinglePatchRequestDataType | Unset):
+        id (str | Unset):  Example: MyProjectId/MySpaceId/MyDocumentId/MyCommentId.
+        attributes (DocumentCommentsSinglePatchRequestDataAttributes | Unset):
     """
 
-    type_: Union[Unset, DocumentCommentsSinglePatchRequestDataType] = UNSET
-    id: Union[Unset, str] = UNSET
-    attributes: Union[
-        Unset, "DocumentCommentsSinglePatchRequestDataAttributes"
-    ] = UNSET
+    type_: DocumentCommentsSinglePatchRequestDataType | Unset = UNSET
+    id: str | Unset = UNSET
+    attributes: DocumentCommentsSinglePatchRequestDataAttributes | Unset = (
+        UNSET
+    )
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
         id = self.id
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
@@ -75,7 +76,7 @@ class DocumentCommentsSinglePatchRequestData:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, DocumentCommentsSinglePatchRequestDataType]
+        type_: DocumentCommentsSinglePatchRequestDataType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -84,9 +85,7 @@ class DocumentCommentsSinglePatchRequestData:
         id = d.pop("id", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[
-            Unset, DocumentCommentsSinglePatchRequestDataAttributes
-        ]
+        attributes: DocumentCommentsSinglePatchRequestDataAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:

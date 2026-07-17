@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -27,18 +28,18 @@ T = TypeVar("T", bound="EnumerationsListPostRequestDataItemAttributes")
 class EnumerationsListPostRequestDataItemAttributes:
     """
     Attributes:
-        enum_context (Union[Unset, str]):  Example: id.
-        enum_name (Union[Unset, str]):  Example: id.
-        options (Union[Unset, list['EnumerationsListPostRequestDataItemAttributesOptionsItem']]):
-        target_type (Union[Unset, str]):  Example: id.
+        enum_context (str | Unset):  Example: id.
+        enum_name (str | Unset):  Example: id.
+        options (list[EnumerationsListPostRequestDataItemAttributesOptionsItem] | Unset):
+        target_type (str | Unset):  Example: id.
     """
 
-    enum_context: Union[Unset, str] = UNSET
-    enum_name: Union[Unset, str] = UNSET
-    options: Union[
-        Unset, list["EnumerationsListPostRequestDataItemAttributesOptionsItem"]
-    ] = UNSET
-    target_type: Union[Unset, str] = UNSET
+    enum_context: str | Unset = UNSET
+    enum_name: str | Unset = UNSET
+    options: (
+        list[EnumerationsListPostRequestDataItemAttributesOptionsItem] | Unset
+    ) = UNSET
+    target_type: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -48,7 +49,7 @@ class EnumerationsListPostRequestDataItemAttributes:
 
         enum_name = self.enum_name
 
-        options: Union[Unset, list[dict[str, Any]]] = UNSET
+        options: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.options, Unset):
             options = []
             for options_item_data in self.options:
@@ -82,14 +83,19 @@ class EnumerationsListPostRequestDataItemAttributes:
 
         enum_name = d.pop("enumName", UNSET)
 
-        options = []
         _options = d.pop("options", UNSET)
-        for options_item_data in _options or []:
-            options_item = EnumerationsListPostRequestDataItemAttributesOptionsItem.from_dict(
-                options_item_data
-            )
+        options: (
+            list[EnumerationsListPostRequestDataItemAttributesOptionsItem]
+            | Unset
+        ) = UNSET
+        if _options is not UNSET:
+            options = []
+            for options_item_data in _options:
+                options_item = EnumerationsListPostRequestDataItemAttributesOptionsItem.from_dict(
+                    options_item_data
+                )
 
-            options.append(options_item)
+                options.append(options_item)
 
         target_type = d.pop("targetType", UNSET)
 

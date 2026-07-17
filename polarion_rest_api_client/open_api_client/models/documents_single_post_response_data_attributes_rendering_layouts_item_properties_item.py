@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -23,12 +21,12 @@ T = TypeVar(
 class DocumentsSinglePostResponseDataAttributesRenderingLayoutsItemPropertiesItem:
     """
     Attributes:
-        key (Union[Unset, str]):  Example: fieldsAtStart.
-        value (Union[Unset, str]):  Example: id.
+        key (str | Unset):  Example: fieldsAtStart.
+        value (str | Unset):  Example: id.
     """
 
-    key: Union[Unset, str] = UNSET
-    value: Union[Unset, str] = UNSET
+    key: str | Unset = UNSET
+    value: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )

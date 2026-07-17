@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -48,74 +49,68 @@ T = TypeVar("T", bound="DocumentsSingleGetResponseDataRelationships")
 class DocumentsSingleGetResponseDataRelationships:
     """
     Attributes:
-        attachments (Union[Unset, DocumentsSingleGetResponseDataRelationshipsAttachments]):
-        author (Union[Unset, DocumentsSingleGetResponseDataRelationshipsAuthor]):
-        branched_from (Union[Unset, DocumentsSingleGetResponseDataRelationshipsBranchedFrom]):
-        comments (Union[Unset, DocumentsSingleGetResponseDataRelationshipsComments]):
-        derived_from (Union[Unset, DocumentsSingleGetResponseDataRelationshipsDerivedFrom]):
-        project (Union[Unset, DocumentsSingleGetResponseDataRelationshipsProject]):
-        updated_by (Union[Unset, DocumentsSingleGetResponseDataRelationshipsUpdatedBy]):
-        variant (Union[Unset, DocumentsSingleGetResponseDataRelationshipsVariant]):
+        attachments (DocumentsSingleGetResponseDataRelationshipsAttachments | Unset):
+        author (DocumentsSingleGetResponseDataRelationshipsAuthor | Unset):
+        branched_from (DocumentsSingleGetResponseDataRelationshipsBranchedFrom | Unset):
+        comments (DocumentsSingleGetResponseDataRelationshipsComments | Unset):
+        derived_from (DocumentsSingleGetResponseDataRelationshipsDerivedFrom | Unset):
+        project (DocumentsSingleGetResponseDataRelationshipsProject | Unset):
+        updated_by (DocumentsSingleGetResponseDataRelationshipsUpdatedBy | Unset):
+        variant (DocumentsSingleGetResponseDataRelationshipsVariant | Unset):
     """
 
-    attachments: Union[
-        Unset, "DocumentsSingleGetResponseDataRelationshipsAttachments"
-    ] = UNSET
-    author: Union[
-        Unset, "DocumentsSingleGetResponseDataRelationshipsAuthor"
-    ] = UNSET
-    branched_from: Union[
-        Unset, "DocumentsSingleGetResponseDataRelationshipsBranchedFrom"
-    ] = UNSET
-    comments: Union[
-        Unset, "DocumentsSingleGetResponseDataRelationshipsComments"
-    ] = UNSET
-    derived_from: Union[
-        Unset, "DocumentsSingleGetResponseDataRelationshipsDerivedFrom"
-    ] = UNSET
-    project: Union[
-        Unset, "DocumentsSingleGetResponseDataRelationshipsProject"
-    ] = UNSET
-    updated_by: Union[
-        Unset, "DocumentsSingleGetResponseDataRelationshipsUpdatedBy"
-    ] = UNSET
-    variant: Union[
-        Unset, "DocumentsSingleGetResponseDataRelationshipsVariant"
-    ] = UNSET
+    attachments: (
+        DocumentsSingleGetResponseDataRelationshipsAttachments | Unset
+    ) = UNSET
+    author: DocumentsSingleGetResponseDataRelationshipsAuthor | Unset = UNSET
+    branched_from: (
+        DocumentsSingleGetResponseDataRelationshipsBranchedFrom | Unset
+    ) = UNSET
+    comments: DocumentsSingleGetResponseDataRelationshipsComments | Unset = (
+        UNSET
+    )
+    derived_from: (
+        DocumentsSingleGetResponseDataRelationshipsDerivedFrom | Unset
+    ) = UNSET
+    project: DocumentsSingleGetResponseDataRelationshipsProject | Unset = UNSET
+    updated_by: (
+        DocumentsSingleGetResponseDataRelationshipsUpdatedBy | Unset
+    ) = UNSET
+    variant: DocumentsSingleGetResponseDataRelationshipsVariant | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        attachments: Union[Unset, dict[str, Any]] = UNSET
+        attachments: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attachments, Unset):
             attachments = self.attachments.to_dict()
 
-        author: Union[Unset, dict[str, Any]] = UNSET
+        author: dict[str, Any] | Unset = UNSET
         if not isinstance(self.author, Unset):
             author = self.author.to_dict()
 
-        branched_from: Union[Unset, dict[str, Any]] = UNSET
+        branched_from: dict[str, Any] | Unset = UNSET
         if not isinstance(self.branched_from, Unset):
             branched_from = self.branched_from.to_dict()
 
-        comments: Union[Unset, dict[str, Any]] = UNSET
+        comments: dict[str, Any] | Unset = UNSET
         if not isinstance(self.comments, Unset):
             comments = self.comments.to_dict()
 
-        derived_from: Union[Unset, dict[str, Any]] = UNSET
+        derived_from: dict[str, Any] | Unset = UNSET
         if not isinstance(self.derived_from, Unset):
             derived_from = self.derived_from.to_dict()
 
-        project: Union[Unset, dict[str, Any]] = UNSET
+        project: dict[str, Any] | Unset = UNSET
         if not isinstance(self.project, Unset):
             project = self.project.to_dict()
 
-        updated_by: Union[Unset, dict[str, Any]] = UNSET
+        updated_by: dict[str, Any] | Unset = UNSET
         if not isinstance(self.updated_by, Unset):
             updated_by = self.updated_by.to_dict()
 
-        variant: Union[Unset, dict[str, Any]] = UNSET
+        variant: dict[str, Any] | Unset = UNSET
         if not isinstance(self.variant, Unset):
             variant = self.variant.to_dict()
 
@@ -170,9 +165,9 @@ class DocumentsSingleGetResponseDataRelationships:
 
         d = dict(src_dict)
         _attachments = d.pop("attachments", UNSET)
-        attachments: Union[
-            Unset, DocumentsSingleGetResponseDataRelationshipsAttachments
-        ]
+        attachments: (
+            DocumentsSingleGetResponseDataRelationshipsAttachments | Unset
+        )
         if isinstance(_attachments, Unset):
             attachments = UNSET
         else:
@@ -181,7 +176,7 @@ class DocumentsSingleGetResponseDataRelationships:
             )
 
         _author = d.pop("author", UNSET)
-        author: Union[Unset, DocumentsSingleGetResponseDataRelationshipsAuthor]
+        author: DocumentsSingleGetResponseDataRelationshipsAuthor | Unset
         if isinstance(_author, Unset):
             author = UNSET
         else:
@@ -192,9 +187,9 @@ class DocumentsSingleGetResponseDataRelationships:
             )
 
         _branched_from = d.pop("branchedFrom", UNSET)
-        branched_from: Union[
-            Unset, DocumentsSingleGetResponseDataRelationshipsBranchedFrom
-        ]
+        branched_from: (
+            DocumentsSingleGetResponseDataRelationshipsBranchedFrom | Unset
+        )
         if isinstance(_branched_from, Unset):
             branched_from = UNSET
         else:
@@ -203,9 +198,7 @@ class DocumentsSingleGetResponseDataRelationships:
             )
 
         _comments = d.pop("comments", UNSET)
-        comments: Union[
-            Unset, DocumentsSingleGetResponseDataRelationshipsComments
-        ]
+        comments: DocumentsSingleGetResponseDataRelationshipsComments | Unset
         if isinstance(_comments, Unset):
             comments = UNSET
         else:
@@ -216,9 +209,9 @@ class DocumentsSingleGetResponseDataRelationships:
             )
 
         _derived_from = d.pop("derivedFrom", UNSET)
-        derived_from: Union[
-            Unset, DocumentsSingleGetResponseDataRelationshipsDerivedFrom
-        ]
+        derived_from: (
+            DocumentsSingleGetResponseDataRelationshipsDerivedFrom | Unset
+        )
         if isinstance(_derived_from, Unset):
             derived_from = UNSET
         else:
@@ -227,9 +220,7 @@ class DocumentsSingleGetResponseDataRelationships:
             )
 
         _project = d.pop("project", UNSET)
-        project: Union[
-            Unset, DocumentsSingleGetResponseDataRelationshipsProject
-        ]
+        project: DocumentsSingleGetResponseDataRelationshipsProject | Unset
         if isinstance(_project, Unset):
             project = UNSET
         else:
@@ -240,9 +231,9 @@ class DocumentsSingleGetResponseDataRelationships:
             )
 
         _updated_by = d.pop("updatedBy", UNSET)
-        updated_by: Union[
-            Unset, DocumentsSingleGetResponseDataRelationshipsUpdatedBy
-        ]
+        updated_by: (
+            DocumentsSingleGetResponseDataRelationshipsUpdatedBy | Unset
+        )
         if isinstance(_updated_by, Unset):
             updated_by = UNSET
         else:
@@ -253,9 +244,7 @@ class DocumentsSingleGetResponseDataRelationships:
             )
 
         _variant = d.pop("variant", UNSET)
-        variant: Union[
-            Unset, DocumentsSingleGetResponseDataRelationshipsVariant
-        ]
+        variant: DocumentsSingleGetResponseDataRelationshipsVariant | Unset
         if isinstance(_variant, Unset):
             variant = UNSET
         else:

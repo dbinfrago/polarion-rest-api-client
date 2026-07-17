@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
     cast,
 )
 
@@ -28,24 +29,24 @@ T = TypeVar("T", bound="ProjecttemplatesListGetResponseDataItemAttributes")
 class ProjecttemplatesListGetResponseDataItemAttributes:
     """
     Attributes:
-        custom_icon (Union[Unset, str]):
-        description (Union[Unset, str]):
-        distributions (Union[Unset, list[str]]):
-        id (Union[Unset, str]):
-        is_default (Union[Unset, bool]):
-        name (Union[Unset, str]):
-        parameters (Union[Unset, ProjecttemplatesListGetResponseDataItemAttributesParameters]):
+        custom_icon (str | Unset):
+        description (str | Unset):
+        distributions (list[str] | Unset):
+        id (str | Unset):  Example: MyProjectId.
+        is_default (bool | Unset):
+        name (str | Unset):
+        parameters (ProjecttemplatesListGetResponseDataItemAttributesParameters | Unset):
     """
 
-    custom_icon: Union[Unset, str] = UNSET
-    description: Union[Unset, str] = UNSET
-    distributions: Union[Unset, list[str]] = UNSET
-    id: Union[Unset, str] = UNSET
-    is_default: Union[Unset, bool] = UNSET
-    name: Union[Unset, str] = UNSET
-    parameters: Union[
-        Unset, "ProjecttemplatesListGetResponseDataItemAttributesParameters"
-    ] = UNSET
+    custom_icon: str | Unset = UNSET
+    description: str | Unset = UNSET
+    distributions: list[str] | Unset = UNSET
+    id: str | Unset = UNSET
+    is_default: bool | Unset = UNSET
+    name: str | Unset = UNSET
+    parameters: (
+        ProjecttemplatesListGetResponseDataItemAttributesParameters | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -55,7 +56,7 @@ class ProjecttemplatesListGetResponseDataItemAttributes:
 
         description = self.description
 
-        distributions: Union[Unset, list[str]] = UNSET
+        distributions: list[str] | Unset = UNSET
         if not isinstance(self.distributions, Unset):
             distributions = self.distributions
 
@@ -65,7 +66,7 @@ class ProjecttemplatesListGetResponseDataItemAttributes:
 
         name = self.name
 
-        parameters: Union[Unset, dict[str, Any]] = UNSET
+        parameters: dict[str, Any] | Unset = UNSET
         if not isinstance(self.parameters, Unset):
             parameters = self.parameters.to_dict()
 
@@ -109,9 +110,9 @@ class ProjecttemplatesListGetResponseDataItemAttributes:
         name = d.pop("name", UNSET)
 
         _parameters = d.pop("parameters", UNSET)
-        parameters: Union[
-            Unset, ProjecttemplatesListGetResponseDataItemAttributesParameters
-        ]
+        parameters: (
+            ProjecttemplatesListGetResponseDataItemAttributesParameters | Unset
+        )
         if isinstance(_parameters, Unset):
             parameters = UNSET
         else:

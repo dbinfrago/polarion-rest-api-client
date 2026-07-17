@@ -1,18 +1,18 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
@@ -32,68 +32,68 @@ T = TypeVar("T", bound="WorkitemsListGetResponseDataItemAttributes")
 class WorkitemsListGetResponseDataItemAttributes:
     """
     Attributes:
-        created (Union[Unset, datetime.datetime]):  Example: 1970-01-01T00:00:00Z.
-        description (Union[Unset, WorkitemsListGetResponseDataItemAttributesDescription]):
-        due_date (Union[Unset, datetime.date]):  Example: 1970-01-01.
-        hyperlinks (Union[Unset, list['WorkitemsListGetResponseDataItemAttributesHyperlinksItem']]):
-        id (Union[Unset, str]):  Example: MyWorkItemId.
-        initial_estimate (Union[Unset, str]):  Example: 5 1/2d.
-        outline_number (Union[Unset, str]):  Example: 1.11.
-        planned_end (Union[Unset, datetime.datetime]):  Example: 1970-01-01T00:00:00Z.
-        planned_start (Union[Unset, datetime.datetime]):  Example: 1970-01-01T00:00:00Z.
-        priority (Union[Unset, str]):  Example: 90.0.
-        remaining_estimate (Union[Unset, str]):  Example: 5 1/2d.
-        resolution (Union[Unset, str]):  Example: done.
-        resolved_on (Union[Unset, datetime.datetime]):  Example: 1970-01-01T00:00:00Z.
-        severity (Union[Unset, str]):  Example: blocker.
-        status (Union[Unset, str]):  Example: open.
-        time_spent (Union[Unset, str]):  Example: 5 1/2d.
-        title (Union[Unset, str]):  Example: Title.
-        type_ (Union[Unset, str]):  Example: task.
-        updated (Union[Unset, datetime.datetime]):  Example: 1970-01-01T00:00:00Z.
+        created (datetime.datetime | Unset):  Example: 1970-01-01T00:00:00Z.
+        description (WorkitemsListGetResponseDataItemAttributesDescription | Unset):
+        due_date (datetime.date | Unset):  Example: 1970-01-01.
+        hyperlinks (list[WorkitemsListGetResponseDataItemAttributesHyperlinksItem] | Unset):
+        id (str | Unset):  Example: MyWorkItemId.
+        initial_estimate (str | Unset):  Example: 5 1/2d.
+        outline_number (str | Unset):  Example: 1.11.
+        planned_end (datetime.datetime | Unset):  Example: 1970-01-01T00:00:00Z.
+        planned_start (datetime.datetime | Unset):  Example: 1970-01-01T00:00:00Z.
+        priority (str | Unset):  Example: 90.0.
+        remaining_estimate (str | Unset):  Example: 5 1/2d.
+        resolution (str | Unset):  Example: done.
+        resolved_on (datetime.datetime | Unset):  Example: 1970-01-01T00:00:00Z.
+        severity (str | Unset):  Example: blocker.
+        status (str | Unset):  Example: open.
+        time_spent (str | Unset):  Example: 5 1/2d.
+        title (str | Unset):  Example: Title.
+        type_ (str | Unset):  Example: task.
+        updated (datetime.datetime | Unset):  Example: 1970-01-01T00:00:00Z.
     """
 
-    created: Union[Unset, datetime.datetime] = UNSET
-    description: Union[
-        Unset, "WorkitemsListGetResponseDataItemAttributesDescription"
-    ] = UNSET
-    due_date: Union[Unset, datetime.date] = UNSET
-    hyperlinks: Union[
-        Unset, list["WorkitemsListGetResponseDataItemAttributesHyperlinksItem"]
-    ] = UNSET
-    id: Union[Unset, str] = UNSET
-    initial_estimate: Union[Unset, str] = UNSET
-    outline_number: Union[Unset, str] = UNSET
-    planned_end: Union[Unset, datetime.datetime] = UNSET
-    planned_start: Union[Unset, datetime.datetime] = UNSET
-    priority: Union[Unset, str] = UNSET
-    remaining_estimate: Union[Unset, str] = UNSET
-    resolution: Union[Unset, str] = UNSET
-    resolved_on: Union[Unset, datetime.datetime] = UNSET
-    severity: Union[Unset, str] = UNSET
-    status: Union[Unset, str] = UNSET
-    time_spent: Union[Unset, str] = UNSET
-    title: Union[Unset, str] = UNSET
-    type_: Union[Unset, str] = UNSET
-    updated: Union[Unset, datetime.datetime] = UNSET
+    created: datetime.datetime | Unset = UNSET
+    description: (
+        WorkitemsListGetResponseDataItemAttributesDescription | Unset
+    ) = UNSET
+    due_date: datetime.date | Unset = UNSET
+    hyperlinks: (
+        list[WorkitemsListGetResponseDataItemAttributesHyperlinksItem] | Unset
+    ) = UNSET
+    id: str | Unset = UNSET
+    initial_estimate: str | Unset = UNSET
+    outline_number: str | Unset = UNSET
+    planned_end: datetime.datetime | Unset = UNSET
+    planned_start: datetime.datetime | Unset = UNSET
+    priority: str | Unset = UNSET
+    remaining_estimate: str | Unset = UNSET
+    resolution: str | Unset = UNSET
+    resolved_on: datetime.datetime | Unset = UNSET
+    severity: str | Unset = UNSET
+    status: str | Unset = UNSET
+    time_spent: str | Unset = UNSET
+    title: str | Unset = UNSET
+    type_: str | Unset = UNSET
+    updated: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        created: Union[Unset, str] = UNSET
+        created: str | Unset = UNSET
         if not isinstance(self.created, Unset):
             created = self.created.isoformat()
 
-        description: Union[Unset, dict[str, Any]] = UNSET
+        description: dict[str, Any] | Unset = UNSET
         if not isinstance(self.description, Unset):
             description = self.description.to_dict()
 
-        due_date: Union[Unset, str] = UNSET
+        due_date: str | Unset = UNSET
         if not isinstance(self.due_date, Unset):
             due_date = self.due_date.isoformat()
 
-        hyperlinks: Union[Unset, list[dict[str, Any]]] = UNSET
+        hyperlinks: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.hyperlinks, Unset):
             hyperlinks = []
             for hyperlinks_item_data in self.hyperlinks:
@@ -106,11 +106,11 @@ class WorkitemsListGetResponseDataItemAttributes:
 
         outline_number = self.outline_number
 
-        planned_end: Union[Unset, str] = UNSET
+        planned_end: str | Unset = UNSET
         if not isinstance(self.planned_end, Unset):
             planned_end = self.planned_end.isoformat()
 
-        planned_start: Union[Unset, str] = UNSET
+        planned_start: str | Unset = UNSET
         if not isinstance(self.planned_start, Unset):
             planned_start = self.planned_start.isoformat()
 
@@ -120,7 +120,7 @@ class WorkitemsListGetResponseDataItemAttributes:
 
         resolution = self.resolution
 
-        resolved_on: Union[Unset, str] = UNSET
+        resolved_on: str | Unset = UNSET
         if not isinstance(self.resolved_on, Unset):
             resolved_on = self.resolved_on.isoformat()
 
@@ -134,7 +134,7 @@ class WorkitemsListGetResponseDataItemAttributes:
 
         type_ = self.type_
 
-        updated: Union[Unset, str] = UNSET
+        updated: str | Unset = UNSET
         if not isinstance(self.updated, Unset):
             updated = self.updated.isoformat()
 
@@ -193,16 +193,16 @@ class WorkitemsListGetResponseDataItemAttributes:
 
         d = dict(src_dict)
         _created = d.pop("created", UNSET)
-        created: Union[Unset, datetime.datetime]
+        created: datetime.datetime | Unset
         if isinstance(_created, Unset):
             created = UNSET
         else:
-            created = isoparse(_created)
+            created = datetime.datetime.fromisoformat(_created)
 
         _description = d.pop("description", UNSET)
-        description: Union[
-            Unset, WorkitemsListGetResponseDataItemAttributesDescription
-        ]
+        description: (
+            WorkitemsListGetResponseDataItemAttributesDescription | Unset
+        )
         if isinstance(_description, Unset):
             description = UNSET
         else:
@@ -211,20 +211,25 @@ class WorkitemsListGetResponseDataItemAttributes:
             )
 
         _due_date = d.pop("dueDate", UNSET)
-        due_date: Union[Unset, datetime.date]
+        due_date: datetime.date | Unset
         if isinstance(_due_date, Unset):
             due_date = UNSET
         else:
-            due_date = isoparse(_due_date).date()
+            due_date = datetime.date.fromisoformat(_due_date)
 
-        hyperlinks = []
         _hyperlinks = d.pop("hyperlinks", UNSET)
-        for hyperlinks_item_data in _hyperlinks or []:
-            hyperlinks_item = WorkitemsListGetResponseDataItemAttributesHyperlinksItem.from_dict(
-                hyperlinks_item_data
-            )
+        hyperlinks: (
+            list[WorkitemsListGetResponseDataItemAttributesHyperlinksItem]
+            | Unset
+        ) = UNSET
+        if _hyperlinks is not UNSET:
+            hyperlinks = []
+            for hyperlinks_item_data in _hyperlinks:
+                hyperlinks_item = WorkitemsListGetResponseDataItemAttributesHyperlinksItem.from_dict(
+                    hyperlinks_item_data
+                )
 
-            hyperlinks.append(hyperlinks_item)
+                hyperlinks.append(hyperlinks_item)
 
         id = d.pop("id", UNSET)
 
@@ -233,18 +238,18 @@ class WorkitemsListGetResponseDataItemAttributes:
         outline_number = d.pop("outlineNumber", UNSET)
 
         _planned_end = d.pop("plannedEnd", UNSET)
-        planned_end: Union[Unset, datetime.datetime]
+        planned_end: datetime.datetime | Unset
         if isinstance(_planned_end, Unset):
             planned_end = UNSET
         else:
-            planned_end = isoparse(_planned_end)
+            planned_end = datetime.datetime.fromisoformat(_planned_end)
 
         _planned_start = d.pop("plannedStart", UNSET)
-        planned_start: Union[Unset, datetime.datetime]
+        planned_start: datetime.datetime | Unset
         if isinstance(_planned_start, Unset):
             planned_start = UNSET
         else:
-            planned_start = isoparse(_planned_start)
+            planned_start = datetime.datetime.fromisoformat(_planned_start)
 
         priority = d.pop("priority", UNSET)
 
@@ -253,11 +258,11 @@ class WorkitemsListGetResponseDataItemAttributes:
         resolution = d.pop("resolution", UNSET)
 
         _resolved_on = d.pop("resolvedOn", UNSET)
-        resolved_on: Union[Unset, datetime.datetime]
+        resolved_on: datetime.datetime | Unset
         if isinstance(_resolved_on, Unset):
             resolved_on = UNSET
         else:
-            resolved_on = isoparse(_resolved_on)
+            resolved_on = datetime.datetime.fromisoformat(_resolved_on)
 
         severity = d.pop("severity", UNSET)
 
@@ -270,11 +275,11 @@ class WorkitemsListGetResponseDataItemAttributes:
         type_ = d.pop("type", UNSET)
 
         _updated = d.pop("updated", UNSET)
-        updated: Union[Unset, datetime.datetime]
+        updated: datetime.datetime | Unset
         if isinstance(_updated, Unset):
             updated = UNSET
         else:
-            updated = isoparse(_updated)
+            updated = datetime.datetime.fromisoformat(_updated)
 
         workitems_list_get_response_data_item_attributes_obj = cls(
             created=created,

@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -25,16 +23,16 @@ T = TypeVar(
 class WorkitemsSingleGetResponseDataRelationshipsVotesDataItem:
     """
     Attributes:
-        id (Union[Unset, str]):  Example: MyUserId.
-        revision (Union[Unset, str]):  Example: 1234.
-        type_ (Union[Unset, WorkitemsSingleGetResponseDataRelationshipsVotesDataItemType]):
+        id (str | Unset):  Example: MyUserId.
+        revision (str | Unset):  Example: 1234.
+        type_ (WorkitemsSingleGetResponseDataRelationshipsVotesDataItemType | Unset):
     """
 
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    type_: Union[
-        Unset, WorkitemsSingleGetResponseDataRelationshipsVotesDataItemType
-    ] = UNSET
+    id: str | Unset = UNSET
+    revision: str | Unset = UNSET
+    type_: (
+        WorkitemsSingleGetResponseDataRelationshipsVotesDataItemType | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -44,7 +42,7 @@ class WorkitemsSingleGetResponseDataRelationshipsVotesDataItem:
 
         revision = self.revision
 
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -68,9 +66,10 @@ class WorkitemsSingleGetResponseDataRelationshipsVotesDataItem:
         revision = d.pop("revision", UNSET)
 
         _type_ = d.pop("type", UNSET)
-        type_: Union[
-            Unset, WorkitemsSingleGetResponseDataRelationshipsVotesDataItemType
-        ]
+        type_: (
+            WorkitemsSingleGetResponseDataRelationshipsVotesDataItemType
+            | Unset
+        )
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:

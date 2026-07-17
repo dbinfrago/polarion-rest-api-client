@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -27,18 +28,18 @@ T = TypeVar("T", bound="WorkitemApprovalsListGetResponseDataItemMeta")
 class WorkitemApprovalsListGetResponseDataItemMeta:
     """
     Attributes:
-        errors (Union[Unset, list['WorkitemApprovalsListGetResponseDataItemMetaErrorsItem']]):
+        errors (list[WorkitemApprovalsListGetResponseDataItemMetaErrorsItem] | Unset):
     """
 
-    errors: Union[
-        Unset, list["WorkitemApprovalsListGetResponseDataItemMetaErrorsItem"]
-    ] = UNSET
+    errors: (
+        list[WorkitemApprovalsListGetResponseDataItemMetaErrorsItem] | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        errors: Union[Unset, list[dict[str, Any]]] = UNSET
+        errors: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.errors, Unset):
             errors = []
             for errors_item_data in self.errors:
@@ -60,14 +61,19 @@ class WorkitemApprovalsListGetResponseDataItemMeta:
         )
 
         d = dict(src_dict)
-        errors = []
         _errors = d.pop("errors", UNSET)
-        for errors_item_data in _errors or []:
-            errors_item = WorkitemApprovalsListGetResponseDataItemMetaErrorsItem.from_dict(
-                errors_item_data
-            )
+        errors: (
+            list[WorkitemApprovalsListGetResponseDataItemMetaErrorsItem]
+            | Unset
+        ) = UNSET
+        if _errors is not UNSET:
+            errors = []
+            for errors_item_data in _errors:
+                errors_item = WorkitemApprovalsListGetResponseDataItemMetaErrorsItem.from_dict(
+                    errors_item_data
+                )
 
-            errors.append(errors_item)
+                errors.append(errors_item)
 
         workitem_approvals_list_get_response_data_item_meta_obj = cls(
             errors=errors,

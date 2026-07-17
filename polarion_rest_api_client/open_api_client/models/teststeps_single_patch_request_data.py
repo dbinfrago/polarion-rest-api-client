@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -30,28 +31,26 @@ T = TypeVar("T", bound="TeststepsSinglePatchRequestData")
 class TeststepsSinglePatchRequestData:
     """
     Attributes:
-        type_ (Union[Unset, TeststepsSinglePatchRequestDataType]):
-        id (Union[Unset, str]):  Example: MyProjectId/MyWorkItemId/MyTestStepIndex.
-        attributes (Union[Unset, TeststepsSinglePatchRequestDataAttributes]):
+        type_ (TeststepsSinglePatchRequestDataType | Unset):
+        id (str | Unset):  Example: MyProjectId/MyWorkItemId/MyTestStepIndex.
+        attributes (TeststepsSinglePatchRequestDataAttributes | Unset):
     """
 
-    type_: Union[Unset, TeststepsSinglePatchRequestDataType] = UNSET
-    id: Union[Unset, str] = UNSET
-    attributes: Union[Unset, "TeststepsSinglePatchRequestDataAttributes"] = (
-        UNSET
-    )
+    type_: TeststepsSinglePatchRequestDataType | Unset = UNSET
+    id: str | Unset = UNSET
+    attributes: TeststepsSinglePatchRequestDataAttributes | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
         id = self.id
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
@@ -75,7 +74,7 @@ class TeststepsSinglePatchRequestData:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, TeststepsSinglePatchRequestDataType]
+        type_: TeststepsSinglePatchRequestDataType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -84,7 +83,7 @@ class TeststepsSinglePatchRequestData:
         id = d.pop("id", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[Unset, TeststepsSinglePatchRequestDataAttributes]
+        attributes: TeststepsSinglePatchRequestDataAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:

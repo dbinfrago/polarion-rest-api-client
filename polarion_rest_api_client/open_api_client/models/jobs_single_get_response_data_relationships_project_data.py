@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -23,16 +21,14 @@ T = TypeVar("T", bound="JobsSingleGetResponseDataRelationshipsProjectData")
 class JobsSingleGetResponseDataRelationshipsProjectData:
     """
     Attributes:
-        id (Union[Unset, str]):  Example: MyProjectId.
-        revision (Union[Unset, str]):  Example: 1234.
-        type_ (Union[Unset, JobsSingleGetResponseDataRelationshipsProjectDataType]):
+        id (str | Unset):  Example: MyProjectId.
+        type_ (JobsSingleGetResponseDataRelationshipsProjectDataType | Unset):
     """
 
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    type_: Union[
-        Unset, JobsSingleGetResponseDataRelationshipsProjectDataType
-    ] = UNSET
+    id: str | Unset = UNSET
+    type_: JobsSingleGetResponseDataRelationshipsProjectDataType | Unset = (
+        UNSET
+    )
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -40,9 +36,7 @@ class JobsSingleGetResponseDataRelationshipsProjectData:
     def to_dict(self) -> dict[str, Any]:
         id = self.id
 
-        revision = self.revision
-
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -51,8 +45,6 @@ class JobsSingleGetResponseDataRelationshipsProjectData:
         field_dict.update({})
         if id is not UNSET:
             field_dict["id"] = id
-        if revision is not UNSET:
-            field_dict["revision"] = revision
         if type_ is not UNSET:
             field_dict["type"] = type_
 
@@ -63,12 +55,8 @@ class JobsSingleGetResponseDataRelationshipsProjectData:
         d = dict(src_dict)
         id = d.pop("id", UNSET)
 
-        revision = d.pop("revision", UNSET)
-
         _type_ = d.pop("type", UNSET)
-        type_: Union[
-            Unset, JobsSingleGetResponseDataRelationshipsProjectDataType
-        ]
+        type_: JobsSingleGetResponseDataRelationshipsProjectDataType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -78,7 +66,6 @@ class JobsSingleGetResponseDataRelationshipsProjectData:
 
         jobs_single_get_response_data_relationships_project_data_obj = cls(
             id=id,
-            revision=revision,
             type_=type_,
         )
 

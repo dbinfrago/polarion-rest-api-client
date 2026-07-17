@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -39,32 +40,30 @@ T = TypeVar("T", bound="RevisionsListGetResponseDataItem")
 class RevisionsListGetResponseDataItem:
     """
     Attributes:
-        type_ (Union[Unset, RevisionsListGetResponseDataItemType]):
-        id (Union[Unset, str]):  Example: default/1234.
-        revision (Union[Unset, str]):  Example: 1234.
-        attributes (Union[Unset, RevisionsListGetResponseDataItemAttributes]):
-        relationships (Union[Unset, RevisionsListGetResponseDataItemRelationships]):
-        links (Union[Unset, RevisionsListGetResponseDataItemLinks]):
-        meta (Union[Unset, RevisionsListGetResponseDataItemMeta]):
+        type_ (RevisionsListGetResponseDataItemType | Unset):
+        id (str | Unset):  Example: default/1234.
+        revision (str | Unset):  Example: 1234.
+        attributes (RevisionsListGetResponseDataItemAttributes | Unset):
+        relationships (RevisionsListGetResponseDataItemRelationships | Unset):
+        links (RevisionsListGetResponseDataItemLinks | Unset):
+        meta (RevisionsListGetResponseDataItemMeta | Unset):
     """
 
-    type_: Union[Unset, RevisionsListGetResponseDataItemType] = UNSET
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    attributes: Union[Unset, "RevisionsListGetResponseDataItemAttributes"] = (
+    type_: RevisionsListGetResponseDataItemType | Unset = UNSET
+    id: str | Unset = UNSET
+    revision: str | Unset = UNSET
+    attributes: RevisionsListGetResponseDataItemAttributes | Unset = UNSET
+    relationships: RevisionsListGetResponseDataItemRelationships | Unset = (
         UNSET
     )
-    relationships: Union[
-        Unset, "RevisionsListGetResponseDataItemRelationships"
-    ] = UNSET
-    links: Union[Unset, "RevisionsListGetResponseDataItemLinks"] = UNSET
-    meta: Union[Unset, "RevisionsListGetResponseDataItemMeta"] = UNSET
+    links: RevisionsListGetResponseDataItemLinks | Unset = UNSET
+    meta: RevisionsListGetResponseDataItemMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -72,19 +71,19 @@ class RevisionsListGetResponseDataItem:
 
         revision = self.revision
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        relationships: Union[Unset, dict[str, Any]] = UNSET
+        relationships: dict[str, Any] | Unset = UNSET
         if not isinstance(self.relationships, Unset):
             relationships = self.relationships.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -125,7 +124,7 @@ class RevisionsListGetResponseDataItem:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, RevisionsListGetResponseDataItemType]
+        type_: RevisionsListGetResponseDataItemType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -136,7 +135,7 @@ class RevisionsListGetResponseDataItem:
         revision = d.pop("revision", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[Unset, RevisionsListGetResponseDataItemAttributes]
+        attributes: RevisionsListGetResponseDataItemAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -145,9 +144,7 @@ class RevisionsListGetResponseDataItem:
             )
 
         _relationships = d.pop("relationships", UNSET)
-        relationships: Union[
-            Unset, RevisionsListGetResponseDataItemRelationships
-        ]
+        relationships: RevisionsListGetResponseDataItemRelationships | Unset
         if isinstance(_relationships, Unset):
             relationships = UNSET
         else:
@@ -158,14 +155,14 @@ class RevisionsListGetResponseDataItem:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, RevisionsListGetResponseDataItemLinks]
+        links: RevisionsListGetResponseDataItemLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
             links = RevisionsListGetResponseDataItemLinks.from_dict(_links)
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, RevisionsListGetResponseDataItemMeta]
+        meta: RevisionsListGetResponseDataItemMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

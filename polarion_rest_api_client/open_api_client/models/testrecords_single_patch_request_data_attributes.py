@@ -1,18 +1,18 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
@@ -29,32 +29,30 @@ T = TypeVar("T", bound="TestrecordsSinglePatchRequestDataAttributes")
 class TestrecordsSinglePatchRequestDataAttributes:
     """
     Attributes:
-        comment (Union[Unset, TestrecordsSinglePatchRequestDataAttributesComment]):
-        duration (Union[Unset, float]):
-        executed (Union[Unset, datetime.datetime]):  Example: 1970-01-01T00:00:00Z.
-        result (Union[Unset, str]):  Example: passed.
-        test_case_revision (Union[Unset, str]):  Example: Test Case Revision.
+        comment (TestrecordsSinglePatchRequestDataAttributesComment | Unset):
+        duration (float | Unset):
+        executed (datetime.datetime | Unset):  Example: 1970-01-01T00:00:00Z.
+        result (str | Unset):  Example: passed.
+        test_case_revision (str | Unset):  Example: Test Case Revision.
     """
 
-    comment: Union[
-        Unset, "TestrecordsSinglePatchRequestDataAttributesComment"
-    ] = UNSET
-    duration: Union[Unset, float] = UNSET
-    executed: Union[Unset, datetime.datetime] = UNSET
-    result: Union[Unset, str] = UNSET
-    test_case_revision: Union[Unset, str] = UNSET
+    comment: TestrecordsSinglePatchRequestDataAttributesComment | Unset = UNSET
+    duration: float | Unset = UNSET
+    executed: datetime.datetime | Unset = UNSET
+    result: str | Unset = UNSET
+    test_case_revision: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        comment: Union[Unset, dict[str, Any]] = UNSET
+        comment: dict[str, Any] | Unset = UNSET
         if not isinstance(self.comment, Unset):
             comment = self.comment.to_dict()
 
         duration = self.duration
 
-        executed: Union[Unset, str] = UNSET
+        executed: str | Unset = UNSET
         if not isinstance(self.executed, Unset):
             executed = self.executed.isoformat()
 
@@ -86,9 +84,7 @@ class TestrecordsSinglePatchRequestDataAttributes:
 
         d = dict(src_dict)
         _comment = d.pop("comment", UNSET)
-        comment: Union[
-            Unset, TestrecordsSinglePatchRequestDataAttributesComment
-        ]
+        comment: TestrecordsSinglePatchRequestDataAttributesComment | Unset
         if isinstance(_comment, Unset):
             comment = UNSET
         else:
@@ -101,11 +97,11 @@ class TestrecordsSinglePatchRequestDataAttributes:
         duration = d.pop("duration", UNSET)
 
         _executed = d.pop("executed", UNSET)
-        executed: Union[Unset, datetime.datetime]
+        executed: datetime.datetime | Unset
         if isinstance(_executed, Unset):
             executed = UNSET
         else:
-            executed = isoparse(_executed)
+            executed = datetime.datetime.fromisoformat(_executed)
 
         result = d.pop("result", UNSET)
 

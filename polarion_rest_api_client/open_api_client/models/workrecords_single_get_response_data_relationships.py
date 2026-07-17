@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -30,26 +31,24 @@ T = TypeVar("T", bound="WorkrecordsSingleGetResponseDataRelationships")
 class WorkrecordsSingleGetResponseDataRelationships:
     """
     Attributes:
-        project (Union[Unset, WorkrecordsSingleGetResponseDataRelationshipsProject]):
-        user (Union[Unset, WorkrecordsSingleGetResponseDataRelationshipsUser]):
+        project (WorkrecordsSingleGetResponseDataRelationshipsProject | Unset):
+        user (WorkrecordsSingleGetResponseDataRelationshipsUser | Unset):
     """
 
-    project: Union[
-        Unset, "WorkrecordsSingleGetResponseDataRelationshipsProject"
-    ] = UNSET
-    user: Union[Unset, "WorkrecordsSingleGetResponseDataRelationshipsUser"] = (
+    project: WorkrecordsSingleGetResponseDataRelationshipsProject | Unset = (
         UNSET
     )
+    user: WorkrecordsSingleGetResponseDataRelationshipsUser | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        project: Union[Unset, dict[str, Any]] = UNSET
+        project: dict[str, Any] | Unset = UNSET
         if not isinstance(self.project, Unset):
             project = self.project.to_dict()
 
-        user: Union[Unset, dict[str, Any]] = UNSET
+        user: dict[str, Any] | Unset = UNSET
         if not isinstance(self.user, Unset):
             user = self.user.to_dict()
 
@@ -74,9 +73,7 @@ class WorkrecordsSingleGetResponseDataRelationships:
 
         d = dict(src_dict)
         _project = d.pop("project", UNSET)
-        project: Union[
-            Unset, WorkrecordsSingleGetResponseDataRelationshipsProject
-        ]
+        project: WorkrecordsSingleGetResponseDataRelationshipsProject | Unset
         if isinstance(_project, Unset):
             project = UNSET
         else:
@@ -87,7 +84,7 @@ class WorkrecordsSingleGetResponseDataRelationships:
             )
 
         _user = d.pop("user", UNSET)
-        user: Union[Unset, WorkrecordsSingleGetResponseDataRelationshipsUser]
+        user: WorkrecordsSingleGetResponseDataRelationshipsUser | Unset
         if isinstance(_user, Unset):
             user = UNSET
         else:

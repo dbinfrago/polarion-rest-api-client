@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -22,11 +20,11 @@ T = TypeVar(
 class DocumentsSinglePostResponseDataRelationshipsCommentsLinks:
     """
     Attributes:
-        related (Union[Unset, str]):  Example: server-host-name/application-
+        related (str | Unset):  Example: server-host-name/application-
             path/projects/MyProjectId/spaces/MySpaceId/documents/MyDocumentId/comments?revision=1234.
     """
 
-    related: Union[Unset, str] = UNSET
+    related: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )

@@ -1,0 +1,294 @@
+# Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
+from http import HTTPStatus
+from typing import Any
+from urllib.parse import quote
+
+import httpx
+
+from ... import errors
+from ...client import AuthenticatedClient, Client
+from ...models.errors import Errors
+from ...models.page_comments_single_get_response import (
+    PageCommentsSingleGetResponse,
+)
+from ...models.sparse_fields import SparseFields
+from ...types import UNSET, Response, Unset
+
+
+def _get_kwargs(
+    project_id: str,
+    space_id: str,
+    page_name: str,
+    comment_id: str,
+    *,
+    fields: SparseFields | Unset = UNSET,
+    include: str | Unset = UNSET,
+    revision: str | Unset = UNSET,
+) -> dict[str, Any]:
+    params: dict[str, Any] = {}
+
+    json_fields: dict[str, Any] | Unset = UNSET
+    if not isinstance(fields, Unset):
+        json_fields = fields.to_dict()
+    if not isinstance(json_fields, Unset):
+        params.update(json_fields)
+
+    params["include"] = include
+
+    params["revision"] = revision
+
+    params = {
+        k: v for k, v in params.items() if v is not UNSET and v is not None
+    }
+
+    _kwargs: dict[str, Any] = {
+        "method": "get",
+        "url": "/projects/{project_id}/spaces/{space_id}/pages/{page_name}/comments/{comment_id}".format(
+            project_id=quote(str(project_id), safe=""),
+            space_id=quote(str(space_id), safe=""),
+            page_name=quote(str(page_name), safe=""),
+            comment_id=quote(str(comment_id), safe=""),
+        ),
+        "params": params,
+    }
+
+    return _kwargs
+
+
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Errors | PageCommentsSingleGetResponse | None:
+    if response.status_code == 200:
+        response_200 = PageCommentsSingleGetResponse.from_dict(response.json())
+
+        return response_200
+
+    if response.status_code == 400:
+        response_400 = Errors.from_dict(response.json())
+
+        return response_400
+
+    if response.status_code == 401:
+        response_401 = Errors.from_dict(response.json())
+
+        return response_401
+
+    if response.status_code == 403:
+        response_403 = Errors.from_dict(response.json())
+
+        return response_403
+
+    if response.status_code == 404:
+        response_404 = Errors.from_dict(response.json())
+
+        return response_404
+
+    if response.status_code == 406:
+        response_406 = Errors.from_dict(response.json())
+
+        return response_406
+
+    if response.status_code == 500:
+        response_500 = Errors.from_dict(response.json())
+
+        return response_500
+
+    if response.status_code == 503:
+        response_503 = Errors.from_dict(response.json())
+
+        return response_503
+
+    if client.raise_on_unexpected_status:
+        raise errors.UnexpectedStatus(response.status_code, response.content)
+    return None
+
+
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Errors | PageCommentsSingleGetResponse]:
+    return Response(
+        status_code=HTTPStatus(response.status_code),
+        content=response.content,
+        headers=response.headers,
+        parsed=_parse_response(client=client, response=response),
+    )
+
+
+def sync_detailed(
+    project_id: str,
+    space_id: str,
+    page_name: str,
+    comment_id: str,
+    *,
+    client: AuthenticatedClient | Client,
+    fields: SparseFields | Unset = UNSET,
+    include: str | Unset = UNSET,
+    revision: str | Unset = UNSET,
+) -> Response[Errors | PageCommentsSingleGetResponse]:
+    """Returns the specified Page Comment.
+
+    Args:
+        project_id (str):
+        space_id (str):
+        page_name (str):
+        comment_id (str):
+        fields (SparseFields | Unset):
+        include (str | Unset):
+        revision (str | Unset):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Response[Errors | PageCommentsSingleGetResponse]
+    """
+
+    kwargs = _get_kwargs(
+        project_id=project_id,
+        space_id=space_id,
+        page_name=page_name,
+        comment_id=comment_id,
+        fields=fields,
+        include=include,
+        revision=revision,
+    )
+
+    response = client.get_httpx_client().request(
+        **kwargs,
+    )
+
+    return _build_response(client=client, response=response)
+
+
+def sync(
+    project_id: str,
+    space_id: str,
+    page_name: str,
+    comment_id: str,
+    *,
+    client: AuthenticatedClient | Client,
+    fields: SparseFields | Unset = UNSET,
+    include: str | Unset = UNSET,
+    revision: str | Unset = UNSET,
+) -> Errors | PageCommentsSingleGetResponse | None:
+    """Returns the specified Page Comment.
+
+    Args:
+        project_id (str):
+        space_id (str):
+        page_name (str):
+        comment_id (str):
+        fields (SparseFields | Unset):
+        include (str | Unset):
+        revision (str | Unset):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Errors | PageCommentsSingleGetResponse
+    """
+
+    return sync_detailed(
+        project_id=project_id,
+        space_id=space_id,
+        page_name=page_name,
+        comment_id=comment_id,
+        client=client,
+        fields=fields,
+        include=include,
+        revision=revision,
+    ).parsed
+
+
+async def asyncio_detailed(
+    project_id: str,
+    space_id: str,
+    page_name: str,
+    comment_id: str,
+    *,
+    client: AuthenticatedClient | Client,
+    fields: SparseFields | Unset = UNSET,
+    include: str | Unset = UNSET,
+    revision: str | Unset = UNSET,
+) -> Response[Errors | PageCommentsSingleGetResponse]:
+    """Returns the specified Page Comment.
+
+    Args:
+        project_id (str):
+        space_id (str):
+        page_name (str):
+        comment_id (str):
+        fields (SparseFields | Unset):
+        include (str | Unset):
+        revision (str | Unset):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Response[Errors | PageCommentsSingleGetResponse]
+    """
+
+    kwargs = _get_kwargs(
+        project_id=project_id,
+        space_id=space_id,
+        page_name=page_name,
+        comment_id=comment_id,
+        fields=fields,
+        include=include,
+        revision=revision,
+    )
+
+    response = await client.get_async_httpx_client().request(**kwargs)
+
+    return _build_response(client=client, response=response)
+
+
+async def asyncio(
+    project_id: str,
+    space_id: str,
+    page_name: str,
+    comment_id: str,
+    *,
+    client: AuthenticatedClient | Client,
+    fields: SparseFields | Unset = UNSET,
+    include: str | Unset = UNSET,
+    revision: str | Unset = UNSET,
+) -> Errors | PageCommentsSingleGetResponse | None:
+    """Returns the specified Page Comment.
+
+    Args:
+        project_id (str):
+        space_id (str):
+        page_name (str):
+        comment_id (str):
+        fields (SparseFields | Unset):
+        include (str | Unset):
+        revision (str | Unset):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Errors | PageCommentsSingleGetResponse
+    """
+
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            space_id=space_id,
+            page_name=page_name,
+            comment_id=comment_id,
+            client=client,
+            fields=fields,
+            include=include,
+            revision=revision,
+        )
+    ).parsed

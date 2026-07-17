@@ -1,18 +1,18 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..models.testruns_list_post_request_data_item_attributes_select_test_cases_by import (
     TestrunsListPostRequestDataItemAttributesSelectTestCasesBy,
@@ -32,51 +32,51 @@ T = TypeVar("T", bound="TestrunsListPostRequestDataItemAttributes")
 class TestrunsListPostRequestDataItemAttributes:
     """
     Attributes:
-        finished_on (Union[Unset, datetime.datetime]):  Example: 1970-01-01T00:00:00Z.
-        group_id (Union[Unset, str]):  Example: Group ID.
-        home_page_content (Union[Unset, TestrunsListPostRequestDataItemAttributesHomePageContent]):
-        id (Union[Unset, str]):  Example: ID.
-        id_prefix (Union[Unset, str]):  Example: MyTestRunIdPrefix.
-        is_template (Union[Unset, bool]):
-        keep_in_history (Union[Unset, bool]):
-        query (Union[Unset, str]):  Example: Query.
-        select_test_cases_by (Union[Unset, TestrunsListPostRequestDataItemAttributesSelectTestCasesBy]):  Example:
+        finished_on (datetime.datetime | Unset):  Example: 1970-01-01T00:00:00Z.
+        group_id (str | Unset):  Example: Group ID.
+        home_page_content (TestrunsListPostRequestDataItemAttributesHomePageContent | Unset):
+        id (str | Unset):  Example: ID.
+        id_prefix (str | Unset):  Example: MyTestRunIdPrefix.
+        is_template (bool | Unset):
+        keep_in_history (bool | Unset):
+        query (str | Unset):  Example: Query.
+        select_test_cases_by (TestrunsListPostRequestDataItemAttributesSelectTestCasesBy | Unset):  Example:
             manualSelection.
-        status (Union[Unset, str]):  Example: open.
-        title (Union[Unset, str]):  Example: Title.
-        type_ (Union[Unset, str]):  Example: manual.
-        use_report_from_template (Union[Unset, bool]):
+        status (str | Unset):  Example: open.
+        title (str | Unset):  Example: Title.
+        type_ (str | Unset):  Example: manual.
+        use_report_from_template (bool | Unset):
     """
 
-    finished_on: Union[Unset, datetime.datetime] = UNSET
-    group_id: Union[Unset, str] = UNSET
-    home_page_content: Union[
-        Unset, "TestrunsListPostRequestDataItemAttributesHomePageContent"
-    ] = UNSET
-    id: Union[Unset, str] = UNSET
-    id_prefix: Union[Unset, str] = UNSET
-    is_template: Union[Unset, bool] = UNSET
-    keep_in_history: Union[Unset, bool] = UNSET
-    query: Union[Unset, str] = UNSET
-    select_test_cases_by: Union[
-        Unset, TestrunsListPostRequestDataItemAttributesSelectTestCasesBy
-    ] = UNSET
-    status: Union[Unset, str] = UNSET
-    title: Union[Unset, str] = UNSET
-    type_: Union[Unset, str] = UNSET
-    use_report_from_template: Union[Unset, bool] = UNSET
+    finished_on: datetime.datetime | Unset = UNSET
+    group_id: str | Unset = UNSET
+    home_page_content: (
+        TestrunsListPostRequestDataItemAttributesHomePageContent | Unset
+    ) = UNSET
+    id: str | Unset = UNSET
+    id_prefix: str | Unset = UNSET
+    is_template: bool | Unset = UNSET
+    keep_in_history: bool | Unset = UNSET
+    query: str | Unset = UNSET
+    select_test_cases_by: (
+        TestrunsListPostRequestDataItemAttributesSelectTestCasesBy | Unset
+    ) = UNSET
+    status: str | Unset = UNSET
+    title: str | Unset = UNSET
+    type_: str | Unset = UNSET
+    use_report_from_template: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        finished_on: Union[Unset, str] = UNSET
+        finished_on: str | Unset = UNSET
         if not isinstance(self.finished_on, Unset):
             finished_on = self.finished_on.isoformat()
 
         group_id = self.group_id
 
-        home_page_content: Union[Unset, dict[str, Any]] = UNSET
+        home_page_content: dict[str, Any] | Unset = UNSET
         if not isinstance(self.home_page_content, Unset):
             home_page_content = self.home_page_content.to_dict()
 
@@ -90,7 +90,7 @@ class TestrunsListPostRequestDataItemAttributes:
 
         query = self.query
 
-        select_test_cases_by: Union[Unset, str] = UNSET
+        select_test_cases_by: str | Unset = UNSET
         if not isinstance(self.select_test_cases_by, Unset):
             select_test_cases_by = self.select_test_cases_by.value
 
@@ -142,18 +142,18 @@ class TestrunsListPostRequestDataItemAttributes:
 
         d = dict(src_dict)
         _finished_on = d.pop("finishedOn", UNSET)
-        finished_on: Union[Unset, datetime.datetime]
+        finished_on: datetime.datetime | Unset
         if isinstance(_finished_on, Unset):
             finished_on = UNSET
         else:
-            finished_on = isoparse(_finished_on)
+            finished_on = datetime.datetime.fromisoformat(_finished_on)
 
         group_id = d.pop("groupId", UNSET)
 
         _home_page_content = d.pop("homePageContent", UNSET)
-        home_page_content: Union[
-            Unset, TestrunsListPostRequestDataItemAttributesHomePageContent
-        ]
+        home_page_content: (
+            TestrunsListPostRequestDataItemAttributesHomePageContent | Unset
+        )
         if isinstance(_home_page_content, Unset):
             home_page_content = UNSET
         else:
@@ -172,9 +172,9 @@ class TestrunsListPostRequestDataItemAttributes:
         query = d.pop("query", UNSET)
 
         _select_test_cases_by = d.pop("selectTestCasesBy", UNSET)
-        select_test_cases_by: Union[
-            Unset, TestrunsListPostRequestDataItemAttributesSelectTestCasesBy
-        ]
+        select_test_cases_by: (
+            TestrunsListPostRequestDataItemAttributesSelectTestCasesBy | Unset
+        )
         if isinstance(_select_test_cases_by, Unset):
             select_test_cases_by = UNSET
         else:

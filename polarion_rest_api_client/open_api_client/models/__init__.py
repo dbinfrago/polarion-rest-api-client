@@ -1,7 +1,32 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
-"""Contains all the data models used in inputs/outputs."""
 
+"""Contains all the data models used in inputs/outputs"""
+
+from .backlinkedworkitems_list_post_request import (
+    BacklinkedworkitemsListPostRequest,
+)
+from .backlinkedworkitems_list_post_request_data_item import (
+    BacklinkedworkitemsListPostRequestDataItem,
+)
+from .backlinkedworkitems_list_post_request_data_item_attributes import (
+    BacklinkedworkitemsListPostRequestDataItemAttributes,
+)
+from .backlinkedworkitems_list_post_request_data_item_relationships import (
+    BacklinkedworkitemsListPostRequestDataItemRelationships,
+)
+from .backlinkedworkitems_list_post_request_data_item_relationships_source_work_item import (
+    BacklinkedworkitemsListPostRequestDataItemRelationshipsSourceWorkItem,
+)
+from .backlinkedworkitems_list_post_request_data_item_relationships_source_work_item_data import (
+    BacklinkedworkitemsListPostRequestDataItemRelationshipsSourceWorkItemData,
+)
+from .backlinkedworkitems_list_post_request_data_item_relationships_source_work_item_data_type import (
+    BacklinkedworkitemsListPostRequestDataItemRelationshipsSourceWorkItemDataType,
+)
+from .backlinkedworkitems_list_post_request_data_item_type import (
+    BacklinkedworkitemsListPostRequestDataItemType,
+)
 from .branch_document_request_body import BranchDocumentRequestBody
 from .branch_documents_request_body import BranchDocumentsRequestBody
 from .branch_documents_request_body_document_configurations_item import (
@@ -108,6 +133,18 @@ from .collections_list_get_response_data_item_relationships_rich_pages_data_item
 from .collections_list_get_response_data_item_relationships_rich_pages_meta import (
     CollectionsListGetResponseDataItemRelationshipsRichPagesMeta,
 )
+from .collections_list_get_response_data_item_relationships_test_runs import (
+    CollectionsListGetResponseDataItemRelationshipsTestRuns,
+)
+from .collections_list_get_response_data_item_relationships_test_runs_data_item import (
+    CollectionsListGetResponseDataItemRelationshipsTestRunsDataItem,
+)
+from .collections_list_get_response_data_item_relationships_test_runs_data_item_type import (
+    CollectionsListGetResponseDataItemRelationshipsTestRunsDataItemType,
+)
+from .collections_list_get_response_data_item_relationships_test_runs_meta import (
+    CollectionsListGetResponseDataItemRelationshipsTestRunsMeta,
+)
 from .collections_list_get_response_data_item_relationships_upstream_collections import (
     CollectionsListGetResponseDataItemRelationshipsUpstreamCollections,
 )
@@ -163,6 +200,15 @@ from .collections_list_post_request_data_item_relationships_rich_pages_data_item
 )
 from .collections_list_post_request_data_item_relationships_rich_pages_data_item_type import (
     CollectionsListPostRequestDataItemRelationshipsRichPagesDataItemType,
+)
+from .collections_list_post_request_data_item_relationships_test_runs import (
+    CollectionsListPostRequestDataItemRelationshipsTestRuns,
+)
+from .collections_list_post_request_data_item_relationships_test_runs_data_item import (
+    CollectionsListPostRequestDataItemRelationshipsTestRunsDataItem,
+)
+from .collections_list_post_request_data_item_relationships_test_runs_data_item_type import (
+    CollectionsListPostRequestDataItemRelationshipsTestRunsDataItemType,
 )
 from .collections_list_post_request_data_item_relationships_upstream_collections import (
     CollectionsListPostRequestDataItemRelationshipsUpstreamCollections,
@@ -280,6 +326,18 @@ from .collections_single_get_response_data_relationships_rich_pages_data_item_ty
 from .collections_single_get_response_data_relationships_rich_pages_meta import (
     CollectionsSingleGetResponseDataRelationshipsRichPagesMeta,
 )
+from .collections_single_get_response_data_relationships_test_runs import (
+    CollectionsSingleGetResponseDataRelationshipsTestRuns,
+)
+from .collections_single_get_response_data_relationships_test_runs_data_item import (
+    CollectionsSingleGetResponseDataRelationshipsTestRunsDataItem,
+)
+from .collections_single_get_response_data_relationships_test_runs_data_item_type import (
+    CollectionsSingleGetResponseDataRelationshipsTestRunsDataItemType,
+)
+from .collections_single_get_response_data_relationships_test_runs_meta import (
+    CollectionsSingleGetResponseDataRelationshipsTestRunsMeta,
+)
 from .collections_single_get_response_data_relationships_upstream_collections import (
     CollectionsSingleGetResponseDataRelationshipsUpstreamCollections,
 )
@@ -335,6 +393,15 @@ from .collections_single_patch_request_data_relationships_rich_pages_data_item i
 from .collections_single_patch_request_data_relationships_rich_pages_data_item_type import (
     CollectionsSinglePatchRequestDataRelationshipsRichPagesDataItemType,
 )
+from .collections_single_patch_request_data_relationships_test_runs import (
+    CollectionsSinglePatchRequestDataRelationshipsTestRuns,
+)
+from .collections_single_patch_request_data_relationships_test_runs_data_item import (
+    CollectionsSinglePatchRequestDataRelationshipsTestRunsDataItem,
+)
+from .collections_single_patch_request_data_relationships_test_runs_data_item_type import (
+    CollectionsSinglePatchRequestDataRelationshipsTestRunsDataItemType,
+)
 from .collections_single_patch_request_data_relationships_upstream_collections import (
     CollectionsSinglePatchRequestDataRelationshipsUpstreamCollections,
 )
@@ -347,10 +414,192 @@ from .collections_single_patch_request_data_relationships_upstream_collections_d
 from .collections_single_patch_request_data_type import (
     CollectionsSinglePatchRequestDataType,
 )
+from .collections_single_post_response import CollectionsSinglePostResponse
+from .collections_single_post_response_data import (
+    CollectionsSinglePostResponseData,
+)
+from .collections_single_post_response_data_attributes import (
+    CollectionsSinglePostResponseDataAttributes,
+)
+from .collections_single_post_response_data_attributes_description import (
+    CollectionsSinglePostResponseDataAttributesDescription,
+)
+from .collections_single_post_response_data_attributes_description_type import (
+    CollectionsSinglePostResponseDataAttributesDescriptionType,
+)
+from .collections_single_post_response_data_links import (
+    CollectionsSinglePostResponseDataLinks,
+)
+from .collections_single_post_response_data_relationships import (
+    CollectionsSinglePostResponseDataRelationships,
+)
+from .collections_single_post_response_data_relationships_author import (
+    CollectionsSinglePostResponseDataRelationshipsAuthor,
+)
+from .collections_single_post_response_data_relationships_author_data import (
+    CollectionsSinglePostResponseDataRelationshipsAuthorData,
+)
+from .collections_single_post_response_data_relationships_author_data_type import (
+    CollectionsSinglePostResponseDataRelationshipsAuthorDataType,
+)
+from .collections_single_post_response_data_relationships_documents import (
+    CollectionsSinglePostResponseDataRelationshipsDocuments,
+)
+from .collections_single_post_response_data_relationships_documents_data_item import (
+    CollectionsSinglePostResponseDataRelationshipsDocumentsDataItem,
+)
+from .collections_single_post_response_data_relationships_documents_data_item_type import (
+    CollectionsSinglePostResponseDataRelationshipsDocumentsDataItemType,
+)
+from .collections_single_post_response_data_relationships_downstream_collections import (
+    CollectionsSinglePostResponseDataRelationshipsDownstreamCollections,
+)
+from .collections_single_post_response_data_relationships_downstream_collections_data_item import (
+    CollectionsSinglePostResponseDataRelationshipsDownstreamCollectionsDataItem,
+)
+from .collections_single_post_response_data_relationships_downstream_collections_data_item_type import (
+    CollectionsSinglePostResponseDataRelationshipsDownstreamCollectionsDataItemType,
+)
+from .collections_single_post_response_data_relationships_project import (
+    CollectionsSinglePostResponseDataRelationshipsProject,
+)
+from .collections_single_post_response_data_relationships_project_data import (
+    CollectionsSinglePostResponseDataRelationshipsProjectData,
+)
+from .collections_single_post_response_data_relationships_project_data_type import (
+    CollectionsSinglePostResponseDataRelationshipsProjectDataType,
+)
+from .collections_single_post_response_data_relationships_reused_from import (
+    CollectionsSinglePostResponseDataRelationshipsReusedFrom,
+)
+from .collections_single_post_response_data_relationships_reused_from_data import (
+    CollectionsSinglePostResponseDataRelationshipsReusedFromData,
+)
+from .collections_single_post_response_data_relationships_reused_from_data_type import (
+    CollectionsSinglePostResponseDataRelationshipsReusedFromDataType,
+)
+from .collections_single_post_response_data_relationships_rich_pages import (
+    CollectionsSinglePostResponseDataRelationshipsRichPages,
+)
+from .collections_single_post_response_data_relationships_rich_pages_data_item import (
+    CollectionsSinglePostResponseDataRelationshipsRichPagesDataItem,
+)
+from .collections_single_post_response_data_relationships_rich_pages_data_item_type import (
+    CollectionsSinglePostResponseDataRelationshipsRichPagesDataItemType,
+)
+from .collections_single_post_response_data_relationships_test_runs import (
+    CollectionsSinglePostResponseDataRelationshipsTestRuns,
+)
+from .collections_single_post_response_data_relationships_test_runs_data_item import (
+    CollectionsSinglePostResponseDataRelationshipsTestRunsDataItem,
+)
+from .collections_single_post_response_data_relationships_test_runs_data_item_type import (
+    CollectionsSinglePostResponseDataRelationshipsTestRunsDataItemType,
+)
+from .collections_single_post_response_data_relationships_upstream_collections import (
+    CollectionsSinglePostResponseDataRelationshipsUpstreamCollections,
+)
+from .collections_single_post_response_data_relationships_upstream_collections_data_item import (
+    CollectionsSinglePostResponseDataRelationshipsUpstreamCollectionsDataItem,
+)
+from .collections_single_post_response_data_relationships_upstream_collections_data_item_type import (
+    CollectionsSinglePostResponseDataRelationshipsUpstreamCollectionsDataItemType,
+)
+from .collections_single_post_response_data_type import (
+    CollectionsSinglePostResponseDataType,
+)
 from .copy_document_request_body import CopyDocumentRequestBody
 from .create_project_request_body import CreateProjectRequestBody
 from .create_project_request_body_params_type_0 import (
     CreateProjectRequestBodyParamsType0,
+)
+from .customfields_list_post_request import CustomfieldsListPostRequest
+from .customfields_list_post_request_data_item import (
+    CustomfieldsListPostRequestDataItem,
+)
+from .customfields_list_post_request_data_item_attributes import (
+    CustomfieldsListPostRequestDataItemAttributes,
+)
+from .customfields_list_post_request_data_item_attributes_fields_item import (
+    CustomfieldsListPostRequestDataItemAttributesFieldsItem,
+)
+from .customfields_list_post_request_data_item_attributes_fields_item_parameters_item import (
+    CustomfieldsListPostRequestDataItemAttributesFieldsItemParametersItem,
+)
+from .customfields_list_post_request_data_item_attributes_fields_item_type import (
+    CustomfieldsListPostRequestDataItemAttributesFieldsItemType,
+)
+from .customfields_list_post_request_data_item_type import (
+    CustomfieldsListPostRequestDataItemType,
+)
+from .customfields_list_post_response import CustomfieldsListPostResponse
+from .customfields_list_post_response_data_item import (
+    CustomfieldsListPostResponseDataItem,
+)
+from .customfields_list_post_response_data_item_links import (
+    CustomfieldsListPostResponseDataItemLinks,
+)
+from .customfields_list_post_response_data_item_type import (
+    CustomfieldsListPostResponseDataItemType,
+)
+from .customfields_single_get_response import CustomfieldsSingleGetResponse
+from .customfields_single_get_response_data import (
+    CustomfieldsSingleGetResponseData,
+)
+from .customfields_single_get_response_data_attributes import (
+    CustomfieldsSingleGetResponseDataAttributes,
+)
+from .customfields_single_get_response_data_attributes_fields_item import (
+    CustomfieldsSingleGetResponseDataAttributesFieldsItem,
+)
+from .customfields_single_get_response_data_attributes_fields_item_parameters_item import (
+    CustomfieldsSingleGetResponseDataAttributesFieldsItemParametersItem,
+)
+from .customfields_single_get_response_data_attributes_fields_item_type import (
+    CustomfieldsSingleGetResponseDataAttributesFieldsItemType,
+)
+from .customfields_single_get_response_data_links import (
+    CustomfieldsSingleGetResponseDataLinks,
+)
+from .customfields_single_get_response_data_meta import (
+    CustomfieldsSingleGetResponseDataMeta,
+)
+from .customfields_single_get_response_data_meta_errors_item import (
+    CustomfieldsSingleGetResponseDataMetaErrorsItem,
+)
+from .customfields_single_get_response_data_meta_errors_item_source import (
+    CustomfieldsSingleGetResponseDataMetaErrorsItemSource,
+)
+from .customfields_single_get_response_data_meta_errors_item_source_resource import (
+    CustomfieldsSingleGetResponseDataMetaErrorsItemSourceResource,
+)
+from .customfields_single_get_response_data_type import (
+    CustomfieldsSingleGetResponseDataType,
+)
+from .customfields_single_get_response_included_item import (
+    CustomfieldsSingleGetResponseIncludedItem,
+)
+from .customfields_single_get_response_links import (
+    CustomfieldsSingleGetResponseLinks,
+)
+from .customfields_single_patch_request import CustomfieldsSinglePatchRequest
+from .customfields_single_patch_request_data import (
+    CustomfieldsSinglePatchRequestData,
+)
+from .customfields_single_patch_request_data_attributes import (
+    CustomfieldsSinglePatchRequestDataAttributes,
+)
+from .customfields_single_patch_request_data_attributes_fields_item import (
+    CustomfieldsSinglePatchRequestDataAttributesFieldsItem,
+)
+from .customfields_single_patch_request_data_attributes_fields_item_parameters_item import (
+    CustomfieldsSinglePatchRequestDataAttributesFieldsItemParametersItem,
+)
+from .customfields_single_patch_request_data_attributes_fields_item_type import (
+    CustomfieldsSinglePatchRequestDataAttributesFieldsItemType,
+)
+from .customfields_single_patch_request_data_type import (
+    CustomfieldsSinglePatchRequestDataType,
 )
 from .document_attachments_list_get_response import (
     DocumentAttachmentsListGetResponse,
@@ -727,6 +976,13 @@ from .document_comments_single_patch_request_data_attributes import (
 from .document_comments_single_patch_request_data_type import (
     DocumentCommentsSinglePatchRequestDataType,
 )
+from .document_parts_list_delete_request import DocumentPartsListDeleteRequest
+from .document_parts_list_delete_request_data_item import (
+    DocumentPartsListDeleteRequestDataItem,
+)
+from .document_parts_list_delete_request_data_item_type import (
+    DocumentPartsListDeleteRequestDataItemType,
+)
 from .document_parts_list_get_response import DocumentPartsListGetResponse
 from .document_parts_list_get_response_data_item import (
     DocumentPartsListGetResponseDataItem,
@@ -902,6 +1158,138 @@ from .document_parts_single_get_response_included_item import (
 from .document_parts_single_get_response_links import (
     DocumentPartsSingleGetResponseLinks,
 )
+from .documents_list_get_response import DocumentsListGetResponse
+from .documents_list_get_response_data_item import (
+    DocumentsListGetResponseDataItem,
+)
+from .documents_list_get_response_data_item_attributes import (
+    DocumentsListGetResponseDataItemAttributes,
+)
+from .documents_list_get_response_data_item_attributes_home_page_content import (
+    DocumentsListGetResponseDataItemAttributesHomePageContent,
+)
+from .documents_list_get_response_data_item_attributes_home_page_content_type import (
+    DocumentsListGetResponseDataItemAttributesHomePageContentType,
+)
+from .documents_list_get_response_data_item_attributes_outline_numbering import (
+    DocumentsListGetResponseDataItemAttributesOutlineNumbering,
+)
+from .documents_list_get_response_data_item_attributes_rendering_layouts_item import (
+    DocumentsListGetResponseDataItemAttributesRenderingLayoutsItem,
+)
+from .documents_list_get_response_data_item_attributes_rendering_layouts_item_properties_item import (
+    DocumentsListGetResponseDataItemAttributesRenderingLayoutsItemPropertiesItem,
+)
+from .documents_list_get_response_data_item_links import (
+    DocumentsListGetResponseDataItemLinks,
+)
+from .documents_list_get_response_data_item_meta import (
+    DocumentsListGetResponseDataItemMeta,
+)
+from .documents_list_get_response_data_item_meta_errors_item import (
+    DocumentsListGetResponseDataItemMetaErrorsItem,
+)
+from .documents_list_get_response_data_item_meta_errors_item_source import (
+    DocumentsListGetResponseDataItemMetaErrorsItemSource,
+)
+from .documents_list_get_response_data_item_meta_errors_item_source_resource import (
+    DocumentsListGetResponseDataItemMetaErrorsItemSourceResource,
+)
+from .documents_list_get_response_data_item_relationships import (
+    DocumentsListGetResponseDataItemRelationships,
+)
+from .documents_list_get_response_data_item_relationships_attachments import (
+    DocumentsListGetResponseDataItemRelationshipsAttachments,
+)
+from .documents_list_get_response_data_item_relationships_attachments_data_item import (
+    DocumentsListGetResponseDataItemRelationshipsAttachmentsDataItem,
+)
+from .documents_list_get_response_data_item_relationships_attachments_data_item_type import (
+    DocumentsListGetResponseDataItemRelationshipsAttachmentsDataItemType,
+)
+from .documents_list_get_response_data_item_relationships_attachments_links import (
+    DocumentsListGetResponseDataItemRelationshipsAttachmentsLinks,
+)
+from .documents_list_get_response_data_item_relationships_attachments_meta import (
+    DocumentsListGetResponseDataItemRelationshipsAttachmentsMeta,
+)
+from .documents_list_get_response_data_item_relationships_author import (
+    DocumentsListGetResponseDataItemRelationshipsAuthor,
+)
+from .documents_list_get_response_data_item_relationships_author_data import (
+    DocumentsListGetResponseDataItemRelationshipsAuthorData,
+)
+from .documents_list_get_response_data_item_relationships_author_data_type import (
+    DocumentsListGetResponseDataItemRelationshipsAuthorDataType,
+)
+from .documents_list_get_response_data_item_relationships_branched_from import (
+    DocumentsListGetResponseDataItemRelationshipsBranchedFrom,
+)
+from .documents_list_get_response_data_item_relationships_branched_from_data import (
+    DocumentsListGetResponseDataItemRelationshipsBranchedFromData,
+)
+from .documents_list_get_response_data_item_relationships_branched_from_data_type import (
+    DocumentsListGetResponseDataItemRelationshipsBranchedFromDataType,
+)
+from .documents_list_get_response_data_item_relationships_comments import (
+    DocumentsListGetResponseDataItemRelationshipsComments,
+)
+from .documents_list_get_response_data_item_relationships_comments_data_item import (
+    DocumentsListGetResponseDataItemRelationshipsCommentsDataItem,
+)
+from .documents_list_get_response_data_item_relationships_comments_data_item_type import (
+    DocumentsListGetResponseDataItemRelationshipsCommentsDataItemType,
+)
+from .documents_list_get_response_data_item_relationships_comments_links import (
+    DocumentsListGetResponseDataItemRelationshipsCommentsLinks,
+)
+from .documents_list_get_response_data_item_relationships_comments_meta import (
+    DocumentsListGetResponseDataItemRelationshipsCommentsMeta,
+)
+from .documents_list_get_response_data_item_relationships_derived_from import (
+    DocumentsListGetResponseDataItemRelationshipsDerivedFrom,
+)
+from .documents_list_get_response_data_item_relationships_derived_from_data import (
+    DocumentsListGetResponseDataItemRelationshipsDerivedFromData,
+)
+from .documents_list_get_response_data_item_relationships_derived_from_data_type import (
+    DocumentsListGetResponseDataItemRelationshipsDerivedFromDataType,
+)
+from .documents_list_get_response_data_item_relationships_project import (
+    DocumentsListGetResponseDataItemRelationshipsProject,
+)
+from .documents_list_get_response_data_item_relationships_project_data import (
+    DocumentsListGetResponseDataItemRelationshipsProjectData,
+)
+from .documents_list_get_response_data_item_relationships_project_data_type import (
+    DocumentsListGetResponseDataItemRelationshipsProjectDataType,
+)
+from .documents_list_get_response_data_item_relationships_updated_by import (
+    DocumentsListGetResponseDataItemRelationshipsUpdatedBy,
+)
+from .documents_list_get_response_data_item_relationships_updated_by_data import (
+    DocumentsListGetResponseDataItemRelationshipsUpdatedByData,
+)
+from .documents_list_get_response_data_item_relationships_updated_by_data_type import (
+    DocumentsListGetResponseDataItemRelationshipsUpdatedByDataType,
+)
+from .documents_list_get_response_data_item_relationships_variant import (
+    DocumentsListGetResponseDataItemRelationshipsVariant,
+)
+from .documents_list_get_response_data_item_relationships_variant_data import (
+    DocumentsListGetResponseDataItemRelationshipsVariantData,
+)
+from .documents_list_get_response_data_item_relationships_variant_data_type import (
+    DocumentsListGetResponseDataItemRelationshipsVariantDataType,
+)
+from .documents_list_get_response_data_item_type import (
+    DocumentsListGetResponseDataItemType,
+)
+from .documents_list_get_response_included_item import (
+    DocumentsListGetResponseIncludedItem,
+)
+from .documents_list_get_response_links import DocumentsListGetResponseLinks
+from .documents_list_get_response_meta import DocumentsListGetResponseMeta
 from .documents_list_post_request import DocumentsListPostRequest
 from .documents_list_post_request_data_item import (
     DocumentsListPostRequestDataItem,
@@ -1206,11 +1594,54 @@ from .enum_options_action_response_body import EnumOptionsActionResponseBody
 from .enum_options_action_response_body_data_item import (
     EnumOptionsActionResponseBodyDataItem,
 )
+from .enum_options_action_response_body_data_item_link_rules_item import (
+    EnumOptionsActionResponseBodyDataItemLinkRulesItem,
+)
 from .enum_options_action_response_body_links import (
     EnumOptionsActionResponseBodyLinks,
 )
 from .enum_options_action_response_body_meta import (
     EnumOptionsActionResponseBodyMeta,
+)
+from .enumerations_list_get_response import EnumerationsListGetResponse
+from .enumerations_list_get_response_data_item import (
+    EnumerationsListGetResponseDataItem,
+)
+from .enumerations_list_get_response_data_item_attributes import (
+    EnumerationsListGetResponseDataItemAttributes,
+)
+from .enumerations_list_get_response_data_item_attributes_options_item import (
+    EnumerationsListGetResponseDataItemAttributesOptionsItem,
+)
+from .enumerations_list_get_response_data_item_attributes_options_item_link_rules_item import (
+    EnumerationsListGetResponseDataItemAttributesOptionsItemLinkRulesItem,
+)
+from .enumerations_list_get_response_data_item_links import (
+    EnumerationsListGetResponseDataItemLinks,
+)
+from .enumerations_list_get_response_data_item_meta import (
+    EnumerationsListGetResponseDataItemMeta,
+)
+from .enumerations_list_get_response_data_item_meta_errors_item import (
+    EnumerationsListGetResponseDataItemMetaErrorsItem,
+)
+from .enumerations_list_get_response_data_item_meta_errors_item_source import (
+    EnumerationsListGetResponseDataItemMetaErrorsItemSource,
+)
+from .enumerations_list_get_response_data_item_meta_errors_item_source_resource import (
+    EnumerationsListGetResponseDataItemMetaErrorsItemSourceResource,
+)
+from .enumerations_list_get_response_data_item_type import (
+    EnumerationsListGetResponseDataItemType,
+)
+from .enumerations_list_get_response_included_item import (
+    EnumerationsListGetResponseIncludedItem,
+)
+from .enumerations_list_get_response_links import (
+    EnumerationsListGetResponseLinks,
+)
+from .enumerations_list_get_response_meta import (
+    EnumerationsListGetResponseMeta,
 )
 from .enumerations_list_post_request import EnumerationsListPostRequest
 from .enumerations_list_post_request_data_item import (
@@ -1221,6 +1652,9 @@ from .enumerations_list_post_request_data_item_attributes import (
 )
 from .enumerations_list_post_request_data_item_attributes_options_item import (
     EnumerationsListPostRequestDataItemAttributesOptionsItem,
+)
+from .enumerations_list_post_request_data_item_attributes_options_item_link_rules_item import (
+    EnumerationsListPostRequestDataItemAttributesOptionsItemLinkRulesItem,
 )
 from .enumerations_list_post_request_data_item_type import (
     EnumerationsListPostRequestDataItemType,
@@ -1244,6 +1678,9 @@ from .enumerations_single_get_response_data_attributes import (
 )
 from .enumerations_single_get_response_data_attributes_options_item import (
     EnumerationsSingleGetResponseDataAttributesOptionsItem,
+)
+from .enumerations_single_get_response_data_attributes_options_item_link_rules_item import (
+    EnumerationsSingleGetResponseDataAttributesOptionsItemLinkRulesItem,
 )
 from .enumerations_single_get_response_data_links import (
     EnumerationsSingleGetResponseDataLinks,
@@ -1279,6 +1716,9 @@ from .enumerations_single_patch_request_data_attributes import (
 from .enumerations_single_patch_request_data_attributes_options_item import (
     EnumerationsSinglePatchRequestDataAttributesOptionsItem,
 )
+from .enumerations_single_patch_request_data_attributes_options_item_link_rules_item import (
+    EnumerationsSinglePatchRequestDataAttributesOptionsItemLinkRulesItem,
+)
 from .enumerations_single_patch_request_data_type import (
     EnumerationsSinglePatchRequestDataType,
 )
@@ -1287,6 +1727,10 @@ from .errors_errors_item import ErrorsErrorsItem
 from .errors_errors_item_source_type_0 import ErrorsErrorsItemSourceType0
 from .errors_errors_item_source_type_0_resource_type_0 import (
     ErrorsErrorsItemSourceType0ResourceType0,
+)
+from .execute_job_request_body import ExecuteJobRequestBody
+from .execute_job_request_body_params_type_0 import (
+    ExecuteJobRequestBodyParamsType0,
 )
 from .externallylinkedworkitems_list_delete_request import (
     ExternallylinkedworkitemsListDeleteRequest,
@@ -1489,6 +1933,79 @@ from .featureselections_single_get_response_included_item import (
 from .featureselections_single_get_response_links import (
     FeatureselectionsSingleGetResponseLinks,
 )
+from .fields_metadata_action_response_body import (
+    FieldsMetadataActionResponseBody,
+)
+from .fields_metadata_action_response_body_data import (
+    FieldsMetadataActionResponseBodyData,
+)
+from .fields_metadata_action_response_body_data_attributes import (
+    FieldsMetadataActionResponseBodyDataAttributes,
+)
+from .fields_metadata_action_response_body_data_attributes_enum_field import (
+    FieldsMetadataActionResponseBodyDataAttributesEnumField,
+)
+from .fields_metadata_action_response_body_data_attributes_enum_field_type import (
+    FieldsMetadataActionResponseBodyDataAttributesEnumFieldType,
+)
+from .fields_metadata_action_response_body_data_attributes_list_field import (
+    FieldsMetadataActionResponseBodyDataAttributesListField,
+)
+from .fields_metadata_action_response_body_data_attributes_list_field_type import (
+    FieldsMetadataActionResponseBodyDataAttributesListFieldType,
+)
+from .fields_metadata_action_response_body_data_attributes_list_field_type_item_type import (
+    FieldsMetadataActionResponseBodyDataAttributesListFieldTypeItemType,
+)
+from .fields_metadata_action_response_body_data_attributes_list_field_type_item_type_kind import (
+    FieldsMetadataActionResponseBodyDataAttributesListFieldTypeItemTypeKind,
+)
+from .fields_metadata_action_response_body_data_attributes_list_field_type_item_type_kind_enum_item import (
+    FieldsMetadataActionResponseBodyDataAttributesListFieldTypeItemTypeKindEnumItem,
+)
+from .fields_metadata_action_response_body_data_attributes_primitive_field import (
+    FieldsMetadataActionResponseBodyDataAttributesPrimitiveField,
+)
+from .fields_metadata_action_response_body_data_attributes_primitive_field_type import (
+    FieldsMetadataActionResponseBodyDataAttributesPrimitiveFieldType,
+)
+from .fields_metadata_action_response_body_data_attributes_primitive_field_type_kind import (
+    FieldsMetadataActionResponseBodyDataAttributesPrimitiveFieldTypeKind,
+)
+from .fields_metadata_action_response_body_data_attributes_primitive_field_type_kind_enum_item import (
+    FieldsMetadataActionResponseBodyDataAttributesPrimitiveFieldTypeKindEnumItem,
+)
+from .fields_metadata_action_response_body_data_attributes_struct_field import (
+    FieldsMetadataActionResponseBodyDataAttributesStructField,
+)
+from .fields_metadata_action_response_body_data_attributes_struct_field_type import (
+    FieldsMetadataActionResponseBodyDataAttributesStructFieldType,
+)
+from .fields_metadata_action_response_body_data_relationships import (
+    FieldsMetadataActionResponseBodyDataRelationships,
+)
+from .fields_metadata_action_response_body_data_relationships_relationship_field import (
+    FieldsMetadataActionResponseBodyDataRelationshipsRelationshipField,
+)
+from .fields_metadata_action_response_body_data_relationships_relationship_field_type import (
+    FieldsMetadataActionResponseBodyDataRelationshipsRelationshipFieldType,
+)
+from .fields_metadata_action_response_body_links import (
+    FieldsMetadataActionResponseBodyLinks,
+)
+from .generate_completion_message import GenerateCompletionMessage
+from .generate_completion_request_body import GenerateCompletionRequestBody
+from .generate_completion_response_body import GenerateCompletionResponseBody
+from .generate_completion_response_format import (
+    GenerateCompletionResponseFormat,
+)
+from .generate_completion_response_format_schema import (
+    GenerateCompletionResponseFormatSchema,
+)
+from .generate_completion_response_format_type import (
+    GenerateCompletionResponseFormatType,
+)
+from .generate_completion_result import GenerateCompletionResult
 from .globalroles_single_get_response import GlobalrolesSingleGetResponse
 from .globalroles_single_get_response_data import (
     GlobalrolesSingleGetResponseData,
@@ -1597,6 +2114,75 @@ from .icons_single_get_response_included_item import (
 )
 from .icons_single_get_response_links import IconsSingleGetResponseLinks
 from .import_test_results_request_body import ImportTestResultsRequestBody
+from .import_word_document_parameters import ImportWordDocumentParameters
+from .import_word_document_request_body import ImportWordDocumentRequestBody
+from .jobs_list_get_response import JobsListGetResponse
+from .jobs_list_get_response_data_item import JobsListGetResponseDataItem
+from .jobs_list_get_response_data_item_attributes import (
+    JobsListGetResponseDataItemAttributes,
+)
+from .jobs_list_get_response_data_item_attributes_status import (
+    JobsListGetResponseDataItemAttributesStatus,
+)
+from .jobs_list_get_response_data_item_attributes_status_type import (
+    JobsListGetResponseDataItemAttributesStatusType,
+)
+from .jobs_list_get_response_data_item_links import (
+    JobsListGetResponseDataItemLinks,
+)
+from .jobs_list_get_response_data_item_meta import (
+    JobsListGetResponseDataItemMeta,
+)
+from .jobs_list_get_response_data_item_meta_errors_item import (
+    JobsListGetResponseDataItemMetaErrorsItem,
+)
+from .jobs_list_get_response_data_item_meta_errors_item_source import (
+    JobsListGetResponseDataItemMetaErrorsItemSource,
+)
+from .jobs_list_get_response_data_item_meta_errors_item_source_resource import (
+    JobsListGetResponseDataItemMetaErrorsItemSourceResource,
+)
+from .jobs_list_get_response_data_item_relationships import (
+    JobsListGetResponseDataItemRelationships,
+)
+from .jobs_list_get_response_data_item_relationships_document import (
+    JobsListGetResponseDataItemRelationshipsDocument,
+)
+from .jobs_list_get_response_data_item_relationships_document_data import (
+    JobsListGetResponseDataItemRelationshipsDocumentData,
+)
+from .jobs_list_get_response_data_item_relationships_document_data_type import (
+    JobsListGetResponseDataItemRelationshipsDocumentDataType,
+)
+from .jobs_list_get_response_data_item_relationships_documents import (
+    JobsListGetResponseDataItemRelationshipsDocuments,
+)
+from .jobs_list_get_response_data_item_relationships_documents_data_item import (
+    JobsListGetResponseDataItemRelationshipsDocumentsDataItem,
+)
+from .jobs_list_get_response_data_item_relationships_documents_data_item_type import (
+    JobsListGetResponseDataItemRelationshipsDocumentsDataItemType,
+)
+from .jobs_list_get_response_data_item_relationships_documents_meta import (
+    JobsListGetResponseDataItemRelationshipsDocumentsMeta,
+)
+from .jobs_list_get_response_data_item_relationships_project import (
+    JobsListGetResponseDataItemRelationshipsProject,
+)
+from .jobs_list_get_response_data_item_relationships_project_data import (
+    JobsListGetResponseDataItemRelationshipsProjectData,
+)
+from .jobs_list_get_response_data_item_relationships_project_data_type import (
+    JobsListGetResponseDataItemRelationshipsProjectDataType,
+)
+from .jobs_list_get_response_data_item_type import (
+    JobsListGetResponseDataItemType,
+)
+from .jobs_list_get_response_included_item import (
+    JobsListGetResponseIncludedItem,
+)
+from .jobs_list_get_response_links import JobsListGetResponseLinks
+from .jobs_list_get_response_meta import JobsListGetResponseMeta
 from .jobs_single_get_response import JobsSingleGetResponse
 from .jobs_single_get_response_data import JobsSingleGetResponseData
 from .jobs_single_get_response_data_attributes import (
@@ -1702,6 +2288,388 @@ from .jobs_single_post_response_data_relationships_project_data_type import (
     JobsSinglePostResponseDataRelationshipsProjectDataType,
 )
 from .jobs_single_post_response_data_type import JobsSinglePostResponseDataType
+from .license_assignments_list_get_response import (
+    LicenseAssignmentsListGetResponse,
+)
+from .license_assignments_list_get_response_data_item import (
+    LicenseAssignmentsListGetResponseDataItem,
+)
+from .license_assignments_list_get_response_data_item_attributes import (
+    LicenseAssignmentsListGetResponseDataItemAttributes,
+)
+from .license_assignments_list_get_response_data_item_attributes_status import (
+    LicenseAssignmentsListGetResponseDataItemAttributesStatus,
+)
+from .license_assignments_list_get_response_data_item_links import (
+    LicenseAssignmentsListGetResponseDataItemLinks,
+)
+from .license_assignments_list_get_response_data_item_meta import (
+    LicenseAssignmentsListGetResponseDataItemMeta,
+)
+from .license_assignments_list_get_response_data_item_meta_errors_item import (
+    LicenseAssignmentsListGetResponseDataItemMetaErrorsItem,
+)
+from .license_assignments_list_get_response_data_item_meta_errors_item_source import (
+    LicenseAssignmentsListGetResponseDataItemMetaErrorsItemSource,
+)
+from .license_assignments_list_get_response_data_item_meta_errors_item_source_resource import (
+    LicenseAssignmentsListGetResponseDataItemMetaErrorsItemSourceResource,
+)
+from .license_assignments_list_get_response_data_item_relationships import (
+    LicenseAssignmentsListGetResponseDataItemRelationships,
+)
+from .license_assignments_list_get_response_data_item_relationships_add_on_slots import (
+    LicenseAssignmentsListGetResponseDataItemRelationshipsAddOnSlots,
+)
+from .license_assignments_list_get_response_data_item_relationships_add_on_slots_data_item import (
+    LicenseAssignmentsListGetResponseDataItemRelationshipsAddOnSlotsDataItem,
+)
+from .license_assignments_list_get_response_data_item_relationships_add_on_slots_data_item_type import (
+    LicenseAssignmentsListGetResponseDataItemRelationshipsAddOnSlotsDataItemType,
+)
+from .license_assignments_list_get_response_data_item_relationships_add_on_slots_meta import (
+    LicenseAssignmentsListGetResponseDataItemRelationshipsAddOnSlotsMeta,
+)
+from .license_assignments_list_get_response_data_item_relationships_base_slot import (
+    LicenseAssignmentsListGetResponseDataItemRelationshipsBaseSlot,
+)
+from .license_assignments_list_get_response_data_item_relationships_base_slot_data import (
+    LicenseAssignmentsListGetResponseDataItemRelationshipsBaseSlotData,
+)
+from .license_assignments_list_get_response_data_item_relationships_base_slot_data_type import (
+    LicenseAssignmentsListGetResponseDataItemRelationshipsBaseSlotDataType,
+)
+from .license_assignments_list_get_response_data_item_relationships_user import (
+    LicenseAssignmentsListGetResponseDataItemRelationshipsUser,
+)
+from .license_assignments_list_get_response_data_item_relationships_user_data import (
+    LicenseAssignmentsListGetResponseDataItemRelationshipsUserData,
+)
+from .license_assignments_list_get_response_data_item_relationships_user_data_type import (
+    LicenseAssignmentsListGetResponseDataItemRelationshipsUserDataType,
+)
+from .license_assignments_list_get_response_data_item_type import (
+    LicenseAssignmentsListGetResponseDataItemType,
+)
+from .license_assignments_list_get_response_included_item import (
+    LicenseAssignmentsListGetResponseIncludedItem,
+)
+from .license_assignments_list_get_response_links import (
+    LicenseAssignmentsListGetResponseLinks,
+)
+from .license_assignments_list_get_response_meta import (
+    LicenseAssignmentsListGetResponseMeta,
+)
+from .license_assignments_list_patch_request import (
+    LicenseAssignmentsListPatchRequest,
+)
+from .license_assignments_list_patch_request_data_item import (
+    LicenseAssignmentsListPatchRequestDataItem,
+)
+from .license_assignments_list_patch_request_data_item_relationships import (
+    LicenseAssignmentsListPatchRequestDataItemRelationships,
+)
+from .license_assignments_list_patch_request_data_item_relationships_add_on_slots import (
+    LicenseAssignmentsListPatchRequestDataItemRelationshipsAddOnSlots,
+)
+from .license_assignments_list_patch_request_data_item_relationships_add_on_slots_data_item import (
+    LicenseAssignmentsListPatchRequestDataItemRelationshipsAddOnSlotsDataItem,
+)
+from .license_assignments_list_patch_request_data_item_relationships_add_on_slots_data_item_type import (
+    LicenseAssignmentsListPatchRequestDataItemRelationshipsAddOnSlotsDataItemType,
+)
+from .license_assignments_list_patch_request_data_item_relationships_base_slot import (
+    LicenseAssignmentsListPatchRequestDataItemRelationshipsBaseSlot,
+)
+from .license_assignments_list_patch_request_data_item_relationships_base_slot_data import (
+    LicenseAssignmentsListPatchRequestDataItemRelationshipsBaseSlotData,
+)
+from .license_assignments_list_patch_request_data_item_relationships_base_slot_data_type import (
+    LicenseAssignmentsListPatchRequestDataItemRelationshipsBaseSlotDataType,
+)
+from .license_assignments_list_patch_request_data_item_type import (
+    LicenseAssignmentsListPatchRequestDataItemType,
+)
+from .license_assignments_single_get_response import (
+    LicenseAssignmentsSingleGetResponse,
+)
+from .license_assignments_single_get_response_data import (
+    LicenseAssignmentsSingleGetResponseData,
+)
+from .license_assignments_single_get_response_data_attributes import (
+    LicenseAssignmentsSingleGetResponseDataAttributes,
+)
+from .license_assignments_single_get_response_data_attributes_status import (
+    LicenseAssignmentsSingleGetResponseDataAttributesStatus,
+)
+from .license_assignments_single_get_response_data_links import (
+    LicenseAssignmentsSingleGetResponseDataLinks,
+)
+from .license_assignments_single_get_response_data_meta import (
+    LicenseAssignmentsSingleGetResponseDataMeta,
+)
+from .license_assignments_single_get_response_data_meta_errors_item import (
+    LicenseAssignmentsSingleGetResponseDataMetaErrorsItem,
+)
+from .license_assignments_single_get_response_data_meta_errors_item_source import (
+    LicenseAssignmentsSingleGetResponseDataMetaErrorsItemSource,
+)
+from .license_assignments_single_get_response_data_meta_errors_item_source_resource import (
+    LicenseAssignmentsSingleGetResponseDataMetaErrorsItemSourceResource,
+)
+from .license_assignments_single_get_response_data_relationships import (
+    LicenseAssignmentsSingleGetResponseDataRelationships,
+)
+from .license_assignments_single_get_response_data_relationships_add_on_slots import (
+    LicenseAssignmentsSingleGetResponseDataRelationshipsAddOnSlots,
+)
+from .license_assignments_single_get_response_data_relationships_add_on_slots_data_item import (
+    LicenseAssignmentsSingleGetResponseDataRelationshipsAddOnSlotsDataItem,
+)
+from .license_assignments_single_get_response_data_relationships_add_on_slots_data_item_type import (
+    LicenseAssignmentsSingleGetResponseDataRelationshipsAddOnSlotsDataItemType,
+)
+from .license_assignments_single_get_response_data_relationships_add_on_slots_meta import (
+    LicenseAssignmentsSingleGetResponseDataRelationshipsAddOnSlotsMeta,
+)
+from .license_assignments_single_get_response_data_relationships_base_slot import (
+    LicenseAssignmentsSingleGetResponseDataRelationshipsBaseSlot,
+)
+from .license_assignments_single_get_response_data_relationships_base_slot_data import (
+    LicenseAssignmentsSingleGetResponseDataRelationshipsBaseSlotData,
+)
+from .license_assignments_single_get_response_data_relationships_base_slot_data_type import (
+    LicenseAssignmentsSingleGetResponseDataRelationshipsBaseSlotDataType,
+)
+from .license_assignments_single_get_response_data_relationships_user import (
+    LicenseAssignmentsSingleGetResponseDataRelationshipsUser,
+)
+from .license_assignments_single_get_response_data_relationships_user_data import (
+    LicenseAssignmentsSingleGetResponseDataRelationshipsUserData,
+)
+from .license_assignments_single_get_response_data_relationships_user_data_type import (
+    LicenseAssignmentsSingleGetResponseDataRelationshipsUserDataType,
+)
+from .license_assignments_single_get_response_data_type import (
+    LicenseAssignmentsSingleGetResponseDataType,
+)
+from .license_assignments_single_get_response_included_item import (
+    LicenseAssignmentsSingleGetResponseIncludedItem,
+)
+from .license_assignments_single_get_response_links import (
+    LicenseAssignmentsSingleGetResponseLinks,
+)
+from .license_assignments_single_patch_request import (
+    LicenseAssignmentsSinglePatchRequest,
+)
+from .license_assignments_single_patch_request_data import (
+    LicenseAssignmentsSinglePatchRequestData,
+)
+from .license_assignments_single_patch_request_data_relationships import (
+    LicenseAssignmentsSinglePatchRequestDataRelationships,
+)
+from .license_assignments_single_patch_request_data_relationships_add_on_slots import (
+    LicenseAssignmentsSinglePatchRequestDataRelationshipsAddOnSlots,
+)
+from .license_assignments_single_patch_request_data_relationships_add_on_slots_data_item import (
+    LicenseAssignmentsSinglePatchRequestDataRelationshipsAddOnSlotsDataItem,
+)
+from .license_assignments_single_patch_request_data_relationships_add_on_slots_data_item_type import (
+    LicenseAssignmentsSinglePatchRequestDataRelationshipsAddOnSlotsDataItemType,
+)
+from .license_assignments_single_patch_request_data_relationships_base_slot import (
+    LicenseAssignmentsSinglePatchRequestDataRelationshipsBaseSlot,
+)
+from .license_assignments_single_patch_request_data_relationships_base_slot_data import (
+    LicenseAssignmentsSinglePatchRequestDataRelationshipsBaseSlotData,
+)
+from .license_assignments_single_patch_request_data_relationships_base_slot_data_type import (
+    LicenseAssignmentsSinglePatchRequestDataRelationshipsBaseSlotDataType,
+)
+from .license_assignments_single_patch_request_data_type import (
+    LicenseAssignmentsSinglePatchRequestDataType,
+)
+from .license_single_get_response import LicenseSingleGetResponse
+from .license_single_get_response_data import LicenseSingleGetResponseData
+from .license_single_get_response_data_attributes import (
+    LicenseSingleGetResponseDataAttributes,
+)
+from .license_single_get_response_data_attributes_limits import (
+    LicenseSingleGetResponseDataAttributesLimits,
+)
+from .license_single_get_response_data_attributes_limits_documents_and_pages import (
+    LicenseSingleGetResponseDataAttributesLimitsDocumentsAndPages,
+)
+from .license_single_get_response_data_attributes_limits_projects import (
+    LicenseSingleGetResponseDataAttributesLimitsProjects,
+)
+from .license_single_get_response_data_attributes_limits_workitems import (
+    LicenseSingleGetResponseDataAttributesLimitsWorkitems,
+)
+from .license_single_get_response_data_links import (
+    LicenseSingleGetResponseDataLinks,
+)
+from .license_single_get_response_data_meta import (
+    LicenseSingleGetResponseDataMeta,
+)
+from .license_single_get_response_data_meta_errors_item import (
+    LicenseSingleGetResponseDataMetaErrorsItem,
+)
+from .license_single_get_response_data_meta_errors_item_source import (
+    LicenseSingleGetResponseDataMetaErrorsItemSource,
+)
+from .license_single_get_response_data_meta_errors_item_source_resource import (
+    LicenseSingleGetResponseDataMetaErrorsItemSourceResource,
+)
+from .license_single_get_response_data_relationships import (
+    LicenseSingleGetResponseDataRelationships,
+)
+from .license_single_get_response_data_relationships_default_add_on_license_slots import (
+    LicenseSingleGetResponseDataRelationshipsDefaultAddOnLicenseSlots,
+)
+from .license_single_get_response_data_relationships_default_add_on_license_slots_data_item import (
+    LicenseSingleGetResponseDataRelationshipsDefaultAddOnLicenseSlotsDataItem,
+)
+from .license_single_get_response_data_relationships_default_add_on_license_slots_data_item_type import (
+    LicenseSingleGetResponseDataRelationshipsDefaultAddOnLicenseSlotsDataItemType,
+)
+from .license_single_get_response_data_relationships_default_add_on_license_slots_meta import (
+    LicenseSingleGetResponseDataRelationshipsDefaultAddOnLicenseSlotsMeta,
+)
+from .license_single_get_response_data_relationships_default_base_license_slot import (
+    LicenseSingleGetResponseDataRelationshipsDefaultBaseLicenseSlot,
+)
+from .license_single_get_response_data_relationships_default_base_license_slot_data import (
+    LicenseSingleGetResponseDataRelationshipsDefaultBaseLicenseSlotData,
+)
+from .license_single_get_response_data_relationships_default_base_license_slot_data_type import (
+    LicenseSingleGetResponseDataRelationshipsDefaultBaseLicenseSlotDataType,
+)
+from .license_single_get_response_data_type import (
+    LicenseSingleGetResponseDataType,
+)
+from .license_single_get_response_included_item import (
+    LicenseSingleGetResponseIncludedItem,
+)
+from .license_single_get_response_links import LicenseSingleGetResponseLinks
+from .license_single_patch_request import LicenseSinglePatchRequest
+from .license_single_patch_request_data import LicenseSinglePatchRequestData
+from .license_single_patch_request_data_relationships import (
+    LicenseSinglePatchRequestDataRelationships,
+)
+from .license_single_patch_request_data_relationships_default_add_on_license_slots import (
+    LicenseSinglePatchRequestDataRelationshipsDefaultAddOnLicenseSlots,
+)
+from .license_single_patch_request_data_relationships_default_add_on_license_slots_data_item import (
+    LicenseSinglePatchRequestDataRelationshipsDefaultAddOnLicenseSlotsDataItem,
+)
+from .license_single_patch_request_data_relationships_default_add_on_license_slots_data_item_type import (
+    LicenseSinglePatchRequestDataRelationshipsDefaultAddOnLicenseSlotsDataItemType,
+)
+from .license_single_patch_request_data_relationships_default_base_license_slot import (
+    LicenseSinglePatchRequestDataRelationshipsDefaultBaseLicenseSlot,
+)
+from .license_single_patch_request_data_relationships_default_base_license_slot_data import (
+    LicenseSinglePatchRequestDataRelationshipsDefaultBaseLicenseSlotData,
+)
+from .license_single_patch_request_data_relationships_default_base_license_slot_data_type import (
+    LicenseSinglePatchRequestDataRelationshipsDefaultBaseLicenseSlotDataType,
+)
+from .license_single_patch_request_data_type import (
+    LicenseSinglePatchRequestDataType,
+)
+from .license_slots_list_delete_request import LicenseSlotsListDeleteRequest
+from .license_slots_list_delete_request_data_item import (
+    LicenseSlotsListDeleteRequestDataItem,
+)
+from .license_slots_list_delete_request_data_item_type import (
+    LicenseSlotsListDeleteRequestDataItemType,
+)
+from .license_slots_list_get_response import LicenseSlotsListGetResponse
+from .license_slots_list_get_response_data_item import (
+    LicenseSlotsListGetResponseDataItem,
+)
+from .license_slots_list_get_response_data_item_attributes import (
+    LicenseSlotsListGetResponseDataItemAttributes,
+)
+from .license_slots_list_get_response_data_item_links import (
+    LicenseSlotsListGetResponseDataItemLinks,
+)
+from .license_slots_list_get_response_data_item_meta import (
+    LicenseSlotsListGetResponseDataItemMeta,
+)
+from .license_slots_list_get_response_data_item_meta_errors_item import (
+    LicenseSlotsListGetResponseDataItemMetaErrorsItem,
+)
+from .license_slots_list_get_response_data_item_meta_errors_item_source import (
+    LicenseSlotsListGetResponseDataItemMetaErrorsItemSource,
+)
+from .license_slots_list_get_response_data_item_meta_errors_item_source_resource import (
+    LicenseSlotsListGetResponseDataItemMetaErrorsItemSourceResource,
+)
+from .license_slots_list_get_response_data_item_type import (
+    LicenseSlotsListGetResponseDataItemType,
+)
+from .license_slots_list_get_response_included_item import (
+    LicenseSlotsListGetResponseIncludedItem,
+)
+from .license_slots_list_get_response_links import (
+    LicenseSlotsListGetResponseLinks,
+)
+from .license_slots_list_get_response_meta import (
+    LicenseSlotsListGetResponseMeta,
+)
+from .license_slots_list_post_request import LicenseSlotsListPostRequest
+from .license_slots_list_post_request_data_item import (
+    LicenseSlotsListPostRequestDataItem,
+)
+from .license_slots_list_post_request_data_item_attributes import (
+    LicenseSlotsListPostRequestDataItemAttributes,
+)
+from .license_slots_list_post_request_data_item_type import (
+    LicenseSlotsListPostRequestDataItemType,
+)
+from .license_slots_list_post_response import LicenseSlotsListPostResponse
+from .license_slots_list_post_response_data_item import (
+    LicenseSlotsListPostResponseDataItem,
+)
+from .license_slots_list_post_response_data_item_links import (
+    LicenseSlotsListPostResponseDataItemLinks,
+)
+from .license_slots_list_post_response_data_item_type import (
+    LicenseSlotsListPostResponseDataItemType,
+)
+from .license_slots_single_get_response import LicenseSlotsSingleGetResponse
+from .license_slots_single_get_response_data import (
+    LicenseSlotsSingleGetResponseData,
+)
+from .license_slots_single_get_response_data_attributes import (
+    LicenseSlotsSingleGetResponseDataAttributes,
+)
+from .license_slots_single_get_response_data_links import (
+    LicenseSlotsSingleGetResponseDataLinks,
+)
+from .license_slots_single_get_response_data_meta import (
+    LicenseSlotsSingleGetResponseDataMeta,
+)
+from .license_slots_single_get_response_data_meta_errors_item import (
+    LicenseSlotsSingleGetResponseDataMetaErrorsItem,
+)
+from .license_slots_single_get_response_data_meta_errors_item_source import (
+    LicenseSlotsSingleGetResponseDataMetaErrorsItemSource,
+)
+from .license_slots_single_get_response_data_meta_errors_item_source_resource import (
+    LicenseSlotsSingleGetResponseDataMetaErrorsItemSourceResource,
+)
+from .license_slots_single_get_response_data_type import (
+    LicenseSlotsSingleGetResponseDataType,
+)
+from .license_slots_single_get_response_included_item import (
+    LicenseSlotsSingleGetResponseIncludedItem,
+)
+from .license_slots_single_get_response_links import (
+    LicenseSlotsSingleGetResponseLinks,
+)
 from .linkedoslcresources_list_delete_request import (
     LinkedoslcresourcesListDeleteRequest,
 )
@@ -1802,6 +2770,15 @@ from .linkedworkitems_list_get_response_data_item_meta_errors_item_source_resour
 from .linkedworkitems_list_get_response_data_item_relationships import (
     LinkedworkitemsListGetResponseDataItemRelationships,
 )
+from .linkedworkitems_list_get_response_data_item_relationships_source_work_item import (
+    LinkedworkitemsListGetResponseDataItemRelationshipsSourceWorkItem,
+)
+from .linkedworkitems_list_get_response_data_item_relationships_source_work_item_data import (
+    LinkedworkitemsListGetResponseDataItemRelationshipsSourceWorkItemData,
+)
+from .linkedworkitems_list_get_response_data_item_relationships_source_work_item_data_type import (
+    LinkedworkitemsListGetResponseDataItemRelationshipsSourceWorkItemDataType,
+)
 from .linkedworkitems_list_get_response_data_item_relationships_work_item import (
     LinkedworkitemsListGetResponseDataItemRelationshipsWorkItem,
 )
@@ -1882,6 +2859,15 @@ from .linkedworkitems_single_get_response_data_meta_errors_item_source_resource 
 from .linkedworkitems_single_get_response_data_relationships import (
     LinkedworkitemsSingleGetResponseDataRelationships,
 )
+from .linkedworkitems_single_get_response_data_relationships_source_work_item import (
+    LinkedworkitemsSingleGetResponseDataRelationshipsSourceWorkItem,
+)
+from .linkedworkitems_single_get_response_data_relationships_source_work_item_data import (
+    LinkedworkitemsSingleGetResponseDataRelationshipsSourceWorkItemData,
+)
+from .linkedworkitems_single_get_response_data_relationships_source_work_item_data_type import (
+    LinkedworkitemsSingleGetResponseDataRelationshipsSourceWorkItemDataType,
+)
 from .linkedworkitems_single_get_response_data_relationships_work_item import (
     LinkedworkitemsSingleGetResponseDataRelationshipsWorkItem,
 )
@@ -1912,10 +2898,141 @@ from .linkedworkitems_single_patch_request_data_attributes import (
 from .linkedworkitems_single_patch_request_data_type import (
     LinkedworkitemsSinglePatchRequestDataType,
 )
+from .llms_list_get_response import LlmsListGetResponse
+from .llms_list_get_response_data_item import LlmsListGetResponseDataItem
+from .llms_list_get_response_data_item_attributes import (
+    LlmsListGetResponseDataItemAttributes,
+)
+from .llms_list_get_response_data_item_links import (
+    LlmsListGetResponseDataItemLinks,
+)
+from .llms_list_get_response_data_item_meta import (
+    LlmsListGetResponseDataItemMeta,
+)
+from .llms_list_get_response_data_item_meta_errors_item import (
+    LlmsListGetResponseDataItemMetaErrorsItem,
+)
+from .llms_list_get_response_data_item_meta_errors_item_source import (
+    LlmsListGetResponseDataItemMetaErrorsItemSource,
+)
+from .llms_list_get_response_data_item_meta_errors_item_source_resource import (
+    LlmsListGetResponseDataItemMetaErrorsItemSourceResource,
+)
+from .llms_list_get_response_data_item_type import (
+    LlmsListGetResponseDataItemType,
+)
+from .llms_list_get_response_included_item import (
+    LlmsListGetResponseIncludedItem,
+)
+from .llms_list_get_response_meta import LlmsListGetResponseMeta
 from .merge_document_request_body import MergeDocumentRequestBody
+from .metadata_single_get_response import MetadataSingleGetResponse
+from .metadata_single_get_response_data import MetadataSingleGetResponseData
+from .metadata_single_get_response_data_attributes import (
+    MetadataSingleGetResponseDataAttributes,
+)
+from .metadata_single_get_response_data_attributes_api_properties import (
+    MetadataSingleGetResponseDataAttributesApiProperties,
+)
+from .metadata_single_get_response_data_links import (
+    MetadataSingleGetResponseDataLinks,
+)
+from .metadata_single_get_response_data_meta import (
+    MetadataSingleGetResponseDataMeta,
+)
+from .metadata_single_get_response_data_meta_errors_item import (
+    MetadataSingleGetResponseDataMetaErrorsItem,
+)
+from .metadata_single_get_response_data_meta_errors_item_source import (
+    MetadataSingleGetResponseDataMetaErrorsItemSource,
+)
+from .metadata_single_get_response_data_meta_errors_item_source_resource import (
+    MetadataSingleGetResponseDataMetaErrorsItemSourceResource,
+)
+from .metadata_single_get_response_data_type import (
+    MetadataSingleGetResponseDataType,
+)
+from .metadata_single_get_response_included_item import (
+    MetadataSingleGetResponseIncludedItem,
+)
+from .metadata_single_get_response_links import MetadataSingleGetResponseLinks
+from .move_document_part_request_body import MoveDocumentPartRequestBody
 from .move_project_request_body import MoveProjectRequestBody
 from .move_work_item_to_document_request_body import (
     MoveWorkItemToDocumentRequestBody,
+)
+from .move_work_items_to_document_request_body import (
+    MoveWorkItemsToDocumentRequestBody,
+)
+from .move_work_items_to_document_request_body_work_item_groups_item import (
+    MoveWorkItemsToDocumentRequestBodyWorkItemGroupsItem,
+)
+from .overwrite_document_parts_request_body import (
+    OverwriteDocumentPartsRequestBody,
+)
+from .overwrite_document_parts_response_body import (
+    OverwriteDocumentPartsResponseBody,
+)
+from .overwrite_document_parts_response_body_data import (
+    OverwriteDocumentPartsResponseBodyData,
+)
+from .overwrite_document_parts_response_body_data_overwritten_parts_item import (
+    OverwriteDocumentPartsResponseBodyDataOverwrittenPartsItem,
+)
+from .page_attachments_list_get_response import PageAttachmentsListGetResponse
+from .page_attachments_list_get_response_data_item import (
+    PageAttachmentsListGetResponseDataItem,
+)
+from .page_attachments_list_get_response_data_item_attributes import (
+    PageAttachmentsListGetResponseDataItemAttributes,
+)
+from .page_attachments_list_get_response_data_item_links import (
+    PageAttachmentsListGetResponseDataItemLinks,
+)
+from .page_attachments_list_get_response_data_item_meta import (
+    PageAttachmentsListGetResponseDataItemMeta,
+)
+from .page_attachments_list_get_response_data_item_meta_errors_item import (
+    PageAttachmentsListGetResponseDataItemMetaErrorsItem,
+)
+from .page_attachments_list_get_response_data_item_meta_errors_item_source import (
+    PageAttachmentsListGetResponseDataItemMetaErrorsItemSource,
+)
+from .page_attachments_list_get_response_data_item_meta_errors_item_source_resource import (
+    PageAttachmentsListGetResponseDataItemMetaErrorsItemSourceResource,
+)
+from .page_attachments_list_get_response_data_item_relationships import (
+    PageAttachmentsListGetResponseDataItemRelationships,
+)
+from .page_attachments_list_get_response_data_item_relationships_author import (
+    PageAttachmentsListGetResponseDataItemRelationshipsAuthor,
+)
+from .page_attachments_list_get_response_data_item_relationships_author_data import (
+    PageAttachmentsListGetResponseDataItemRelationshipsAuthorData,
+)
+from .page_attachments_list_get_response_data_item_relationships_author_data_type import (
+    PageAttachmentsListGetResponseDataItemRelationshipsAuthorDataType,
+)
+from .page_attachments_list_get_response_data_item_relationships_project import (
+    PageAttachmentsListGetResponseDataItemRelationshipsProject,
+)
+from .page_attachments_list_get_response_data_item_relationships_project_data import (
+    PageAttachmentsListGetResponseDataItemRelationshipsProjectData,
+)
+from .page_attachments_list_get_response_data_item_relationships_project_data_type import (
+    PageAttachmentsListGetResponseDataItemRelationshipsProjectDataType,
+)
+from .page_attachments_list_get_response_data_item_type import (
+    PageAttachmentsListGetResponseDataItemType,
+)
+from .page_attachments_list_get_response_included_item import (
+    PageAttachmentsListGetResponseIncludedItem,
+)
+from .page_attachments_list_get_response_links import (
+    PageAttachmentsListGetResponseLinks,
+)
+from .page_attachments_list_get_response_meta import (
+    PageAttachmentsListGetResponseMeta,
 )
 from .page_attachments_list_post_request import PageAttachmentsListPostRequest
 from .page_attachments_list_post_request_data_item import (
@@ -1993,10 +3110,368 @@ from .page_attachments_single_get_response_included_item import (
 from .page_attachments_single_get_response_links import (
     PageAttachmentsSingleGetResponseLinks,
 )
+from .page_attachments_single_patch_request import (
+    PageAttachmentsSinglePatchRequest,
+)
+from .page_attachments_single_patch_request_data import (
+    PageAttachmentsSinglePatchRequestData,
+)
+from .page_attachments_single_patch_request_data_attributes import (
+    PageAttachmentsSinglePatchRequestDataAttributes,
+)
+from .page_attachments_single_patch_request_data_type import (
+    PageAttachmentsSinglePatchRequestDataType,
+)
+from .page_comments_list_get_response import PageCommentsListGetResponse
+from .page_comments_list_get_response_data_item import (
+    PageCommentsListGetResponseDataItem,
+)
+from .page_comments_list_get_response_data_item_attributes import (
+    PageCommentsListGetResponseDataItemAttributes,
+)
+from .page_comments_list_get_response_data_item_attributes_text import (
+    PageCommentsListGetResponseDataItemAttributesText,
+)
+from .page_comments_list_get_response_data_item_attributes_text_type import (
+    PageCommentsListGetResponseDataItemAttributesTextType,
+)
+from .page_comments_list_get_response_data_item_links import (
+    PageCommentsListGetResponseDataItemLinks,
+)
+from .page_comments_list_get_response_data_item_meta import (
+    PageCommentsListGetResponseDataItemMeta,
+)
+from .page_comments_list_get_response_data_item_meta_errors_item import (
+    PageCommentsListGetResponseDataItemMetaErrorsItem,
+)
+from .page_comments_list_get_response_data_item_meta_errors_item_source import (
+    PageCommentsListGetResponseDataItemMetaErrorsItemSource,
+)
+from .page_comments_list_get_response_data_item_meta_errors_item_source_resource import (
+    PageCommentsListGetResponseDataItemMetaErrorsItemSourceResource,
+)
+from .page_comments_list_get_response_data_item_relationships import (
+    PageCommentsListGetResponseDataItemRelationships,
+)
+from .page_comments_list_get_response_data_item_relationships_author import (
+    PageCommentsListGetResponseDataItemRelationshipsAuthor,
+)
+from .page_comments_list_get_response_data_item_relationships_author_data import (
+    PageCommentsListGetResponseDataItemRelationshipsAuthorData,
+)
+from .page_comments_list_get_response_data_item_relationships_author_data_type import (
+    PageCommentsListGetResponseDataItemRelationshipsAuthorDataType,
+)
+from .page_comments_list_get_response_data_item_relationships_child_comments import (
+    PageCommentsListGetResponseDataItemRelationshipsChildComments,
+)
+from .page_comments_list_get_response_data_item_relationships_child_comments_data_item import (
+    PageCommentsListGetResponseDataItemRelationshipsChildCommentsDataItem,
+)
+from .page_comments_list_get_response_data_item_relationships_child_comments_data_item_type import (
+    PageCommentsListGetResponseDataItemRelationshipsChildCommentsDataItemType,
+)
+from .page_comments_list_get_response_data_item_relationships_child_comments_meta import (
+    PageCommentsListGetResponseDataItemRelationshipsChildCommentsMeta,
+)
+from .page_comments_list_get_response_data_item_relationships_parent_comment import (
+    PageCommentsListGetResponseDataItemRelationshipsParentComment,
+)
+from .page_comments_list_get_response_data_item_relationships_parent_comment_data import (
+    PageCommentsListGetResponseDataItemRelationshipsParentCommentData,
+)
+from .page_comments_list_get_response_data_item_relationships_parent_comment_data_type import (
+    PageCommentsListGetResponseDataItemRelationshipsParentCommentDataType,
+)
+from .page_comments_list_get_response_data_item_relationships_project import (
+    PageCommentsListGetResponseDataItemRelationshipsProject,
+)
+from .page_comments_list_get_response_data_item_relationships_project_data import (
+    PageCommentsListGetResponseDataItemRelationshipsProjectData,
+)
+from .page_comments_list_get_response_data_item_relationships_project_data_type import (
+    PageCommentsListGetResponseDataItemRelationshipsProjectDataType,
+)
+from .page_comments_list_get_response_data_item_type import (
+    PageCommentsListGetResponseDataItemType,
+)
+from .page_comments_list_get_response_included_item import (
+    PageCommentsListGetResponseIncludedItem,
+)
+from .page_comments_list_get_response_links import (
+    PageCommentsListGetResponseLinks,
+)
+from .page_comments_list_get_response_meta import (
+    PageCommentsListGetResponseMeta,
+)
+from .page_comments_list_post_request import PageCommentsListPostRequest
+from .page_comments_list_post_request_data_item import (
+    PageCommentsListPostRequestDataItem,
+)
+from .page_comments_list_post_request_data_item_attributes import (
+    PageCommentsListPostRequestDataItemAttributes,
+)
+from .page_comments_list_post_request_data_item_attributes_text import (
+    PageCommentsListPostRequestDataItemAttributesText,
+)
+from .page_comments_list_post_request_data_item_attributes_text_type import (
+    PageCommentsListPostRequestDataItemAttributesTextType,
+)
+from .page_comments_list_post_request_data_item_relationships import (
+    PageCommentsListPostRequestDataItemRelationships,
+)
+from .page_comments_list_post_request_data_item_relationships_author import (
+    PageCommentsListPostRequestDataItemRelationshipsAuthor,
+)
+from .page_comments_list_post_request_data_item_relationships_author_data import (
+    PageCommentsListPostRequestDataItemRelationshipsAuthorData,
+)
+from .page_comments_list_post_request_data_item_relationships_author_data_type import (
+    PageCommentsListPostRequestDataItemRelationshipsAuthorDataType,
+)
+from .page_comments_list_post_request_data_item_relationships_parent_comment import (
+    PageCommentsListPostRequestDataItemRelationshipsParentComment,
+)
+from .page_comments_list_post_request_data_item_relationships_parent_comment_data import (
+    PageCommentsListPostRequestDataItemRelationshipsParentCommentData,
+)
+from .page_comments_list_post_request_data_item_relationships_parent_comment_data_type import (
+    PageCommentsListPostRequestDataItemRelationshipsParentCommentDataType,
+)
+from .page_comments_list_post_request_data_item_type import (
+    PageCommentsListPostRequestDataItemType,
+)
+from .page_comments_list_post_response import PageCommentsListPostResponse
+from .page_comments_list_post_response_data_item import (
+    PageCommentsListPostResponseDataItem,
+)
+from .page_comments_list_post_response_data_item_links import (
+    PageCommentsListPostResponseDataItemLinks,
+)
+from .page_comments_list_post_response_data_item_type import (
+    PageCommentsListPostResponseDataItemType,
+)
+from .page_comments_single_get_response import PageCommentsSingleGetResponse
+from .page_comments_single_get_response_data import (
+    PageCommentsSingleGetResponseData,
+)
+from .page_comments_single_get_response_data_attributes import (
+    PageCommentsSingleGetResponseDataAttributes,
+)
+from .page_comments_single_get_response_data_attributes_text import (
+    PageCommentsSingleGetResponseDataAttributesText,
+)
+from .page_comments_single_get_response_data_attributes_text_type import (
+    PageCommentsSingleGetResponseDataAttributesTextType,
+)
+from .page_comments_single_get_response_data_links import (
+    PageCommentsSingleGetResponseDataLinks,
+)
+from .page_comments_single_get_response_data_meta import (
+    PageCommentsSingleGetResponseDataMeta,
+)
+from .page_comments_single_get_response_data_meta_errors_item import (
+    PageCommentsSingleGetResponseDataMetaErrorsItem,
+)
+from .page_comments_single_get_response_data_meta_errors_item_source import (
+    PageCommentsSingleGetResponseDataMetaErrorsItemSource,
+)
+from .page_comments_single_get_response_data_meta_errors_item_source_resource import (
+    PageCommentsSingleGetResponseDataMetaErrorsItemSourceResource,
+)
+from .page_comments_single_get_response_data_relationships import (
+    PageCommentsSingleGetResponseDataRelationships,
+)
+from .page_comments_single_get_response_data_relationships_author import (
+    PageCommentsSingleGetResponseDataRelationshipsAuthor,
+)
+from .page_comments_single_get_response_data_relationships_author_data import (
+    PageCommentsSingleGetResponseDataRelationshipsAuthorData,
+)
+from .page_comments_single_get_response_data_relationships_author_data_type import (
+    PageCommentsSingleGetResponseDataRelationshipsAuthorDataType,
+)
+from .page_comments_single_get_response_data_relationships_child_comments import (
+    PageCommentsSingleGetResponseDataRelationshipsChildComments,
+)
+from .page_comments_single_get_response_data_relationships_child_comments_data_item import (
+    PageCommentsSingleGetResponseDataRelationshipsChildCommentsDataItem,
+)
+from .page_comments_single_get_response_data_relationships_child_comments_data_item_type import (
+    PageCommentsSingleGetResponseDataRelationshipsChildCommentsDataItemType,
+)
+from .page_comments_single_get_response_data_relationships_child_comments_meta import (
+    PageCommentsSingleGetResponseDataRelationshipsChildCommentsMeta,
+)
+from .page_comments_single_get_response_data_relationships_parent_comment import (
+    PageCommentsSingleGetResponseDataRelationshipsParentComment,
+)
+from .page_comments_single_get_response_data_relationships_parent_comment_data import (
+    PageCommentsSingleGetResponseDataRelationshipsParentCommentData,
+)
+from .page_comments_single_get_response_data_relationships_parent_comment_data_type import (
+    PageCommentsSingleGetResponseDataRelationshipsParentCommentDataType,
+)
+from .page_comments_single_get_response_data_relationships_project import (
+    PageCommentsSingleGetResponseDataRelationshipsProject,
+)
+from .page_comments_single_get_response_data_relationships_project_data import (
+    PageCommentsSingleGetResponseDataRelationshipsProjectData,
+)
+from .page_comments_single_get_response_data_relationships_project_data_type import (
+    PageCommentsSingleGetResponseDataRelationshipsProjectDataType,
+)
+from .page_comments_single_get_response_data_type import (
+    PageCommentsSingleGetResponseDataType,
+)
+from .page_comments_single_get_response_included_item import (
+    PageCommentsSingleGetResponseIncludedItem,
+)
+from .page_comments_single_get_response_links import (
+    PageCommentsSingleGetResponseLinks,
+)
+from .page_comments_single_patch_request import PageCommentsSinglePatchRequest
+from .page_comments_single_patch_request_data import (
+    PageCommentsSinglePatchRequestData,
+)
+from .page_comments_single_patch_request_data_attributes import (
+    PageCommentsSinglePatchRequestDataAttributes,
+)
+from .page_comments_single_patch_request_data_type import (
+    PageCommentsSinglePatchRequestDataType,
+)
+from .pages_list_get_response import PagesListGetResponse
+from .pages_list_get_response_data_item import PagesListGetResponseDataItem
+from .pages_list_get_response_data_item_attributes import (
+    PagesListGetResponseDataItemAttributes,
+)
+from .pages_list_get_response_data_item_attributes_home_page_content import (
+    PagesListGetResponseDataItemAttributesHomePageContent,
+)
+from .pages_list_get_response_data_item_attributes_home_page_content_type import (
+    PagesListGetResponseDataItemAttributesHomePageContentType,
+)
+from .pages_list_get_response_data_item_links import (
+    PagesListGetResponseDataItemLinks,
+)
+from .pages_list_get_response_data_item_meta import (
+    PagesListGetResponseDataItemMeta,
+)
+from .pages_list_get_response_data_item_meta_errors_item import (
+    PagesListGetResponseDataItemMetaErrorsItem,
+)
+from .pages_list_get_response_data_item_meta_errors_item_source import (
+    PagesListGetResponseDataItemMetaErrorsItemSource,
+)
+from .pages_list_get_response_data_item_meta_errors_item_source_resource import (
+    PagesListGetResponseDataItemMetaErrorsItemSourceResource,
+)
+from .pages_list_get_response_data_item_relationships import (
+    PagesListGetResponseDataItemRelationships,
+)
+from .pages_list_get_response_data_item_relationships_attachments import (
+    PagesListGetResponseDataItemRelationshipsAttachments,
+)
+from .pages_list_get_response_data_item_relationships_attachments_data_item import (
+    PagesListGetResponseDataItemRelationshipsAttachmentsDataItem,
+)
+from .pages_list_get_response_data_item_relationships_attachments_data_item_type import (
+    PagesListGetResponseDataItemRelationshipsAttachmentsDataItemType,
+)
+from .pages_list_get_response_data_item_relationships_attachments_meta import (
+    PagesListGetResponseDataItemRelationshipsAttachmentsMeta,
+)
+from .pages_list_get_response_data_item_relationships_author import (
+    PagesListGetResponseDataItemRelationshipsAuthor,
+)
+from .pages_list_get_response_data_item_relationships_author_data import (
+    PagesListGetResponseDataItemRelationshipsAuthorData,
+)
+from .pages_list_get_response_data_item_relationships_author_data_type import (
+    PagesListGetResponseDataItemRelationshipsAuthorDataType,
+)
+from .pages_list_get_response_data_item_relationships_project import (
+    PagesListGetResponseDataItemRelationshipsProject,
+)
+from .pages_list_get_response_data_item_relationships_project_data import (
+    PagesListGetResponseDataItemRelationshipsProjectData,
+)
+from .pages_list_get_response_data_item_relationships_project_data_type import (
+    PagesListGetResponseDataItemRelationshipsProjectDataType,
+)
+from .pages_list_get_response_data_item_relationships_updated_by import (
+    PagesListGetResponseDataItemRelationshipsUpdatedBy,
+)
+from .pages_list_get_response_data_item_relationships_updated_by_data import (
+    PagesListGetResponseDataItemRelationshipsUpdatedByData,
+)
+from .pages_list_get_response_data_item_relationships_updated_by_data_type import (
+    PagesListGetResponseDataItemRelationshipsUpdatedByDataType,
+)
+from .pages_list_get_response_data_item_relationships_watches import (
+    PagesListGetResponseDataItemRelationshipsWatches,
+)
+from .pages_list_get_response_data_item_relationships_watches_data_item import (
+    PagesListGetResponseDataItemRelationshipsWatchesDataItem,
+)
+from .pages_list_get_response_data_item_relationships_watches_data_item_type import (
+    PagesListGetResponseDataItemRelationshipsWatchesDataItemType,
+)
+from .pages_list_get_response_data_item_relationships_watches_meta import (
+    PagesListGetResponseDataItemRelationshipsWatchesMeta,
+)
+from .pages_list_get_response_data_item_type import (
+    PagesListGetResponseDataItemType,
+)
+from .pages_list_get_response_included_item import (
+    PagesListGetResponseIncludedItem,
+)
+from .pages_list_get_response_links import PagesListGetResponseLinks
+from .pages_list_get_response_meta import PagesListGetResponseMeta
+from .pages_list_post_request import PagesListPostRequest
+from .pages_list_post_request_data_item import PagesListPostRequestDataItem
+from .pages_list_post_request_data_item_attributes import (
+    PagesListPostRequestDataItemAttributes,
+)
+from .pages_list_post_request_data_item_attributes_home_page_content import (
+    PagesListPostRequestDataItemAttributesHomePageContent,
+)
+from .pages_list_post_request_data_item_attributes_home_page_content_type import (
+    PagesListPostRequestDataItemAttributesHomePageContentType,
+)
+from .pages_list_post_request_data_item_relationships import (
+    PagesListPostRequestDataItemRelationships,
+)
+from .pages_list_post_request_data_item_relationships_author import (
+    PagesListPostRequestDataItemRelationshipsAuthor,
+)
+from .pages_list_post_request_data_item_relationships_author_data import (
+    PagesListPostRequestDataItemRelationshipsAuthorData,
+)
+from .pages_list_post_request_data_item_relationships_author_data_type import (
+    PagesListPostRequestDataItemRelationshipsAuthorDataType,
+)
+from .pages_list_post_request_data_item_type import (
+    PagesListPostRequestDataItemType,
+)
+from .pages_list_post_response import PagesListPostResponse
+from .pages_list_post_response_data_item import PagesListPostResponseDataItem
+from .pages_list_post_response_data_item_links import (
+    PagesListPostResponseDataItemLinks,
+)
+from .pages_list_post_response_data_item_type import (
+    PagesListPostResponseDataItemType,
+)
 from .pages_single_get_response import PagesSingleGetResponse
 from .pages_single_get_response_data import PagesSingleGetResponseData
 from .pages_single_get_response_data_attributes import (
     PagesSingleGetResponseDataAttributes,
+)
+from .pages_single_get_response_data_attributes_home_page_content import (
+    PagesSingleGetResponseDataAttributesHomePageContent,
+)
+from .pages_single_get_response_data_attributes_home_page_content_type import (
+    PagesSingleGetResponseDataAttributesHomePageContentType,
 )
 from .pages_single_get_response_data_links import (
     PagesSingleGetResponseDataLinks,
@@ -2053,6 +3528,18 @@ from .pages_single_get_response_data_relationships_updated_by_data import (
 from .pages_single_get_response_data_relationships_updated_by_data_type import (
     PagesSingleGetResponseDataRelationshipsUpdatedByDataType,
 )
+from .pages_single_get_response_data_relationships_watches import (
+    PagesSingleGetResponseDataRelationshipsWatches,
+)
+from .pages_single_get_response_data_relationships_watches_data_item import (
+    PagesSingleGetResponseDataRelationshipsWatchesDataItem,
+)
+from .pages_single_get_response_data_relationships_watches_data_item_type import (
+    PagesSingleGetResponseDataRelationshipsWatchesDataItemType,
+)
+from .pages_single_get_response_data_relationships_watches_meta import (
+    PagesSingleGetResponseDataRelationshipsWatchesMeta,
+)
 from .pages_single_get_response_data_type import PagesSingleGetResponseDataType
 from .pages_single_get_response_included_item import (
     PagesSingleGetResponseIncludedItem,
@@ -2063,12 +3550,32 @@ from .pages_single_patch_request_data import PagesSinglePatchRequestData
 from .pages_single_patch_request_data_attributes import (
     PagesSinglePatchRequestDataAttributes,
 )
+from .pages_single_patch_request_data_attributes_home_page_content import (
+    PagesSinglePatchRequestDataAttributesHomePageContent,
+)
+from .pages_single_patch_request_data_attributes_home_page_content_type import (
+    PagesSinglePatchRequestDataAttributesHomePageContentType,
+)
+from .pages_single_patch_request_data_relationships import (
+    PagesSinglePatchRequestDataRelationships,
+)
+from .pages_single_patch_request_data_relationships_watches import (
+    PagesSinglePatchRequestDataRelationshipsWatches,
+)
+from .pages_single_patch_request_data_relationships_watches_data_item import (
+    PagesSinglePatchRequestDataRelationshipsWatchesDataItem,
+)
+from .pages_single_patch_request_data_relationships_watches_data_item_type import (
+    PagesSinglePatchRequestDataRelationshipsWatchesDataItemType,
+)
 from .pages_single_patch_request_data_type import (
     PagesSinglePatchRequestDataType,
 )
-from .pagination import Pagination
 from .patch_document_attachments_request_body import (
     PatchDocumentAttachmentsRequestBody,
+)
+from .patch_page_attachments_request_body import (
+    PatchPageAttachmentsRequestBody,
 )
 from .patch_test_record_attachments_request_body import (
     PatchTestRecordAttachmentsRequestBody,
@@ -2604,7 +4111,9 @@ from .relationships_list_delete_request_data_item import (
 from .relationships_list_delete_request_data_item_type import (
     RelationshipsListDeleteRequestDataItemType,
 )
+from .resource_query_context import ResourceQueryContext
 from .resource_reference import ResourceReference
+from .reuse_collection_request_body import ReuseCollectionRequestBody
 from .revisions_list_get_response import RevisionsListGetResponse
 from .revisions_list_get_response_data_item import (
     RevisionsListGetResponseDataItem,
@@ -4653,6 +6162,27 @@ from .users_list_get_response_data_item_meta_errors_item_source_resource import 
 from .users_list_get_response_data_item_relationships import (
     UsersListGetResponseDataItemRelationships,
 )
+from .users_list_get_response_data_item_relationships_add_on_license_slots import (
+    UsersListGetResponseDataItemRelationshipsAddOnLicenseSlots,
+)
+from .users_list_get_response_data_item_relationships_add_on_license_slots_data_item import (
+    UsersListGetResponseDataItemRelationshipsAddOnLicenseSlotsDataItem,
+)
+from .users_list_get_response_data_item_relationships_add_on_license_slots_data_item_type import (
+    UsersListGetResponseDataItemRelationshipsAddOnLicenseSlotsDataItemType,
+)
+from .users_list_get_response_data_item_relationships_add_on_license_slots_meta import (
+    UsersListGetResponseDataItemRelationshipsAddOnLicenseSlotsMeta,
+)
+from .users_list_get_response_data_item_relationships_base_license_slot import (
+    UsersListGetResponseDataItemRelationshipsBaseLicenseSlot,
+)
+from .users_list_get_response_data_item_relationships_base_license_slot_data import (
+    UsersListGetResponseDataItemRelationshipsBaseLicenseSlotData,
+)
+from .users_list_get_response_data_item_relationships_base_license_slot_data_type import (
+    UsersListGetResponseDataItemRelationshipsBaseLicenseSlotDataType,
+)
 from .users_list_get_response_data_item_relationships_global_roles import (
     UsersListGetResponseDataItemRelationshipsGlobalRoles,
 )
@@ -4775,6 +6305,27 @@ from .users_single_get_response_data_meta_errors_item_source_resource import (
 )
 from .users_single_get_response_data_relationships import (
     UsersSingleGetResponseDataRelationships,
+)
+from .users_single_get_response_data_relationships_add_on_license_slots import (
+    UsersSingleGetResponseDataRelationshipsAddOnLicenseSlots,
+)
+from .users_single_get_response_data_relationships_add_on_license_slots_data_item import (
+    UsersSingleGetResponseDataRelationshipsAddOnLicenseSlotsDataItem,
+)
+from .users_single_get_response_data_relationships_add_on_license_slots_data_item_type import (
+    UsersSingleGetResponseDataRelationshipsAddOnLicenseSlotsDataItemType,
+)
+from .users_single_get_response_data_relationships_add_on_license_slots_meta import (
+    UsersSingleGetResponseDataRelationshipsAddOnLicenseSlotsMeta,
+)
+from .users_single_get_response_data_relationships_base_license_slot import (
+    UsersSingleGetResponseDataRelationshipsBaseLicenseSlot,
+)
+from .users_single_get_response_data_relationships_base_license_slot_data import (
+    UsersSingleGetResponseDataRelationshipsBaseLicenseSlotData,
+)
+from .users_single_get_response_data_relationships_base_license_slot_data_type import (
+    UsersSingleGetResponseDataRelationshipsBaseLicenseSlotDataType,
 )
 from .users_single_get_response_data_relationships_global_roles import (
     UsersSingleGetResponseDataRelationshipsGlobalRoles,
@@ -6304,6 +7855,14 @@ from .workrecords_single_get_response_links import (
 )
 
 __all__ = (
+    "BacklinkedworkitemsListPostRequest",
+    "BacklinkedworkitemsListPostRequestDataItem",
+    "BacklinkedworkitemsListPostRequestDataItemAttributes",
+    "BacklinkedworkitemsListPostRequestDataItemRelationships",
+    "BacklinkedworkitemsListPostRequestDataItemRelationshipsSourceWorkItem",
+    "BacklinkedworkitemsListPostRequestDataItemRelationshipsSourceWorkItemData",
+    "BacklinkedworkitemsListPostRequestDataItemRelationshipsSourceWorkItemDataType",
+    "BacklinkedworkitemsListPostRequestDataItemType",
     "BranchDocumentRequestBody",
     "BranchDocumentsRequestBody",
     "BranchDocumentsRequestBodyDocumentConfigurationsItem",
@@ -6342,6 +7901,10 @@ __all__ = (
     "CollectionsListGetResponseDataItemRelationshipsRichPagesDataItem",
     "CollectionsListGetResponseDataItemRelationshipsRichPagesDataItemType",
     "CollectionsListGetResponseDataItemRelationshipsRichPagesMeta",
+    "CollectionsListGetResponseDataItemRelationshipsTestRuns",
+    "CollectionsListGetResponseDataItemRelationshipsTestRunsDataItem",
+    "CollectionsListGetResponseDataItemRelationshipsTestRunsDataItemType",
+    "CollectionsListGetResponseDataItemRelationshipsTestRunsMeta",
     "CollectionsListGetResponseDataItemRelationshipsUpstreamCollections",
     "CollectionsListGetResponseDataItemRelationshipsUpstreamCollectionsDataItem",
     "CollectionsListGetResponseDataItemRelationshipsUpstreamCollectionsDataItemType",
@@ -6362,6 +7925,9 @@ __all__ = (
     "CollectionsListPostRequestDataItemRelationshipsRichPages",
     "CollectionsListPostRequestDataItemRelationshipsRichPagesDataItem",
     "CollectionsListPostRequestDataItemRelationshipsRichPagesDataItemType",
+    "CollectionsListPostRequestDataItemRelationshipsTestRuns",
+    "CollectionsListPostRequestDataItemRelationshipsTestRunsDataItem",
+    "CollectionsListPostRequestDataItemRelationshipsTestRunsDataItemType",
     "CollectionsListPostRequestDataItemRelationshipsUpstreamCollections",
     "CollectionsListPostRequestDataItemRelationshipsUpstreamCollectionsDataItem",
     "CollectionsListPostRequestDataItemRelationshipsUpstreamCollectionsDataItemType",
@@ -6402,6 +7968,10 @@ __all__ = (
     "CollectionsSingleGetResponseDataRelationshipsRichPagesDataItem",
     "CollectionsSingleGetResponseDataRelationshipsRichPagesDataItemType",
     "CollectionsSingleGetResponseDataRelationshipsRichPagesMeta",
+    "CollectionsSingleGetResponseDataRelationshipsTestRuns",
+    "CollectionsSingleGetResponseDataRelationshipsTestRunsDataItem",
+    "CollectionsSingleGetResponseDataRelationshipsTestRunsDataItemType",
+    "CollectionsSingleGetResponseDataRelationshipsTestRunsMeta",
     "CollectionsSingleGetResponseDataRelationshipsUpstreamCollections",
     "CollectionsSingleGetResponseDataRelationshipsUpstreamCollectionsDataItem",
     "CollectionsSingleGetResponseDataRelationshipsUpstreamCollectionsDataItemType",
@@ -6421,13 +7991,80 @@ __all__ = (
     "CollectionsSinglePatchRequestDataRelationshipsRichPages",
     "CollectionsSinglePatchRequestDataRelationshipsRichPagesDataItem",
     "CollectionsSinglePatchRequestDataRelationshipsRichPagesDataItemType",
+    "CollectionsSinglePatchRequestDataRelationshipsTestRuns",
+    "CollectionsSinglePatchRequestDataRelationshipsTestRunsDataItem",
+    "CollectionsSinglePatchRequestDataRelationshipsTestRunsDataItemType",
     "CollectionsSinglePatchRequestDataRelationshipsUpstreamCollections",
     "CollectionsSinglePatchRequestDataRelationshipsUpstreamCollectionsDataItem",
     "CollectionsSinglePatchRequestDataRelationshipsUpstreamCollectionsDataItemType",
     "CollectionsSinglePatchRequestDataType",
+    "CollectionsSinglePostResponse",
+    "CollectionsSinglePostResponseData",
+    "CollectionsSinglePostResponseDataAttributes",
+    "CollectionsSinglePostResponseDataAttributesDescription",
+    "CollectionsSinglePostResponseDataAttributesDescriptionType",
+    "CollectionsSinglePostResponseDataLinks",
+    "CollectionsSinglePostResponseDataRelationships",
+    "CollectionsSinglePostResponseDataRelationshipsAuthor",
+    "CollectionsSinglePostResponseDataRelationshipsAuthorData",
+    "CollectionsSinglePostResponseDataRelationshipsAuthorDataType",
+    "CollectionsSinglePostResponseDataRelationshipsDocuments",
+    "CollectionsSinglePostResponseDataRelationshipsDocumentsDataItem",
+    "CollectionsSinglePostResponseDataRelationshipsDocumentsDataItemType",
+    "CollectionsSinglePostResponseDataRelationshipsDownstreamCollections",
+    "CollectionsSinglePostResponseDataRelationshipsDownstreamCollectionsDataItem",
+    "CollectionsSinglePostResponseDataRelationshipsDownstreamCollectionsDataItemType",
+    "CollectionsSinglePostResponseDataRelationshipsProject",
+    "CollectionsSinglePostResponseDataRelationshipsProjectData",
+    "CollectionsSinglePostResponseDataRelationshipsProjectDataType",
+    "CollectionsSinglePostResponseDataRelationshipsReusedFrom",
+    "CollectionsSinglePostResponseDataRelationshipsReusedFromData",
+    "CollectionsSinglePostResponseDataRelationshipsReusedFromDataType",
+    "CollectionsSinglePostResponseDataRelationshipsRichPages",
+    "CollectionsSinglePostResponseDataRelationshipsRichPagesDataItem",
+    "CollectionsSinglePostResponseDataRelationshipsRichPagesDataItemType",
+    "CollectionsSinglePostResponseDataRelationshipsTestRuns",
+    "CollectionsSinglePostResponseDataRelationshipsTestRunsDataItem",
+    "CollectionsSinglePostResponseDataRelationshipsTestRunsDataItemType",
+    "CollectionsSinglePostResponseDataRelationshipsUpstreamCollections",
+    "CollectionsSinglePostResponseDataRelationshipsUpstreamCollectionsDataItem",
+    "CollectionsSinglePostResponseDataRelationshipsUpstreamCollectionsDataItemType",
+    "CollectionsSinglePostResponseDataType",
     "CopyDocumentRequestBody",
     "CreateProjectRequestBody",
     "CreateProjectRequestBodyParamsType0",
+    "CustomfieldsListPostRequest",
+    "CustomfieldsListPostRequestDataItem",
+    "CustomfieldsListPostRequestDataItemAttributes",
+    "CustomfieldsListPostRequestDataItemAttributesFieldsItem",
+    "CustomfieldsListPostRequestDataItemAttributesFieldsItemParametersItem",
+    "CustomfieldsListPostRequestDataItemAttributesFieldsItemType",
+    "CustomfieldsListPostRequestDataItemType",
+    "CustomfieldsListPostResponse",
+    "CustomfieldsListPostResponseDataItem",
+    "CustomfieldsListPostResponseDataItemLinks",
+    "CustomfieldsListPostResponseDataItemType",
+    "CustomfieldsSingleGetResponse",
+    "CustomfieldsSingleGetResponseData",
+    "CustomfieldsSingleGetResponseDataAttributes",
+    "CustomfieldsSingleGetResponseDataAttributesFieldsItem",
+    "CustomfieldsSingleGetResponseDataAttributesFieldsItemParametersItem",
+    "CustomfieldsSingleGetResponseDataAttributesFieldsItemType",
+    "CustomfieldsSingleGetResponseDataLinks",
+    "CustomfieldsSingleGetResponseDataMeta",
+    "CustomfieldsSingleGetResponseDataMetaErrorsItem",
+    "CustomfieldsSingleGetResponseDataMetaErrorsItemSource",
+    "CustomfieldsSingleGetResponseDataMetaErrorsItemSourceResource",
+    "CustomfieldsSingleGetResponseDataType",
+    "CustomfieldsSingleGetResponseIncludedItem",
+    "CustomfieldsSingleGetResponseLinks",
+    "CustomfieldsSinglePatchRequest",
+    "CustomfieldsSinglePatchRequestData",
+    "CustomfieldsSinglePatchRequestDataAttributes",
+    "CustomfieldsSinglePatchRequestDataAttributesFieldsItem",
+    "CustomfieldsSinglePatchRequestDataAttributesFieldsItemParametersItem",
+    "CustomfieldsSinglePatchRequestDataAttributesFieldsItemType",
+    "CustomfieldsSinglePatchRequestDataType",
     "DocumentAttachmentsListGetResponse",
     "DocumentAttachmentsListGetResponseDataItem",
     "DocumentAttachmentsListGetResponseDataItemAttributes",
@@ -6553,6 +8190,9 @@ __all__ = (
     "DocumentCommentsSinglePatchRequestData",
     "DocumentCommentsSinglePatchRequestDataAttributes",
     "DocumentCommentsSinglePatchRequestDataType",
+    "DocumentPartsListDeleteRequest",
+    "DocumentPartsListDeleteRequestDataItem",
+    "DocumentPartsListDeleteRequestDataItemType",
     "DocumentPartsListGetResponse",
     "DocumentPartsListGetResponseDataItem",
     "DocumentPartsListGetResponseDataItemAttributes",
@@ -6614,6 +8254,52 @@ __all__ = (
     "DocumentPartsSingleGetResponseDataType",
     "DocumentPartsSingleGetResponseIncludedItem",
     "DocumentPartsSingleGetResponseLinks",
+    "DocumentsListGetResponse",
+    "DocumentsListGetResponseDataItem",
+    "DocumentsListGetResponseDataItemAttributes",
+    "DocumentsListGetResponseDataItemAttributesHomePageContent",
+    "DocumentsListGetResponseDataItemAttributesHomePageContentType",
+    "DocumentsListGetResponseDataItemAttributesOutlineNumbering",
+    "DocumentsListGetResponseDataItemAttributesRenderingLayoutsItem",
+    "DocumentsListGetResponseDataItemAttributesRenderingLayoutsItemPropertiesItem",
+    "DocumentsListGetResponseDataItemLinks",
+    "DocumentsListGetResponseDataItemMeta",
+    "DocumentsListGetResponseDataItemMetaErrorsItem",
+    "DocumentsListGetResponseDataItemMetaErrorsItemSource",
+    "DocumentsListGetResponseDataItemMetaErrorsItemSourceResource",
+    "DocumentsListGetResponseDataItemRelationships",
+    "DocumentsListGetResponseDataItemRelationshipsAttachments",
+    "DocumentsListGetResponseDataItemRelationshipsAttachmentsDataItem",
+    "DocumentsListGetResponseDataItemRelationshipsAttachmentsDataItemType",
+    "DocumentsListGetResponseDataItemRelationshipsAttachmentsLinks",
+    "DocumentsListGetResponseDataItemRelationshipsAttachmentsMeta",
+    "DocumentsListGetResponseDataItemRelationshipsAuthor",
+    "DocumentsListGetResponseDataItemRelationshipsAuthorData",
+    "DocumentsListGetResponseDataItemRelationshipsAuthorDataType",
+    "DocumentsListGetResponseDataItemRelationshipsBranchedFrom",
+    "DocumentsListGetResponseDataItemRelationshipsBranchedFromData",
+    "DocumentsListGetResponseDataItemRelationshipsBranchedFromDataType",
+    "DocumentsListGetResponseDataItemRelationshipsComments",
+    "DocumentsListGetResponseDataItemRelationshipsCommentsDataItem",
+    "DocumentsListGetResponseDataItemRelationshipsCommentsDataItemType",
+    "DocumentsListGetResponseDataItemRelationshipsCommentsLinks",
+    "DocumentsListGetResponseDataItemRelationshipsCommentsMeta",
+    "DocumentsListGetResponseDataItemRelationshipsDerivedFrom",
+    "DocumentsListGetResponseDataItemRelationshipsDerivedFromData",
+    "DocumentsListGetResponseDataItemRelationshipsDerivedFromDataType",
+    "DocumentsListGetResponseDataItemRelationshipsProject",
+    "DocumentsListGetResponseDataItemRelationshipsProjectData",
+    "DocumentsListGetResponseDataItemRelationshipsProjectDataType",
+    "DocumentsListGetResponseDataItemRelationshipsUpdatedBy",
+    "DocumentsListGetResponseDataItemRelationshipsUpdatedByData",
+    "DocumentsListGetResponseDataItemRelationshipsUpdatedByDataType",
+    "DocumentsListGetResponseDataItemRelationshipsVariant",
+    "DocumentsListGetResponseDataItemRelationshipsVariantData",
+    "DocumentsListGetResponseDataItemRelationshipsVariantDataType",
+    "DocumentsListGetResponseDataItemType",
+    "DocumentsListGetResponseIncludedItem",
+    "DocumentsListGetResponseLinks",
+    "DocumentsListGetResponseMeta",
     "DocumentsListPostRequest",
     "DocumentsListPostRequestDataItem",
     "DocumentsListPostRequestDataItemAttributes",
@@ -6720,12 +8406,28 @@ __all__ = (
     "DocumentsSinglePostResponseDataType",
     "EnumOptionsActionResponseBody",
     "EnumOptionsActionResponseBodyDataItem",
+    "EnumOptionsActionResponseBodyDataItemLinkRulesItem",
     "EnumOptionsActionResponseBodyLinks",
     "EnumOptionsActionResponseBodyMeta",
+    "EnumerationsListGetResponse",
+    "EnumerationsListGetResponseDataItem",
+    "EnumerationsListGetResponseDataItemAttributes",
+    "EnumerationsListGetResponseDataItemAttributesOptionsItem",
+    "EnumerationsListGetResponseDataItemAttributesOptionsItemLinkRulesItem",
+    "EnumerationsListGetResponseDataItemLinks",
+    "EnumerationsListGetResponseDataItemMeta",
+    "EnumerationsListGetResponseDataItemMetaErrorsItem",
+    "EnumerationsListGetResponseDataItemMetaErrorsItemSource",
+    "EnumerationsListGetResponseDataItemMetaErrorsItemSourceResource",
+    "EnumerationsListGetResponseDataItemType",
+    "EnumerationsListGetResponseIncludedItem",
+    "EnumerationsListGetResponseLinks",
+    "EnumerationsListGetResponseMeta",
     "EnumerationsListPostRequest",
     "EnumerationsListPostRequestDataItem",
     "EnumerationsListPostRequestDataItemAttributes",
     "EnumerationsListPostRequestDataItemAttributesOptionsItem",
+    "EnumerationsListPostRequestDataItemAttributesOptionsItemLinkRulesItem",
     "EnumerationsListPostRequestDataItemType",
     "EnumerationsListPostResponse",
     "EnumerationsListPostResponseDataItem",
@@ -6735,6 +8437,7 @@ __all__ = (
     "EnumerationsSingleGetResponseData",
     "EnumerationsSingleGetResponseDataAttributes",
     "EnumerationsSingleGetResponseDataAttributesOptionsItem",
+    "EnumerationsSingleGetResponseDataAttributesOptionsItemLinkRulesItem",
     "EnumerationsSingleGetResponseDataLinks",
     "EnumerationsSingleGetResponseDataMeta",
     "EnumerationsSingleGetResponseDataMetaErrorsItem",
@@ -6747,11 +8450,14 @@ __all__ = (
     "EnumerationsSinglePatchRequestData",
     "EnumerationsSinglePatchRequestDataAttributes",
     "EnumerationsSinglePatchRequestDataAttributesOptionsItem",
+    "EnumerationsSinglePatchRequestDataAttributesOptionsItemLinkRulesItem",
     "EnumerationsSinglePatchRequestDataType",
     "Errors",
     "ErrorsErrorsItem",
     "ErrorsErrorsItemSourceType0",
     "ErrorsErrorsItemSourceType0ResourceType0",
+    "ExecuteJobRequestBody",
+    "ExecuteJobRequestBodyParamsType0",
     "ExternallylinkedworkitemsListDeleteRequest",
     "ExternallylinkedworkitemsListDeleteRequestDataItem",
     "ExternallylinkedworkitemsListDeleteRequestDataItemType",
@@ -6819,6 +8525,33 @@ __all__ = (
     "FeatureselectionsSingleGetResponseDataType",
     "FeatureselectionsSingleGetResponseIncludedItem",
     "FeatureselectionsSingleGetResponseLinks",
+    "FieldsMetadataActionResponseBody",
+    "FieldsMetadataActionResponseBodyData",
+    "FieldsMetadataActionResponseBodyDataAttributes",
+    "FieldsMetadataActionResponseBodyDataAttributesEnumField",
+    "FieldsMetadataActionResponseBodyDataAttributesEnumFieldType",
+    "FieldsMetadataActionResponseBodyDataAttributesListField",
+    "FieldsMetadataActionResponseBodyDataAttributesListFieldType",
+    "FieldsMetadataActionResponseBodyDataAttributesListFieldTypeItemType",
+    "FieldsMetadataActionResponseBodyDataAttributesListFieldTypeItemTypeKind",
+    "FieldsMetadataActionResponseBodyDataAttributesListFieldTypeItemTypeKindEnumItem",
+    "FieldsMetadataActionResponseBodyDataAttributesPrimitiveField",
+    "FieldsMetadataActionResponseBodyDataAttributesPrimitiveFieldType",
+    "FieldsMetadataActionResponseBodyDataAttributesPrimitiveFieldTypeKind",
+    "FieldsMetadataActionResponseBodyDataAttributesPrimitiveFieldTypeKindEnumItem",
+    "FieldsMetadataActionResponseBodyDataAttributesStructField",
+    "FieldsMetadataActionResponseBodyDataAttributesStructFieldType",
+    "FieldsMetadataActionResponseBodyDataRelationships",
+    "FieldsMetadataActionResponseBodyDataRelationshipsRelationshipField",
+    "FieldsMetadataActionResponseBodyDataRelationshipsRelationshipFieldType",
+    "FieldsMetadataActionResponseBodyLinks",
+    "GenerateCompletionMessage",
+    "GenerateCompletionRequestBody",
+    "GenerateCompletionResponseBody",
+    "GenerateCompletionResponseFormat",
+    "GenerateCompletionResponseFormatSchema",
+    "GenerateCompletionResponseFormatType",
+    "GenerateCompletionResult",
     "GlobalrolesSingleGetResponse",
     "GlobalrolesSingleGetResponseData",
     "GlobalrolesSingleGetResponseDataLinks",
@@ -6865,6 +8598,33 @@ __all__ = (
     "IconsSingleGetResponseIncludedItem",
     "IconsSingleGetResponseLinks",
     "ImportTestResultsRequestBody",
+    "ImportWordDocumentParameters",
+    "ImportWordDocumentRequestBody",
+    "JobsListGetResponse",
+    "JobsListGetResponseDataItem",
+    "JobsListGetResponseDataItemAttributes",
+    "JobsListGetResponseDataItemAttributesStatus",
+    "JobsListGetResponseDataItemAttributesStatusType",
+    "JobsListGetResponseDataItemLinks",
+    "JobsListGetResponseDataItemMeta",
+    "JobsListGetResponseDataItemMetaErrorsItem",
+    "JobsListGetResponseDataItemMetaErrorsItemSource",
+    "JobsListGetResponseDataItemMetaErrorsItemSourceResource",
+    "JobsListGetResponseDataItemRelationships",
+    "JobsListGetResponseDataItemRelationshipsDocument",
+    "JobsListGetResponseDataItemRelationshipsDocumentData",
+    "JobsListGetResponseDataItemRelationshipsDocumentDataType",
+    "JobsListGetResponseDataItemRelationshipsDocuments",
+    "JobsListGetResponseDataItemRelationshipsDocumentsDataItem",
+    "JobsListGetResponseDataItemRelationshipsDocumentsDataItemType",
+    "JobsListGetResponseDataItemRelationshipsDocumentsMeta",
+    "JobsListGetResponseDataItemRelationshipsProject",
+    "JobsListGetResponseDataItemRelationshipsProjectData",
+    "JobsListGetResponseDataItemRelationshipsProjectDataType",
+    "JobsListGetResponseDataItemType",
+    "JobsListGetResponseIncludedItem",
+    "JobsListGetResponseLinks",
+    "JobsListGetResponseMeta",
     "JobsSingleGetResponse",
     "JobsSingleGetResponseData",
     "JobsSingleGetResponseDataAttributes",
@@ -6906,6 +8666,140 @@ __all__ = (
     "JobsSinglePostResponseDataRelationshipsProjectData",
     "JobsSinglePostResponseDataRelationshipsProjectDataType",
     "JobsSinglePostResponseDataType",
+    "LicenseAssignmentsListGetResponse",
+    "LicenseAssignmentsListGetResponseDataItem",
+    "LicenseAssignmentsListGetResponseDataItemAttributes",
+    "LicenseAssignmentsListGetResponseDataItemAttributesStatus",
+    "LicenseAssignmentsListGetResponseDataItemLinks",
+    "LicenseAssignmentsListGetResponseDataItemMeta",
+    "LicenseAssignmentsListGetResponseDataItemMetaErrorsItem",
+    "LicenseAssignmentsListGetResponseDataItemMetaErrorsItemSource",
+    "LicenseAssignmentsListGetResponseDataItemMetaErrorsItemSourceResource",
+    "LicenseAssignmentsListGetResponseDataItemRelationships",
+    "LicenseAssignmentsListGetResponseDataItemRelationshipsAddOnSlots",
+    "LicenseAssignmentsListGetResponseDataItemRelationshipsAddOnSlotsDataItem",
+    "LicenseAssignmentsListGetResponseDataItemRelationshipsAddOnSlotsDataItemType",
+    "LicenseAssignmentsListGetResponseDataItemRelationshipsAddOnSlotsMeta",
+    "LicenseAssignmentsListGetResponseDataItemRelationshipsBaseSlot",
+    "LicenseAssignmentsListGetResponseDataItemRelationshipsBaseSlotData",
+    "LicenseAssignmentsListGetResponseDataItemRelationshipsBaseSlotDataType",
+    "LicenseAssignmentsListGetResponseDataItemRelationshipsUser",
+    "LicenseAssignmentsListGetResponseDataItemRelationshipsUserData",
+    "LicenseAssignmentsListGetResponseDataItemRelationshipsUserDataType",
+    "LicenseAssignmentsListGetResponseDataItemType",
+    "LicenseAssignmentsListGetResponseIncludedItem",
+    "LicenseAssignmentsListGetResponseLinks",
+    "LicenseAssignmentsListGetResponseMeta",
+    "LicenseAssignmentsListPatchRequest",
+    "LicenseAssignmentsListPatchRequestDataItem",
+    "LicenseAssignmentsListPatchRequestDataItemRelationships",
+    "LicenseAssignmentsListPatchRequestDataItemRelationshipsAddOnSlots",
+    "LicenseAssignmentsListPatchRequestDataItemRelationshipsAddOnSlotsDataItem",
+    "LicenseAssignmentsListPatchRequestDataItemRelationshipsAddOnSlotsDataItemType",
+    "LicenseAssignmentsListPatchRequestDataItemRelationshipsBaseSlot",
+    "LicenseAssignmentsListPatchRequestDataItemRelationshipsBaseSlotData",
+    "LicenseAssignmentsListPatchRequestDataItemRelationshipsBaseSlotDataType",
+    "LicenseAssignmentsListPatchRequestDataItemType",
+    "LicenseAssignmentsSingleGetResponse",
+    "LicenseAssignmentsSingleGetResponseData",
+    "LicenseAssignmentsSingleGetResponseDataAttributes",
+    "LicenseAssignmentsSingleGetResponseDataAttributesStatus",
+    "LicenseAssignmentsSingleGetResponseDataLinks",
+    "LicenseAssignmentsSingleGetResponseDataMeta",
+    "LicenseAssignmentsSingleGetResponseDataMetaErrorsItem",
+    "LicenseAssignmentsSingleGetResponseDataMetaErrorsItemSource",
+    "LicenseAssignmentsSingleGetResponseDataMetaErrorsItemSourceResource",
+    "LicenseAssignmentsSingleGetResponseDataRelationships",
+    "LicenseAssignmentsSingleGetResponseDataRelationshipsAddOnSlots",
+    "LicenseAssignmentsSingleGetResponseDataRelationshipsAddOnSlotsDataItem",
+    "LicenseAssignmentsSingleGetResponseDataRelationshipsAddOnSlotsDataItemType",
+    "LicenseAssignmentsSingleGetResponseDataRelationshipsAddOnSlotsMeta",
+    "LicenseAssignmentsSingleGetResponseDataRelationshipsBaseSlot",
+    "LicenseAssignmentsSingleGetResponseDataRelationshipsBaseSlotData",
+    "LicenseAssignmentsSingleGetResponseDataRelationshipsBaseSlotDataType",
+    "LicenseAssignmentsSingleGetResponseDataRelationshipsUser",
+    "LicenseAssignmentsSingleGetResponseDataRelationshipsUserData",
+    "LicenseAssignmentsSingleGetResponseDataRelationshipsUserDataType",
+    "LicenseAssignmentsSingleGetResponseDataType",
+    "LicenseAssignmentsSingleGetResponseIncludedItem",
+    "LicenseAssignmentsSingleGetResponseLinks",
+    "LicenseAssignmentsSinglePatchRequest",
+    "LicenseAssignmentsSinglePatchRequestData",
+    "LicenseAssignmentsSinglePatchRequestDataRelationships",
+    "LicenseAssignmentsSinglePatchRequestDataRelationshipsAddOnSlots",
+    "LicenseAssignmentsSinglePatchRequestDataRelationshipsAddOnSlotsDataItem",
+    "LicenseAssignmentsSinglePatchRequestDataRelationshipsAddOnSlotsDataItemType",
+    "LicenseAssignmentsSinglePatchRequestDataRelationshipsBaseSlot",
+    "LicenseAssignmentsSinglePatchRequestDataRelationshipsBaseSlotData",
+    "LicenseAssignmentsSinglePatchRequestDataRelationshipsBaseSlotDataType",
+    "LicenseAssignmentsSinglePatchRequestDataType",
+    "LicenseSingleGetResponse",
+    "LicenseSingleGetResponseData",
+    "LicenseSingleGetResponseDataAttributes",
+    "LicenseSingleGetResponseDataAttributesLimits",
+    "LicenseSingleGetResponseDataAttributesLimitsDocumentsAndPages",
+    "LicenseSingleGetResponseDataAttributesLimitsProjects",
+    "LicenseSingleGetResponseDataAttributesLimitsWorkitems",
+    "LicenseSingleGetResponseDataLinks",
+    "LicenseSingleGetResponseDataMeta",
+    "LicenseSingleGetResponseDataMetaErrorsItem",
+    "LicenseSingleGetResponseDataMetaErrorsItemSource",
+    "LicenseSingleGetResponseDataMetaErrorsItemSourceResource",
+    "LicenseSingleGetResponseDataRelationships",
+    "LicenseSingleGetResponseDataRelationshipsDefaultAddOnLicenseSlots",
+    "LicenseSingleGetResponseDataRelationshipsDefaultAddOnLicenseSlotsDataItem",
+    "LicenseSingleGetResponseDataRelationshipsDefaultAddOnLicenseSlotsDataItemType",
+    "LicenseSingleGetResponseDataRelationshipsDefaultAddOnLicenseSlotsMeta",
+    "LicenseSingleGetResponseDataRelationshipsDefaultBaseLicenseSlot",
+    "LicenseSingleGetResponseDataRelationshipsDefaultBaseLicenseSlotData",
+    "LicenseSingleGetResponseDataRelationshipsDefaultBaseLicenseSlotDataType",
+    "LicenseSingleGetResponseDataType",
+    "LicenseSingleGetResponseIncludedItem",
+    "LicenseSingleGetResponseLinks",
+    "LicenseSinglePatchRequest",
+    "LicenseSinglePatchRequestData",
+    "LicenseSinglePatchRequestDataRelationships",
+    "LicenseSinglePatchRequestDataRelationshipsDefaultAddOnLicenseSlots",
+    "LicenseSinglePatchRequestDataRelationshipsDefaultAddOnLicenseSlotsDataItem",
+    "LicenseSinglePatchRequestDataRelationshipsDefaultAddOnLicenseSlotsDataItemType",
+    "LicenseSinglePatchRequestDataRelationshipsDefaultBaseLicenseSlot",
+    "LicenseSinglePatchRequestDataRelationshipsDefaultBaseLicenseSlotData",
+    "LicenseSinglePatchRequestDataRelationshipsDefaultBaseLicenseSlotDataType",
+    "LicenseSinglePatchRequestDataType",
+    "LicenseSlotsListDeleteRequest",
+    "LicenseSlotsListDeleteRequestDataItem",
+    "LicenseSlotsListDeleteRequestDataItemType",
+    "LicenseSlotsListGetResponse",
+    "LicenseSlotsListGetResponseDataItem",
+    "LicenseSlotsListGetResponseDataItemAttributes",
+    "LicenseSlotsListGetResponseDataItemLinks",
+    "LicenseSlotsListGetResponseDataItemMeta",
+    "LicenseSlotsListGetResponseDataItemMetaErrorsItem",
+    "LicenseSlotsListGetResponseDataItemMetaErrorsItemSource",
+    "LicenseSlotsListGetResponseDataItemMetaErrorsItemSourceResource",
+    "LicenseSlotsListGetResponseDataItemType",
+    "LicenseSlotsListGetResponseIncludedItem",
+    "LicenseSlotsListGetResponseLinks",
+    "LicenseSlotsListGetResponseMeta",
+    "LicenseSlotsListPostRequest",
+    "LicenseSlotsListPostRequestDataItem",
+    "LicenseSlotsListPostRequestDataItemAttributes",
+    "LicenseSlotsListPostRequestDataItemType",
+    "LicenseSlotsListPostResponse",
+    "LicenseSlotsListPostResponseDataItem",
+    "LicenseSlotsListPostResponseDataItemLinks",
+    "LicenseSlotsListPostResponseDataItemType",
+    "LicenseSlotsSingleGetResponse",
+    "LicenseSlotsSingleGetResponseData",
+    "LicenseSlotsSingleGetResponseDataAttributes",
+    "LicenseSlotsSingleGetResponseDataLinks",
+    "LicenseSlotsSingleGetResponseDataMeta",
+    "LicenseSlotsSingleGetResponseDataMetaErrorsItem",
+    "LicenseSlotsSingleGetResponseDataMetaErrorsItemSource",
+    "LicenseSlotsSingleGetResponseDataMetaErrorsItemSourceResource",
+    "LicenseSlotsSingleGetResponseDataType",
+    "LicenseSlotsSingleGetResponseIncludedItem",
+    "LicenseSlotsSingleGetResponseLinks",
     "LinkedoslcresourcesListDeleteRequest",
     "LinkedoslcresourcesListDeleteRequestDataItem",
     "LinkedoslcresourcesListDeleteRequestDataItemType",
@@ -6940,6 +8834,9 @@ __all__ = (
     "LinkedworkitemsListGetResponseDataItemMetaErrorsItemSource",
     "LinkedworkitemsListGetResponseDataItemMetaErrorsItemSourceResource",
     "LinkedworkitemsListGetResponseDataItemRelationships",
+    "LinkedworkitemsListGetResponseDataItemRelationshipsSourceWorkItem",
+    "LinkedworkitemsListGetResponseDataItemRelationshipsSourceWorkItemData",
+    "LinkedworkitemsListGetResponseDataItemRelationshipsSourceWorkItemDataType",
     "LinkedworkitemsListGetResponseDataItemRelationshipsWorkItem",
     "LinkedworkitemsListGetResponseDataItemRelationshipsWorkItemData",
     "LinkedworkitemsListGetResponseDataItemRelationshipsWorkItemDataType",
@@ -6968,6 +8865,9 @@ __all__ = (
     "LinkedworkitemsSingleGetResponseDataMetaErrorsItemSource",
     "LinkedworkitemsSingleGetResponseDataMetaErrorsItemSourceResource",
     "LinkedworkitemsSingleGetResponseDataRelationships",
+    "LinkedworkitemsSingleGetResponseDataRelationshipsSourceWorkItem",
+    "LinkedworkitemsSingleGetResponseDataRelationshipsSourceWorkItemData",
+    "LinkedworkitemsSingleGetResponseDataRelationshipsSourceWorkItemDataType",
     "LinkedworkitemsSingleGetResponseDataRelationshipsWorkItem",
     "LinkedworkitemsSingleGetResponseDataRelationshipsWorkItemData",
     "LinkedworkitemsSingleGetResponseDataRelationshipsWorkItemDataType",
@@ -6978,9 +8878,58 @@ __all__ = (
     "LinkedworkitemsSinglePatchRequestData",
     "LinkedworkitemsSinglePatchRequestDataAttributes",
     "LinkedworkitemsSinglePatchRequestDataType",
+    "LlmsListGetResponse",
+    "LlmsListGetResponseDataItem",
+    "LlmsListGetResponseDataItemAttributes",
+    "LlmsListGetResponseDataItemLinks",
+    "LlmsListGetResponseDataItemMeta",
+    "LlmsListGetResponseDataItemMetaErrorsItem",
+    "LlmsListGetResponseDataItemMetaErrorsItemSource",
+    "LlmsListGetResponseDataItemMetaErrorsItemSourceResource",
+    "LlmsListGetResponseDataItemType",
+    "LlmsListGetResponseIncludedItem",
+    "LlmsListGetResponseMeta",
     "MergeDocumentRequestBody",
+    "MetadataSingleGetResponse",
+    "MetadataSingleGetResponseData",
+    "MetadataSingleGetResponseDataAttributes",
+    "MetadataSingleGetResponseDataAttributesApiProperties",
+    "MetadataSingleGetResponseDataLinks",
+    "MetadataSingleGetResponseDataMeta",
+    "MetadataSingleGetResponseDataMetaErrorsItem",
+    "MetadataSingleGetResponseDataMetaErrorsItemSource",
+    "MetadataSingleGetResponseDataMetaErrorsItemSourceResource",
+    "MetadataSingleGetResponseDataType",
+    "MetadataSingleGetResponseIncludedItem",
+    "MetadataSingleGetResponseLinks",
+    "MoveDocumentPartRequestBody",
     "MoveProjectRequestBody",
     "MoveWorkItemToDocumentRequestBody",
+    "MoveWorkItemsToDocumentRequestBody",
+    "MoveWorkItemsToDocumentRequestBodyWorkItemGroupsItem",
+    "OverwriteDocumentPartsRequestBody",
+    "OverwriteDocumentPartsResponseBody",
+    "OverwriteDocumentPartsResponseBodyData",
+    "OverwriteDocumentPartsResponseBodyDataOverwrittenPartsItem",
+    "PageAttachmentsListGetResponse",
+    "PageAttachmentsListGetResponseDataItem",
+    "PageAttachmentsListGetResponseDataItemAttributes",
+    "PageAttachmentsListGetResponseDataItemLinks",
+    "PageAttachmentsListGetResponseDataItemMeta",
+    "PageAttachmentsListGetResponseDataItemMetaErrorsItem",
+    "PageAttachmentsListGetResponseDataItemMetaErrorsItemSource",
+    "PageAttachmentsListGetResponseDataItemMetaErrorsItemSourceResource",
+    "PageAttachmentsListGetResponseDataItemRelationships",
+    "PageAttachmentsListGetResponseDataItemRelationshipsAuthor",
+    "PageAttachmentsListGetResponseDataItemRelationshipsAuthorData",
+    "PageAttachmentsListGetResponseDataItemRelationshipsAuthorDataType",
+    "PageAttachmentsListGetResponseDataItemRelationshipsProject",
+    "PageAttachmentsListGetResponseDataItemRelationshipsProjectData",
+    "PageAttachmentsListGetResponseDataItemRelationshipsProjectDataType",
+    "PageAttachmentsListGetResponseDataItemType",
+    "PageAttachmentsListGetResponseIncludedItem",
+    "PageAttachmentsListGetResponseLinks",
+    "PageAttachmentsListGetResponseMeta",
     "PageAttachmentsListPostRequest",
     "PageAttachmentsListPostRequestDataItem",
     "PageAttachmentsListPostRequestDataItemAttributes",
@@ -7007,9 +8956,137 @@ __all__ = (
     "PageAttachmentsSingleGetResponseDataType",
     "PageAttachmentsSingleGetResponseIncludedItem",
     "PageAttachmentsSingleGetResponseLinks",
+    "PageAttachmentsSinglePatchRequest",
+    "PageAttachmentsSinglePatchRequestData",
+    "PageAttachmentsSinglePatchRequestDataAttributes",
+    "PageAttachmentsSinglePatchRequestDataType",
+    "PageCommentsListGetResponse",
+    "PageCommentsListGetResponseDataItem",
+    "PageCommentsListGetResponseDataItemAttributes",
+    "PageCommentsListGetResponseDataItemAttributesText",
+    "PageCommentsListGetResponseDataItemAttributesTextType",
+    "PageCommentsListGetResponseDataItemLinks",
+    "PageCommentsListGetResponseDataItemMeta",
+    "PageCommentsListGetResponseDataItemMetaErrorsItem",
+    "PageCommentsListGetResponseDataItemMetaErrorsItemSource",
+    "PageCommentsListGetResponseDataItemMetaErrorsItemSourceResource",
+    "PageCommentsListGetResponseDataItemRelationships",
+    "PageCommentsListGetResponseDataItemRelationshipsAuthor",
+    "PageCommentsListGetResponseDataItemRelationshipsAuthorData",
+    "PageCommentsListGetResponseDataItemRelationshipsAuthorDataType",
+    "PageCommentsListGetResponseDataItemRelationshipsChildComments",
+    "PageCommentsListGetResponseDataItemRelationshipsChildCommentsDataItem",
+    "PageCommentsListGetResponseDataItemRelationshipsChildCommentsDataItemType",
+    "PageCommentsListGetResponseDataItemRelationshipsChildCommentsMeta",
+    "PageCommentsListGetResponseDataItemRelationshipsParentComment",
+    "PageCommentsListGetResponseDataItemRelationshipsParentCommentData",
+    "PageCommentsListGetResponseDataItemRelationshipsParentCommentDataType",
+    "PageCommentsListGetResponseDataItemRelationshipsProject",
+    "PageCommentsListGetResponseDataItemRelationshipsProjectData",
+    "PageCommentsListGetResponseDataItemRelationshipsProjectDataType",
+    "PageCommentsListGetResponseDataItemType",
+    "PageCommentsListGetResponseIncludedItem",
+    "PageCommentsListGetResponseLinks",
+    "PageCommentsListGetResponseMeta",
+    "PageCommentsListPostRequest",
+    "PageCommentsListPostRequestDataItem",
+    "PageCommentsListPostRequestDataItemAttributes",
+    "PageCommentsListPostRequestDataItemAttributesText",
+    "PageCommentsListPostRequestDataItemAttributesTextType",
+    "PageCommentsListPostRequestDataItemRelationships",
+    "PageCommentsListPostRequestDataItemRelationshipsAuthor",
+    "PageCommentsListPostRequestDataItemRelationshipsAuthorData",
+    "PageCommentsListPostRequestDataItemRelationshipsAuthorDataType",
+    "PageCommentsListPostRequestDataItemRelationshipsParentComment",
+    "PageCommentsListPostRequestDataItemRelationshipsParentCommentData",
+    "PageCommentsListPostRequestDataItemRelationshipsParentCommentDataType",
+    "PageCommentsListPostRequestDataItemType",
+    "PageCommentsListPostResponse",
+    "PageCommentsListPostResponseDataItem",
+    "PageCommentsListPostResponseDataItemLinks",
+    "PageCommentsListPostResponseDataItemType",
+    "PageCommentsSingleGetResponse",
+    "PageCommentsSingleGetResponseData",
+    "PageCommentsSingleGetResponseDataAttributes",
+    "PageCommentsSingleGetResponseDataAttributesText",
+    "PageCommentsSingleGetResponseDataAttributesTextType",
+    "PageCommentsSingleGetResponseDataLinks",
+    "PageCommentsSingleGetResponseDataMeta",
+    "PageCommentsSingleGetResponseDataMetaErrorsItem",
+    "PageCommentsSingleGetResponseDataMetaErrorsItemSource",
+    "PageCommentsSingleGetResponseDataMetaErrorsItemSourceResource",
+    "PageCommentsSingleGetResponseDataRelationships",
+    "PageCommentsSingleGetResponseDataRelationshipsAuthor",
+    "PageCommentsSingleGetResponseDataRelationshipsAuthorData",
+    "PageCommentsSingleGetResponseDataRelationshipsAuthorDataType",
+    "PageCommentsSingleGetResponseDataRelationshipsChildComments",
+    "PageCommentsSingleGetResponseDataRelationshipsChildCommentsDataItem",
+    "PageCommentsSingleGetResponseDataRelationshipsChildCommentsDataItemType",
+    "PageCommentsSingleGetResponseDataRelationshipsChildCommentsMeta",
+    "PageCommentsSingleGetResponseDataRelationshipsParentComment",
+    "PageCommentsSingleGetResponseDataRelationshipsParentCommentData",
+    "PageCommentsSingleGetResponseDataRelationshipsParentCommentDataType",
+    "PageCommentsSingleGetResponseDataRelationshipsProject",
+    "PageCommentsSingleGetResponseDataRelationshipsProjectData",
+    "PageCommentsSingleGetResponseDataRelationshipsProjectDataType",
+    "PageCommentsSingleGetResponseDataType",
+    "PageCommentsSingleGetResponseIncludedItem",
+    "PageCommentsSingleGetResponseLinks",
+    "PageCommentsSinglePatchRequest",
+    "PageCommentsSinglePatchRequestData",
+    "PageCommentsSinglePatchRequestDataAttributes",
+    "PageCommentsSinglePatchRequestDataType",
+    "PagesListGetResponse",
+    "PagesListGetResponseDataItem",
+    "PagesListGetResponseDataItemAttributes",
+    "PagesListGetResponseDataItemAttributesHomePageContent",
+    "PagesListGetResponseDataItemAttributesHomePageContentType",
+    "PagesListGetResponseDataItemLinks",
+    "PagesListGetResponseDataItemMeta",
+    "PagesListGetResponseDataItemMetaErrorsItem",
+    "PagesListGetResponseDataItemMetaErrorsItemSource",
+    "PagesListGetResponseDataItemMetaErrorsItemSourceResource",
+    "PagesListGetResponseDataItemRelationships",
+    "PagesListGetResponseDataItemRelationshipsAttachments",
+    "PagesListGetResponseDataItemRelationshipsAttachmentsDataItem",
+    "PagesListGetResponseDataItemRelationshipsAttachmentsDataItemType",
+    "PagesListGetResponseDataItemRelationshipsAttachmentsMeta",
+    "PagesListGetResponseDataItemRelationshipsAuthor",
+    "PagesListGetResponseDataItemRelationshipsAuthorData",
+    "PagesListGetResponseDataItemRelationshipsAuthorDataType",
+    "PagesListGetResponseDataItemRelationshipsProject",
+    "PagesListGetResponseDataItemRelationshipsProjectData",
+    "PagesListGetResponseDataItemRelationshipsProjectDataType",
+    "PagesListGetResponseDataItemRelationshipsUpdatedBy",
+    "PagesListGetResponseDataItemRelationshipsUpdatedByData",
+    "PagesListGetResponseDataItemRelationshipsUpdatedByDataType",
+    "PagesListGetResponseDataItemRelationshipsWatches",
+    "PagesListGetResponseDataItemRelationshipsWatchesDataItem",
+    "PagesListGetResponseDataItemRelationshipsWatchesDataItemType",
+    "PagesListGetResponseDataItemRelationshipsWatchesMeta",
+    "PagesListGetResponseDataItemType",
+    "PagesListGetResponseIncludedItem",
+    "PagesListGetResponseLinks",
+    "PagesListGetResponseMeta",
+    "PagesListPostRequest",
+    "PagesListPostRequestDataItem",
+    "PagesListPostRequestDataItemAttributes",
+    "PagesListPostRequestDataItemAttributesHomePageContent",
+    "PagesListPostRequestDataItemAttributesHomePageContentType",
+    "PagesListPostRequestDataItemRelationships",
+    "PagesListPostRequestDataItemRelationshipsAuthor",
+    "PagesListPostRequestDataItemRelationshipsAuthorData",
+    "PagesListPostRequestDataItemRelationshipsAuthorDataType",
+    "PagesListPostRequestDataItemType",
+    "PagesListPostResponse",
+    "PagesListPostResponseDataItem",
+    "PagesListPostResponseDataItemLinks",
+    "PagesListPostResponseDataItemType",
     "PagesSingleGetResponse",
     "PagesSingleGetResponseData",
     "PagesSingleGetResponseDataAttributes",
+    "PagesSingleGetResponseDataAttributesHomePageContent",
+    "PagesSingleGetResponseDataAttributesHomePageContentType",
     "PagesSingleGetResponseDataLinks",
     "PagesSingleGetResponseDataMeta",
     "PagesSingleGetResponseDataMetaErrorsItem",
@@ -7029,15 +9106,25 @@ __all__ = (
     "PagesSingleGetResponseDataRelationshipsUpdatedBy",
     "PagesSingleGetResponseDataRelationshipsUpdatedByData",
     "PagesSingleGetResponseDataRelationshipsUpdatedByDataType",
+    "PagesSingleGetResponseDataRelationshipsWatches",
+    "PagesSingleGetResponseDataRelationshipsWatchesDataItem",
+    "PagesSingleGetResponseDataRelationshipsWatchesDataItemType",
+    "PagesSingleGetResponseDataRelationshipsWatchesMeta",
     "PagesSingleGetResponseDataType",
     "PagesSingleGetResponseIncludedItem",
     "PagesSingleGetResponseLinks",
     "PagesSinglePatchRequest",
     "PagesSinglePatchRequestData",
     "PagesSinglePatchRequestDataAttributes",
+    "PagesSinglePatchRequestDataAttributesHomePageContent",
+    "PagesSinglePatchRequestDataAttributesHomePageContentType",
+    "PagesSinglePatchRequestDataRelationships",
+    "PagesSinglePatchRequestDataRelationshipsWatches",
+    "PagesSinglePatchRequestDataRelationshipsWatchesDataItem",
+    "PagesSinglePatchRequestDataRelationshipsWatchesDataItemType",
     "PagesSinglePatchRequestDataType",
-    "Pagination",
     "PatchDocumentAttachmentsRequestBody",
+    "PatchPageAttachmentsRequestBody",
     "PatchTestRecordAttachmentsRequestBody",
     "PatchTestRunAttachmentsRequestBody",
     "PatchTestStepResultAttachmentsRequestBody",
@@ -7240,7 +9327,9 @@ __all__ = (
     "RelationshipsListDeleteRequest",
     "RelationshipsListDeleteRequestDataItem",
     "RelationshipsListDeleteRequestDataItemType",
+    "ResourceQueryContext",
     "ResourceReference",
+    "ReuseCollectionRequestBody",
     "RevisionsListGetResponse",
     "RevisionsListGetResponseDataItem",
     "RevisionsListGetResponseDataItemAttributes",
@@ -7957,6 +10046,13 @@ __all__ = (
     "UsersListGetResponseDataItemMetaErrorsItemSource",
     "UsersListGetResponseDataItemMetaErrorsItemSourceResource",
     "UsersListGetResponseDataItemRelationships",
+    "UsersListGetResponseDataItemRelationshipsAddOnLicenseSlots",
+    "UsersListGetResponseDataItemRelationshipsAddOnLicenseSlotsDataItem",
+    "UsersListGetResponseDataItemRelationshipsAddOnLicenseSlotsDataItemType",
+    "UsersListGetResponseDataItemRelationshipsAddOnLicenseSlotsMeta",
+    "UsersListGetResponseDataItemRelationshipsBaseLicenseSlot",
+    "UsersListGetResponseDataItemRelationshipsBaseLicenseSlotData",
+    "UsersListGetResponseDataItemRelationshipsBaseLicenseSlotDataType",
     "UsersListGetResponseDataItemRelationshipsGlobalRoles",
     "UsersListGetResponseDataItemRelationshipsGlobalRolesDataItem",
     "UsersListGetResponseDataItemRelationshipsGlobalRolesDataItemType",
@@ -8004,6 +10100,13 @@ __all__ = (
     "UsersSingleGetResponseDataMetaErrorsItemSource",
     "UsersSingleGetResponseDataMetaErrorsItemSourceResource",
     "UsersSingleGetResponseDataRelationships",
+    "UsersSingleGetResponseDataRelationshipsAddOnLicenseSlots",
+    "UsersSingleGetResponseDataRelationshipsAddOnLicenseSlotsDataItem",
+    "UsersSingleGetResponseDataRelationshipsAddOnLicenseSlotsDataItemType",
+    "UsersSingleGetResponseDataRelationshipsAddOnLicenseSlotsMeta",
+    "UsersSingleGetResponseDataRelationshipsBaseLicenseSlot",
+    "UsersSingleGetResponseDataRelationshipsBaseLicenseSlotData",
+    "UsersSingleGetResponseDataRelationshipsBaseLicenseSlotDataType",
     "UsersSingleGetResponseDataRelationshipsGlobalRoles",
     "UsersSingleGetResponseDataRelationshipsGlobalRolesDataItem",
     "UsersSingleGetResponseDataRelationshipsGlobalRolesDataItemType",

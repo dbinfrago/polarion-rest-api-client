@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -33,34 +34,32 @@ T = TypeVar("T", bound="TestrecordsSingleGetResponseDataRelationships")
 class TestrecordsSingleGetResponseDataRelationships:
     """
     Attributes:
-        defect (Union[Unset, TestrecordsSingleGetResponseDataRelationshipsDefect]):
-        executed_by (Union[Unset, TestrecordsSingleGetResponseDataRelationshipsExecutedBy]):
-        test_case (Union[Unset, TestrecordsSingleGetResponseDataRelationshipsTestCase]):
+        defect (TestrecordsSingleGetResponseDataRelationshipsDefect | Unset):
+        executed_by (TestrecordsSingleGetResponseDataRelationshipsExecutedBy | Unset):
+        test_case (TestrecordsSingleGetResponseDataRelationshipsTestCase | Unset):
     """
 
-    defect: Union[
-        Unset, "TestrecordsSingleGetResponseDataRelationshipsDefect"
-    ] = UNSET
-    executed_by: Union[
-        Unset, "TestrecordsSingleGetResponseDataRelationshipsExecutedBy"
-    ] = UNSET
-    test_case: Union[
-        Unset, "TestrecordsSingleGetResponseDataRelationshipsTestCase"
-    ] = UNSET
+    defect: TestrecordsSingleGetResponseDataRelationshipsDefect | Unset = UNSET
+    executed_by: (
+        TestrecordsSingleGetResponseDataRelationshipsExecutedBy | Unset
+    ) = UNSET
+    test_case: (
+        TestrecordsSingleGetResponseDataRelationshipsTestCase | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        defect: Union[Unset, dict[str, Any]] = UNSET
+        defect: dict[str, Any] | Unset = UNSET
         if not isinstance(self.defect, Unset):
             defect = self.defect.to_dict()
 
-        executed_by: Union[Unset, dict[str, Any]] = UNSET
+        executed_by: dict[str, Any] | Unset = UNSET
         if not isinstance(self.executed_by, Unset):
             executed_by = self.executed_by.to_dict()
 
-        test_case: Union[Unset, dict[str, Any]] = UNSET
+        test_case: dict[str, Any] | Unset = UNSET
         if not isinstance(self.test_case, Unset):
             test_case = self.test_case.to_dict()
 
@@ -90,9 +89,7 @@ class TestrecordsSingleGetResponseDataRelationships:
 
         d = dict(src_dict)
         _defect = d.pop("defect", UNSET)
-        defect: Union[
-            Unset, TestrecordsSingleGetResponseDataRelationshipsDefect
-        ]
+        defect: TestrecordsSingleGetResponseDataRelationshipsDefect | Unset
         if isinstance(_defect, Unset):
             defect = UNSET
         else:
@@ -103,9 +100,9 @@ class TestrecordsSingleGetResponseDataRelationships:
             )
 
         _executed_by = d.pop("executedBy", UNSET)
-        executed_by: Union[
-            Unset, TestrecordsSingleGetResponseDataRelationshipsExecutedBy
-        ]
+        executed_by: (
+            TestrecordsSingleGetResponseDataRelationshipsExecutedBy | Unset
+        )
         if isinstance(_executed_by, Unset):
             executed_by = UNSET
         else:
@@ -114,9 +111,9 @@ class TestrecordsSingleGetResponseDataRelationships:
             )
 
         _test_case = d.pop("testCase", UNSET)
-        test_case: Union[
-            Unset, TestrecordsSingleGetResponseDataRelationshipsTestCase
-        ]
+        test_case: (
+            TestrecordsSingleGetResponseDataRelationshipsTestCase | Unset
+        )
         if isinstance(_test_case, Unset):
             test_case = UNSET
         else:

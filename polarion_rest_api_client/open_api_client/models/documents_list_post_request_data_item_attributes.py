@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -33,35 +34,35 @@ T = TypeVar("T", bound="DocumentsListPostRequestDataItemAttributes")
 class DocumentsListPostRequestDataItemAttributes:
     """
     Attributes:
-        auto_suspect (Union[Unset, bool]):
-        home_page_content (Union[Unset, DocumentsListPostRequestDataItemAttributesHomePageContent]):
-        module_name (Union[Unset, str]):  Example: MyDocumentId.
-        outline_numbering (Union[Unset, DocumentsListPostRequestDataItemAttributesOutlineNumbering]):
-        rendering_layouts (Union[Unset, list['DocumentsListPostRequestDataItemAttributesRenderingLayoutsItem']]):
-        status (Union[Unset, str]):  Example: draft.
-        structure_link_role (Union[Unset, str]):  Example: relates_to.
-        title (Union[Unset, str]):  Example: Title.
-        type_ (Union[Unset, str]):  Example: req_specification.
-        uses_outline_numbering (Union[Unset, bool]):
+        auto_suspect (bool | Unset):
+        home_page_content (DocumentsListPostRequestDataItemAttributesHomePageContent | Unset):
+        module_name (str | Unset):  Example: MyDocumentId.
+        outline_numbering (DocumentsListPostRequestDataItemAttributesOutlineNumbering | Unset):
+        rendering_layouts (list[DocumentsListPostRequestDataItemAttributesRenderingLayoutsItem] | Unset):
+        status (str | Unset):  Example: draft.
+        structure_link_role (str | Unset):  Example: relates_to.
+        title (str | Unset):  Example: Title.
+        type_ (str | Unset):  Example: req_specification.
+        uses_outline_numbering (bool | Unset):
     """
 
-    auto_suspect: Union[Unset, bool] = UNSET
-    home_page_content: Union[
-        Unset, "DocumentsListPostRequestDataItemAttributesHomePageContent"
-    ] = UNSET
-    module_name: Union[Unset, str] = UNSET
-    outline_numbering: Union[
-        Unset, "DocumentsListPostRequestDataItemAttributesOutlineNumbering"
-    ] = UNSET
-    rendering_layouts: Union[
-        Unset,
-        list["DocumentsListPostRequestDataItemAttributesRenderingLayoutsItem"],
-    ] = UNSET
-    status: Union[Unset, str] = UNSET
-    structure_link_role: Union[Unset, str] = UNSET
-    title: Union[Unset, str] = UNSET
-    type_: Union[Unset, str] = UNSET
-    uses_outline_numbering: Union[Unset, bool] = UNSET
+    auto_suspect: bool | Unset = UNSET
+    home_page_content: (
+        DocumentsListPostRequestDataItemAttributesHomePageContent | Unset
+    ) = UNSET
+    module_name: str | Unset = UNSET
+    outline_numbering: (
+        DocumentsListPostRequestDataItemAttributesOutlineNumbering | Unset
+    ) = UNSET
+    rendering_layouts: (
+        list[DocumentsListPostRequestDataItemAttributesRenderingLayoutsItem]
+        | Unset
+    ) = UNSET
+    status: str | Unset = UNSET
+    structure_link_role: str | Unset = UNSET
+    title: str | Unset = UNSET
+    type_: str | Unset = UNSET
+    uses_outline_numbering: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -69,17 +70,17 @@ class DocumentsListPostRequestDataItemAttributes:
     def to_dict(self) -> dict[str, Any]:
         auto_suspect = self.auto_suspect
 
-        home_page_content: Union[Unset, dict[str, Any]] = UNSET
+        home_page_content: dict[str, Any] | Unset = UNSET
         if not isinstance(self.home_page_content, Unset):
             home_page_content = self.home_page_content.to_dict()
 
         module_name = self.module_name
 
-        outline_numbering: Union[Unset, dict[str, Any]] = UNSET
+        outline_numbering: dict[str, Any] | Unset = UNSET
         if not isinstance(self.outline_numbering, Unset):
             outline_numbering = self.outline_numbering.to_dict()
 
-        rendering_layouts: Union[Unset, list[dict[str, Any]]] = UNSET
+        rendering_layouts: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.rendering_layouts, Unset):
             rendering_layouts = []
             for rendering_layouts_item_data in self.rendering_layouts:
@@ -138,9 +139,9 @@ class DocumentsListPostRequestDataItemAttributes:
         auto_suspect = d.pop("autoSuspect", UNSET)
 
         _home_page_content = d.pop("homePageContent", UNSET)
-        home_page_content: Union[
-            Unset, DocumentsListPostRequestDataItemAttributesHomePageContent
-        ]
+        home_page_content: (
+            DocumentsListPostRequestDataItemAttributesHomePageContent | Unset
+        )
         if isinstance(_home_page_content, Unset):
             home_page_content = UNSET
         else:
@@ -151,9 +152,9 @@ class DocumentsListPostRequestDataItemAttributes:
         module_name = d.pop("moduleName", UNSET)
 
         _outline_numbering = d.pop("outlineNumbering", UNSET)
-        outline_numbering: Union[
-            Unset, DocumentsListPostRequestDataItemAttributesOutlineNumbering
-        ]
+        outline_numbering: (
+            DocumentsListPostRequestDataItemAttributesOutlineNumbering | Unset
+        )
         if isinstance(_outline_numbering, Unset):
             outline_numbering = UNSET
         else:
@@ -161,14 +162,21 @@ class DocumentsListPostRequestDataItemAttributes:
                 _outline_numbering
             )
 
-        rendering_layouts = []
         _rendering_layouts = d.pop("renderingLayouts", UNSET)
-        for rendering_layouts_item_data in _rendering_layouts or []:
-            rendering_layouts_item = DocumentsListPostRequestDataItemAttributesRenderingLayoutsItem.from_dict(
-                rendering_layouts_item_data
-            )
+        rendering_layouts: (
+            list[
+                DocumentsListPostRequestDataItemAttributesRenderingLayoutsItem
+            ]
+            | Unset
+        ) = UNSET
+        if _rendering_layouts is not UNSET:
+            rendering_layouts = []
+            for rendering_layouts_item_data in _rendering_layouts:
+                rendering_layouts_item = DocumentsListPostRequestDataItemAttributesRenderingLayoutsItem.from_dict(
+                    rendering_layouts_item_data
+                )
 
-            rendering_layouts.append(rendering_layouts_item)
+                rendering_layouts.append(rendering_layouts_item)
 
         status = d.pop("status", UNSET)
 

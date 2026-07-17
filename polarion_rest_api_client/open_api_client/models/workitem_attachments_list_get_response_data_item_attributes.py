@@ -1,17 +1,17 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
 from typing import (
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
@@ -22,18 +22,18 @@ T = TypeVar("T", bound="WorkitemAttachmentsListGetResponseDataItemAttributes")
 class WorkitemAttachmentsListGetResponseDataItemAttributes:
     """
     Attributes:
-        file_name (Union[Unset, str]):  Example: File Name.
-        id (Union[Unset, str]):  Example: MyAttachmentId.
-        length (Union[Unset, int]):
-        title (Union[Unset, str]):  Example: Title.
-        updated (Union[Unset, datetime.datetime]):  Example: 1970-01-01T00:00:00Z.
+        file_name (str | Unset):  Example: File Name.
+        id (str | Unset):  Example: MyAttachmentId.
+        length (int | Unset):
+        title (str | Unset):  Example: Title.
+        updated (datetime.datetime | Unset):  Example: 1970-01-01T00:00:00Z.
     """
 
-    file_name: Union[Unset, str] = UNSET
-    id: Union[Unset, str] = UNSET
-    length: Union[Unset, int] = UNSET
-    title: Union[Unset, str] = UNSET
-    updated: Union[Unset, datetime.datetime] = UNSET
+    file_name: str | Unset = UNSET
+    id: str | Unset = UNSET
+    length: int | Unset = UNSET
+    title: str | Unset = UNSET
+    updated: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -47,7 +47,7 @@ class WorkitemAttachmentsListGetResponseDataItemAttributes:
 
         title = self.title
 
-        updated: Union[Unset, str] = UNSET
+        updated: str | Unset = UNSET
         if not isinstance(self.updated, Unset):
             updated = self.updated.isoformat()
 
@@ -79,11 +79,11 @@ class WorkitemAttachmentsListGetResponseDataItemAttributes:
         title = d.pop("title", UNSET)
 
         _updated = d.pop("updated", UNSET)
-        updated: Union[Unset, datetime.datetime]
+        updated: datetime.datetime | Unset
         if isinstance(_updated, Unset):
             updated = UNSET
         else:
-            updated = isoparse(_updated)
+            updated = datetime.datetime.fromisoformat(_updated)
 
         workitem_attachments_list_get_response_data_item_attributes_obj = cls(
             file_name=file_name,

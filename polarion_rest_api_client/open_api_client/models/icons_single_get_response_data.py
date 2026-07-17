@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -36,26 +37,26 @@ T = TypeVar("T", bound="IconsSingleGetResponseData")
 class IconsSingleGetResponseData:
     """
     Attributes:
-        type_ (Union[Unset, IconsSingleGetResponseDataType]):
-        id (Union[Unset, str]):  Example: default/example.gif.
-        revision (Union[Unset, str]):  Example: 1234.
-        attributes (Union[Unset, IconsSingleGetResponseDataAttributes]):
-        links (Union[Unset, IconsSingleGetResponseDataLinks]):
-        meta (Union[Unset, IconsSingleGetResponseDataMeta]):
+        type_ (IconsSingleGetResponseDataType | Unset):
+        id (str | Unset):  Example: default/example.gif.
+        revision (str | Unset):  Example: 1234.
+        attributes (IconsSingleGetResponseDataAttributes | Unset):
+        links (IconsSingleGetResponseDataLinks | Unset):
+        meta (IconsSingleGetResponseDataMeta | Unset):
     """
 
-    type_: Union[Unset, IconsSingleGetResponseDataType] = UNSET
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    attributes: Union[Unset, "IconsSingleGetResponseDataAttributes"] = UNSET
-    links: Union[Unset, "IconsSingleGetResponseDataLinks"] = UNSET
-    meta: Union[Unset, "IconsSingleGetResponseDataMeta"] = UNSET
+    type_: IconsSingleGetResponseDataType | Unset = UNSET
+    id: str | Unset = UNSET
+    revision: str | Unset = UNSET
+    attributes: IconsSingleGetResponseDataAttributes | Unset = UNSET
+    links: IconsSingleGetResponseDataLinks | Unset = UNSET
+    meta: IconsSingleGetResponseDataMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -63,15 +64,15 @@ class IconsSingleGetResponseData:
 
         revision = self.revision
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -107,7 +108,7 @@ class IconsSingleGetResponseData:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, IconsSingleGetResponseDataType]
+        type_: IconsSingleGetResponseDataType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -118,7 +119,7 @@ class IconsSingleGetResponseData:
         revision = d.pop("revision", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[Unset, IconsSingleGetResponseDataAttributes]
+        attributes: IconsSingleGetResponseDataAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -127,14 +128,14 @@ class IconsSingleGetResponseData:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, IconsSingleGetResponseDataLinks]
+        links: IconsSingleGetResponseDataLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
             links = IconsSingleGetResponseDataLinks.from_dict(_links)
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, IconsSingleGetResponseDataMeta]
+        meta: IconsSingleGetResponseDataMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

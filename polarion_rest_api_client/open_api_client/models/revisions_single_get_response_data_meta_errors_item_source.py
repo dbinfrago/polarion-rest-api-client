@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -27,16 +28,16 @@ T = TypeVar("T", bound="RevisionsSingleGetResponseDataMetaErrorsItemSource")
 class RevisionsSingleGetResponseDataMetaErrorsItemSource:
     """
     Attributes:
-        parameter (Union[Unset, str]): String indicating which URI query parameter caused the error. Example: revision.
-        pointer (Union[Unset, str]): JSON Pointer to the associated entity in the request document. Example: $.data.
-        resource (Union[Unset, RevisionsSingleGetResponseDataMetaErrorsItemSourceResource]): Resource causing the error.
+        parameter (str | Unset): String indicating which URI query parameter caused the error. Example: revision.
+        pointer (str | Unset): JSON Pointer to the associated entity in the request document. Example: $.data.
+        resource (RevisionsSingleGetResponseDataMetaErrorsItemSourceResource | Unset): Resource causing the error.
     """
 
-    parameter: Union[Unset, str] = UNSET
-    pointer: Union[Unset, str] = UNSET
-    resource: Union[
-        Unset, "RevisionsSingleGetResponseDataMetaErrorsItemSourceResource"
-    ] = UNSET
+    parameter: str | Unset = UNSET
+    pointer: str | Unset = UNSET
+    resource: (
+        RevisionsSingleGetResponseDataMetaErrorsItemSourceResource | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -46,7 +47,7 @@ class RevisionsSingleGetResponseDataMetaErrorsItemSource:
 
         pointer = self.pointer
 
-        resource: Union[Unset, dict[str, Any]] = UNSET
+        resource: dict[str, Any] | Unset = UNSET
         if not isinstance(self.resource, Unset):
             resource = self.resource.to_dict()
 
@@ -74,9 +75,9 @@ class RevisionsSingleGetResponseDataMetaErrorsItemSource:
         pointer = d.pop("pointer", UNSET)
 
         _resource = d.pop("resource", UNSET)
-        resource: Union[
-            Unset, RevisionsSingleGetResponseDataMetaErrorsItemSourceResource
-        ]
+        resource: (
+            RevisionsSingleGetResponseDataMetaErrorsItemSourceResource | Unset
+        )
         if isinstance(_resource, Unset):
             resource = UNSET
         else:

@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -27,18 +28,18 @@ T = TypeVar("T", bound="LinkedworkitemsListPostRequestDataItemRelationships")
 class LinkedworkitemsListPostRequestDataItemRelationships:
     """
     Attributes:
-        work_item (Union[Unset, LinkedworkitemsListPostRequestDataItemRelationshipsWorkItem]):
+        work_item (LinkedworkitemsListPostRequestDataItemRelationshipsWorkItem | Unset):
     """
 
-    work_item: Union[
-        Unset, "LinkedworkitemsListPostRequestDataItemRelationshipsWorkItem"
-    ] = UNSET
+    work_item: (
+        LinkedworkitemsListPostRequestDataItemRelationshipsWorkItem | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        work_item: Union[Unset, dict[str, Any]] = UNSET
+        work_item: dict[str, Any] | Unset = UNSET
         if not isinstance(self.work_item, Unset):
             work_item = self.work_item.to_dict()
 
@@ -58,9 +59,9 @@ class LinkedworkitemsListPostRequestDataItemRelationships:
 
         d = dict(src_dict)
         _work_item = d.pop("workItem", UNSET)
-        work_item: Union[
-            Unset, LinkedworkitemsListPostRequestDataItemRelationshipsWorkItem
-        ]
+        work_item: (
+            LinkedworkitemsListPostRequestDataItemRelationshipsWorkItem | Unset
+        )
         if isinstance(_work_item, Unset):
             work_item = UNSET
         else:

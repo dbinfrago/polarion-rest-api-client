@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -39,32 +40,32 @@ T = TypeVar("T", bound="TestrunCommentsListGetResponseDataItem")
 class TestrunCommentsListGetResponseDataItem:
     """
     Attributes:
-        type_ (Union[Unset, TestrunCommentsListGetResponseDataItemType]):
-        id (Union[Unset, str]):  Example: MyProjectId/MyTestRunId/MyCommentId.
-        revision (Union[Unset, str]):  Example: 1234.
-        attributes (Union[Unset, TestrunCommentsListGetResponseDataItemAttributes]):
-        relationships (Union[Unset, TestrunCommentsListGetResponseDataItemRelationships]):
-        links (Union[Unset, TestrunCommentsListGetResponseDataItemLinks]):
-        meta (Union[Unset, TestrunCommentsListGetResponseDataItemMeta]):
+        type_ (TestrunCommentsListGetResponseDataItemType | Unset):
+        id (str | Unset):  Example: MyProjectId/MyTestRunId/MyCommentId.
+        revision (str | Unset):  Example: 1234.
+        attributes (TestrunCommentsListGetResponseDataItemAttributes | Unset):
+        relationships (TestrunCommentsListGetResponseDataItemRelationships | Unset):
+        links (TestrunCommentsListGetResponseDataItemLinks | Unset):
+        meta (TestrunCommentsListGetResponseDataItemMeta | Unset):
     """
 
-    type_: Union[Unset, TestrunCommentsListGetResponseDataItemType] = UNSET
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    attributes: Union[
-        Unset, "TestrunCommentsListGetResponseDataItemAttributes"
-    ] = UNSET
-    relationships: Union[
-        Unset, "TestrunCommentsListGetResponseDataItemRelationships"
-    ] = UNSET
-    links: Union[Unset, "TestrunCommentsListGetResponseDataItemLinks"] = UNSET
-    meta: Union[Unset, "TestrunCommentsListGetResponseDataItemMeta"] = UNSET
+    type_: TestrunCommentsListGetResponseDataItemType | Unset = UNSET
+    id: str | Unset = UNSET
+    revision: str | Unset = UNSET
+    attributes: TestrunCommentsListGetResponseDataItemAttributes | Unset = (
+        UNSET
+    )
+    relationships: (
+        TestrunCommentsListGetResponseDataItemRelationships | Unset
+    ) = UNSET
+    links: TestrunCommentsListGetResponseDataItemLinks | Unset = UNSET
+    meta: TestrunCommentsListGetResponseDataItemMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -72,19 +73,19 @@ class TestrunCommentsListGetResponseDataItem:
 
         revision = self.revision
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        relationships: Union[Unset, dict[str, Any]] = UNSET
+        relationships: dict[str, Any] | Unset = UNSET
         if not isinstance(self.relationships, Unset):
             relationships = self.relationships.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -125,7 +126,7 @@ class TestrunCommentsListGetResponseDataItem:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, TestrunCommentsListGetResponseDataItemType]
+        type_: TestrunCommentsListGetResponseDataItemType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -136,9 +137,7 @@ class TestrunCommentsListGetResponseDataItem:
         revision = d.pop("revision", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[
-            Unset, TestrunCommentsListGetResponseDataItemAttributes
-        ]
+        attributes: TestrunCommentsListGetResponseDataItemAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -149,9 +148,9 @@ class TestrunCommentsListGetResponseDataItem:
             )
 
         _relationships = d.pop("relationships", UNSET)
-        relationships: Union[
-            Unset, TestrunCommentsListGetResponseDataItemRelationships
-        ]
+        relationships: (
+            TestrunCommentsListGetResponseDataItemRelationships | Unset
+        )
         if isinstance(_relationships, Unset):
             relationships = UNSET
         else:
@@ -162,7 +161,7 @@ class TestrunCommentsListGetResponseDataItem:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, TestrunCommentsListGetResponseDataItemLinks]
+        links: TestrunCommentsListGetResponseDataItemLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
@@ -171,7 +170,7 @@ class TestrunCommentsListGetResponseDataItem:
             )
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, TestrunCommentsListGetResponseDataItemMeta]
+        meta: TestrunCommentsListGetResponseDataItemMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

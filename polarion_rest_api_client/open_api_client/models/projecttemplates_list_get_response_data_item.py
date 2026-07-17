@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -36,28 +37,28 @@ T = TypeVar("T", bound="ProjecttemplatesListGetResponseDataItem")
 class ProjecttemplatesListGetResponseDataItem:
     """
     Attributes:
-        type_ (Union[Unset, ProjecttemplatesListGetResponseDataItemType]):
-        id (Union[Unset, str]):  Example: MyProjectId.
-        revision (Union[Unset, str]):  Example: 1234.
-        attributes (Union[Unset, ProjecttemplatesListGetResponseDataItemAttributes]):
-        links (Union[Unset, ProjecttemplatesListGetResponseDataItemLinks]):
-        meta (Union[Unset, ProjecttemplatesListGetResponseDataItemMeta]):
+        type_ (ProjecttemplatesListGetResponseDataItemType | Unset):
+        id (str | Unset):  Example: MyProjectId.
+        revision (str | Unset):  Example: 1234.
+        attributes (ProjecttemplatesListGetResponseDataItemAttributes | Unset):
+        links (ProjecttemplatesListGetResponseDataItemLinks | Unset):
+        meta (ProjecttemplatesListGetResponseDataItemMeta | Unset):
     """
 
-    type_: Union[Unset, ProjecttemplatesListGetResponseDataItemType] = UNSET
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    attributes: Union[
-        Unset, "ProjecttemplatesListGetResponseDataItemAttributes"
-    ] = UNSET
-    links: Union[Unset, "ProjecttemplatesListGetResponseDataItemLinks"] = UNSET
-    meta: Union[Unset, "ProjecttemplatesListGetResponseDataItemMeta"] = UNSET
+    type_: ProjecttemplatesListGetResponseDataItemType | Unset = UNSET
+    id: str | Unset = UNSET
+    revision: str | Unset = UNSET
+    attributes: ProjecttemplatesListGetResponseDataItemAttributes | Unset = (
+        UNSET
+    )
+    links: ProjecttemplatesListGetResponseDataItemLinks | Unset = UNSET
+    meta: ProjecttemplatesListGetResponseDataItemMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -65,15 +66,15 @@ class ProjecttemplatesListGetResponseDataItem:
 
         revision = self.revision
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -109,7 +110,7 @@ class ProjecttemplatesListGetResponseDataItem:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, ProjecttemplatesListGetResponseDataItemType]
+        type_: ProjecttemplatesListGetResponseDataItemType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -120,9 +121,7 @@ class ProjecttemplatesListGetResponseDataItem:
         revision = d.pop("revision", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[
-            Unset, ProjecttemplatesListGetResponseDataItemAttributes
-        ]
+        attributes: ProjecttemplatesListGetResponseDataItemAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -133,7 +132,7 @@ class ProjecttemplatesListGetResponseDataItem:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, ProjecttemplatesListGetResponseDataItemLinks]
+        links: ProjecttemplatesListGetResponseDataItemLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
@@ -142,7 +141,7 @@ class ProjecttemplatesListGetResponseDataItem:
             )
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, ProjecttemplatesListGetResponseDataItemMeta]
+        meta: ProjecttemplatesListGetResponseDataItemMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

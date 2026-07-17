@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -39,32 +40,32 @@ T = TypeVar("T", bound="FeatureselectionsSingleGetResponseData")
 class FeatureselectionsSingleGetResponseData:
     """
     Attributes:
-        type_ (Union[Unset, FeatureselectionsSingleGetResponseDataType]):
-        id (Union[Unset, str]):  Example: MyProjectId/MyWorkItemId/included/MyProjectId/MyWorkItemId.
-        revision (Union[Unset, str]):  Example: 1234.
-        attributes (Union[Unset, FeatureselectionsSingleGetResponseDataAttributes]):
-        relationships (Union[Unset, FeatureselectionsSingleGetResponseDataRelationships]):
-        links (Union[Unset, FeatureselectionsSingleGetResponseDataLinks]):
-        meta (Union[Unset, FeatureselectionsSingleGetResponseDataMeta]):
+        type_ (FeatureselectionsSingleGetResponseDataType | Unset):
+        id (str | Unset):  Example: MyProjectId/MyWorkItemId/included/MyProjectId/MyWorkItemId.
+        revision (str | Unset):  Example: 1234.
+        attributes (FeatureselectionsSingleGetResponseDataAttributes | Unset):
+        relationships (FeatureselectionsSingleGetResponseDataRelationships | Unset):
+        links (FeatureselectionsSingleGetResponseDataLinks | Unset):
+        meta (FeatureselectionsSingleGetResponseDataMeta | Unset):
     """
 
-    type_: Union[Unset, FeatureselectionsSingleGetResponseDataType] = UNSET
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    attributes: Union[
-        Unset, "FeatureselectionsSingleGetResponseDataAttributes"
-    ] = UNSET
-    relationships: Union[
-        Unset, "FeatureselectionsSingleGetResponseDataRelationships"
-    ] = UNSET
-    links: Union[Unset, "FeatureselectionsSingleGetResponseDataLinks"] = UNSET
-    meta: Union[Unset, "FeatureselectionsSingleGetResponseDataMeta"] = UNSET
+    type_: FeatureselectionsSingleGetResponseDataType | Unset = UNSET
+    id: str | Unset = UNSET
+    revision: str | Unset = UNSET
+    attributes: FeatureselectionsSingleGetResponseDataAttributes | Unset = (
+        UNSET
+    )
+    relationships: (
+        FeatureselectionsSingleGetResponseDataRelationships | Unset
+    ) = UNSET
+    links: FeatureselectionsSingleGetResponseDataLinks | Unset = UNSET
+    meta: FeatureselectionsSingleGetResponseDataMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -72,19 +73,19 @@ class FeatureselectionsSingleGetResponseData:
 
         revision = self.revision
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        relationships: Union[Unset, dict[str, Any]] = UNSET
+        relationships: dict[str, Any] | Unset = UNSET
         if not isinstance(self.relationships, Unset):
             relationships = self.relationships.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -125,7 +126,7 @@ class FeatureselectionsSingleGetResponseData:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, FeatureselectionsSingleGetResponseDataType]
+        type_: FeatureselectionsSingleGetResponseDataType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -136,9 +137,7 @@ class FeatureselectionsSingleGetResponseData:
         revision = d.pop("revision", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[
-            Unset, FeatureselectionsSingleGetResponseDataAttributes
-        ]
+        attributes: FeatureselectionsSingleGetResponseDataAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -149,9 +148,9 @@ class FeatureselectionsSingleGetResponseData:
             )
 
         _relationships = d.pop("relationships", UNSET)
-        relationships: Union[
-            Unset, FeatureselectionsSingleGetResponseDataRelationships
-        ]
+        relationships: (
+            FeatureselectionsSingleGetResponseDataRelationships | Unset
+        )
         if isinstance(_relationships, Unset):
             relationships = UNSET
         else:
@@ -162,7 +161,7 @@ class FeatureselectionsSingleGetResponseData:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, FeatureselectionsSingleGetResponseDataLinks]
+        links: FeatureselectionsSingleGetResponseDataLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
@@ -171,7 +170,7 @@ class FeatureselectionsSingleGetResponseData:
             )
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, FeatureselectionsSingleGetResponseDataMeta]
+        meta: FeatureselectionsSingleGetResponseDataMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

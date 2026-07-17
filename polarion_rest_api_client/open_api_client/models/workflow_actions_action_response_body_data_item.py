@@ -1,11 +1,12 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     Any,
     TypeVar,
-    Union,
     cast,
 )
 
@@ -21,30 +22,30 @@ T = TypeVar("T", bound="WorkflowActionsActionResponseBodyDataItem")
 class WorkflowActionsActionResponseBodyDataItem:
     """
     Attributes:
-        id (Union[Unset, str]):
-        available (Union[Unset, bool]):
-        cleared_fields (Union[Unset, list[str]]):
-        is_adding_signature (Union[Unset, bool]):
-        is_signature_required (Union[Unset, bool]):
-        name (Union[Unset, str]):
-        native_action_id (Union[Unset, str]):
-        required_fields (Union[Unset, list[str]]):
-        required_roles (Union[Unset, list[str]]):
-        target_status (Union[Unset, str]):
-        unavailable_reason (Union[Unset, str]):
+        id (str | Unset):  Example: 0.
+        available (bool | Unset):
+        cleared_fields (list[str] | Unset):
+        is_adding_signature (bool | Unset):
+        is_signature_required (bool | Unset):
+        name (str | Unset):  Example: actionName.
+        native_action_id (str | Unset):  Example: nativeActionId.
+        required_fields (list[str] | Unset):
+        required_roles (list[str] | Unset):
+        target_status (str | Unset):  Example: done.
+        unavailable_reason (str | Unset):
     """
 
-    id: Union[Unset, str] = UNSET
-    available: Union[Unset, bool] = UNSET
-    cleared_fields: Union[Unset, list[str]] = UNSET
-    is_adding_signature: Union[Unset, bool] = UNSET
-    is_signature_required: Union[Unset, bool] = UNSET
-    name: Union[Unset, str] = UNSET
-    native_action_id: Union[Unset, str] = UNSET
-    required_fields: Union[Unset, list[str]] = UNSET
-    required_roles: Union[Unset, list[str]] = UNSET
-    target_status: Union[Unset, str] = UNSET
-    unavailable_reason: Union[Unset, str] = UNSET
+    id: str | Unset = UNSET
+    available: bool | Unset = UNSET
+    cleared_fields: list[str] | Unset = UNSET
+    is_adding_signature: bool | Unset = UNSET
+    is_signature_required: bool | Unset = UNSET
+    name: str | Unset = UNSET
+    native_action_id: str | Unset = UNSET
+    required_fields: list[str] | Unset = UNSET
+    required_roles: list[str] | Unset = UNSET
+    target_status: str | Unset = UNSET
+    unavailable_reason: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -54,7 +55,7 @@ class WorkflowActionsActionResponseBodyDataItem:
 
         available = self.available
 
-        cleared_fields: Union[Unset, list[str]] = UNSET
+        cleared_fields: list[str] | Unset = UNSET
         if not isinstance(self.cleared_fields, Unset):
             cleared_fields = self.cleared_fields
 
@@ -66,11 +67,11 @@ class WorkflowActionsActionResponseBodyDataItem:
 
         native_action_id = self.native_action_id
 
-        required_fields: Union[Unset, list[str]] = UNSET
+        required_fields: list[str] | Unset = UNSET
         if not isinstance(self.required_fields, Unset):
             required_fields = self.required_fields
 
-        required_roles: Union[Unset, list[str]] = UNSET
+        required_roles: list[str] | Unset = UNSET
         if not isinstance(self.required_roles, Unset):
             required_roles = self.required_roles
 

@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -23,20 +21,18 @@ T = TypeVar("T", bound="TestrecordAttachmentsListDeleteRequestDataItem")
 class TestrecordAttachmentsListDeleteRequestDataItem:
     """
     Attributes:
-        type_ (Union[Unset, TestrecordAttachmentsListDeleteRequestDataItemType]):
-        id (Union[Unset, str]):  Example: MyProjectId/MyTestRunId/MyProjectId/MyTestcaseId/0/MyAttachmentId.
+        type_ (TestrecordAttachmentsListDeleteRequestDataItemType | Unset):
+        id (str | Unset):  Example: MyProjectId/MyTestRunId/MyProjectId/MyTestcaseId/0/MyAttachmentId.
     """
 
-    type_: Union[Unset, TestrecordAttachmentsListDeleteRequestDataItemType] = (
-        UNSET
-    )
-    id: Union[Unset, str] = UNSET
+    type_: TestrecordAttachmentsListDeleteRequestDataItemType | Unset = UNSET
+    id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -56,7 +52,7 @@ class TestrecordAttachmentsListDeleteRequestDataItem:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, TestrecordAttachmentsListDeleteRequestDataItemType]
+        type_: TestrecordAttachmentsListDeleteRequestDataItemType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:

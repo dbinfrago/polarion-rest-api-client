@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -33,34 +34,32 @@ T = TypeVar("T", bound="UsergroupsSingleGetResponseDataRelationships")
 class UsergroupsSingleGetResponseDataRelationships:
     """
     Attributes:
-        global_roles (Union[Unset, UsergroupsSingleGetResponseDataRelationshipsGlobalRoles]):
-        project_roles (Union[Unset, UsergroupsSingleGetResponseDataRelationshipsProjectRoles]):
-        users (Union[Unset, UsergroupsSingleGetResponseDataRelationshipsUsers]):
+        global_roles (UsergroupsSingleGetResponseDataRelationshipsGlobalRoles | Unset):
+        project_roles (UsergroupsSingleGetResponseDataRelationshipsProjectRoles | Unset):
+        users (UsergroupsSingleGetResponseDataRelationshipsUsers | Unset):
     """
 
-    global_roles: Union[
-        Unset, "UsergroupsSingleGetResponseDataRelationshipsGlobalRoles"
-    ] = UNSET
-    project_roles: Union[
-        Unset, "UsergroupsSingleGetResponseDataRelationshipsProjectRoles"
-    ] = UNSET
-    users: Union[
-        Unset, "UsergroupsSingleGetResponseDataRelationshipsUsers"
-    ] = UNSET
+    global_roles: (
+        UsergroupsSingleGetResponseDataRelationshipsGlobalRoles | Unset
+    ) = UNSET
+    project_roles: (
+        UsergroupsSingleGetResponseDataRelationshipsProjectRoles | Unset
+    ) = UNSET
+    users: UsergroupsSingleGetResponseDataRelationshipsUsers | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        global_roles: Union[Unset, dict[str, Any]] = UNSET
+        global_roles: dict[str, Any] | Unset = UNSET
         if not isinstance(self.global_roles, Unset):
             global_roles = self.global_roles.to_dict()
 
-        project_roles: Union[Unset, dict[str, Any]] = UNSET
+        project_roles: dict[str, Any] | Unset = UNSET
         if not isinstance(self.project_roles, Unset):
             project_roles = self.project_roles.to_dict()
 
-        users: Union[Unset, dict[str, Any]] = UNSET
+        users: dict[str, Any] | Unset = UNSET
         if not isinstance(self.users, Unset):
             users = self.users.to_dict()
 
@@ -90,9 +89,9 @@ class UsergroupsSingleGetResponseDataRelationships:
 
         d = dict(src_dict)
         _global_roles = d.pop("globalRoles", UNSET)
-        global_roles: Union[
-            Unset, UsergroupsSingleGetResponseDataRelationshipsGlobalRoles
-        ]
+        global_roles: (
+            UsergroupsSingleGetResponseDataRelationshipsGlobalRoles | Unset
+        )
         if isinstance(_global_roles, Unset):
             global_roles = UNSET
         else:
@@ -101,9 +100,9 @@ class UsergroupsSingleGetResponseDataRelationships:
             )
 
         _project_roles = d.pop("projectRoles", UNSET)
-        project_roles: Union[
-            Unset, UsergroupsSingleGetResponseDataRelationshipsProjectRoles
-        ]
+        project_roles: (
+            UsergroupsSingleGetResponseDataRelationshipsProjectRoles | Unset
+        )
         if isinstance(_project_roles, Unset):
             project_roles = UNSET
         else:
@@ -112,7 +111,7 @@ class UsergroupsSingleGetResponseDataRelationships:
             )
 
         _users = d.pop("users", UNSET)
-        users: Union[Unset, UsergroupsSingleGetResponseDataRelationshipsUsers]
+        users: UsergroupsSingleGetResponseDataRelationshipsUsers | Unset
         if isinstance(_users, Unset):
             users = UNSET
         else:

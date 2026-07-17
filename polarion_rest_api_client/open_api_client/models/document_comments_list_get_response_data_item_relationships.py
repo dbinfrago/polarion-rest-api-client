@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -36,44 +37,44 @@ T = TypeVar("T", bound="DocumentCommentsListGetResponseDataItemRelationships")
 class DocumentCommentsListGetResponseDataItemRelationships:
     """
     Attributes:
-        author (Union[Unset, DocumentCommentsListGetResponseDataItemRelationshipsAuthor]):
-        child_comments (Union[Unset, DocumentCommentsListGetResponseDataItemRelationshipsChildComments]):
-        parent_comment (Union[Unset, DocumentCommentsListGetResponseDataItemRelationshipsParentComment]):
-        project (Union[Unset, DocumentCommentsListGetResponseDataItemRelationshipsProject]):
+        author (DocumentCommentsListGetResponseDataItemRelationshipsAuthor | Unset):
+        child_comments (DocumentCommentsListGetResponseDataItemRelationshipsChildComments | Unset):
+        parent_comment (DocumentCommentsListGetResponseDataItemRelationshipsParentComment | Unset):
+        project (DocumentCommentsListGetResponseDataItemRelationshipsProject | Unset):
     """
 
-    author: Union[
-        Unset, "DocumentCommentsListGetResponseDataItemRelationshipsAuthor"
-    ] = UNSET
-    child_comments: Union[
-        Unset,
-        "DocumentCommentsListGetResponseDataItemRelationshipsChildComments",
-    ] = UNSET
-    parent_comment: Union[
-        Unset,
-        "DocumentCommentsListGetResponseDataItemRelationshipsParentComment",
-    ] = UNSET
-    project: Union[
-        Unset, "DocumentCommentsListGetResponseDataItemRelationshipsProject"
-    ] = UNSET
+    author: (
+        DocumentCommentsListGetResponseDataItemRelationshipsAuthor | Unset
+    ) = UNSET
+    child_comments: (
+        DocumentCommentsListGetResponseDataItemRelationshipsChildComments
+        | Unset
+    ) = UNSET
+    parent_comment: (
+        DocumentCommentsListGetResponseDataItemRelationshipsParentComment
+        | Unset
+    ) = UNSET
+    project: (
+        DocumentCommentsListGetResponseDataItemRelationshipsProject | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        author: Union[Unset, dict[str, Any]] = UNSET
+        author: dict[str, Any] | Unset = UNSET
         if not isinstance(self.author, Unset):
             author = self.author.to_dict()
 
-        child_comments: Union[Unset, dict[str, Any]] = UNSET
+        child_comments: dict[str, Any] | Unset = UNSET
         if not isinstance(self.child_comments, Unset):
             child_comments = self.child_comments.to_dict()
 
-        parent_comment: Union[Unset, dict[str, Any]] = UNSET
+        parent_comment: dict[str, Any] | Unset = UNSET
         if not isinstance(self.parent_comment, Unset):
             parent_comment = self.parent_comment.to_dict()
 
-        project: Union[Unset, dict[str, Any]] = UNSET
+        project: dict[str, Any] | Unset = UNSET
         if not isinstance(self.project, Unset):
             project = self.project.to_dict()
 
@@ -108,9 +109,9 @@ class DocumentCommentsListGetResponseDataItemRelationships:
 
         d = dict(src_dict)
         _author = d.pop("author", UNSET)
-        author: Union[
-            Unset, DocumentCommentsListGetResponseDataItemRelationshipsAuthor
-        ]
+        author: (
+            DocumentCommentsListGetResponseDataItemRelationshipsAuthor | Unset
+        )
         if isinstance(_author, Unset):
             author = UNSET
         else:
@@ -119,10 +120,10 @@ class DocumentCommentsListGetResponseDataItemRelationships:
             )
 
         _child_comments = d.pop("childComments", UNSET)
-        child_comments: Union[
-            Unset,
-            DocumentCommentsListGetResponseDataItemRelationshipsChildComments,
-        ]
+        child_comments: (
+            DocumentCommentsListGetResponseDataItemRelationshipsChildComments
+            | Unset
+        )
         if isinstance(_child_comments, Unset):
             child_comments = UNSET
         else:
@@ -131,10 +132,10 @@ class DocumentCommentsListGetResponseDataItemRelationships:
             )
 
         _parent_comment = d.pop("parentComment", UNSET)
-        parent_comment: Union[
-            Unset,
-            DocumentCommentsListGetResponseDataItemRelationshipsParentComment,
-        ]
+        parent_comment: (
+            DocumentCommentsListGetResponseDataItemRelationshipsParentComment
+            | Unset
+        )
         if isinstance(_parent_comment, Unset):
             parent_comment = UNSET
         else:
@@ -143,9 +144,9 @@ class DocumentCommentsListGetResponseDataItemRelationships:
             )
 
         _project = d.pop("project", UNSET)
-        project: Union[
-            Unset, DocumentCommentsListGetResponseDataItemRelationshipsProject
-        ]
+        project: (
+            DocumentCommentsListGetResponseDataItemRelationshipsProject | Unset
+        )
         if isinstance(_project, Unset):
             project = UNSET
         else:

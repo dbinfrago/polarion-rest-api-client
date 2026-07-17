@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -26,15 +24,15 @@ T = TypeVar(
 class TestrunCommentsListPostRequestDataItemRelationshipsParentCommentData:
     """
     Attributes:
-        id (Union[Unset, str]):  Example: MyProjectId/MyTestRunId/MyCommentId.
-        type_ (Union[Unset, TestrunCommentsListPostRequestDataItemRelationshipsParentCommentDataType]):
+        id (str | Unset):  Example: MyProjectId/MyTestRunId/MyCommentId.
+        type_ (TestrunCommentsListPostRequestDataItemRelationshipsParentCommentDataType | Unset):
     """
 
-    id: Union[Unset, str] = UNSET
-    type_: Union[
-        Unset,
-        TestrunCommentsListPostRequestDataItemRelationshipsParentCommentDataType,
-    ] = UNSET
+    id: str | Unset = UNSET
+    type_: (
+        TestrunCommentsListPostRequestDataItemRelationshipsParentCommentDataType
+        | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -42,7 +40,7 @@ class TestrunCommentsListPostRequestDataItemRelationshipsParentCommentData:
     def to_dict(self) -> dict[str, Any]:
         id = self.id
 
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -62,10 +60,10 @@ class TestrunCommentsListPostRequestDataItemRelationshipsParentCommentData:
         id = d.pop("id", UNSET)
 
         _type_ = d.pop("type", UNSET)
-        type_: Union[
-            Unset,
-            TestrunCommentsListPostRequestDataItemRelationshipsParentCommentDataType,
-        ]
+        type_: (
+            TestrunCommentsListPostRequestDataItemRelationshipsParentCommentDataType
+            | Unset
+        )
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:

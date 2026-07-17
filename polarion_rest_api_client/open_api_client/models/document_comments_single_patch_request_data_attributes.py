@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,10 +18,10 @@ T = TypeVar("T", bound="DocumentCommentsSinglePatchRequestDataAttributes")
 class DocumentCommentsSinglePatchRequestDataAttributes:
     """
     Attributes:
-        resolved (Union[Unset, bool]):
+        resolved (bool | Unset):
     """
 
-    resolved: Union[Unset, bool] = UNSET
+    resolved: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )

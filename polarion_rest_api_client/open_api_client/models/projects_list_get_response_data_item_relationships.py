@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -27,18 +28,16 @@ T = TypeVar("T", bound="ProjectsListGetResponseDataItemRelationships")
 class ProjectsListGetResponseDataItemRelationships:
     """
     Attributes:
-        lead (Union[Unset, ProjectsListGetResponseDataItemRelationshipsLead]):
+        lead (ProjectsListGetResponseDataItemRelationshipsLead | Unset):
     """
 
-    lead: Union[Unset, "ProjectsListGetResponseDataItemRelationshipsLead"] = (
-        UNSET
-    )
+    lead: ProjectsListGetResponseDataItemRelationshipsLead | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        lead: Union[Unset, dict[str, Any]] = UNSET
+        lead: dict[str, Any] | Unset = UNSET
         if not isinstance(self.lead, Unset):
             lead = self.lead.to_dict()
 
@@ -58,7 +57,7 @@ class ProjectsListGetResponseDataItemRelationships:
 
         d = dict(src_dict)
         _lead = d.pop("lead", UNSET)
-        lead: Union[Unset, ProjectsListGetResponseDataItemRelationshipsLead]
+        lead: ProjectsListGetResponseDataItemRelationshipsLead | Unset
         if isinstance(_lead, Unset):
             lead = UNSET
         else:

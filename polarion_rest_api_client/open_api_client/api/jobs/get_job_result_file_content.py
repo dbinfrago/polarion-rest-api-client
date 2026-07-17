@@ -2,7 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from http import HTTPStatus
-from typing import Any, Union, cast
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
@@ -18,54 +19,65 @@ def _get_kwargs(
 ) -> dict[str, Any]:
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/jobs/{job_id}/actions/download/{filename}",
+        "url": "/jobs/{job_id}/actions/download/{filename}".format(
+            job_id=quote(str(job_id), safe=""),
+            filename=quote(str(filename), safe=""),
+        ),
     }
 
     return _kwargs
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Union[Any, Errors] | None:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Any | Errors | None:
     if response.status_code == 200:
         response_200 = cast(Any, None)
         return response_200
+
     if response.status_code == 400:
         response_400 = Errors.from_dict(response.json())
 
         return response_400
+
     if response.status_code == 401:
         response_401 = Errors.from_dict(response.json())
 
         return response_401
+
     if response.status_code == 403:
         response_403 = Errors.from_dict(response.json())
 
         return response_403
+
     if response.status_code == 404:
         response_404 = Errors.from_dict(response.json())
 
         return response_404
+
     if response.status_code == 406:
         response_406 = Errors.from_dict(response.json())
 
         return response_406
+
     if response.status_code == 500:
         response_500 = Errors.from_dict(response.json())
 
         return response_500
+
     if response.status_code == 503:
         response_503 = Errors.from_dict(response.json())
 
         return response_503
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     return None
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, Errors]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Any | Errors]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -78,8 +90,8 @@ def sync_detailed(
     job_id: str,
     filename: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[Union[Any, Errors]]:
+    client: AuthenticatedClient | Client,
+) -> Response[Any | Errors]:
     """Downloads the file content for a specified job.
 
     Args:
@@ -91,7 +103,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, Errors]]
+        Response[Any | Errors]
     """
 
     kwargs = _get_kwargs(
@@ -110,8 +122,8 @@ def sync(
     job_id: str,
     filename: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Union[Any, Errors] | None:
+    client: AuthenticatedClient | Client,
+) -> Any | Errors | None:
     """Downloads the file content for a specified job.
 
     Args:
@@ -123,7 +135,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, Errors]
+        Any | Errors
     """
 
     return sync_detailed(
@@ -137,8 +149,8 @@ async def asyncio_detailed(
     job_id: str,
     filename: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[Union[Any, Errors]]:
+    client: AuthenticatedClient | Client,
+) -> Response[Any | Errors]:
     """Downloads the file content for a specified job.
 
     Args:
@@ -150,7 +162,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, Errors]]
+        Response[Any | Errors]
     """
 
     kwargs = _get_kwargs(
@@ -167,8 +179,8 @@ async def asyncio(
     job_id: str,
     filename: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Union[Any, Errors] | None:
+    client: AuthenticatedClient | Client,
+) -> Any | Errors | None:
     """Downloads the file content for a specified job.
 
     Args:
@@ -180,7 +192,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, Errors]
+        Any | Errors
     """
 
     return (

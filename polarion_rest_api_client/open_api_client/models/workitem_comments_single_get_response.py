@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -33,36 +34,36 @@ T = TypeVar("T", bound="WorkitemCommentsSingleGetResponse")
 class WorkitemCommentsSingleGetResponse:
     """
     Attributes:
-        data (Union[Unset, WorkitemCommentsSingleGetResponseData]):
-        included (Union[Unset, list['WorkitemCommentsSingleGetResponseIncludedItem']]): Related entities might be
-            returned, see <a href="https://docs.sw.siemens.com/en-
-            US/doc/230235217/PL20241023686685479.polarion_help_sc.xid2134849/xid2134871" target="_blank">REST API User
+        data (WorkitemCommentsSingleGetResponseData | Unset):
+        included (list[WorkitemCommentsSingleGetResponseIncludedItem] | Unset): Related entities might be returned, see
+            <a href="https://docs.sw.siemens.com/en-
+            US/doc/230235217/PL20250606201928474.polarion_help_sc.xid2134849/xid2134871" target="_blank">REST API User
             Guide</a>.
-        links (Union[Unset, WorkitemCommentsSingleGetResponseLinks]):
+        links (WorkitemCommentsSingleGetResponseLinks | Unset):
     """
 
-    data: Union[Unset, "WorkitemCommentsSingleGetResponseData"] = UNSET
-    included: Union[
-        Unset, list["WorkitemCommentsSingleGetResponseIncludedItem"]
-    ] = UNSET
-    links: Union[Unset, "WorkitemCommentsSingleGetResponseLinks"] = UNSET
+    data: WorkitemCommentsSingleGetResponseData | Unset = UNSET
+    included: list[WorkitemCommentsSingleGetResponseIncludedItem] | Unset = (
+        UNSET
+    )
+    links: WorkitemCommentsSingleGetResponseLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        data: Union[Unset, dict[str, Any]] = UNSET
+        data: dict[str, Any] | Unset = UNSET
         if not isinstance(self.data, Unset):
             data = self.data.to_dict()
 
-        included: Union[Unset, list[dict[str, Any]]] = UNSET
+        included: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.included, Unset):
             included = []
             for included_item_data in self.included:
                 included_item = included_item_data.to_dict()
                 included.append(included_item)
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
@@ -92,25 +93,29 @@ class WorkitemCommentsSingleGetResponse:
 
         d = dict(src_dict)
         _data = d.pop("data", UNSET)
-        data: Union[Unset, WorkitemCommentsSingleGetResponseData]
+        data: WorkitemCommentsSingleGetResponseData | Unset
         if isinstance(_data, Unset):
             data = UNSET
         else:
             data = WorkitemCommentsSingleGetResponseData.from_dict(_data)
 
-        included = []
         _included = d.pop("included", UNSET)
-        for included_item_data in _included or []:
-            included_item = (
-                WorkitemCommentsSingleGetResponseIncludedItem.from_dict(
-                    included_item_data
+        included: (
+            list[WorkitemCommentsSingleGetResponseIncludedItem] | Unset
+        ) = UNSET
+        if _included is not UNSET:
+            included = []
+            for included_item_data in _included:
+                included_item = (
+                    WorkitemCommentsSingleGetResponseIncludedItem.from_dict(
+                        included_item_data
+                    )
                 )
-            )
 
-            included.append(included_item)
+                included.append(included_item)
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, WorkitemCommentsSingleGetResponseLinks]
+        links: WorkitemCommentsSingleGetResponseLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:

@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -25,16 +23,14 @@ T = TypeVar(
 class JobsSingleGetResponseDataRelationshipsDocumentsDataItem:
     """
     Attributes:
-        id (Union[Unset, str]):  Example: MyProjectId/MySpaceId/MyDocumentId.
-        revision (Union[Unset, str]):  Example: 1234.
-        type_ (Union[Unset, JobsSingleGetResponseDataRelationshipsDocumentsDataItemType]):
+        id (str | Unset):  Example: MyProjectId/MySpaceId/MyDocumentId.
+        type_ (JobsSingleGetResponseDataRelationshipsDocumentsDataItemType | Unset):
     """
 
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    type_: Union[
-        Unset, JobsSingleGetResponseDataRelationshipsDocumentsDataItemType
-    ] = UNSET
+    id: str | Unset = UNSET
+    type_: (
+        JobsSingleGetResponseDataRelationshipsDocumentsDataItemType | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -42,9 +38,7 @@ class JobsSingleGetResponseDataRelationshipsDocumentsDataItem:
     def to_dict(self) -> dict[str, Any]:
         id = self.id
 
-        revision = self.revision
-
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -53,8 +47,6 @@ class JobsSingleGetResponseDataRelationshipsDocumentsDataItem:
         field_dict.update({})
         if id is not UNSET:
             field_dict["id"] = id
-        if revision is not UNSET:
-            field_dict["revision"] = revision
         if type_ is not UNSET:
             field_dict["type"] = type_
 
@@ -65,12 +57,10 @@ class JobsSingleGetResponseDataRelationshipsDocumentsDataItem:
         d = dict(src_dict)
         id = d.pop("id", UNSET)
 
-        revision = d.pop("revision", UNSET)
-
         _type_ = d.pop("type", UNSET)
-        type_: Union[
-            Unset, JobsSingleGetResponseDataRelationshipsDocumentsDataItemType
-        ]
+        type_: (
+            JobsSingleGetResponseDataRelationshipsDocumentsDataItemType | Unset
+        )
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -83,7 +73,6 @@ class JobsSingleGetResponseDataRelationshipsDocumentsDataItem:
         jobs_single_get_response_data_relationships_documents_data_item_obj = (
             cls(
                 id=id,
-                revision=revision,
                 type_=type_,
             )
         )

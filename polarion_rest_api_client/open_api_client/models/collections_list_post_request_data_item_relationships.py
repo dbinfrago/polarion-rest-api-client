@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -21,6 +22,9 @@ if TYPE_CHECKING:
     from ..models.collections_list_post_request_data_item_relationships_rich_pages import (
         CollectionsListPostRequestDataItemRelationshipsRichPages,
     )
+    from ..models.collections_list_post_request_data_item_relationships_test_runs import (
+        CollectionsListPostRequestDataItemRelationshipsTestRuns,
+    )
     from ..models.collections_list_post_request_data_item_relationships_upstream_collections import (
         CollectionsListPostRequestDataItemRelationshipsUpstreamCollections,
     )
@@ -33,35 +37,43 @@ T = TypeVar("T", bound="CollectionsListPostRequestDataItemRelationships")
 class CollectionsListPostRequestDataItemRelationships:
     """
     Attributes:
-        documents (Union[Unset, CollectionsListPostRequestDataItemRelationshipsDocuments]):
-        rich_pages (Union[Unset, CollectionsListPostRequestDataItemRelationshipsRichPages]):
-        upstream_collections (Union[Unset, CollectionsListPostRequestDataItemRelationshipsUpstreamCollections]):
+        documents (CollectionsListPostRequestDataItemRelationshipsDocuments | Unset):
+        rich_pages (CollectionsListPostRequestDataItemRelationshipsRichPages | Unset):
+        test_runs (CollectionsListPostRequestDataItemRelationshipsTestRuns | Unset):
+        upstream_collections (CollectionsListPostRequestDataItemRelationshipsUpstreamCollections | Unset):
     """
 
-    documents: Union[
-        Unset, "CollectionsListPostRequestDataItemRelationshipsDocuments"
-    ] = UNSET
-    rich_pages: Union[
-        Unset, "CollectionsListPostRequestDataItemRelationshipsRichPages"
-    ] = UNSET
-    upstream_collections: Union[
-        Unset,
-        "CollectionsListPostRequestDataItemRelationshipsUpstreamCollections",
-    ] = UNSET
+    documents: (
+        CollectionsListPostRequestDataItemRelationshipsDocuments | Unset
+    ) = UNSET
+    rich_pages: (
+        CollectionsListPostRequestDataItemRelationshipsRichPages | Unset
+    ) = UNSET
+    test_runs: (
+        CollectionsListPostRequestDataItemRelationshipsTestRuns | Unset
+    ) = UNSET
+    upstream_collections: (
+        CollectionsListPostRequestDataItemRelationshipsUpstreamCollections
+        | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        documents: Union[Unset, dict[str, Any]] = UNSET
+        documents: dict[str, Any] | Unset = UNSET
         if not isinstance(self.documents, Unset):
             documents = self.documents.to_dict()
 
-        rich_pages: Union[Unset, dict[str, Any]] = UNSET
+        rich_pages: dict[str, Any] | Unset = UNSET
         if not isinstance(self.rich_pages, Unset):
             rich_pages = self.rich_pages.to_dict()
 
-        upstream_collections: Union[Unset, dict[str, Any]] = UNSET
+        test_runs: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.test_runs, Unset):
+            test_runs = self.test_runs.to_dict()
+
+        upstream_collections: dict[str, Any] | Unset = UNSET
         if not isinstance(self.upstream_collections, Unset):
             upstream_collections = self.upstream_collections.to_dict()
 
@@ -72,6 +84,8 @@ class CollectionsListPostRequestDataItemRelationships:
             field_dict["documents"] = documents
         if rich_pages is not UNSET:
             field_dict["richPages"] = rich_pages
+        if test_runs is not UNSET:
+            field_dict["testRuns"] = test_runs
         if upstream_collections is not UNSET:
             field_dict["upstreamCollections"] = upstream_collections
 
@@ -85,15 +99,18 @@ class CollectionsListPostRequestDataItemRelationships:
         from ..models.collections_list_post_request_data_item_relationships_rich_pages import (
             CollectionsListPostRequestDataItemRelationshipsRichPages,
         )
+        from ..models.collections_list_post_request_data_item_relationships_test_runs import (
+            CollectionsListPostRequestDataItemRelationshipsTestRuns,
+        )
         from ..models.collections_list_post_request_data_item_relationships_upstream_collections import (
             CollectionsListPostRequestDataItemRelationshipsUpstreamCollections,
         )
 
         d = dict(src_dict)
         _documents = d.pop("documents", UNSET)
-        documents: Union[
-            Unset, CollectionsListPostRequestDataItemRelationshipsDocuments
-        ]
+        documents: (
+            CollectionsListPostRequestDataItemRelationshipsDocuments | Unset
+        )
         if isinstance(_documents, Unset):
             documents = UNSET
         else:
@@ -102,9 +119,9 @@ class CollectionsListPostRequestDataItemRelationships:
             )
 
         _rich_pages = d.pop("richPages", UNSET)
-        rich_pages: Union[
-            Unset, CollectionsListPostRequestDataItemRelationshipsRichPages
-        ]
+        rich_pages: (
+            CollectionsListPostRequestDataItemRelationshipsRichPages | Unset
+        )
         if isinstance(_rich_pages, Unset):
             rich_pages = UNSET
         else:
@@ -112,11 +129,22 @@ class CollectionsListPostRequestDataItemRelationships:
                 _rich_pages
             )
 
+        _test_runs = d.pop("testRuns", UNSET)
+        test_runs: (
+            CollectionsListPostRequestDataItemRelationshipsTestRuns | Unset
+        )
+        if isinstance(_test_runs, Unset):
+            test_runs = UNSET
+        else:
+            test_runs = CollectionsListPostRequestDataItemRelationshipsTestRuns.from_dict(
+                _test_runs
+            )
+
         _upstream_collections = d.pop("upstreamCollections", UNSET)
-        upstream_collections: Union[
-            Unset,
-            CollectionsListPostRequestDataItemRelationshipsUpstreamCollections,
-        ]
+        upstream_collections: (
+            CollectionsListPostRequestDataItemRelationshipsUpstreamCollections
+            | Unset
+        )
         if isinstance(_upstream_collections, Unset):
             upstream_collections = UNSET
         else:
@@ -127,6 +155,7 @@ class CollectionsListPostRequestDataItemRelationships:
         collections_list_post_request_data_item_relationships_obj = cls(
             documents=documents,
             rich_pages=rich_pages,
+            test_runs=test_runs,
             upstream_collections=upstream_collections,
         )
 

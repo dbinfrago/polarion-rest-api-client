@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from http import HTTPStatus
-from typing import Any, Union
+from typing import Any
 
 import httpx
 
@@ -18,10 +18,10 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    pagesize: Union[Unset, int] = UNSET,
-    pagenumber: Union[Unset, int] = UNSET,
-    fields: Union[Unset, "SparseFields"] = UNSET,
-    include: Union[Unset, str] = UNSET,
+    pagesize: int | Unset = UNSET,
+    pagenumber: int | Unset = UNSET,
+    fields: SparseFields | Unset = UNSET,
+    include: str | Unset = UNSET,
 ) -> dict[str, Any]:
     params: dict[str, Any] = {}
 
@@ -29,7 +29,7 @@ def _get_kwargs(
 
     params["page[number]"] = pagenumber
 
-    json_fields: Union[Unset, dict[str, Any]] = UNSET
+    json_fields: dict[str, Any] | Unset = UNSET
     if not isinstance(fields, Unset):
         json_fields = fields.to_dict()
     if not isinstance(json_fields, Unset):
@@ -51,50 +51,58 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Union[Errors, ProjecttemplatesListGetResponse] | None:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Errors | ProjecttemplatesListGetResponse | None:
     if response.status_code == 200:
         response_200 = ProjecttemplatesListGetResponse.from_dict(
             response.json()
         )
 
         return response_200
+
     if response.status_code == 400:
         response_400 = Errors.from_dict(response.json())
 
         return response_400
+
     if response.status_code == 401:
         response_401 = Errors.from_dict(response.json())
 
         return response_401
+
     if response.status_code == 403:
         response_403 = Errors.from_dict(response.json())
 
         return response_403
+
     if response.status_code == 404:
         response_404 = Errors.from_dict(response.json())
 
         return response_404
+
     if response.status_code == 406:
         response_406 = Errors.from_dict(response.json())
 
         return response_406
+
     if response.status_code == 500:
         response_500 = Errors.from_dict(response.json())
 
         return response_500
+
     if response.status_code == 503:
         response_503 = Errors.from_dict(response.json())
 
         return response_503
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     return None
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Errors, ProjecttemplatesListGetResponse]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Errors | ProjecttemplatesListGetResponse]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -105,26 +113,26 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    pagesize: Union[Unset, int] = UNSET,
-    pagenumber: Union[Unset, int] = UNSET,
-    fields: Union[Unset, "SparseFields"] = UNSET,
-    include: Union[Unset, str] = UNSET,
-) -> Response[Union[Errors, ProjecttemplatesListGetResponse]]:
+    client: AuthenticatedClient | Client,
+    pagesize: int | Unset = UNSET,
+    pagenumber: int | Unset = UNSET,
+    fields: SparseFields | Unset = UNSET,
+    include: str | Unset = UNSET,
+) -> Response[Errors | ProjecttemplatesListGetResponse]:
     """Returns a list of Project Templates.
 
     Args:
-        pagesize (Union[Unset, int]):
-        pagenumber (Union[Unset, int]):
-        fields (Union[Unset, SparseFields]):
-        include (Union[Unset, str]):
+        pagesize (int | Unset):
+        pagenumber (int | Unset):
+        fields (SparseFields | Unset):
+        include (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Errors, ProjecttemplatesListGetResponse]]
+        Response[Errors | ProjecttemplatesListGetResponse]
     """
 
     kwargs = _get_kwargs(
@@ -143,26 +151,26 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    pagesize: Union[Unset, int] = UNSET,
-    pagenumber: Union[Unset, int] = UNSET,
-    fields: Union[Unset, "SparseFields"] = UNSET,
-    include: Union[Unset, str] = UNSET,
-) -> Union[Errors, ProjecttemplatesListGetResponse] | None:
+    client: AuthenticatedClient | Client,
+    pagesize: int | Unset = UNSET,
+    pagenumber: int | Unset = UNSET,
+    fields: SparseFields | Unset = UNSET,
+    include: str | Unset = UNSET,
+) -> Errors | ProjecttemplatesListGetResponse | None:
     """Returns a list of Project Templates.
 
     Args:
-        pagesize (Union[Unset, int]):
-        pagenumber (Union[Unset, int]):
-        fields (Union[Unset, SparseFields]):
-        include (Union[Unset, str]):
+        pagesize (int | Unset):
+        pagenumber (int | Unset):
+        fields (SparseFields | Unset):
+        include (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Errors, ProjecttemplatesListGetResponse]
+        Errors | ProjecttemplatesListGetResponse
     """
 
     return sync_detailed(
@@ -176,26 +184,26 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    pagesize: Union[Unset, int] = UNSET,
-    pagenumber: Union[Unset, int] = UNSET,
-    fields: Union[Unset, "SparseFields"] = UNSET,
-    include: Union[Unset, str] = UNSET,
-) -> Response[Union[Errors, ProjecttemplatesListGetResponse]]:
+    client: AuthenticatedClient | Client,
+    pagesize: int | Unset = UNSET,
+    pagenumber: int | Unset = UNSET,
+    fields: SparseFields | Unset = UNSET,
+    include: str | Unset = UNSET,
+) -> Response[Errors | ProjecttemplatesListGetResponse]:
     """Returns a list of Project Templates.
 
     Args:
-        pagesize (Union[Unset, int]):
-        pagenumber (Union[Unset, int]):
-        fields (Union[Unset, SparseFields]):
-        include (Union[Unset, str]):
+        pagesize (int | Unset):
+        pagenumber (int | Unset):
+        fields (SparseFields | Unset):
+        include (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Errors, ProjecttemplatesListGetResponse]]
+        Response[Errors | ProjecttemplatesListGetResponse]
     """
 
     kwargs = _get_kwargs(
@@ -212,26 +220,26 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    pagesize: Union[Unset, int] = UNSET,
-    pagenumber: Union[Unset, int] = UNSET,
-    fields: Union[Unset, "SparseFields"] = UNSET,
-    include: Union[Unset, str] = UNSET,
-) -> Union[Errors, ProjecttemplatesListGetResponse] | None:
+    client: AuthenticatedClient | Client,
+    pagesize: int | Unset = UNSET,
+    pagenumber: int | Unset = UNSET,
+    fields: SparseFields | Unset = UNSET,
+    include: str | Unset = UNSET,
+) -> Errors | ProjecttemplatesListGetResponse | None:
     """Returns a list of Project Templates.
 
     Args:
-        pagesize (Union[Unset, int]):
-        pagenumber (Union[Unset, int]):
-        fields (Union[Unset, SparseFields]):
-        include (Union[Unset, str]):
+        pagesize (int | Unset):
+        pagenumber (int | Unset):
+        fields (SparseFields | Unset):
+        include (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Errors, ProjecttemplatesListGetResponse]
+        Errors | ProjecttemplatesListGetResponse
     """
 
     return (

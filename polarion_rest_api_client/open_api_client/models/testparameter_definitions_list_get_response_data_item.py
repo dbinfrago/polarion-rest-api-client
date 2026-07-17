@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -36,34 +37,28 @@ T = TypeVar("T", bound="TestparameterDefinitionsListGetResponseDataItem")
 class TestparameterDefinitionsListGetResponseDataItem:
     """
     Attributes:
-        type_ (Union[Unset, TestparameterDefinitionsListGetResponseDataItemType]):
-        id (Union[Unset, str]):  Example: MyProjectId/MyTestParamDefinition.
-        revision (Union[Unset, str]):  Example: 1234.
-        attributes (Union[Unset, TestparameterDefinitionsListGetResponseDataItemAttributes]):
-        links (Union[Unset, TestparameterDefinitionsListGetResponseDataItemLinks]):
-        meta (Union[Unset, TestparameterDefinitionsListGetResponseDataItemMeta]):
+        type_ (TestparameterDefinitionsListGetResponseDataItemType | Unset):
+        id (str | Unset):  Example: MyProjectId/MyTestParamDefinition.
+        revision (str | Unset):  Example: 1234.
+        attributes (TestparameterDefinitionsListGetResponseDataItemAttributes | Unset):
+        links (TestparameterDefinitionsListGetResponseDataItemLinks | Unset):
+        meta (TestparameterDefinitionsListGetResponseDataItemMeta | Unset):
     """
 
-    type_: Union[
-        Unset, TestparameterDefinitionsListGetResponseDataItemType
-    ] = UNSET
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    attributes: Union[
-        Unset, "TestparameterDefinitionsListGetResponseDataItemAttributes"
-    ] = UNSET
-    links: Union[
-        Unset, "TestparameterDefinitionsListGetResponseDataItemLinks"
-    ] = UNSET
-    meta: Union[
-        Unset, "TestparameterDefinitionsListGetResponseDataItemMeta"
-    ] = UNSET
+    type_: TestparameterDefinitionsListGetResponseDataItemType | Unset = UNSET
+    id: str | Unset = UNSET
+    revision: str | Unset = UNSET
+    attributes: (
+        TestparameterDefinitionsListGetResponseDataItemAttributes | Unset
+    ) = UNSET
+    links: TestparameterDefinitionsListGetResponseDataItemLinks | Unset = UNSET
+    meta: TestparameterDefinitionsListGetResponseDataItemMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -71,15 +66,15 @@ class TestparameterDefinitionsListGetResponseDataItem:
 
         revision = self.revision
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -115,9 +110,7 @@ class TestparameterDefinitionsListGetResponseDataItem:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[
-            Unset, TestparameterDefinitionsListGetResponseDataItemType
-        ]
+        type_: TestparameterDefinitionsListGetResponseDataItemType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -128,9 +121,9 @@ class TestparameterDefinitionsListGetResponseDataItem:
         revision = d.pop("revision", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[
-            Unset, TestparameterDefinitionsListGetResponseDataItemAttributes
-        ]
+        attributes: (
+            TestparameterDefinitionsListGetResponseDataItemAttributes | Unset
+        )
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -139,9 +132,7 @@ class TestparameterDefinitionsListGetResponseDataItem:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[
-            Unset, TestparameterDefinitionsListGetResponseDataItemLinks
-        ]
+        links: TestparameterDefinitionsListGetResponseDataItemLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
@@ -152,7 +143,7 @@ class TestparameterDefinitionsListGetResponseDataItem:
             )
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, TestparameterDefinitionsListGetResponseDataItemMeta]
+        meta: TestparameterDefinitionsListGetResponseDataItemMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -30,27 +31,27 @@ T = TypeVar("T", bound="TestrunCommentsListPostRequestDataItemRelationships")
 class TestrunCommentsListPostRequestDataItemRelationships:
     """
     Attributes:
-        author (Union[Unset, TestrunCommentsListPostRequestDataItemRelationshipsAuthor]):
-        parent_comment (Union[Unset, TestrunCommentsListPostRequestDataItemRelationshipsParentComment]):
+        author (TestrunCommentsListPostRequestDataItemRelationshipsAuthor | Unset):
+        parent_comment (TestrunCommentsListPostRequestDataItemRelationshipsParentComment | Unset):
     """
 
-    author: Union[
-        Unset, "TestrunCommentsListPostRequestDataItemRelationshipsAuthor"
-    ] = UNSET
-    parent_comment: Union[
-        Unset,
-        "TestrunCommentsListPostRequestDataItemRelationshipsParentComment",
-    ] = UNSET
+    author: (
+        TestrunCommentsListPostRequestDataItemRelationshipsAuthor | Unset
+    ) = UNSET
+    parent_comment: (
+        TestrunCommentsListPostRequestDataItemRelationshipsParentComment
+        | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        author: Union[Unset, dict[str, Any]] = UNSET
+        author: dict[str, Any] | Unset = UNSET
         if not isinstance(self.author, Unset):
             author = self.author.to_dict()
 
-        parent_comment: Union[Unset, dict[str, Any]] = UNSET
+        parent_comment: dict[str, Any] | Unset = UNSET
         if not isinstance(self.parent_comment, Unset):
             parent_comment = self.parent_comment.to_dict()
 
@@ -75,9 +76,9 @@ class TestrunCommentsListPostRequestDataItemRelationships:
 
         d = dict(src_dict)
         _author = d.pop("author", UNSET)
-        author: Union[
-            Unset, TestrunCommentsListPostRequestDataItemRelationshipsAuthor
-        ]
+        author: (
+            TestrunCommentsListPostRequestDataItemRelationshipsAuthor | Unset
+        )
         if isinstance(_author, Unset):
             author = UNSET
         else:
@@ -86,10 +87,10 @@ class TestrunCommentsListPostRequestDataItemRelationships:
             )
 
         _parent_comment = d.pop("parentComment", UNSET)
-        parent_comment: Union[
-            Unset,
-            TestrunCommentsListPostRequestDataItemRelationshipsParentComment,
-        ]
+        parent_comment: (
+            TestrunCommentsListPostRequestDataItemRelationshipsParentComment
+            | Unset
+        )
         if isinstance(_parent_comment, Unset):
             parent_comment = UNSET
         else:

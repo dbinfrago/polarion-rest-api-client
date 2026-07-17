@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -39,30 +40,28 @@ T = TypeVar("T", bound="PagesSingleGetResponseData")
 class PagesSingleGetResponseData:
     """
     Attributes:
-        type_ (Union[Unset, PagesSingleGetResponseDataType]):
-        id (Union[Unset, str]):  Example: MyProjectId/MySpaceId/MyRichPageId.
-        revision (Union[Unset, str]):  Example: 1234.
-        attributes (Union[Unset, PagesSingleGetResponseDataAttributes]):
-        relationships (Union[Unset, PagesSingleGetResponseDataRelationships]):
-        links (Union[Unset, PagesSingleGetResponseDataLinks]):
-        meta (Union[Unset, PagesSingleGetResponseDataMeta]):
+        type_ (PagesSingleGetResponseDataType | Unset):
+        id (str | Unset):  Example: MyProjectId/MySpaceId/MyRichPageId.
+        revision (str | Unset):  Example: 1234.
+        attributes (PagesSingleGetResponseDataAttributes | Unset):
+        relationships (PagesSingleGetResponseDataRelationships | Unset):
+        links (PagesSingleGetResponseDataLinks | Unset):
+        meta (PagesSingleGetResponseDataMeta | Unset):
     """
 
-    type_: Union[Unset, PagesSingleGetResponseDataType] = UNSET
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    attributes: Union[Unset, "PagesSingleGetResponseDataAttributes"] = UNSET
-    relationships: Union[Unset, "PagesSingleGetResponseDataRelationships"] = (
-        UNSET
-    )
-    links: Union[Unset, "PagesSingleGetResponseDataLinks"] = UNSET
-    meta: Union[Unset, "PagesSingleGetResponseDataMeta"] = UNSET
+    type_: PagesSingleGetResponseDataType | Unset = UNSET
+    id: str | Unset = UNSET
+    revision: str | Unset = UNSET
+    attributes: PagesSingleGetResponseDataAttributes | Unset = UNSET
+    relationships: PagesSingleGetResponseDataRelationships | Unset = UNSET
+    links: PagesSingleGetResponseDataLinks | Unset = UNSET
+    meta: PagesSingleGetResponseDataMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -70,19 +69,19 @@ class PagesSingleGetResponseData:
 
         revision = self.revision
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        relationships: Union[Unset, dict[str, Any]] = UNSET
+        relationships: dict[str, Any] | Unset = UNSET
         if not isinstance(self.relationships, Unset):
             relationships = self.relationships.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -123,7 +122,7 @@ class PagesSingleGetResponseData:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, PagesSingleGetResponseDataType]
+        type_: PagesSingleGetResponseDataType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -134,7 +133,7 @@ class PagesSingleGetResponseData:
         revision = d.pop("revision", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[Unset, PagesSingleGetResponseDataAttributes]
+        attributes: PagesSingleGetResponseDataAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -143,7 +142,7 @@ class PagesSingleGetResponseData:
             )
 
         _relationships = d.pop("relationships", UNSET)
-        relationships: Union[Unset, PagesSingleGetResponseDataRelationships]
+        relationships: PagesSingleGetResponseDataRelationships | Unset
         if isinstance(_relationships, Unset):
             relationships = UNSET
         else:
@@ -152,14 +151,14 @@ class PagesSingleGetResponseData:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, PagesSingleGetResponseDataLinks]
+        links: PagesSingleGetResponseDataLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
             links = PagesSingleGetResponseDataLinks.from_dict(_links)
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, PagesSingleGetResponseDataMeta]
+        meta: PagesSingleGetResponseDataMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

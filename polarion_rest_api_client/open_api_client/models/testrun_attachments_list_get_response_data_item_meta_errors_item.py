@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -29,19 +30,19 @@ T = TypeVar(
 class TestrunAttachmentsListGetResponseDataItemMetaErrorsItem:
     """
     Attributes:
-        detail (Union[Unset, str]): Human-readable explanation specific to this occurrence of the problem. Example:
-            Unexpected token, BEGIN_ARRAY expected, but was : BEGIN_OBJECT (at $.data).
-        source (Union[Unset, TestrunAttachmentsListGetResponseDataItemMetaErrorsItemSource]):
-        status (Union[Unset, str]): HTTP status code applicable to this problem. Example: 400.
-        title (Union[Unset, str]): Short, human-readable summary of the problem. Example: Bad Request.
+        detail (str | Unset): Human-readable explanation specific to this occurrence of the problem. Example: Unexpected
+            token, BEGIN_ARRAY expected, but was : BEGIN_OBJECT (at $.data).
+        source (TestrunAttachmentsListGetResponseDataItemMetaErrorsItemSource | Unset):
+        status (str | Unset): HTTP status code applicable to this problem. Example: 400.
+        title (str | Unset): Short, human-readable summary of the problem. Example: Bad Request.
     """
 
-    detail: Union[Unset, str] = UNSET
-    source: Union[
-        Unset, "TestrunAttachmentsListGetResponseDataItemMetaErrorsItemSource"
-    ] = UNSET
-    status: Union[Unset, str] = UNSET
-    title: Union[Unset, str] = UNSET
+    detail: str | Unset = UNSET
+    source: (
+        TestrunAttachmentsListGetResponseDataItemMetaErrorsItemSource | Unset
+    ) = UNSET
+    status: str | Unset = UNSET
+    title: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -49,7 +50,7 @@ class TestrunAttachmentsListGetResponseDataItemMetaErrorsItem:
     def to_dict(self) -> dict[str, Any]:
         detail = self.detail
 
-        source: Union[Unset, dict[str, Any]] = UNSET
+        source: dict[str, Any] | Unset = UNSET
         if not isinstance(self.source, Unset):
             source = self.source.to_dict()
 
@@ -81,10 +82,10 @@ class TestrunAttachmentsListGetResponseDataItemMetaErrorsItem:
         detail = d.pop("detail", UNSET)
 
         _source = d.pop("source", UNSET)
-        source: Union[
-            Unset,
-            TestrunAttachmentsListGetResponseDataItemMetaErrorsItemSource,
-        ]
+        source: (
+            TestrunAttachmentsListGetResponseDataItemMetaErrorsItemSource
+            | Unset
+        )
         if isinstance(_source, Unset):
             source = UNSET
         else:

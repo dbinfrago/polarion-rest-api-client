@@ -1,0 +1,24 @@
+# Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
+from enum import Enum
+
+
+class FieldsMetadataActionResponseBodyDataAttributesListFieldTypeItemTypeKindEnumItem(
+    str, Enum
+):
+    BOOLEAN = "boolean"
+    CURRENCY = "currency"
+    DATE = "date"
+    DATE_TIME = "date-time"
+    FLOAT = "float"
+    INTEGER = "integer"
+    RELATIONSHIP = "relationship"
+    STRING = "string"
+    STRUCTURE = "structure"
+    TEXT = "text"
+    TEXTHTML = "text/html"
+    TIME = "time"
+
+    def __str__(self) -> str:
+        return str(self.value)

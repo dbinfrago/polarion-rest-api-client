@@ -1,19 +1,19 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
     cast,
 )
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
@@ -36,49 +36,49 @@ T = TypeVar("T", bound="DocumentsSingleGetResponseDataAttributes")
 class DocumentsSingleGetResponseDataAttributes:
     """
     Attributes:
-        auto_suspect (Union[Unset, bool]):
-        branched_with_initialized_fields (Union[Unset, list[str]]):
-        branched_with_query (Union[Unset, str]):  Example: Branched with Query.
-        created (Union[Unset, datetime.datetime]):  Example: 1970-01-01T00:00:00Z.
-        derived_fields (Union[Unset, list[str]]):
-        derived_from_link_role (Union[Unset, str]):  Example: relates_to.
-        home_page_content (Union[Unset, DocumentsSingleGetResponseDataAttributesHomePageContent]):
-        module_folder (Union[Unset, str]):  Example: MySpaceId.
-        module_name (Union[Unset, str]):  Example: MyDocumentId.
-        outline_numbering (Union[Unset, DocumentsSingleGetResponseDataAttributesOutlineNumbering]):
-        rendering_layouts (Union[Unset, list['DocumentsSingleGetResponseDataAttributesRenderingLayoutsItem']]):
-        status (Union[Unset, str]):  Example: draft.
-        structure_link_role (Union[Unset, str]):  Example: relates_to.
-        title (Union[Unset, str]):  Example: Title.
-        type_ (Union[Unset, str]):  Example: req_specification.
-        updated (Union[Unset, datetime.datetime]):  Example: 1970-01-01T00:00:00Z.
-        uses_outline_numbering (Union[Unset, bool]):
+        auto_suspect (bool | Unset):
+        branched_with_initialized_fields (list[str] | Unset):
+        branched_with_query (str | Unset):  Example: Branched with Query.
+        created (datetime.datetime | Unset):  Example: 1970-01-01T00:00:00Z.
+        derived_fields (list[str] | Unset):
+        derived_from_link_role (str | Unset):  Example: relates_to.
+        home_page_content (DocumentsSingleGetResponseDataAttributesHomePageContent | Unset):
+        module_folder (str | Unset):  Example: MySpaceId.
+        module_name (str | Unset):  Example: MyDocumentId.
+        outline_numbering (DocumentsSingleGetResponseDataAttributesOutlineNumbering | Unset):
+        rendering_layouts (list[DocumentsSingleGetResponseDataAttributesRenderingLayoutsItem] | Unset):
+        status (str | Unset):  Example: draft.
+        structure_link_role (str | Unset):  Example: relates_to.
+        title (str | Unset):  Example: Title.
+        type_ (str | Unset):  Example: req_specification.
+        updated (datetime.datetime | Unset):  Example: 1970-01-01T00:00:00Z.
+        uses_outline_numbering (bool | Unset):
     """
 
-    auto_suspect: Union[Unset, bool] = UNSET
-    branched_with_initialized_fields: Union[Unset, list[str]] = UNSET
-    branched_with_query: Union[Unset, str] = UNSET
-    created: Union[Unset, datetime.datetime] = UNSET
-    derived_fields: Union[Unset, list[str]] = UNSET
-    derived_from_link_role: Union[Unset, str] = UNSET
-    home_page_content: Union[
-        Unset, "DocumentsSingleGetResponseDataAttributesHomePageContent"
-    ] = UNSET
-    module_folder: Union[Unset, str] = UNSET
-    module_name: Union[Unset, str] = UNSET
-    outline_numbering: Union[
-        Unset, "DocumentsSingleGetResponseDataAttributesOutlineNumbering"
-    ] = UNSET
-    rendering_layouts: Union[
-        Unset,
-        list["DocumentsSingleGetResponseDataAttributesRenderingLayoutsItem"],
-    ] = UNSET
-    status: Union[Unset, str] = UNSET
-    structure_link_role: Union[Unset, str] = UNSET
-    title: Union[Unset, str] = UNSET
-    type_: Union[Unset, str] = UNSET
-    updated: Union[Unset, datetime.datetime] = UNSET
-    uses_outline_numbering: Union[Unset, bool] = UNSET
+    auto_suspect: bool | Unset = UNSET
+    branched_with_initialized_fields: list[str] | Unset = UNSET
+    branched_with_query: str | Unset = UNSET
+    created: datetime.datetime | Unset = UNSET
+    derived_fields: list[str] | Unset = UNSET
+    derived_from_link_role: str | Unset = UNSET
+    home_page_content: (
+        DocumentsSingleGetResponseDataAttributesHomePageContent | Unset
+    ) = UNSET
+    module_folder: str | Unset = UNSET
+    module_name: str | Unset = UNSET
+    outline_numbering: (
+        DocumentsSingleGetResponseDataAttributesOutlineNumbering | Unset
+    ) = UNSET
+    rendering_layouts: (
+        list[DocumentsSingleGetResponseDataAttributesRenderingLayoutsItem]
+        | Unset
+    ) = UNSET
+    status: str | Unset = UNSET
+    structure_link_role: str | Unset = UNSET
+    title: str | Unset = UNSET
+    type_: str | Unset = UNSET
+    updated: datetime.datetime | Unset = UNSET
+    uses_outline_numbering: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -86,7 +86,7 @@ class DocumentsSingleGetResponseDataAttributes:
     def to_dict(self) -> dict[str, Any]:
         auto_suspect = self.auto_suspect
 
-        branched_with_initialized_fields: Union[Unset, list[str]] = UNSET
+        branched_with_initialized_fields: list[str] | Unset = UNSET
         if not isinstance(self.branched_with_initialized_fields, Unset):
             branched_with_initialized_fields = (
                 self.branched_with_initialized_fields
@@ -94,17 +94,17 @@ class DocumentsSingleGetResponseDataAttributes:
 
         branched_with_query = self.branched_with_query
 
-        created: Union[Unset, str] = UNSET
+        created: str | Unset = UNSET
         if not isinstance(self.created, Unset):
             created = self.created.isoformat()
 
-        derived_fields: Union[Unset, list[str]] = UNSET
+        derived_fields: list[str] | Unset = UNSET
         if not isinstance(self.derived_fields, Unset):
             derived_fields = self.derived_fields
 
         derived_from_link_role = self.derived_from_link_role
 
-        home_page_content: Union[Unset, dict[str, Any]] = UNSET
+        home_page_content: dict[str, Any] | Unset = UNSET
         if not isinstance(self.home_page_content, Unset):
             home_page_content = self.home_page_content.to_dict()
 
@@ -112,11 +112,11 @@ class DocumentsSingleGetResponseDataAttributes:
 
         module_name = self.module_name
 
-        outline_numbering: Union[Unset, dict[str, Any]] = UNSET
+        outline_numbering: dict[str, Any] | Unset = UNSET
         if not isinstance(self.outline_numbering, Unset):
             outline_numbering = self.outline_numbering.to_dict()
 
-        rendering_layouts: Union[Unset, list[dict[str, Any]]] = UNSET
+        rendering_layouts: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.rendering_layouts, Unset):
             rendering_layouts = []
             for rendering_layouts_item_data in self.rendering_layouts:
@@ -131,7 +131,7 @@ class DocumentsSingleGetResponseDataAttributes:
 
         type_ = self.type_
 
-        updated: Union[Unset, str] = UNSET
+        updated: str | Unset = UNSET
         if not isinstance(self.updated, Unset):
             updated = self.updated.isoformat()
 
@@ -201,20 +201,20 @@ class DocumentsSingleGetResponseDataAttributes:
         branched_with_query = d.pop("branchedWithQuery", UNSET)
 
         _created = d.pop("created", UNSET)
-        created: Union[Unset, datetime.datetime]
+        created: datetime.datetime | Unset
         if isinstance(_created, Unset):
             created = UNSET
         else:
-            created = isoparse(_created)
+            created = datetime.datetime.fromisoformat(_created)
 
         derived_fields = cast(list[str], d.pop("derivedFields", UNSET))
 
         derived_from_link_role = d.pop("derivedFromLinkRole", UNSET)
 
         _home_page_content = d.pop("homePageContent", UNSET)
-        home_page_content: Union[
-            Unset, DocumentsSingleGetResponseDataAttributesHomePageContent
-        ]
+        home_page_content: (
+            DocumentsSingleGetResponseDataAttributesHomePageContent | Unset
+        )
         if isinstance(_home_page_content, Unset):
             home_page_content = UNSET
         else:
@@ -227,9 +227,9 @@ class DocumentsSingleGetResponseDataAttributes:
         module_name = d.pop("moduleName", UNSET)
 
         _outline_numbering = d.pop("outlineNumbering", UNSET)
-        outline_numbering: Union[
-            Unset, DocumentsSingleGetResponseDataAttributesOutlineNumbering
-        ]
+        outline_numbering: (
+            DocumentsSingleGetResponseDataAttributesOutlineNumbering | Unset
+        )
         if isinstance(_outline_numbering, Unset):
             outline_numbering = UNSET
         else:
@@ -237,14 +237,19 @@ class DocumentsSingleGetResponseDataAttributes:
                 _outline_numbering
             )
 
-        rendering_layouts = []
         _rendering_layouts = d.pop("renderingLayouts", UNSET)
-        for rendering_layouts_item_data in _rendering_layouts or []:
-            rendering_layouts_item = DocumentsSingleGetResponseDataAttributesRenderingLayoutsItem.from_dict(
-                rendering_layouts_item_data
-            )
+        rendering_layouts: (
+            list[DocumentsSingleGetResponseDataAttributesRenderingLayoutsItem]
+            | Unset
+        ) = UNSET
+        if _rendering_layouts is not UNSET:
+            rendering_layouts = []
+            for rendering_layouts_item_data in _rendering_layouts:
+                rendering_layouts_item = DocumentsSingleGetResponseDataAttributesRenderingLayoutsItem.from_dict(
+                    rendering_layouts_item_data
+                )
 
-            rendering_layouts.append(rendering_layouts_item)
+                rendering_layouts.append(rendering_layouts_item)
 
         status = d.pop("status", UNSET)
 
@@ -255,11 +260,11 @@ class DocumentsSingleGetResponseDataAttributes:
         type_ = d.pop("type", UNSET)
 
         _updated = d.pop("updated", UNSET)
-        updated: Union[Unset, datetime.datetime]
+        updated: datetime.datetime | Unset
         if isinstance(_updated, Unset):
             updated = UNSET
         else:
-            updated = isoparse(_updated)
+            updated = datetime.datetime.fromisoformat(_updated)
 
         uses_outline_numbering = d.pop("usesOutlineNumbering", UNSET)
 

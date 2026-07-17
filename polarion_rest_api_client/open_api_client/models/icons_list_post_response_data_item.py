@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -30,26 +31,26 @@ T = TypeVar("T", bound="IconsListPostResponseDataItem")
 class IconsListPostResponseDataItem:
     """
     Attributes:
-        type_ (Union[Unset, IconsListPostResponseDataItemType]):
-        id (Union[Unset, str]):  Example: default/example.gif.
-        links (Union[Unset, IconsListPostResponseDataItemLinks]):
+        type_ (IconsListPostResponseDataItemType | Unset):
+        id (str | Unset):  Example: default/example.gif.
+        links (IconsListPostResponseDataItemLinks | Unset):
     """
 
-    type_: Union[Unset, IconsListPostResponseDataItemType] = UNSET
-    id: Union[Unset, str] = UNSET
-    links: Union[Unset, "IconsListPostResponseDataItemLinks"] = UNSET
+    type_: IconsListPostResponseDataItemType | Unset = UNSET
+    id: str | Unset = UNSET
+    links: IconsListPostResponseDataItemLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
         id = self.id
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
@@ -73,7 +74,7 @@ class IconsListPostResponseDataItem:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, IconsListPostResponseDataItemType]
+        type_: IconsListPostResponseDataItemType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -82,7 +83,7 @@ class IconsListPostResponseDataItem:
         id = d.pop("id", UNSET)
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, IconsListPostResponseDataItemLinks]
+        links: IconsListPostResponseDataItemLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:

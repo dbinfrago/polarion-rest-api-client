@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -36,42 +37,42 @@ T = TypeVar("T", bound="TestrunCommentsSingleGetResponseDataRelationships")
 class TestrunCommentsSingleGetResponseDataRelationships:
     """
     Attributes:
-        author (Union[Unset, TestrunCommentsSingleGetResponseDataRelationshipsAuthor]):
-        child_comments (Union[Unset, TestrunCommentsSingleGetResponseDataRelationshipsChildComments]):
-        parent_comment (Union[Unset, TestrunCommentsSingleGetResponseDataRelationshipsParentComment]):
-        project (Union[Unset, TestrunCommentsSingleGetResponseDataRelationshipsProject]):
+        author (TestrunCommentsSingleGetResponseDataRelationshipsAuthor | Unset):
+        child_comments (TestrunCommentsSingleGetResponseDataRelationshipsChildComments | Unset):
+        parent_comment (TestrunCommentsSingleGetResponseDataRelationshipsParentComment | Unset):
+        project (TestrunCommentsSingleGetResponseDataRelationshipsProject | Unset):
     """
 
-    author: Union[
-        Unset, "TestrunCommentsSingleGetResponseDataRelationshipsAuthor"
-    ] = UNSET
-    child_comments: Union[
-        Unset, "TestrunCommentsSingleGetResponseDataRelationshipsChildComments"
-    ] = UNSET
-    parent_comment: Union[
-        Unset, "TestrunCommentsSingleGetResponseDataRelationshipsParentComment"
-    ] = UNSET
-    project: Union[
-        Unset, "TestrunCommentsSingleGetResponseDataRelationshipsProject"
-    ] = UNSET
+    author: TestrunCommentsSingleGetResponseDataRelationshipsAuthor | Unset = (
+        UNSET
+    )
+    child_comments: (
+        TestrunCommentsSingleGetResponseDataRelationshipsChildComments | Unset
+    ) = UNSET
+    parent_comment: (
+        TestrunCommentsSingleGetResponseDataRelationshipsParentComment | Unset
+    ) = UNSET
+    project: (
+        TestrunCommentsSingleGetResponseDataRelationshipsProject | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        author: Union[Unset, dict[str, Any]] = UNSET
+        author: dict[str, Any] | Unset = UNSET
         if not isinstance(self.author, Unset):
             author = self.author.to_dict()
 
-        child_comments: Union[Unset, dict[str, Any]] = UNSET
+        child_comments: dict[str, Any] | Unset = UNSET
         if not isinstance(self.child_comments, Unset):
             child_comments = self.child_comments.to_dict()
 
-        parent_comment: Union[Unset, dict[str, Any]] = UNSET
+        parent_comment: dict[str, Any] | Unset = UNSET
         if not isinstance(self.parent_comment, Unset):
             parent_comment = self.parent_comment.to_dict()
 
-        project: Union[Unset, dict[str, Any]] = UNSET
+        project: dict[str, Any] | Unset = UNSET
         if not isinstance(self.project, Unset):
             project = self.project.to_dict()
 
@@ -106,9 +107,7 @@ class TestrunCommentsSingleGetResponseDataRelationships:
 
         d = dict(src_dict)
         _author = d.pop("author", UNSET)
-        author: Union[
-            Unset, TestrunCommentsSingleGetResponseDataRelationshipsAuthor
-        ]
+        author: TestrunCommentsSingleGetResponseDataRelationshipsAuthor | Unset
         if isinstance(_author, Unset):
             author = UNSET
         else:
@@ -117,10 +116,10 @@ class TestrunCommentsSingleGetResponseDataRelationships:
             )
 
         _child_comments = d.pop("childComments", UNSET)
-        child_comments: Union[
-            Unset,
-            TestrunCommentsSingleGetResponseDataRelationshipsChildComments,
-        ]
+        child_comments: (
+            TestrunCommentsSingleGetResponseDataRelationshipsChildComments
+            | Unset
+        )
         if isinstance(_child_comments, Unset):
             child_comments = UNSET
         else:
@@ -129,10 +128,10 @@ class TestrunCommentsSingleGetResponseDataRelationships:
             )
 
         _parent_comment = d.pop("parentComment", UNSET)
-        parent_comment: Union[
-            Unset,
-            TestrunCommentsSingleGetResponseDataRelationshipsParentComment,
-        ]
+        parent_comment: (
+            TestrunCommentsSingleGetResponseDataRelationshipsParentComment
+            | Unset
+        )
         if isinstance(_parent_comment, Unset):
             parent_comment = UNSET
         else:
@@ -141,9 +140,9 @@ class TestrunCommentsSingleGetResponseDataRelationships:
             )
 
         _project = d.pop("project", UNSET)
-        project: Union[
-            Unset, TestrunCommentsSingleGetResponseDataRelationshipsProject
-        ]
+        project: (
+            TestrunCommentsSingleGetResponseDataRelationshipsProject | Unset
+        )
         if isinstance(_project, Unset):
             project = UNSET
         else:

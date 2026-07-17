@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -28,21 +29,21 @@ class UsersListPostRequestDataItemAttributes:
     """
     Attributes:
         id (str):  Example: MyUserId.
-        description (Union[Unset, UsersListPostRequestDataItemAttributesDescription]):
-        disabled_notifications (Union[Unset, bool]):
-        email (Union[Unset, str]):  Example: Email.
-        initials (Union[Unset, str]):  Example: Initials.
-        name (Union[Unset, str]):  Example: Name.
+        description (UsersListPostRequestDataItemAttributesDescription | Unset):
+        disabled_notifications (bool | Unset):
+        email (str | Unset):  Example: Email.
+        initials (str | Unset):  Example: Initials.
+        name (str | Unset):  Example: Name.
     """
 
     id: str
-    description: Union[
-        Unset, "UsersListPostRequestDataItemAttributesDescription"
-    ] = UNSET
-    disabled_notifications: Union[Unset, bool] = UNSET
-    email: Union[Unset, str] = UNSET
-    initials: Union[Unset, str] = UNSET
-    name: Union[Unset, str] = UNSET
+    description: UsersListPostRequestDataItemAttributesDescription | Unset = (
+        UNSET
+    )
+    disabled_notifications: bool | Unset = UNSET
+    email: str | Unset = UNSET
+    initials: str | Unset = UNSET
+    name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -50,7 +51,7 @@ class UsersListPostRequestDataItemAttributes:
     def to_dict(self) -> dict[str, Any]:
         id = self.id
 
-        description: Union[Unset, dict[str, Any]] = UNSET
+        description: dict[str, Any] | Unset = UNSET
         if not isinstance(self.description, Unset):
             description = self.description.to_dict()
 
@@ -92,9 +93,7 @@ class UsersListPostRequestDataItemAttributes:
         id = d.pop("id")
 
         _description = d.pop("description", UNSET)
-        description: Union[
-            Unset, UsersListPostRequestDataItemAttributesDescription
-        ]
+        description: UsersListPostRequestDataItemAttributesDescription | Unset
         if isinstance(_description, Unset):
             description = UNSET
         else:

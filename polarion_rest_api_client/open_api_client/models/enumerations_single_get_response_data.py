@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -36,44 +37,38 @@ T = TypeVar("T", bound="EnumerationsSingleGetResponseData")
 class EnumerationsSingleGetResponseData:
     """
     Attributes:
-        type_ (Union[Unset, EnumerationsSingleGetResponseDataType]):
-        id (Union[Unset, str]):  Example: ~/status/~.
-        revision (Union[Unset, str]):  Example: 1234.
-        attributes (Union[Unset, EnumerationsSingleGetResponseDataAttributes]):
-        links (Union[Unset, EnumerationsSingleGetResponseDataLinks]):
-        meta (Union[Unset, EnumerationsSingleGetResponseDataMeta]):
+        type_ (EnumerationsSingleGetResponseDataType | Unset):
+        id (str | Unset):  Example: ~/status/~.
+        attributes (EnumerationsSingleGetResponseDataAttributes | Unset):
+        links (EnumerationsSingleGetResponseDataLinks | Unset):
+        meta (EnumerationsSingleGetResponseDataMeta | Unset):
     """
 
-    type_: Union[Unset, EnumerationsSingleGetResponseDataType] = UNSET
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    attributes: Union[Unset, "EnumerationsSingleGetResponseDataAttributes"] = (
-        UNSET
-    )
-    links: Union[Unset, "EnumerationsSingleGetResponseDataLinks"] = UNSET
-    meta: Union[Unset, "EnumerationsSingleGetResponseDataMeta"] = UNSET
+    type_: EnumerationsSingleGetResponseDataType | Unset = UNSET
+    id: str | Unset = UNSET
+    attributes: EnumerationsSingleGetResponseDataAttributes | Unset = UNSET
+    links: EnumerationsSingleGetResponseDataLinks | Unset = UNSET
+    meta: EnumerationsSingleGetResponseDataMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
         id = self.id
 
-        revision = self.revision
-
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -84,8 +79,6 @@ class EnumerationsSingleGetResponseData:
             field_dict["type"] = type_
         if id is not UNSET:
             field_dict["id"] = id
-        if revision is not UNSET:
-            field_dict["revision"] = revision
         if attributes is not UNSET:
             field_dict["attributes"] = attributes
         if links is not UNSET:
@@ -109,7 +102,7 @@ class EnumerationsSingleGetResponseData:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, EnumerationsSingleGetResponseDataType]
+        type_: EnumerationsSingleGetResponseDataType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -117,10 +110,8 @@ class EnumerationsSingleGetResponseData:
 
         id = d.pop("id", UNSET)
 
-        revision = d.pop("revision", UNSET)
-
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[Unset, EnumerationsSingleGetResponseDataAttributes]
+        attributes: EnumerationsSingleGetResponseDataAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -129,14 +120,14 @@ class EnumerationsSingleGetResponseData:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, EnumerationsSingleGetResponseDataLinks]
+        links: EnumerationsSingleGetResponseDataLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
             links = EnumerationsSingleGetResponseDataLinks.from_dict(_links)
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, EnumerationsSingleGetResponseDataMeta]
+        meta: EnumerationsSingleGetResponseDataMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:
@@ -145,7 +136,6 @@ class EnumerationsSingleGetResponseData:
         enumerations_single_get_response_data_obj = cls(
             type_=type_,
             id=id,
-            revision=revision,
             attributes=attributes,
             links=links,
             meta=meta,

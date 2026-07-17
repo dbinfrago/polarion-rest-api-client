@@ -1,18 +1,18 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
@@ -29,24 +29,22 @@ T = TypeVar("T", bound="DocumentCommentsSingleGetResponseDataAttributes")
 class DocumentCommentsSingleGetResponseDataAttributes:
     """
     Attributes:
-        created (Union[Unset, datetime.datetime]):  Example: 1970-01-01T00:00:00Z.
-        id (Union[Unset, str]):  Example: MyCommentId.
-        resolved (Union[Unset, bool]):
-        text (Union[Unset, DocumentCommentsSingleGetResponseDataAttributesText]):
+        created (datetime.datetime | Unset):  Example: 1970-01-01T00:00:00Z.
+        id (str | Unset):  Example: MyCommentId.
+        resolved (bool | Unset):
+        text (DocumentCommentsSingleGetResponseDataAttributesText | Unset):
     """
 
-    created: Union[Unset, datetime.datetime] = UNSET
-    id: Union[Unset, str] = UNSET
-    resolved: Union[Unset, bool] = UNSET
-    text: Union[
-        Unset, "DocumentCommentsSingleGetResponseDataAttributesText"
-    ] = UNSET
+    created: datetime.datetime | Unset = UNSET
+    id: str | Unset = UNSET
+    resolved: bool | Unset = UNSET
+    text: DocumentCommentsSingleGetResponseDataAttributesText | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        created: Union[Unset, str] = UNSET
+        created: str | Unset = UNSET
         if not isinstance(self.created, Unset):
             created = self.created.isoformat()
 
@@ -54,7 +52,7 @@ class DocumentCommentsSingleGetResponseDataAttributes:
 
         resolved = self.resolved
 
-        text: Union[Unset, dict[str, Any]] = UNSET
+        text: dict[str, Any] | Unset = UNSET
         if not isinstance(self.text, Unset):
             text = self.text.to_dict()
 
@@ -80,18 +78,18 @@ class DocumentCommentsSingleGetResponseDataAttributes:
 
         d = dict(src_dict)
         _created = d.pop("created", UNSET)
-        created: Union[Unset, datetime.datetime]
+        created: datetime.datetime | Unset
         if isinstance(_created, Unset):
             created = UNSET
         else:
-            created = isoparse(_created)
+            created = datetime.datetime.fromisoformat(_created)
 
         id = d.pop("id", UNSET)
 
         resolved = d.pop("resolved", UNSET)
 
         _text = d.pop("text", UNSET)
-        text: Union[Unset, DocumentCommentsSingleGetResponseDataAttributesText]
+        text: DocumentCommentsSingleGetResponseDataAttributesText | Unset
         if isinstance(_text, Unset):
             text = UNSET
         else:

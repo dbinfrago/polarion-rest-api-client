@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -27,6 +28,9 @@ if TYPE_CHECKING:
     from ..models.pages_single_get_response_data_relationships_updated_by import (
         PagesSingleGetResponseDataRelationshipsUpdatedBy,
     )
+    from ..models.pages_single_get_response_data_relationships_watches import (
+        PagesSingleGetResponseDataRelationshipsWatches,
+    )
 
 
 T = TypeVar("T", bound="PagesSingleGetResponseDataRelationships")
@@ -36,44 +40,46 @@ T = TypeVar("T", bound="PagesSingleGetResponseDataRelationships")
 class PagesSingleGetResponseDataRelationships:
     """
     Attributes:
-        attachments (Union[Unset, PagesSingleGetResponseDataRelationshipsAttachments]):
-        author (Union[Unset, PagesSingleGetResponseDataRelationshipsAuthor]):
-        project (Union[Unset, PagesSingleGetResponseDataRelationshipsProject]):
-        updated_by (Union[Unset, PagesSingleGetResponseDataRelationshipsUpdatedBy]):
+        attachments (PagesSingleGetResponseDataRelationshipsAttachments | Unset):
+        author (PagesSingleGetResponseDataRelationshipsAuthor | Unset):
+        project (PagesSingleGetResponseDataRelationshipsProject | Unset):
+        updated_by (PagesSingleGetResponseDataRelationshipsUpdatedBy | Unset):
+        watches (PagesSingleGetResponseDataRelationshipsWatches | Unset):
     """
 
-    attachments: Union[
-        Unset, "PagesSingleGetResponseDataRelationshipsAttachments"
-    ] = UNSET
-    author: Union[Unset, "PagesSingleGetResponseDataRelationshipsAuthor"] = (
+    attachments: PagesSingleGetResponseDataRelationshipsAttachments | Unset = (
         UNSET
     )
-    project: Union[Unset, "PagesSingleGetResponseDataRelationshipsProject"] = (
+    author: PagesSingleGetResponseDataRelationshipsAuthor | Unset = UNSET
+    project: PagesSingleGetResponseDataRelationshipsProject | Unset = UNSET
+    updated_by: PagesSingleGetResponseDataRelationshipsUpdatedBy | Unset = (
         UNSET
     )
-    updated_by: Union[
-        Unset, "PagesSingleGetResponseDataRelationshipsUpdatedBy"
-    ] = UNSET
+    watches: PagesSingleGetResponseDataRelationshipsWatches | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        attachments: Union[Unset, dict[str, Any]] = UNSET
+        attachments: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attachments, Unset):
             attachments = self.attachments.to_dict()
 
-        author: Union[Unset, dict[str, Any]] = UNSET
+        author: dict[str, Any] | Unset = UNSET
         if not isinstance(self.author, Unset):
             author = self.author.to_dict()
 
-        project: Union[Unset, dict[str, Any]] = UNSET
+        project: dict[str, Any] | Unset = UNSET
         if not isinstance(self.project, Unset):
             project = self.project.to_dict()
 
-        updated_by: Union[Unset, dict[str, Any]] = UNSET
+        updated_by: dict[str, Any] | Unset = UNSET
         if not isinstance(self.updated_by, Unset):
             updated_by = self.updated_by.to_dict()
+
+        watches: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.watches, Unset):
+            watches = self.watches.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -86,6 +92,8 @@ class PagesSingleGetResponseDataRelationships:
             field_dict["project"] = project
         if updated_by is not UNSET:
             field_dict["updatedBy"] = updated_by
+        if watches is not UNSET:
+            field_dict["watches"] = watches
 
         return field_dict
 
@@ -103,12 +111,13 @@ class PagesSingleGetResponseDataRelationships:
         from ..models.pages_single_get_response_data_relationships_updated_by import (
             PagesSingleGetResponseDataRelationshipsUpdatedBy,
         )
+        from ..models.pages_single_get_response_data_relationships_watches import (
+            PagesSingleGetResponseDataRelationshipsWatches,
+        )
 
         d = dict(src_dict)
         _attachments = d.pop("attachments", UNSET)
-        attachments: Union[
-            Unset, PagesSingleGetResponseDataRelationshipsAttachments
-        ]
+        attachments: PagesSingleGetResponseDataRelationshipsAttachments | Unset
         if isinstance(_attachments, Unset):
             attachments = UNSET
         else:
@@ -119,7 +128,7 @@ class PagesSingleGetResponseDataRelationships:
             )
 
         _author = d.pop("author", UNSET)
-        author: Union[Unset, PagesSingleGetResponseDataRelationshipsAuthor]
+        author: PagesSingleGetResponseDataRelationshipsAuthor | Unset
         if isinstance(_author, Unset):
             author = UNSET
         else:
@@ -128,7 +137,7 @@ class PagesSingleGetResponseDataRelationships:
             )
 
         _project = d.pop("project", UNSET)
-        project: Union[Unset, PagesSingleGetResponseDataRelationshipsProject]
+        project: PagesSingleGetResponseDataRelationshipsProject | Unset
         if isinstance(_project, Unset):
             project = UNSET
         else:
@@ -137,9 +146,7 @@ class PagesSingleGetResponseDataRelationships:
             )
 
         _updated_by = d.pop("updatedBy", UNSET)
-        updated_by: Union[
-            Unset, PagesSingleGetResponseDataRelationshipsUpdatedBy
-        ]
+        updated_by: PagesSingleGetResponseDataRelationshipsUpdatedBy | Unset
         if isinstance(_updated_by, Unset):
             updated_by = UNSET
         else:
@@ -149,11 +156,21 @@ class PagesSingleGetResponseDataRelationships:
                 )
             )
 
+        _watches = d.pop("watches", UNSET)
+        watches: PagesSingleGetResponseDataRelationshipsWatches | Unset
+        if isinstance(_watches, Unset):
+            watches = UNSET
+        else:
+            watches = PagesSingleGetResponseDataRelationshipsWatches.from_dict(
+                _watches
+            )
+
         pages_single_get_response_data_relationships_obj = cls(
             attachments=attachments,
             author=author,
             project=project,
             updated_by=updated_by,
+            watches=watches,
         )
 
         pages_single_get_response_data_relationships_obj.additional_properties = d

@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -33,6 +34,9 @@ if TYPE_CHECKING:
     from ..models.collections_single_get_response_data_relationships_rich_pages import (
         CollectionsSingleGetResponseDataRelationshipsRichPages,
     )
+    from ..models.collections_single_get_response_data_relationships_test_runs import (
+        CollectionsSingleGetResponseDataRelationshipsTestRuns,
+    )
     from ..models.collections_single_get_response_data_relationships_upstream_collections import (
         CollectionsSingleGetResponseDataRelationshipsUpstreamCollections,
     )
@@ -45,68 +49,74 @@ T = TypeVar("T", bound="CollectionsSingleGetResponseDataRelationships")
 class CollectionsSingleGetResponseDataRelationships:
     """
     Attributes:
-        author (Union[Unset, CollectionsSingleGetResponseDataRelationshipsAuthor]):
-        documents (Union[Unset, CollectionsSingleGetResponseDataRelationshipsDocuments]):
-        downstream_collections (Union[Unset, CollectionsSingleGetResponseDataRelationshipsDownstreamCollections]):
-        project (Union[Unset, CollectionsSingleGetResponseDataRelationshipsProject]):
-        reused_from (Union[Unset, CollectionsSingleGetResponseDataRelationshipsReusedFrom]):
-        rich_pages (Union[Unset, CollectionsSingleGetResponseDataRelationshipsRichPages]):
-        upstream_collections (Union[Unset, CollectionsSingleGetResponseDataRelationshipsUpstreamCollections]):
+        author (CollectionsSingleGetResponseDataRelationshipsAuthor | Unset):
+        documents (CollectionsSingleGetResponseDataRelationshipsDocuments | Unset):
+        downstream_collections (CollectionsSingleGetResponseDataRelationshipsDownstreamCollections | Unset):
+        project (CollectionsSingleGetResponseDataRelationshipsProject | Unset):
+        reused_from (CollectionsSingleGetResponseDataRelationshipsReusedFrom | Unset):
+        rich_pages (CollectionsSingleGetResponseDataRelationshipsRichPages | Unset):
+        test_runs (CollectionsSingleGetResponseDataRelationshipsTestRuns | Unset):
+        upstream_collections (CollectionsSingleGetResponseDataRelationshipsUpstreamCollections | Unset):
     """
 
-    author: Union[
-        Unset, "CollectionsSingleGetResponseDataRelationshipsAuthor"
-    ] = UNSET
-    documents: Union[
-        Unset, "CollectionsSingleGetResponseDataRelationshipsDocuments"
-    ] = UNSET
-    downstream_collections: Union[
-        Unset,
-        "CollectionsSingleGetResponseDataRelationshipsDownstreamCollections",
-    ] = UNSET
-    project: Union[
-        Unset, "CollectionsSingleGetResponseDataRelationshipsProject"
-    ] = UNSET
-    reused_from: Union[
-        Unset, "CollectionsSingleGetResponseDataRelationshipsReusedFrom"
-    ] = UNSET
-    rich_pages: Union[
-        Unset, "CollectionsSingleGetResponseDataRelationshipsRichPages"
-    ] = UNSET
-    upstream_collections: Union[
-        Unset,
-        "CollectionsSingleGetResponseDataRelationshipsUpstreamCollections",
-    ] = UNSET
+    author: CollectionsSingleGetResponseDataRelationshipsAuthor | Unset = UNSET
+    documents: (
+        CollectionsSingleGetResponseDataRelationshipsDocuments | Unset
+    ) = UNSET
+    downstream_collections: (
+        CollectionsSingleGetResponseDataRelationshipsDownstreamCollections
+        | Unset
+    ) = UNSET
+    project: CollectionsSingleGetResponseDataRelationshipsProject | Unset = (
+        UNSET
+    )
+    reused_from: (
+        CollectionsSingleGetResponseDataRelationshipsReusedFrom | Unset
+    ) = UNSET
+    rich_pages: (
+        CollectionsSingleGetResponseDataRelationshipsRichPages | Unset
+    ) = UNSET
+    test_runs: (
+        CollectionsSingleGetResponseDataRelationshipsTestRuns | Unset
+    ) = UNSET
+    upstream_collections: (
+        CollectionsSingleGetResponseDataRelationshipsUpstreamCollections
+        | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        author: Union[Unset, dict[str, Any]] = UNSET
+        author: dict[str, Any] | Unset = UNSET
         if not isinstance(self.author, Unset):
             author = self.author.to_dict()
 
-        documents: Union[Unset, dict[str, Any]] = UNSET
+        documents: dict[str, Any] | Unset = UNSET
         if not isinstance(self.documents, Unset):
             documents = self.documents.to_dict()
 
-        downstream_collections: Union[Unset, dict[str, Any]] = UNSET
+        downstream_collections: dict[str, Any] | Unset = UNSET
         if not isinstance(self.downstream_collections, Unset):
             downstream_collections = self.downstream_collections.to_dict()
 
-        project: Union[Unset, dict[str, Any]] = UNSET
+        project: dict[str, Any] | Unset = UNSET
         if not isinstance(self.project, Unset):
             project = self.project.to_dict()
 
-        reused_from: Union[Unset, dict[str, Any]] = UNSET
+        reused_from: dict[str, Any] | Unset = UNSET
         if not isinstance(self.reused_from, Unset):
             reused_from = self.reused_from.to_dict()
 
-        rich_pages: Union[Unset, dict[str, Any]] = UNSET
+        rich_pages: dict[str, Any] | Unset = UNSET
         if not isinstance(self.rich_pages, Unset):
             rich_pages = self.rich_pages.to_dict()
 
-        upstream_collections: Union[Unset, dict[str, Any]] = UNSET
+        test_runs: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.test_runs, Unset):
+            test_runs = self.test_runs.to_dict()
+
+        upstream_collections: dict[str, Any] | Unset = UNSET
         if not isinstance(self.upstream_collections, Unset):
             upstream_collections = self.upstream_collections.to_dict()
 
@@ -125,6 +135,8 @@ class CollectionsSingleGetResponseDataRelationships:
             field_dict["reusedFrom"] = reused_from
         if rich_pages is not UNSET:
             field_dict["richPages"] = rich_pages
+        if test_runs is not UNSET:
+            field_dict["testRuns"] = test_runs
         if upstream_collections is not UNSET:
             field_dict["upstreamCollections"] = upstream_collections
 
@@ -150,15 +162,16 @@ class CollectionsSingleGetResponseDataRelationships:
         from ..models.collections_single_get_response_data_relationships_rich_pages import (
             CollectionsSingleGetResponseDataRelationshipsRichPages,
         )
+        from ..models.collections_single_get_response_data_relationships_test_runs import (
+            CollectionsSingleGetResponseDataRelationshipsTestRuns,
+        )
         from ..models.collections_single_get_response_data_relationships_upstream_collections import (
             CollectionsSingleGetResponseDataRelationshipsUpstreamCollections,
         )
 
         d = dict(src_dict)
         _author = d.pop("author", UNSET)
-        author: Union[
-            Unset, CollectionsSingleGetResponseDataRelationshipsAuthor
-        ]
+        author: CollectionsSingleGetResponseDataRelationshipsAuthor | Unset
         if isinstance(_author, Unset):
             author = UNSET
         else:
@@ -169,9 +182,9 @@ class CollectionsSingleGetResponseDataRelationships:
             )
 
         _documents = d.pop("documents", UNSET)
-        documents: Union[
-            Unset, CollectionsSingleGetResponseDataRelationshipsDocuments
-        ]
+        documents: (
+            CollectionsSingleGetResponseDataRelationshipsDocuments | Unset
+        )
         if isinstance(_documents, Unset):
             documents = UNSET
         else:
@@ -180,10 +193,10 @@ class CollectionsSingleGetResponseDataRelationships:
             )
 
         _downstream_collections = d.pop("downstreamCollections", UNSET)
-        downstream_collections: Union[
-            Unset,
-            CollectionsSingleGetResponseDataRelationshipsDownstreamCollections,
-        ]
+        downstream_collections: (
+            CollectionsSingleGetResponseDataRelationshipsDownstreamCollections
+            | Unset
+        )
         if isinstance(_downstream_collections, Unset):
             downstream_collections = UNSET
         else:
@@ -192,9 +205,7 @@ class CollectionsSingleGetResponseDataRelationships:
             )
 
         _project = d.pop("project", UNSET)
-        project: Union[
-            Unset, CollectionsSingleGetResponseDataRelationshipsProject
-        ]
+        project: CollectionsSingleGetResponseDataRelationshipsProject | Unset
         if isinstance(_project, Unset):
             project = UNSET
         else:
@@ -205,9 +216,9 @@ class CollectionsSingleGetResponseDataRelationships:
             )
 
         _reused_from = d.pop("reusedFrom", UNSET)
-        reused_from: Union[
-            Unset, CollectionsSingleGetResponseDataRelationshipsReusedFrom
-        ]
+        reused_from: (
+            CollectionsSingleGetResponseDataRelationshipsReusedFrom | Unset
+        )
         if isinstance(_reused_from, Unset):
             reused_from = UNSET
         else:
@@ -216,9 +227,9 @@ class CollectionsSingleGetResponseDataRelationships:
             )
 
         _rich_pages = d.pop("richPages", UNSET)
-        rich_pages: Union[
-            Unset, CollectionsSingleGetResponseDataRelationshipsRichPages
-        ]
+        rich_pages: (
+            CollectionsSingleGetResponseDataRelationshipsRichPages | Unset
+        )
         if isinstance(_rich_pages, Unset):
             rich_pages = UNSET
         else:
@@ -226,11 +237,22 @@ class CollectionsSingleGetResponseDataRelationships:
                 _rich_pages
             )
 
+        _test_runs = d.pop("testRuns", UNSET)
+        test_runs: (
+            CollectionsSingleGetResponseDataRelationshipsTestRuns | Unset
+        )
+        if isinstance(_test_runs, Unset):
+            test_runs = UNSET
+        else:
+            test_runs = CollectionsSingleGetResponseDataRelationshipsTestRuns.from_dict(
+                _test_runs
+            )
+
         _upstream_collections = d.pop("upstreamCollections", UNSET)
-        upstream_collections: Union[
-            Unset,
-            CollectionsSingleGetResponseDataRelationshipsUpstreamCollections,
-        ]
+        upstream_collections: (
+            CollectionsSingleGetResponseDataRelationshipsUpstreamCollections
+            | Unset
+        )
         if isinstance(_upstream_collections, Unset):
             upstream_collections = UNSET
         else:
@@ -245,6 +267,7 @@ class CollectionsSingleGetResponseDataRelationships:
             project=project,
             reused_from=reused_from,
             rich_pages=rich_pages,
+            test_runs=test_runs,
             upstream_collections=upstream_collections,
         )
 

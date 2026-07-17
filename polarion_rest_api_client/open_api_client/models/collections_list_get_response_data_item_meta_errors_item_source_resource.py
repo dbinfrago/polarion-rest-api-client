@@ -1,12 +1,10 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -23,12 +21,12 @@ class CollectionsListGetResponseDataItemMetaErrorsItemSourceResource:
     """Resource causing the error.
 
     Attributes:
-        id (Union[Unset, str]):  Example: MyProjectId/id.
-        type_ (Union[Unset, str]):  Example: type.
+        id (str | Unset):  Example: MyProjectId/id.
+        type_ (str | Unset):  Example: type.
     """
 
-    id: Union[Unset, str] = UNSET
-    type_: Union[Unset, str] = UNSET
+    id: str | Unset = UNSET
+    type_: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )

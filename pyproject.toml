@@ -49,18 +49,18 @@ tests = [
   "pytest-httpx>=0.35.0",
 ]
 dev = [
-  {include-group = "tests"},
-  "codespell==2.4.1",
-  "types-lxml>=2026.2.16",
-  "mypy==1.16.1",
-  "openapi-python-client==0.25.1",
-  "pre-commit>=4.2.0",
-  "pre-commit-uv>=4.1.4",
-  "pylsp-mypy>=0.7.0",
-  "python-lsp-server[rope]>=1.12.2",
-  "reuse==5.0.2",
-  "ruff==0.12.0",
-  "types-python-dateutil>=2.9.0.20250708",
+   {include-group = "tests"},
+   "codespell==2.4.1",
+   "types-lxml>=2026.2.16",
+   "mypy==1.16.1",
+   "openapi-python-client==0.29.0",
+   "pre-commit>=4.2.0",
+   "pre-commit-uv>=4.1.4",
+   "pylsp-mypy>=0.7.0",
+   "python-lsp-server[rope]>=1.12.2",
+   "reuse==5.0.2",
+   "ruff==0.12.0",
+   "types-python-dateutil>=2.9.0.20250708",
 ]
 
 docs = [

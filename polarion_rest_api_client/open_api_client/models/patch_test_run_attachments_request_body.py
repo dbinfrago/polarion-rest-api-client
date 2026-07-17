@@ -1,21 +1,18 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 import json
 from collections.abc import Mapping
 from io import BytesIO
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from .. import types
-from ..types import UNSET, File, Unset
+from ..types import UNSET, File, FileTypes, Unset
 
 if TYPE_CHECKING:
     from ..models.testrun_attachments_single_patch_request import (
@@ -31,11 +28,11 @@ class PatchTestRunAttachmentsRequestBody:
     """
     Attributes:
         resource (TestrunAttachmentsSinglePatchRequest):
-        content (Union[Unset, File]): attachments content
+        content (File | Unset): attachments content
     """
 
-    resource: "TestrunAttachmentsSinglePatchRequest"
-    content: Union[Unset, File] = UNSET
+    resource: TestrunAttachmentsSinglePatchRequest
+    content: File | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
@@ -43,7 +40,7 @@ class PatchTestRunAttachmentsRequestBody:
     def to_dict(self) -> dict[str, Any]:
         resource = self.resource.to_dict()
 
-        content: Union[Unset, types.FileTypes] = UNSET
+        content: FileTypes | Unset = UNSET
         if not isinstance(self.content, Unset):
             content = self.content.to_tuple()
 
@@ -93,7 +90,7 @@ class PatchTestRunAttachmentsRequestBody:
         )
 
         _content = d.pop("content", UNSET)
-        content: Union[Unset, File]
+        content: File | Unset
         if isinstance(_content, Unset):
             content = UNSET
         else:

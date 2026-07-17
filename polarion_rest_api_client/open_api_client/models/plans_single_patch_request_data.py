@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -33,34 +34,32 @@ T = TypeVar("T", bound="PlansSinglePatchRequestData")
 class PlansSinglePatchRequestData:
     """
     Attributes:
-        type_ (Union[Unset, PlansSinglePatchRequestDataType]):
-        id (Union[Unset, str]):  Example: MyProjectId/MyPlanId.
-        attributes (Union[Unset, PlansSinglePatchRequestDataAttributes]):
-        relationships (Union[Unset, PlansSinglePatchRequestDataRelationships]):
+        type_ (PlansSinglePatchRequestDataType | Unset):
+        id (str | Unset):  Example: MyProjectId/MyPlanId.
+        attributes (PlansSinglePatchRequestDataAttributes | Unset):
+        relationships (PlansSinglePatchRequestDataRelationships | Unset):
     """
 
-    type_: Union[Unset, PlansSinglePatchRequestDataType] = UNSET
-    id: Union[Unset, str] = UNSET
-    attributes: Union[Unset, "PlansSinglePatchRequestDataAttributes"] = UNSET
-    relationships: Union[Unset, "PlansSinglePatchRequestDataRelationships"] = (
-        UNSET
-    )
+    type_: PlansSinglePatchRequestDataType | Unset = UNSET
+    id: str | Unset = UNSET
+    attributes: PlansSinglePatchRequestDataAttributes | Unset = UNSET
+    relationships: PlansSinglePatchRequestDataRelationships | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
         id = self.id
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        relationships: Union[Unset, dict[str, Any]] = UNSET
+        relationships: dict[str, Any] | Unset = UNSET
         if not isinstance(self.relationships, Unset):
             relationships = self.relationships.to_dict()
 
@@ -89,7 +88,7 @@ class PlansSinglePatchRequestData:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, PlansSinglePatchRequestDataType]
+        type_: PlansSinglePatchRequestDataType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -98,7 +97,7 @@ class PlansSinglePatchRequestData:
         id = d.pop("id", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[Unset, PlansSinglePatchRequestDataAttributes]
+        attributes: PlansSinglePatchRequestDataAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -107,7 +106,7 @@ class PlansSinglePatchRequestData:
             )
 
         _relationships = d.pop("relationships", UNSET)
-        relationships: Union[Unset, PlansSinglePatchRequestDataRelationships]
+        relationships: PlansSinglePatchRequestDataRelationships | Unset
         if isinstance(_relationships, Unset):
             relationships = UNSET
         else:

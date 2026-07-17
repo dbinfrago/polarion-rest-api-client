@@ -21,6 +21,10 @@ import httpx
 import yaml
 
 error_code_pattern = re.compile("[4,5][0-9]{2}")
+HTTP_4XX_MIN = 400
+HTTP_4XX_MAX = 499
+HTTP_5XX_MIN = 500
+HTTP_5XX_MAX = 599
 script_path = pathlib.Path(os.path.dirname(os.path.realpath(__file__)))
 rest_api_path = script_path.parent / "polarion_rest_api_client"
 template_path = script_path / "custom_templates"
@@ -31,19 +35,16 @@ with open(config_path, encoding="utf-8") as config_file:
     output_path = rest_api_path / config.get("package_name_override", "")
 
 
-def get_and_fix_spec(src: str, path: str | os.PathLike):
-    """Fix errors in the specification."""
+def _load_spec(src: str, path: str | os.PathLike) -> dict:
     if src == "path":
         with open(path) as f:
-            spec = json.load(f)
-    elif src == "url":
-        response = httpx.get(path)
-        spec = response.json()
-    else:
-        raise Exception(
-            "you have to provide a file or url keyword as 1st arg."
-        )
-    spec_paths = spec["paths"]
+            return json.load(f)
+    if src == "url":
+        return httpx.get(path).json()
+    raise Exception("you have to provide a file or url keyword as 1st arg.")
+
+
+def _fix_import_xunit_schema(spec_paths: dict) -> None:
     if (
         octet_schema := spec_paths.get(
             "/projects/{projectId}/testruns/{testRunId}/actions/importXUnitTestResults",
@@ -58,20 +59,47 @@ def get_and_fix_spec(src: str, path: str | os.PathLike):
         octet_schema["type"] = "string"
         octet_schema["format"] = "binary"
 
+
+def _normalize_wildcard_error_responses(spec_paths: dict) -> None:
     for spec_path in spec_paths.values():
         for operation_description in spec_path.values():
-            if (
-                responses := operation_description.get("responses")
-            ) and "4XX-5XX" in responses:
-                for code, resp in responses.items():
-                    if error_code_pattern.fullmatch(code):
-                        resp["content"] = responses["4XX-5XX"]["content"]
-                del responses["4XX-5XX"]
-    schemas = spec["components"]["schemas"]
+            if not isinstance(operation_description, dict):
+                continue
+            responses = operation_description.get("responses")
+            if not responses:
+                continue
+            catchall_4xx_content = (
+                responses["4XX"].get("content") if "4XX" in responses else None
+            )
+            catchall_5xx_content = (
+                responses["5XX"].get("content") if "5XX" in responses else None
+            )
+            if not (catchall_4xx_content or catchall_5xx_content):
+                continue
+            for code, resp in responses.items():
+                if not error_code_pattern.fullmatch(code) or resp.get(
+                    "content"
+                ):
+                    continue
+                code_int = int(code)
+                if (
+                    HTTP_4XX_MIN <= code_int <= HTTP_4XX_MAX
+                    and catchall_4xx_content
+                ):
+                    resp["content"] = catchall_4xx_content
+                elif (
+                    HTTP_5XX_MIN <= code_int <= HTTP_5XX_MAX
+                    and catchall_5xx_content
+                ):
+                    resp["content"] = catchall_5xx_content
+            responses.pop("4XX", None)
+            responses.pop("5XX", None)
 
+
+def _ensure_download_items_schema(schemas: dict, schema_name: str) -> None:
     if (
         (
-            downloads := schemas.get("jobsSingleGetResponse", {})
+            downloads := schemas.get(schema_name, {})
             .get("properties", {})
             .get("data", {})
             .get("properties", {})
@@ -84,21 +112,8 @@ def get_and_fix_spec(src: str, path: str | os.PathLike):
     ):
         downloads["items"] = {"type": "string"}
 
-    if (
-        (
-            downloads := schemas.get("jobsSinglePostResponse", {})
-            .get("properties", {})
-            .get("data", {})
-            .get("properties", {})
-            .get("links", {})
-            .get("properties", {})
-            .get("downloads")
-        )
-        and "items" not in downloads
-        and downloads.get("type") == "array"
-    ):
-        downloads["items"] = {"type": "string"}
 
+def _fix_errors_schema(schemas: dict) -> None:
     if (
         error_source := schemas.get("errors", {})
         .get("properties", {})
@@ -110,7 +125,36 @@ def get_and_fix_spec(src: str, path: str | os.PathLike):
         error_source["nullable"] = True
         if resource := error_source.get("properties", {}).get("resource"):
             resource["nullable"] = True
+
+
+def get_and_fix_spec(src: str, path: str | os.PathLike):
+    """Fix errors in the specification."""
+    spec = _load_spec(src, path)
+    spec_paths = spec["paths"]
+    _fix_import_xunit_schema(spec_paths)
+    _normalize_wildcard_error_responses(spec_paths)
+
+    schemas = spec["components"]["schemas"]
+    _ensure_download_items_schema(schemas, "jobsSingleGetResponse")
+    _ensure_download_items_schema(schemas, "jobsSinglePostResponse")
+    _fix_errors_schema(schemas)
+
     return spec
+
+
+def _patch_generated_types_file() -> None:
+    types_path = output_path / "types.py"
+    if not types_path.exists():
+        return
+
+    content = types_path.read_text(encoding="utf-8")
+    updated_content = content.replace(
+        "from typing import IO, BinaryIO, Generic, Literal, TypeVar",
+        "from typing import IO, BinaryIO, Literal, TypeVar",
+    ).replace("class Response(Generic[T]):", "class Response[T]:")
+
+    if updated_content != content:
+        types_path.write_text(updated_content, encoding="utf-8")
 
 
 def generate_client(spec):
@@ -140,6 +184,7 @@ def generate_client(spec):
             cwd=rest_api_path,
             check=True,
         )
+    _patch_generated_types_file()
     subprocess.run(["git", "add", output_path], check=True, cwd=rest_api_path)
     p = subprocess.run(
         ["pre-commit", "run", "-a"], cwd=rest_api_path, check=False

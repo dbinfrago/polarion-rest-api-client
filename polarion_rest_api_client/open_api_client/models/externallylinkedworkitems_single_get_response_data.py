@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -36,34 +37,28 @@ T = TypeVar("T", bound="ExternallylinkedworkitemsSingleGetResponseData")
 class ExternallylinkedworkitemsSingleGetResponseData:
     """
     Attributes:
-        type_ (Union[Unset, ExternallylinkedworkitemsSingleGetResponseDataType]):
-        id (Union[Unset, str]):  Example: MyProjectId/MyWorkItemId/parent/hostname/MyProjectId/MyLinkedWorkItemId.
-        revision (Union[Unset, str]):  Example: 1234.
-        attributes (Union[Unset, ExternallylinkedworkitemsSingleGetResponseDataAttributes]):
-        links (Union[Unset, ExternallylinkedworkitemsSingleGetResponseDataLinks]):
-        meta (Union[Unset, ExternallylinkedworkitemsSingleGetResponseDataMeta]):
+        type_ (ExternallylinkedworkitemsSingleGetResponseDataType | Unset):
+        id (str | Unset):  Example: MyProjectId/MyWorkItemId/parent/hostname/MyProjectId/MyLinkedWorkItemId.
+        revision (str | Unset):  Example: 1234.
+        attributes (ExternallylinkedworkitemsSingleGetResponseDataAttributes | Unset):
+        links (ExternallylinkedworkitemsSingleGetResponseDataLinks | Unset):
+        meta (ExternallylinkedworkitemsSingleGetResponseDataMeta | Unset):
     """
 
-    type_: Union[Unset, ExternallylinkedworkitemsSingleGetResponseDataType] = (
-        UNSET
-    )
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    attributes: Union[
-        Unset, "ExternallylinkedworkitemsSingleGetResponseDataAttributes"
-    ] = UNSET
-    links: Union[
-        Unset, "ExternallylinkedworkitemsSingleGetResponseDataLinks"
-    ] = UNSET
-    meta: Union[
-        Unset, "ExternallylinkedworkitemsSingleGetResponseDataMeta"
-    ] = UNSET
+    type_: ExternallylinkedworkitemsSingleGetResponseDataType | Unset = UNSET
+    id: str | Unset = UNSET
+    revision: str | Unset = UNSET
+    attributes: (
+        ExternallylinkedworkitemsSingleGetResponseDataAttributes | Unset
+    ) = UNSET
+    links: ExternallylinkedworkitemsSingleGetResponseDataLinks | Unset = UNSET
+    meta: ExternallylinkedworkitemsSingleGetResponseDataMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -71,15 +66,15 @@ class ExternallylinkedworkitemsSingleGetResponseData:
 
         revision = self.revision
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -115,7 +110,7 @@ class ExternallylinkedworkitemsSingleGetResponseData:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, ExternallylinkedworkitemsSingleGetResponseDataType]
+        type_: ExternallylinkedworkitemsSingleGetResponseDataType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -126,9 +121,9 @@ class ExternallylinkedworkitemsSingleGetResponseData:
         revision = d.pop("revision", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[
-            Unset, ExternallylinkedworkitemsSingleGetResponseDataAttributes
-        ]
+        attributes: (
+            ExternallylinkedworkitemsSingleGetResponseDataAttributes | Unset
+        )
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -137,9 +132,7 @@ class ExternallylinkedworkitemsSingleGetResponseData:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[
-            Unset, ExternallylinkedworkitemsSingleGetResponseDataLinks
-        ]
+        links: ExternallylinkedworkitemsSingleGetResponseDataLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
@@ -150,7 +143,7 @@ class ExternallylinkedworkitemsSingleGetResponseData:
             )
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, ExternallylinkedworkitemsSingleGetResponseDataMeta]
+        meta: ExternallylinkedworkitemsSingleGetResponseDataMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -39,32 +40,30 @@ T = TypeVar("T", bound="DocumentPartsListGetResponseDataItem")
 class DocumentPartsListGetResponseDataItem:
     """
     Attributes:
-        type_ (Union[Unset, DocumentPartsListGetResponseDataItemType]):
-        id (Union[Unset, str]):  Example: MyProjectId/MySpaceId/MyDocumentId/workitem_MyWorkItemId.
-        revision (Union[Unset, str]):  Example: 1234.
-        attributes (Union[Unset, DocumentPartsListGetResponseDataItemAttributes]):
-        relationships (Union[Unset, DocumentPartsListGetResponseDataItemRelationships]):
-        links (Union[Unset, DocumentPartsListGetResponseDataItemLinks]):
-        meta (Union[Unset, DocumentPartsListGetResponseDataItemMeta]):
+        type_ (DocumentPartsListGetResponseDataItemType | Unset):
+        id (str | Unset):  Example: MyProjectId/MySpaceId/MyDocumentId/workitem_MyWorkItemId.
+        revision (str | Unset):  Example: 1234.
+        attributes (DocumentPartsListGetResponseDataItemAttributes | Unset):
+        relationships (DocumentPartsListGetResponseDataItemRelationships | Unset):
+        links (DocumentPartsListGetResponseDataItemLinks | Unset):
+        meta (DocumentPartsListGetResponseDataItemMeta | Unset):
     """
 
-    type_: Union[Unset, DocumentPartsListGetResponseDataItemType] = UNSET
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    attributes: Union[
-        Unset, "DocumentPartsListGetResponseDataItemAttributes"
-    ] = UNSET
-    relationships: Union[
-        Unset, "DocumentPartsListGetResponseDataItemRelationships"
-    ] = UNSET
-    links: Union[Unset, "DocumentPartsListGetResponseDataItemLinks"] = UNSET
-    meta: Union[Unset, "DocumentPartsListGetResponseDataItemMeta"] = UNSET
+    type_: DocumentPartsListGetResponseDataItemType | Unset = UNSET
+    id: str | Unset = UNSET
+    revision: str | Unset = UNSET
+    attributes: DocumentPartsListGetResponseDataItemAttributes | Unset = UNSET
+    relationships: (
+        DocumentPartsListGetResponseDataItemRelationships | Unset
+    ) = UNSET
+    links: DocumentPartsListGetResponseDataItemLinks | Unset = UNSET
+    meta: DocumentPartsListGetResponseDataItemMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -72,19 +71,19 @@ class DocumentPartsListGetResponseDataItem:
 
         revision = self.revision
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        relationships: Union[Unset, dict[str, Any]] = UNSET
+        relationships: dict[str, Any] | Unset = UNSET
         if not isinstance(self.relationships, Unset):
             relationships = self.relationships.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -125,7 +124,7 @@ class DocumentPartsListGetResponseDataItem:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, DocumentPartsListGetResponseDataItemType]
+        type_: DocumentPartsListGetResponseDataItemType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -136,9 +135,7 @@ class DocumentPartsListGetResponseDataItem:
         revision = d.pop("revision", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[
-            Unset, DocumentPartsListGetResponseDataItemAttributes
-        ]
+        attributes: DocumentPartsListGetResponseDataItemAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -149,9 +146,9 @@ class DocumentPartsListGetResponseDataItem:
             )
 
         _relationships = d.pop("relationships", UNSET)
-        relationships: Union[
-            Unset, DocumentPartsListGetResponseDataItemRelationships
-        ]
+        relationships: (
+            DocumentPartsListGetResponseDataItemRelationships | Unset
+        )
         if isinstance(_relationships, Unset):
             relationships = UNSET
         else:
@@ -162,14 +159,14 @@ class DocumentPartsListGetResponseDataItem:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, DocumentPartsListGetResponseDataItemLinks]
+        links: DocumentPartsListGetResponseDataItemLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
             links = DocumentPartsListGetResponseDataItemLinks.from_dict(_links)
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, DocumentPartsListGetResponseDataItemMeta]
+        meta: DocumentPartsListGetResponseDataItemMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -39,32 +40,32 @@ T = TypeVar("T", bound="WorkitemApprovalsSingleGetResponseData")
 class WorkitemApprovalsSingleGetResponseData:
     """
     Attributes:
-        type_ (Union[Unset, WorkitemApprovalsSingleGetResponseDataType]):
-        id (Union[Unset, str]):  Example: MyProjectId/MyWorkItemId/MyUserId.
-        revision (Union[Unset, str]):  Example: 1234.
-        attributes (Union[Unset, WorkitemApprovalsSingleGetResponseDataAttributes]):
-        relationships (Union[Unset, WorkitemApprovalsSingleGetResponseDataRelationships]):
-        links (Union[Unset, WorkitemApprovalsSingleGetResponseDataLinks]):
-        meta (Union[Unset, WorkitemApprovalsSingleGetResponseDataMeta]):
+        type_ (WorkitemApprovalsSingleGetResponseDataType | Unset):
+        id (str | Unset):  Example: MyProjectId/MyWorkItemId/MyUserId.
+        revision (str | Unset):  Example: 1234.
+        attributes (WorkitemApprovalsSingleGetResponseDataAttributes | Unset):
+        relationships (WorkitemApprovalsSingleGetResponseDataRelationships | Unset):
+        links (WorkitemApprovalsSingleGetResponseDataLinks | Unset):
+        meta (WorkitemApprovalsSingleGetResponseDataMeta | Unset):
     """
 
-    type_: Union[Unset, WorkitemApprovalsSingleGetResponseDataType] = UNSET
-    id: Union[Unset, str] = UNSET
-    revision: Union[Unset, str] = UNSET
-    attributes: Union[
-        Unset, "WorkitemApprovalsSingleGetResponseDataAttributes"
-    ] = UNSET
-    relationships: Union[
-        Unset, "WorkitemApprovalsSingleGetResponseDataRelationships"
-    ] = UNSET
-    links: Union[Unset, "WorkitemApprovalsSingleGetResponseDataLinks"] = UNSET
-    meta: Union[Unset, "WorkitemApprovalsSingleGetResponseDataMeta"] = UNSET
+    type_: WorkitemApprovalsSingleGetResponseDataType | Unset = UNSET
+    id: str | Unset = UNSET
+    revision: str | Unset = UNSET
+    attributes: WorkitemApprovalsSingleGetResponseDataAttributes | Unset = (
+        UNSET
+    )
+    relationships: (
+        WorkitemApprovalsSingleGetResponseDataRelationships | Unset
+    ) = UNSET
+    links: WorkitemApprovalsSingleGetResponseDataLinks | Unset = UNSET
+    meta: WorkitemApprovalsSingleGetResponseDataMeta | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -72,19 +73,19 @@ class WorkitemApprovalsSingleGetResponseData:
 
         revision = self.revision
 
-        attributes: Union[Unset, dict[str, Any]] = UNSET
+        attributes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
 
-        relationships: Union[Unset, dict[str, Any]] = UNSET
+        relationships: dict[str, Any] | Unset = UNSET
         if not isinstance(self.relationships, Unset):
             relationships = self.relationships.to_dict()
 
-        links: Union[Unset, dict[str, Any]] = UNSET
+        links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.links, Unset):
             links = self.links.to_dict()
 
-        meta: Union[Unset, dict[str, Any]] = UNSET
+        meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
 
@@ -125,7 +126,7 @@ class WorkitemApprovalsSingleGetResponseData:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, WorkitemApprovalsSingleGetResponseDataType]
+        type_: WorkitemApprovalsSingleGetResponseDataType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -136,9 +137,7 @@ class WorkitemApprovalsSingleGetResponseData:
         revision = d.pop("revision", UNSET)
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[
-            Unset, WorkitemApprovalsSingleGetResponseDataAttributes
-        ]
+        attributes: WorkitemApprovalsSingleGetResponseDataAttributes | Unset
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
@@ -149,9 +148,9 @@ class WorkitemApprovalsSingleGetResponseData:
             )
 
         _relationships = d.pop("relationships", UNSET)
-        relationships: Union[
-            Unset, WorkitemApprovalsSingleGetResponseDataRelationships
-        ]
+        relationships: (
+            WorkitemApprovalsSingleGetResponseDataRelationships | Unset
+        )
         if isinstance(_relationships, Unset):
             relationships = UNSET
         else:
@@ -162,7 +161,7 @@ class WorkitemApprovalsSingleGetResponseData:
             )
 
         _links = d.pop("links", UNSET)
-        links: Union[Unset, WorkitemApprovalsSingleGetResponseDataLinks]
+        links: WorkitemApprovalsSingleGetResponseDataLinks | Unset
         if isinstance(_links, Unset):
             links = UNSET
         else:
@@ -171,7 +170,7 @@ class WorkitemApprovalsSingleGetResponseData:
             )
 
         _meta = d.pop("meta", UNSET)
-        meta: Union[Unset, WorkitemApprovalsSingleGetResponseDataMeta]
+        meta: WorkitemApprovalsSingleGetResponseDataMeta | Unset
         if isinstance(_meta, Unset):
             meta = UNSET
         else:

@@ -148,9 +148,6 @@ To update the auto generated part of the code, execute the `open_api_client_buil
 arg and the path to the OpenAPI-Specification as second arg from the project root directory. The publicly available [specification](https://developer.siemens.com/polarion/polarion-rest-apispec.json)
 from the Polarion developer Portal was used.
 
-Please note that as of Polarion 24.10 there is a mistake in the specification. In the relationships of a work items the type of approvals
-has to be "workrecords" according to the specification, but in fact it is "workitem_approvals". For that reason we added a fixed version of
-the specification to this repository and the issue will be reported to SIEMENS.
 
 # Contributing
 

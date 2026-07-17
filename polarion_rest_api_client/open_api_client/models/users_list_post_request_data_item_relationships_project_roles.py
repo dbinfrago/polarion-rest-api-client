@@ -1,12 +1,13 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -27,19 +28,19 @@ T = TypeVar("T", bound="UsersListPostRequestDataItemRelationshipsProjectRoles")
 class UsersListPostRequestDataItemRelationshipsProjectRoles:
     """
     Attributes:
-        data (Union[Unset, list['UsersListPostRequestDataItemRelationshipsProjectRolesDataItem']]):
+        data (list[UsersListPostRequestDataItemRelationshipsProjectRolesDataItem] | Unset):
     """
 
-    data: Union[
-        Unset,
-        list["UsersListPostRequestDataItemRelationshipsProjectRolesDataItem"],
-    ] = UNSET
+    data: (
+        list[UsersListPostRequestDataItemRelationshipsProjectRolesDataItem]
+        | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(
         init=False, factory=dict
     )
 
     def to_dict(self) -> dict[str, Any]:
-        data: Union[Unset, list[dict[str, Any]]] = UNSET
+        data: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.data, Unset):
             data = []
             for data_item_data in self.data:
@@ -61,14 +62,19 @@ class UsersListPostRequestDataItemRelationshipsProjectRoles:
         )
 
         d = dict(src_dict)
-        data = []
         _data = d.pop("data", UNSET)
-        for data_item_data in _data or []:
-            data_item = UsersListPostRequestDataItemRelationshipsProjectRolesDataItem.from_dict(
-                data_item_data
-            )
+        data: (
+            list[UsersListPostRequestDataItemRelationshipsProjectRolesDataItem]
+            | Unset
+        ) = UNSET
+        if _data is not UNSET:
+            data = []
+            for data_item_data in _data:
+                data_item = UsersListPostRequestDataItemRelationshipsProjectRolesDataItem.from_dict(
+                    data_item_data
+                )
 
-            data.append(data_item)
+                data.append(data_item)
 
         users_list_post_request_data_item_relationships_project_roles_obj = (
             cls(
