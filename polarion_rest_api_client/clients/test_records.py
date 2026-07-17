@@ -143,7 +143,11 @@ class TestRecords(
         return self._parse_get_response(response, test_run_id)
 
     def _parse_get_response(
-        self, response: oa_types.Response, test_run_id: str
+        self,
+        response: oa_types.Response[
+            api_models.TestrecordsListGetResponse | api_models.Errors
+        ],
+        test_run_id: str,
     ) -> tuple[list[dm.TestRecord], bool]:
         self._raise_on_error(response)
         parsed_response = response.parsed
@@ -231,7 +235,11 @@ class TestRecords(
         self._parse_post_response(items, response)
 
     def _parse_post_response(
-        self, items: list[dm.TestRecord], response: oa_types.Response
+        self,
+        items: list[dm.TestRecord],
+        response: oa_types.Response[
+            api_models.TestrecordsListPostResponse | api_models.Errors
+        ],
     ) -> None:
         self._raise_on_error(response)
         assert isinstance(

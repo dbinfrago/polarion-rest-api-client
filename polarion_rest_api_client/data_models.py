@@ -396,7 +396,7 @@ class TestStep:
     )
 
 
-class TextContent(dict):
+class TextContent(dict[str, str | None]):
     """A data class for text content in Polarion."""
 
     def __init__(self, type: str | None, value: str | None):
@@ -405,7 +405,8 @@ class TextContent(dict):
     @property
     def type(self) -> str | None:
         """Return type of the TextContent."""
-        return self["type"]
+        val = self.get("type")
+        return val if isinstance(val, str | None) else None
 
     @type.setter
     def type(self, type: str) -> None:
@@ -414,7 +415,8 @@ class TextContent(dict):
     @property
     def value(self) -> str | None:
         """Return value of the TextContent."""
-        return self["value"]
+        val = self.get("value")
+        return val if isinstance(val, str | None) else None
 
     @value.setter
     def value(self, value: str) -> None:

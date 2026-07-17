@@ -90,7 +90,10 @@ class TestSteps(
         return self._parse_get_response(response)
 
     def _parse_get_response(
-        self, response: oa_types.Response
+        self,
+        response: oa_types.Response[
+            api_models.TeststepsListGetResponse | api_models.Errors
+        ],
     ) -> tuple[list[dm.TestStep], bool]:
         self._raise_on_error(response)
         parsed_response = response.parsed
@@ -158,7 +161,9 @@ class TestSteps(
     def _process_post_response(
         self,
         items: list[dm.TestStep],
-        response: oa_types.Response,
+        response: oa_types.Response[
+            api_models.TeststepsListPostResponse | api_models.Errors
+        ],
     ) -> None:
         self._raise_on_error(response)
         parsed_response = response.parsed

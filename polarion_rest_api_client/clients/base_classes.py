@@ -134,7 +134,7 @@ class BaseClient[T]:
             return oa_types.UNSET
         return value
 
-    def _raise_on_error(self, response: oa_types.Response) -> None:
+    def _raise_on_error(self, response: oa_types.Response[t.Any]) -> None:
         """Raise a PolarionApiBaseException, if the response has errors."""
 
         def unexpected_error() -> errors.PolarionApiUnexpectedException:

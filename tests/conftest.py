@@ -182,6 +182,13 @@ TEST_DOCUMENT_RESPONSE = TEST_RESPONSES / "get_document.json"
 TEST_DOCUMENT_POST_REQUEST = TEST_REQUESTS / "create_document.json"
 TEST_DOCUMENT_PATCH_REQUEST = TEST_REQUESTS / "update_document.json"
 TEST_DOCUMENT_PATCH_REQUEST2 = TEST_REQUESTS / "update_document_2.json"
+TEST_DOCUMENTS_NO_NEXT_RESPONSE = (
+    TEST_RESPONSES / "get_documents_no_next_page.json"
+)
+TEST_DOCUMENTS_NEXT_RESPONSE = TEST_RESPONSES / "get_documents_next_page.json"
+TEST_DOCUMENTS_SPACE_NO_NEXT_RESPONSE = (
+    TEST_RESPONSES / "get_documents_space_no_next_page.json"
+)
 TEST_ERROR_RESPONSE = TEST_RESPONSES / "error.json"
 TEST_FAULTS_ERROR_RESPONSES = TEST_RESPONSES / "faulty_errors.json"
 TEST_PROJECT_RESPONSE_JSON = TEST_RESPONSES / "project.json"

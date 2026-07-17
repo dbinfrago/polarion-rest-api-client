@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "type": "documents",
+      "id": "PROJ/MySpaceId/ProjectDocument",
+      "attributes": {
+        "moduleFolder": "MySpaceId",
+        "moduleName": "ProjectDocument",
+        "status": "open",
+        "title": "ProjectDocument",
+        "type": "standardSpecification"
+      },
+      "links": {
+        "self": "server-host-name/application-path/projects/PROJ/spaces/MySpaceId/documents/ProjectDocument"
+      },
+      "meta": {}
+    }
+  ],
+  "links": {
+    "self": "server-host-name/application-path/projects/PROJ/documents?page%5Bnumber%5D=1&page%5Bsize%5D=100"
+  }
+}
