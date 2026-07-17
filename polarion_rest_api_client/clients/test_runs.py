@@ -145,7 +145,10 @@ class TestRuns(
         return self._parse_get_response(response)
 
     def _parse_get_response(
-        self, response: oa_types.Response
+        self,
+        response: oa_types.Response[
+            api_models.TestrunsListGetResponse | api_models.Errors
+        ],
     ) -> tuple[list[dm.TestRun], bool]:
         self._raise_on_error(response)
         parsed_response = response.parsed
@@ -208,7 +211,11 @@ class TestRuns(
         self._process_create_reponse(items, response)
 
     def _process_create_reponse(
-        self, items: list[dm.TestRun], response: oa_types.Response
+        self,
+        items: list[dm.TestRun],
+        response: oa_types.Response[
+            api_models.TestrunsListPostResponse | api_models.Errors
+        ],
     ) -> None:
         self._raise_on_error(response)
         parsed_response = response.parsed

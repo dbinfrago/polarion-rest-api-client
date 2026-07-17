@@ -14,6 +14,9 @@ from tests.conftest import (
     TEST_DOCUMENT_PATCH_REQUEST2,
     TEST_DOCUMENT_POST_REQUEST,
     TEST_DOCUMENT_RESPONSE,
+    TEST_DOCUMENTS_NEXT_RESPONSE,
+    TEST_DOCUMENTS_NO_NEXT_RESPONSE,
+    TEST_DOCUMENTS_SPACE_NO_NEXT_RESPONSE,
 )
 
 
@@ -66,6 +69,97 @@ def test_get_document_with_all_fields(
         },
         structure_link_role="parent",
     )
+
+
+def test_get_documents_for_project(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_DOCUMENTS_NO_NEXT_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    documents, next_page = client.documents.get_multi(
+        fields={"documents": "@basic"}
+    )
+
+    req = httpx_mock.get_request()
+    assert req is not None
+    assert req.method == "GET"
+    assert str(req.url.path) == "/api/projects/PROJ/documents"
+    assert dict(req.url.params) == {
+        "page[size]": "100",
+        "page[number]": "1",
+        "fields[documents]": "@basic",
+    }
+    assert next_page is False
+    assert documents == [
+        data_models.Document(
+            id="PROJ/MySpaceId/ProjectDocument",
+            module_folder="MySpaceId",
+            module_name="ProjectDocument",
+            type="standardSpecification",
+            status="open",
+            title="ProjectDocument",
+        )
+    ]
+
+
+def test_get_documents_for_space(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_DOCUMENTS_SPACE_NO_NEXT_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    documents, next_page = client.documents.get_multi(
+        space_id="Space_A",
+        include="author",
+        sort="title",
+        fields={"documents": "@basic"},
+    )
+
+    req = httpx_mock.get_request()
+    assert req is not None
+    assert req.method == "GET"
+    assert str(req.url.path) == "/api/projects/PROJ/spaces/Space_A/documents"
+    assert dict(req.url.params) == {
+        "page[size]": "100",
+        "page[number]": "1",
+        "fields[documents]": "@basic",
+        "include": "author",
+        "sort": "title",
+    }
+    assert next_page is False
+    assert documents == [
+        data_models.Document(
+            id="PROJ/Space_A/SpaceDocument",
+            module_folder="Space_A",
+            module_name="SpaceDocument",
+            type="standardSpecification",
+            status="open",
+            title="SpaceDocument",
+        )
+    ]
+
+
+def test_get_all_documents_for_project(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_DOCUMENTS_NEXT_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+    with open(TEST_DOCUMENTS_NO_NEXT_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    documents = client.documents.get_all(fields={"documents": "@basic"})
+
+    reqs = httpx_mock.get_requests()
+    assert len(reqs) == 2
+    assert str(reqs[0].url.path) == "/api/projects/PROJ/documents"
+    assert str(reqs[1].url.path) == "/api/projects/PROJ/documents"
+    assert dict(reqs[0].url.params)["page[number]"] == "1"
+    assert dict(reqs[1].url.params)["page[number]"] == "2"
+    assert len(documents) == 2
 
 
 def test_create_new_document(

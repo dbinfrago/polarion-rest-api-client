@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "type": "documents",
+      "id": "PROJ/Space_A/SpaceDocument",
+      "attributes": {
+        "moduleFolder": "Space_A",
+        "moduleName": "SpaceDocument",
+        "status": "open",
+        "title": "SpaceDocument",
+        "type": "standardSpecification"
+      },
+      "links": {
+        "self": "server-host-name/application-path/projects/PROJ/spaces/Space_A/documents/SpaceDocument"
+      },
+      "meta": {}
+    }
+  ],
+  "links": {
+    "self": "server-host-name/application-path/projects/PROJ/spaces/Space_A/documents?page%5Bnumber%5D=1&page%5Bsize%5D=100"
+  }
+}
