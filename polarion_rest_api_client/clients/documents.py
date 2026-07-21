@@ -99,49 +99,76 @@ class Documents(
             assert data.attributes
             attributes = data.attributes
             assert isinstance(data.id, str)
-            home_page_content = self._handle_text_content(
-                attributes.home_page_content
-            )
-
-            rendering_layouts = None
-            if attributes.rendering_layouts:
-                rendering_layouts = [
-                    dm.RenderingLayout(
-                        self.unset_to_none(layout.label),
-                        self.unset_to_none(layout.layouter),
-                        (
-                            [p.to_dict() for p in layout.properties]
-                            if layout.properties
-                            else None
-                        ),
-                        self.unset_to_none(layout.type_),
-                    )
-                    for layout in attributes.rendering_layouts
-                ]
-
-            return dm.Document(
-                id=data.id,
-                module_folder=self.unset_to_none(attributes.module_folder),
-                module_name=self.unset_to_none(attributes.module_name),
-                type=self.unset_to_none(attributes.type_),
-                status=self.unset_to_none(attributes.status),
-                home_page_content=home_page_content,
-                title=self.unset_to_none(attributes.title),
-                rendering_layouts=rendering_layouts,
-                outline_numbering=self.unset_to_none(
-                    attributes.uses_outline_numbering
-                ),
-                outline_numbering_prefix=(
-                    self.unset_to_none(attributes.outline_numbering.prefix)
-                    if attributes.outline_numbering
-                    else None
-                ),
-                additional_properties=attributes.additional_properties or {},
-                structure_link_role=self.unset_to_none(
-                    attributes.structure_link_role
-                ),
+            return self._document_from_response_attributes(
+                data.id, attributes
             )
         return None
+
+    def _document_from_response_attributes(
+        self,
+        document_id: str | None,
+        attributes: t.Any,
+        module_folder: str | None = None,
+        module_name: str | None = None,
+    ) -> dm.Document:
+        home_page_content = self._handle_text_content(
+            getattr(attributes, "home_page_content", oa_types.UNSET)
+        )
+
+        rendering_layouts = None
+        layouts = getattr(attributes, "rendering_layouts", oa_types.UNSET)
+        if not isinstance(layouts, oa_types.Unset) and layouts:
+            rendering_layouts = [
+                dm.RenderingLayout(
+                    self.unset_to_none(layout.label),
+                    self.unset_to_none(layout.layouter),
+                    (
+                        [p.to_dict() for p in layout.properties]
+                        if layout.properties
+                        else None
+                    ),
+                    self.unset_to_none(layout.type_),
+                )
+                for layout in layouts
+            ]
+
+        outline_numbering = getattr(
+            attributes, "outline_numbering", oa_types.UNSET
+        )
+        return dm.Document(
+            id=document_id,
+            module_folder=self.unset_to_none(
+                getattr(attributes, "module_folder", oa_types.UNSET)
+            )
+            or module_folder,
+            module_name=self.unset_to_none(
+                getattr(attributes, "module_name", oa_types.UNSET)
+            )
+            or module_name,
+            type=self.unset_to_none(
+                getattr(attributes, "type_", oa_types.UNSET)
+            ),
+            status=self.unset_to_none(
+                getattr(attributes, "status", oa_types.UNSET)
+            ),
+            home_page_content=home_page_content,
+            title=self.unset_to_none(
+                getattr(attributes, "title", oa_types.UNSET)
+            ),
+            rendering_layouts=rendering_layouts,
+            outline_numbering=self.unset_to_none(
+                getattr(attributes, "uses_outline_numbering", oa_types.UNSET)
+            ),
+            outline_numbering_prefix=(
+                self.unset_to_none(outline_numbering.prefix)
+                if outline_numbering
+                else None
+            ),
+            structure_link_role=self.unset_to_none(
+                getattr(attributes, "structure_link_role", oa_types.UNSET)
+            ),
+            additional_properties=attributes.additional_properties or {},
+        )
 
     def _pre_batching_grouping(
         self, items: list[dm.Document]
@@ -412,45 +439,11 @@ class Documents(
                     else None
                 )
                 if attributes:
-                    home_page_content = None
-                    if not isinstance(
-                        attributes.home_page_content, oa_types.Unset
-                    ):
-                        home_page_content = dm.TextContent(
-                            type=self.unset_to_none(
-                                attributes.home_page_content.type_
-                            ),
-                            value=self.unset_to_none(
-                                attributes.home_page_content.value
-                            ),
-                        )
-
-                    return dm.Document(
-                        id=document_id,
-                        module_folder=self.unset_to_none(
-                            attributes.module_folder
-                        )
-                        or module_folder,
-                        module_name=module_name,
-                        type=self.unset_to_none(attributes.type_),
-                        status=self.unset_to_none(attributes.status),
-                        home_page_content=home_page_content,
-                        title=self.unset_to_none(attributes.title),
-                        outline_numbering=self.unset_to_none(
-                            attributes.uses_outline_numbering
-                        ),
-                        outline_numbering_prefix=(
-                            self.unset_to_none(
-                                attributes.outline_numbering.prefix
-                            )
-                            if not isinstance(
-                                attributes.outline_numbering, oa_types.Unset
-                            )
-                            else None
-                        ),
-                        additional_properties=(
-                            attributes.additional_properties or {}
-                        ),
+                    return self._document_from_response_attributes(
+                        document_id,
+                        attributes,
+                        module_folder,
+                        module_name,
                     )
 
                 return dm.Document(
