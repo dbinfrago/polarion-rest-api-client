@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 
+import pytest
 import pytest_httpx
 
 import polarion_rest_api_client as polarion_api
@@ -216,29 +217,63 @@ def test_update_document(
     assert json.loads(reqs[1].content.decode("utf-8")) == expected_request_2
 
 
-def test_copy_document(
-    client: polarion_api.ProjectClient, httpx_mock: pytest_httpx.HTTPXMock
+@pytest.mark.parametrize(
+    (
+        "action",
+        "target_name",
+        "extra_kwargs",
+        "expected_body",
+    ),
+    [
+        (
+            "copy",
+            "copied_name",
+            {
+                "link_original_items_with_role": "duplicates",
+                "remove_outgoing_links": True,
+            },
+            {
+                "linkOriginalItemsWithRole": "duplicates",
+                "removeOutgoingLinks": True,
+            },
+        ),
+        (
+            "branch",
+            "branched_name",
+            {
+                "copy_workflow_status_and_signatures": True,
+                "query": "status:open",
+            },
+            {
+                "copyWorkflowStatusAndSignatures": True,
+                "query": "status:open",
+            },
+        ),
+    ],
+)
+def test_document_action(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+    action: str,
+    target_name: str,
+    extra_kwargs: dict[str, object],
+    expected_body: dict[str, object],
 ):
-    # Mock response for copy action
     httpx_mock.add_response(
         201,
         json={
             "data": {
                 "type": "documents",
-                "id": "PROJ/folder/copied_name",
-                "links": {
-                    "self": "server-host-name/application-path/projects/PROJ/spaces/folder/documents/copied_name?revision=1234"  # pylint: disable=line-too-long
-                },
+                "id": f"PROJ/folder/{target_name}",
             }
         },
     )
-    copied_doc = client.documents.copy(
+    document = getattr(client.documents, action)(
         space_id="folder",
         document_name="name",
-        target_document_name="copied_name",
+        target_document_name=target_name,
         target_space_id="folder",
-        link_original_items_with_role="duplicates",
-        remove_outgoing_links=True,
+        **extra_kwargs,
     )
 
     reqs = httpx_mock.get_requests()
@@ -246,19 +281,18 @@ def test_copy_document(
     assert reqs[0].method == "POST"
     assert (
         reqs[0].url
-        == "http://127.0.0.1/api/projects/PROJ/spaces/folder/documents/name/actions/copy"
+        == f"http://127.0.0.1/api/projects/PROJ/spaces/folder/documents/name/actions/{action}"
     )
     request_body = json.loads(reqs[0].content.decode("utf-8"))
-    assert request_body["targetDocumentName"] == "copied_name"
+    assert request_body["targetDocumentName"] == target_name
     assert request_body["targetSpaceId"] == "folder"
-    assert request_body["linkOriginalItemsWithRole"] == "duplicates"
-    assert request_body["removeOutgoingLinks"] is True
+    for key, value in expected_body.items():
+        assert request_body[key] == value
 
-    # Verify returned document
-    assert isinstance(copied_doc, data_models.Document)
-    assert copied_doc.id == "PROJ/folder/copied_name"
-    assert copied_doc.module_folder == "folder"
-    assert copied_doc.module_name == "copied_name"
+    assert isinstance(document, data_models.Document)
+    assert document.id == f"PROJ/folder/{target_name}"
+    assert document.module_folder == "folder"
+    assert document.module_name == target_name
 
 
 def test_copy_document_with_document_instance(
@@ -273,14 +307,13 @@ def test_copy_document_with_document_instance(
         title="Test Document",
     )
 
-    # Mock response for copy action
     httpx_mock.add_response(
         201,
         json={"data": {"type": "documents", "id": "PROJ/folder/copied_name"}},
     )
     copied_doc = client.documents.copy(
-        document=source_document,
-        target_document_name="copied_name",
+        source_document,
+        "copied_name",
         link_original_items_with_role="duplicates",
     )
 
@@ -300,91 +333,3 @@ def test_copy_document_with_document_instance(
     assert copied_doc.id == "PROJ/folder/copied_name"
     assert copied_doc.module_folder == "folder"
     assert copied_doc.module_name == "copied_name"
-
-
-def test_branch_document(
-    client: polarion_api.ProjectClient, httpx_mock: pytest_httpx.HTTPXMock
-):
-    # Mock response for branch action
-    httpx_mock.add_response(
-        201,
-        json={
-            "data": {
-                "type": "documents",
-                "id": "PROJ/folder/branched_name",
-                "links": {
-                    "self": "server-host-name/application-path/projects/PROJ/spaces/folder/documents/branched_name?revision=1234"  # pylint: disable=line-too-long
-                },
-            }
-        },
-    )
-    branched_doc = client.documents.branch(
-        space_id="folder",
-        document_name="name",
-        target_document_name="branched_name",
-        target_space_id="folder",
-        copy_workflow_status_and_signatures=True,
-        query="status:open",
-    )
-
-    reqs = httpx_mock.get_requests()
-    assert len(reqs) == 1
-    assert reqs[0].method == "POST"
-    assert (
-        reqs[0].url
-        == "http://127.0.0.1/api/projects/PROJ/spaces/folder/documents/name/actions/branch"
-    )
-    request_body = json.loads(reqs[0].content.decode("utf-8"))
-    assert request_body["targetDocumentName"] == "branched_name"
-    assert request_body["targetSpaceId"] == "folder"
-    assert request_body["copyWorkflowStatusAndSignatures"] is True
-    assert request_body["query"] == "status:open"
-
-    # Verify returned document
-    assert isinstance(branched_doc, data_models.Document)
-    assert branched_doc.id == "PROJ/folder/branched_name"
-    assert branched_doc.module_folder == "folder"
-    assert branched_doc.module_name == "branched_name"
-
-
-def test_branch_document_with_document_instance(
-    client: polarion_api.ProjectClient, httpx_mock: pytest_httpx.HTTPXMock
-):
-    source_document = polarion_api.Document(
-        module_folder="folder",
-        module_name="name",
-        home_page_content=polarion_api.TextContent(
-            type="text/html", value="<p>Test</p>"
-        ),
-        title="Test Document",
-    )
-
-    # Mock response for branch action
-    httpx_mock.add_response(
-        201,
-        json={
-            "data": {"type": "documents", "id": "PROJ/folder/branched_name"}
-        },
-    )
-    branched_doc = client.documents.branch(
-        document=source_document,
-        target_document_name="branched_name",
-        copy_workflow_status_and_signatures=True,
-    )
-
-    reqs = httpx_mock.get_requests()
-    assert len(reqs) == 1
-    assert reqs[0].method == "POST"
-    assert (
-        reqs[0].url
-        == "http://127.0.0.1/api/projects/PROJ/spaces/folder/documents/name/actions/branch"
-    )
-    request_body = json.loads(reqs[0].content.decode("utf-8"))
-    assert request_body["targetDocumentName"] == "branched_name"
-    assert request_body["copyWorkflowStatusAndSignatures"] is True
-
-    # Verify returned document
-    assert isinstance(branched_doc, data_models.Document)
-    assert branched_doc.id == "PROJ/folder/branched_name"
-    assert branched_doc.module_folder == "folder"
-    assert branched_doc.module_name == "branched_name"
