@@ -99,9 +99,7 @@ class Documents(
             assert data.attributes
             attributes = data.attributes
             assert isinstance(data.id, str)
-            return self._document_from_response_attributes(
-                data.id, attributes
-            )
+            return self._document_from_response_attributes(data.id, attributes)
         return None
 
     def _document_from_response_attributes(
@@ -458,6 +456,76 @@ class Documents(
             module_name=target_document_name,
         )
 
+    def _post_document_action(
+        self,
+        action_api: t.Any,
+        body_cls: t.Any,
+        space_id: str | dm.Document | None,
+        document_name: str | None,
+        target_document_name: str | None,
+        target_space_id: str | None,
+        revision: str | None | oa_types.Unset,
+        document: dm.Document | None,
+        **body_kwargs: t.Any,
+    ) -> dm.Document:
+        source_space_id, source_document_name, target_doc_name = (
+            self._resolve_source_and_target(
+                space_id, document_name, target_document_name, document
+            )
+        )
+        response = action_api.sync_detailed(
+            self._project_id,
+            self._url_quote(source_space_id),
+            self._url_quote(source_document_name),
+            client=self._client.client,
+            body=body_cls(
+                target_document_name=target_doc_name,
+                target_space_id=target_space_id or oa_types.UNSET,
+                **body_kwargs,
+            ),
+            revision=self.none_to_unset(revision),
+        )
+
+        self._raise_on_error(response)
+        return self._parse_post_response_to_document(
+            response, target_space_id or source_space_id, target_doc_name
+        )
+
+    async def _async_post_document_action(
+        self,
+        action_api: t.Any,
+        body_cls: t.Any,
+        space_id: str | dm.Document | None,
+        document_name: str | None,
+        target_document_name: str | None,
+        target_space_id: str | None,
+        revision: str | None | oa_types.Unset,
+        document: dm.Document | None,
+        **body_kwargs: t.Any,
+    ) -> dm.Document:
+        source_space_id, source_document_name, target_doc_name = (
+            self._resolve_source_and_target(
+                space_id, document_name, target_document_name, document
+            )
+        )
+        response = await action_api.asyncio_detailed(
+            self._project_id,
+            self._url_quote(source_space_id),
+            self._url_quote(source_document_name),
+            client=self._client.client,
+            body=body_cls(
+                target_document_name=target_doc_name,
+                target_space_id=target_space_id or oa_types.UNSET,
+                **body_kwargs,
+            ),
+            revision=self.none_to_unset(revision),
+        )
+
+        self._raise_on_error(response)
+        return self._parse_post_response_to_document(
+            response, target_space_id or source_space_id, target_doc_name
+        )
+
     @t.overload
     def copy(
         self,
@@ -527,14 +595,15 @@ class Documents(
         -------
             The newly created Document.
         """
-        source_space_id, source_document_name, target_doc_name = (
-            self._resolve_source_and_target(
-                space_id, document_name, target_document_name, document
-            )
-        )
-        body = api_models.CopyDocumentRequestBody(
-            target_document_name=target_doc_name,
-            target_space_id=target_space_id or oa_types.UNSET,
+        return self._post_document_action(
+            copy_document,
+            api_models.CopyDocumentRequestBody,
+            space_id,
+            document_name,
+            target_document_name,
+            target_space_id,
+            revision,
+            document,
             target_project_id=target_project_id or oa_types.UNSET,
             link_original_items_with_role=(
                 link_original_items_with_role or oa_types.UNSET
@@ -544,19 +613,6 @@ class Documents(
                 if remove_outgoing_links is not None
                 else oa_types.UNSET
             ),
-        )
-        response = copy_document.sync_detailed(
-            self._project_id,
-            self._url_quote(source_space_id),
-            self._url_quote(source_document_name),
-            client=self._client.client,
-            body=body,
-            revision=self.none_to_unset(revision),
-        )
-
-        self._raise_on_error(response)
-        return self._parse_post_response_to_document(
-            response, target_space_id or source_space_id, target_doc_name
         )
 
     @t.overload
@@ -600,14 +656,15 @@ class Documents(
 
         Async variant of :meth:`copy`; accepts the same arguments.
         """
-        source_space_id, source_document_name, target_doc_name = (
-            self._resolve_source_and_target(
-                space_id, document_name, target_document_name, document
-            )
-        )
-        body = api_models.CopyDocumentRequestBody(
-            target_document_name=target_doc_name,
-            target_space_id=target_space_id or oa_types.UNSET,
+        return await self._async_post_document_action(
+            copy_document,
+            api_models.CopyDocumentRequestBody,
+            space_id,
+            document_name,
+            target_document_name,
+            target_space_id,
+            revision,
+            document,
             target_project_id=target_project_id or oa_types.UNSET,
             link_original_items_with_role=(
                 link_original_items_with_role or oa_types.UNSET
@@ -617,19 +674,6 @@ class Documents(
                 if remove_outgoing_links is not None
                 else oa_types.UNSET
             ),
-        )
-        response = await copy_document.asyncio_detailed(
-            self._project_id,
-            self._url_quote(source_space_id),
-            self._url_quote(source_document_name),
-            client=self._client.client,
-            body=body,
-            revision=self.none_to_unset(revision),
-        )
-
-        self._raise_on_error(response)
-        return self._parse_post_response_to_document(
-            response, target_space_id or source_space_id, target_doc_name
         )
 
     @t.overload
@@ -701,14 +745,15 @@ class Documents(
         -------
             The newly created Document.
         """
-        source_space_id, source_document_name, target_doc_name = (
-            self._resolve_source_and_target(
-                space_id, document_name, target_document_name, document
-            )
-        )
-        body = api_models.BranchDocumentRequestBody(
-            target_document_name=target_doc_name,
-            target_space_id=target_space_id or oa_types.UNSET,
+        return self._post_document_action(
+            branch_document,
+            api_models.BranchDocumentRequestBody,
+            space_id,
+            document_name,
+            target_document_name,
+            target_space_id,
+            revision,
+            document,
             target_project_id=target_project_id or oa_types.UNSET,
             copy_workflow_status_and_signatures=(
                 copy_workflow_status_and_signatures
@@ -716,19 +761,6 @@ class Documents(
                 else oa_types.UNSET
             ),
             query=query or oa_types.UNSET,
-        )
-        response = branch_document.sync_detailed(
-            self._project_id,
-            self._url_quote(source_space_id),
-            self._url_quote(source_document_name),
-            client=self._client.client,
-            body=body,
-            revision=self.none_to_unset(revision),
-        )
-
-        self._raise_on_error(response)
-        return self._parse_post_response_to_document(
-            response, target_space_id or source_space_id, target_doc_name
         )
 
     @t.overload
@@ -772,14 +804,15 @@ class Documents(
 
         Async variant of :meth:`branch`; accepts the same arguments.
         """
-        source_space_id, source_document_name, target_doc_name = (
-            self._resolve_source_and_target(
-                space_id, document_name, target_document_name, document
-            )
-        )
-        body = api_models.BranchDocumentRequestBody(
-            target_document_name=target_doc_name,
-            target_space_id=target_space_id or oa_types.UNSET,
+        return await self._async_post_document_action(
+            branch_document,
+            api_models.BranchDocumentRequestBody,
+            space_id,
+            document_name,
+            target_document_name,
+            target_space_id,
+            revision,
+            document,
             target_project_id=target_project_id or oa_types.UNSET,
             copy_workflow_status_and_signatures=(
                 copy_workflow_status_and_signatures
@@ -787,17 +820,4 @@ class Documents(
                 else oa_types.UNSET
             ),
             query=query or oa_types.UNSET,
-        )
-        response = await branch_document.asyncio_detailed(
-            self._project_id,
-            self._url_quote(source_space_id),
-            self._url_quote(source_document_name),
-            client=self._client.client,
-            body=body,
-            revision=self.none_to_unset(revision),
-        )
-
-        self._raise_on_error(response)
-        return self._parse_post_response_to_document(
-            response, target_space_id or source_space_id, target_doc_name
         )
