@@ -1,0 +1,37 @@
+{
+  "data": {
+    "type": "testruns",
+    "id": "MyProjectId/MyTestRunId",
+    "attributes": {
+      "status": "open",
+      "title": "Title",
+      "type": "manual"
+    },
+    "relationships": {
+      "author": {
+        "data": {
+          "type": "users",
+          "id": "MyProjectId/jdoe"
+        }
+      },
+      "document": {
+        "data": {
+          "type": "documents",
+          "id": "MyProjectId/MySpaceId/MyDocumentId"
+        }
+      }
+    }
+  },
+  "included": [
+    {
+      "type": "users",
+      "id": "MyProjectId/jdoe",
+      "attributes": {
+        "name": "J Doe"
+      }
+    }
+  ],
+  "links": {
+    "self": "server-host-name/application-path/projects/MyProjectId/testruns/MyTestRunId"
+  }
+}

@@ -39,36 +39,6 @@ min_wi_patch_request_size = _get_json_content_size(
 )
 
 
-def _user_names_from_included(
-    included: (
-        list[api_models.WorkitemsListGetResponseIncludedItem]
-        | list[api_models.WorkitemsSingleGetResponseIncludedItem]
-        | oa_types.Unset
-    ),
-) -> dict[str, str]:
-    """Map user id -> display name from a response's included resources.
-
-    Included user resources look like
-    {"type": "users", "id": "proj/jdoe", "attributes": {"name": "J Doe"}}.
-    Only entries with a non-empty id and a name are kept.
-    """
-    names: dict[str, str] = {}
-    if isinstance(included, oa_types.Unset):
-        return names
-    for item in included:
-        props = item.additional_properties
-        if props.get("type") != "users":
-            continue
-        user_id = props.get("id")
-        attributes = props.get("attributes")
-        if not user_id or not isinstance(attributes, dict):
-            continue
-        name = attributes.get("name")
-        if isinstance(name, str) and name:
-            names[user_id] = name
-    return names
-
-
 class WorkItems(
     bc.StatusItemClient,
     bc.MultiGetClient,
@@ -438,7 +408,7 @@ class WorkItems(
             )
             and work_items_response.data
         ):
-            user_names = _user_names_from_included(
+            user_names = self._user_names_from_included(
                 work_items_response.included
             )
             work_items = [
@@ -603,7 +573,7 @@ class WorkItems(
             work_item = self._generate_work_item(
                 parsed_response.data,
                 work_item_cls,
-                _user_names_from_included(parsed_response.included),
+                self._user_names_from_included(parsed_response.included),
             )
         return work_item
 
@@ -943,42 +913,6 @@ class WorkItems(
             (work_item_size + min_wi_request_size)
             > self._client.max_content_size,
         )
-
-    @staticmethod
-    def _resolve_named_user_relationship(
-        additional_attributes: dict[str, t.Any],
-        key: str,
-        relationship: t.Any,
-        user_names: dict[str, str],
-    ) -> None:
-        """Store user id(s) and resolved name(s) for a typed relationship.
-
-        Handles both to-one (data is a single object, e.g. author) and
-        to-many (data is a list, e.g. assignee) relationships. The id key
-        holds a str for to-one and a list[str] for to-many; the
-        "<key>_name" key mirrors that shape with resolved display names.
-        Nothing is written when the relationship or its data is absent.
-        """
-        if relationship is None:
-            return
-        data = getattr(relationship, "data", None)
-        if not data or isinstance(data, oa_types.Unset):
-            return
-
-        if isinstance(data, list):
-            ids = [entry.id for entry in data if entry.id]
-            if not ids:
-                return
-            additional_attributes[key] = ids
-            additional_attributes[f"{key}_name"] = [
-                user_names.get(user_id, "") for user_id in ids
-            ]
-        else:
-            user_id = data.id
-            if not user_id:
-                return
-            additional_attributes[key] = user_id
-            additional_attributes[f"{key}_name"] = user_names.get(user_id, "")
 
     def _generate_work_item(
         self,

@@ -78,6 +78,7 @@ class BaseClient[T]:
             api_models.DocumentsSingleGetResponseDataAttributesHomePageContent  # pylint: disable=line-too-long
             | api_models.TestrecordsListGetResponseDataItemAttributesComment
             | api_models.TestrunsListGetResponseDataItemAttributesHomePageContent
+            | api_models.TestrunsSingleGetResponseDataAttributesHomePageContent
             | oa_types.Unset
         ),
     ) -> dm.TextContent | None:
@@ -90,6 +91,69 @@ class BaseClient[T]:
             ),
             value=polarion_content.value or None,
         )
+
+    @staticmethod
+    def _user_names_from_included(
+        included: t.Sequence[t.Any] | oa_types.Unset,
+    ) -> dict[str, str]:
+        """Map user id -> display name from a response's included resources.
+
+        Included user resources look like
+        {"type": "users", "id": "proj/jdoe", "attributes": {"name": "J Doe"}}
+        and deserialize into an untyped bag exposing ``additional_properties``.
+        Only entries with a non-empty id and a name are kept.
+        """
+        names: dict[str, str] = {}
+        if isinstance(included, oa_types.Unset):
+            return names
+        for item in included:
+            props = item.additional_properties
+            if props.get("type") != "users":
+                continue
+            user_id = props.get("id")
+            attributes = props.get("attributes")
+            if not user_id or not isinstance(attributes, dict):
+                continue
+            name = attributes.get("name")
+            if isinstance(name, str) and name:
+                names[user_id] = name
+        return names
+
+    @staticmethod
+    def _resolve_named_user_relationship(
+        additional_attributes: dict[str, t.Any],
+        key: str,
+        relationship: t.Any,
+        user_names: dict[str, str],
+    ) -> None:
+        """Store user id(s) and resolved name(s) for a typed relationship.
+
+        Handles both to-one (data is a single object, e.g. author) and
+        to-many (data is a list, e.g. assignee) relationships. The id key
+        holds a str for to-one and a list[str] for to-many; the
+        "<key>_name" key mirrors that shape with resolved display names.
+        Nothing is written when the relationship or its data is absent.
+        """
+        if relationship is None:
+            return
+        data = getattr(relationship, "data", None)
+        if not data or isinstance(data, oa_types.Unset):
+            return
+
+        if isinstance(data, list):
+            ids = [entry.id for entry in data if entry.id]
+            if not ids:
+                return
+            additional_attributes[key] = ids
+            additional_attributes[f"{key}_name"] = [
+                user_names.get(user_id, "") for user_id in ids
+            ]
+        else:
+            user_id = data.id
+            if not user_id:
+                return
+            additional_attributes[key] = user_id
+            additional_attributes[f"{key}_name"] = user_names.get(user_id, "")
 
     def _build_sparse_fields(
         self, fields_dict: dict[str, str]

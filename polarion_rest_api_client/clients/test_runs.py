@@ -8,6 +8,7 @@ from polarion_rest_api_client.open_api_client import models as api_models
 from polarion_rest_api_client.open_api_client import types as oa_types
 from polarion_rest_api_client.open_api_client.api.test_runs import (
     delete_test_runs,
+    get_test_run,
     get_test_runs,
     patch_test_run,
     post_test_runs,
@@ -28,6 +29,7 @@ AttributesType = t.TypeVar(
 
 class TestRuns(
     bc.MultiGetClient[dm.TestRun],
+    bc.SingleGetClient[dm.TestRun],
     bc.UpdateClient[dm.TestRun],
     bc.CreateClient[dm.TestRun],
     bc.DeleteClient[dm.TestRun],
@@ -92,12 +94,16 @@ class TestRuns(
         page_size: int = 100,
         page_number: int = 1,
         fields: dict[str, str] | None = None,
+        include: str | None = None,
     ) -> tuple[list[dm.TestRun], bool]:
         """Return the test runs on a defined page matching the given query.
 
         In addition, a flag whether a next page is available is
         returned. Define a fields dictionary as described in the
-        Polarion API documentation to get certain fields.
+        Polarion API documentation to get certain fields. Pass include
+        (e.g. "author") to sideload related resources; user relationships
+        then get resolved display names under
+        additional_attributes["<relationship>_name"].
         """
         if fields is None:
             fields = self._client.default_fields.testruns
@@ -110,6 +116,7 @@ class TestRuns(
             fields=sparse_fields,
             pagenumber=page_number,
             pagesize=page_size,
+            include=include or oa_types.UNSET,
         )
         return self._parse_get_response(response)
 
@@ -120,12 +127,16 @@ class TestRuns(
         page_size: int = 100,
         page_number: int = 1,
         fields: dict[str, str] | None = None,
+        include: str | None = None,
     ) -> tuple[list[dm.TestRun], bool]:
         """Return the test runs on a defined page matching the given query.
 
         In addition, a flag whether a next page is available is
         returned. Define a fields dictionary as described in the
-        Polarion API documentation to get certain fields.
+        Polarion API documentation to get certain fields. Pass include
+        (e.g. "author") to sideload related resources; user relationships
+        then get resolved display names under
+        additional_attributes["<relationship>_name"].
         """
         if fields is None:
             fields = self._client.default_fields.testruns
@@ -138,11 +149,117 @@ class TestRuns(
             fields=sparse_fields,
             pagenumber=page_number,
             pagesize=page_size,
+            include=include or oa_types.UNSET,
         )
 
         self._raise_on_error(response)
 
         return self._parse_get_response(response)
+
+    def get(  # type: ignore[override]
+        self,
+        test_run_id: str,
+        *,
+        fields: dict[str, str] | None = None,
+        include: str | None = None,
+    ) -> dm.TestRun | None:
+        """Return one specific test run by id.
+
+        Pass include (e.g. "author") to sideload related resources; user
+        relationships then get resolved display names under
+        additional_attributes["<relationship>_name"].
+        """
+        if fields is None:
+            fields = self._client.default_fields.testruns
+
+        response = get_test_run.sync_detailed(
+            self._project_id,
+            test_run_id,
+            client=self._client.client,
+            fields=self._build_sparse_fields(fields),
+            include=include or oa_types.UNSET,
+        )
+        return self._parse_single_get_response(response)
+
+    async def async_get(  # type: ignore[override]
+        self,
+        test_run_id: str,
+        *,
+        fields: dict[str, str] | None = None,
+        include: str | None = None,
+    ) -> dm.TestRun | None:
+        """Return one specific test run by id.
+
+        Pass include (e.g. "author") to sideload related resources; user
+        relationships then get resolved display names under
+        additional_attributes["<relationship>_name"].
+        """
+        if fields is None:
+            fields = self._client.default_fields.testruns
+
+        response = await get_test_run.asyncio_detailed(
+            self._project_id,
+            test_run_id,
+            client=self._client.client,
+            fields=self._build_sparse_fields(fields),
+            include=include or oa_types.UNSET,
+        )
+        return self._parse_single_get_response(response)
+
+    def _generate_test_run(
+        self,
+        data: (
+            api_models.TestrunsListGetResponseDataItem
+            | api_models.TestrunsSingleGetResponseData
+        ),
+        user_names: dict[str, str] | None = None,
+    ) -> dm.TestRun:
+        assert isinstance(data.id, str)
+        attributes = data.attributes
+        assert attributes is not None
+        assert not isinstance(attributes, oa_types.Unset)
+        additional_attributes = dict(attributes.additional_properties or {})
+
+        relationships = getattr(data, "relationships", None)
+        if relationships is not None and not isinstance(
+            relationships, oa_types.Unset
+        ):
+            names = user_names or {}
+            self._resolve_named_user_relationship(
+                additional_attributes,
+                "author",
+                getattr(relationships, "author", None),
+                names,
+            )
+            document = getattr(relationships, "document", None)
+            document_data = getattr(document, "data", None)
+            if document_data and not isinstance(document_data, oa_types.Unset):
+                additional_attributes["document"] = document_data.id
+            template = getattr(relationships, "template", None)
+            template_data = getattr(template, "data", None)
+            if template_data and not isinstance(template_data, oa_types.Unset):
+                additional_attributes["template"] = template_data.id
+
+        return dm.TestRun(
+            data.id.split("/")[-1],
+            self.unset_to_none(attributes.type_),
+            self.unset_to_none(attributes.status),
+            self.unset_to_none(attributes.title),
+            self._handle_text_content(attributes.home_page_content),
+            self.unset_to_none(attributes.finished_on),
+            self.unset_to_none(attributes.group_id),
+            self.unset_to_none(attributes.id_prefix),
+            self.unset_to_none(attributes.is_template),
+            self.unset_to_none(attributes.keep_in_history),
+            self.unset_to_none(attributes.query),
+            self.unset_to_none(attributes.use_report_from_template),
+            (
+                dm.SelectTestCasesBy(str(attributes.select_test_cases_by))
+                if attributes.select_test_cases_by
+                else None
+            ),
+            additional_attributes,
+        )
 
     def _parse_get_response(
         self, response: oa_types.Response
@@ -150,44 +267,30 @@ class TestRuns(
         self._raise_on_error(response)
         parsed_response = response.parsed
         assert isinstance(parsed_response, api_models.TestrunsListGetResponse)
-        test_runs = []
-        for data in parsed_response.data or []:
-            assert isinstance(data.id, str)
-            assert isinstance(
-                data.attributes,
-                api_models.TestrunsListGetResponseDataItemAttributes,
-            )
-            test_runs.append(
-                dm.TestRun(
-                    data.id.split("/")[-1],
-                    self.unset_to_none(data.attributes.type_),
-                    self.unset_to_none(data.attributes.status),
-                    self.unset_to_none(data.attributes.title),
-                    self._handle_text_content(
-                        data.attributes.home_page_content
-                    ),
-                    self.unset_to_none(data.attributes.finished_on),
-                    self.unset_to_none(data.attributes.group_id),
-                    self.unset_to_none(data.attributes.id_prefix),
-                    self.unset_to_none(data.attributes.is_template),
-                    self.unset_to_none(data.attributes.keep_in_history),
-                    self.unset_to_none(data.attributes.query),
-                    self.unset_to_none(data.attributes.keep_in_history),
-                    (
-                        dm.SelectTestCasesBy(
-                            str(data.attributes.select_test_cases_by)
-                        )
-                        if data.attributes.select_test_cases_by
-                        else None
-                    ),
-                    data.attributes.additional_properties or {},
-                )
-            )
+        user_names = self._user_names_from_included(parsed_response.included)
+        test_runs = [
+            self._generate_test_run(data, user_names)
+            for data in parsed_response.data or []
+        ]
         next_page = isinstance(
             parsed_response.links,
             api_models.TestrunsListGetResponseLinks,
         ) and bool(parsed_response.links.next_)
         return test_runs, next_page
+
+    def _parse_single_get_response(
+        self, response: oa_types.Response
+    ) -> dm.TestRun | None:
+        self._raise_on_error(response)
+        parsed_response = response.parsed
+        if not isinstance(
+            parsed_response, api_models.TestrunsSingleGetResponse
+        ) or not isinstance(
+            parsed_response.data, api_models.TestrunsSingleGetResponseData
+        ):
+            return None
+        user_names = self._user_names_from_included(parsed_response.included)
+        return self._generate_test_run(parsed_response.data, user_names)
 
     def _create(self, items: list[dm.TestRun]) -> None:
         """Create the given list of test runs."""

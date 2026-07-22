@@ -10,6 +10,7 @@ import polarion_rest_api_client as polarion_api
 from tests.conftest import (
     TEST_TRUN_CREATED_RESPONSE,
     TEST_TRUN_FULLY_PATCH_REQUEST,
+    TEST_TRUN_INCLUDED_USERS_RESPONSE,
     TEST_TRUN_NEXT_RESPONSE,
     TEST_TRUN_NO_NEXT_RESPONSE,
     TEST_TRUN_PATCH_REQUEST,
@@ -171,3 +172,61 @@ def test_update_test_run_fully(
         expected_req = json.load(f)
 
     assert req_data == expected_req
+
+
+def test_get_test_run_single_by_id(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_TRUN_INCLUDED_USERS_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    test_run = client.test_runs.get("MyTestRunId", include="author")
+
+    req = httpx_mock.get_request()
+    assert req is not None
+    assert req.url.path.endswith("PROJ/testruns/MyTestRunId")
+    assert req.url.params["include"] == "author"
+    assert test_run is not None
+    assert test_run.id == "MyTestRunId"
+    assert test_run.title == "Title"
+
+
+def test_get_test_run_resolves_author_name(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_TRUN_INCLUDED_USERS_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    test_run = client.test_runs.get("MyTestRunId", include="author")
+
+    assert test_run is not None
+    assert test_run.additional_attributes["author"] == "MyProjectId/jdoe"
+    assert test_run.additional_attributes["author_name"] == "J Doe"
+    # document relationship surfaced as full id, no name.
+    assert (
+        test_run.additional_attributes["document"]
+        == "MyProjectId/MySpaceId/MyDocumentId"
+    )
+
+
+def test_get_test_runs_multi_forwards_include(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_TRUN_INCLUDED_USERS_RESPONSE, encoding="utf8") as f:
+        response = json.load(f)
+    # get_multi expects a list under data plus paging links.
+    response["data"] = [response["data"]]
+    response["meta"] = {"totalCount": 1}
+    httpx_mock.add_response(json=response)
+
+    test_runs, next_page = client.test_runs.get_multi(include="author")
+
+    req = httpx_mock.get_request()
+    assert req is not None
+    assert req.url.params["include"] == "author"
+    assert next_page is False
+    assert len(test_runs) == 1
+    assert test_runs[0].additional_attributes["author_name"] == "J Doe"
