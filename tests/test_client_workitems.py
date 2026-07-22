@@ -16,6 +16,7 @@ from tests.conftest import (
     TEST_WI_CREATED_RESPONSE,
     TEST_WI_DELETE_REQUEST,
     TEST_WI_ERROR_NEXT_PAGE_RESPONSE,
+    TEST_WI_INCLUDED_USERS_RESPONSE,
     TEST_WI_MULTI_POST_REQUEST,
     TEST_WI_MULTI_POST_REQUEST_IN_DOC,
     TEST_WI_NEXT_PAGE_RESPONSE,
@@ -66,6 +67,7 @@ def test_get_one_work_item(
         "fields[workitems]": "@all",
         "fields[workitem_attachments]": "@all",
         "fields[linkedworkitems]": "@all",
+        "fields[users]": "name",
     }
     reqs = httpx_mock.get_requests()
     assert reqs[0].method == "GET"
@@ -98,6 +100,7 @@ def test_get_one_work_item_not_truncated(
         "fields[workitems]": "@all",
         "fields[workitem_attachments]": "@all",
         "fields[linkedworkitems]": "@all",
+        "fields[users]": "name",
     }
     reqs = httpx_mock.get_requests()
     assert reqs[0].method == "GET"
@@ -808,3 +811,136 @@ def test_delete_work_item_delete_mode(
     assert req.method == "DELETE"
     with open(TEST_WI_DELETE_REQUEST, encoding="utf8") as f:
         assert json.loads(req.content.decode()) == json.load(f)
+
+
+def test_update_work_item_workflow_action(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    httpx_mock.add_response(204)
+
+    client.work_items.update(
+        polarion_api.WorkItem(id="MyWorkItemId", status="open"),
+        workflow_action="close",
+    )
+
+    req = httpx_mock.get_request()
+    assert req is not None
+    assert req.url.path.endswith("PROJ/workitems")
+    assert req.method == "PATCH"
+    assert req.url.params["workflowAction"] == "close"
+    with open(TEST_WI_PATCH_STATUS_REQUEST, encoding="utf8") as f:
+        assert json.loads(req.content.decode()) == json.load(f)
+
+
+def test_update_work_item_workflow_action_not_on_type_change_pass(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    # Type change and workflowAction must not ride the same request:
+    # the type-change pass carries only changeTypeTo, the update pass
+    # carries only workflowAction.
+    httpx_mock.add_response(204)
+    httpx_mock.add_response(204)
+
+    client.work_items.update(
+        polarion_api.WorkItem(
+            id="MyWorkItemId", type="newType", status="open"
+        ),
+        workflow_action="close",
+    )
+
+    reqs = httpx_mock.get_requests()
+    assert len(reqs) == 2
+    assert reqs[0].url.params["changeTypeTo"] == "newType"
+    assert "workflowAction" not in reqs[0].url.params
+    assert reqs[1].url.params["workflowAction"] == "close"
+    assert "changeTypeTo" not in reqs[1].url.params
+
+
+def test_update_work_item_without_workflow_action_has_no_param(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    httpx_mock.add_response(204)
+
+    client.work_items.update(
+        polarion_api.WorkItem(id="MyWorkItemId", status="open")
+    )
+
+    req = httpx_mock.get_request()
+    assert req is not None
+    assert "workflowAction" not in req.url.params
+
+
+def test_get_work_item_forwards_include(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_WI_INCLUDED_USERS_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    client.work_items.get("MyWorkItemId", include="author,assignee")
+
+    req = httpx_mock.get_request()
+    assert req is not None
+    assert req.url.params["include"] == "author,assignee"
+
+
+def test_get_work_item_resolves_user_names_from_included(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_WI_INCLUDED_USERS_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    work_item = client.work_items.get(
+        "MyWorkItemId", include="author,assignee"
+    )
+
+    assert work_item is not None
+    # to-one author: id as str, name under author_name.
+    assert work_item.additional_attributes["author"] == "MyProjectId/jdoe"
+    assert work_item.additional_attributes["author_name"] == "J Doe"
+    # to-many assignee: ids/names as lists.
+    assert work_item.additional_attributes["assignee"] == [
+        "MyProjectId/asmith"
+    ]
+    assert work_item.additional_attributes["assignee_name"] == ["A Smith"]
+
+
+def test_get_work_item_without_include_has_no_name_keys(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    # The existing single response has user relationships but an empty
+    # included array, so only id keys are surfaced, no *_name keys.
+    with open(TEST_WI_SINGLE_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    work_item = client.work_items.get("MyWorkItemId")
+
+    assert work_item is not None
+    assert work_item.additional_attributes["cfOwner"] == "MyUserId"
+    assert "cfOwner_name" not in work_item.additional_attributes
+    assert "author_name" not in work_item.additional_attributes
+
+
+def test_get_multi_forwards_include_and_resolves_names(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_WI_INCLUDED_USERS_RESPONSE, encoding="utf8") as f:
+        response = json.load(f)
+    # get_multi expects a list under data.
+    response["data"] = [response["data"]]
+    httpx_mock.add_response(json=response)
+
+    work_items, _ = client.work_items.get_multi(include="author,assignee")
+
+    req = httpx_mock.get_request()
+    assert req is not None
+    assert req.url.params["include"] == "author,assignee"
+    assert len(work_items) == 1
+    assert work_items[0].additional_attributes["author_name"] == "J Doe"
+    assert work_items[0].additional_attributes["assignee_name"] == ["A Smith"]

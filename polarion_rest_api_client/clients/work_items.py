@@ -39,6 +39,36 @@ min_wi_patch_request_size = _get_json_content_size(
 )
 
 
+def _user_names_from_included(
+    included: (
+        list[api_models.WorkitemsListGetResponseIncludedItem]
+        | list[api_models.WorkitemsSingleGetResponseIncludedItem]
+        | oa_types.Unset
+    ),
+) -> dict[str, str]:
+    """Map user id -> display name from a response's included resources.
+
+    Included user resources look like
+    {"type": "users", "id": "proj/jdoe", "attributes": {"name": "J Doe"}}.
+    Only entries with a non-empty id and a name are kept.
+    """
+    names: dict[str, str] = {}
+    if isinstance(included, oa_types.Unset):
+        return names
+    for item in included:
+        props = item.additional_properties
+        if props.get("type") != "users":
+            continue
+        user_id = props.get("id")
+        attributes = props.get("attributes")
+        if not user_id or not isinstance(attributes, dict):
+            continue
+        name = attributes.get("name")
+        if isinstance(name, str) and name:
+            names[user_id] = name
+    return names
+
+
 class WorkItems(
     bc.StatusItemClient,
     bc.MultiGetClient,
@@ -188,8 +218,17 @@ class WorkItems(
     def update(
         self,
         items: dm.WorkItem | list[dm.WorkItem],
+        *,
+        workflow_action: str | None = None,
     ) -> None:
-        """Update WorkItems and respect max body size and batch limits."""
+        """Update WorkItems and respect max body size and batch limits.
+
+        If workflow_action is given, it is sent as the request-wide
+        workflowAction query parameter on the attribute update pass, so
+        Polarion applies the workflow transition to every updated item. It
+        is not combined with the type-change pass, because Polarion rejects
+        changeTypeTo and workflowAction on the same request.
+        """
         if not isinstance(items, list):
             items = [items]
 
@@ -199,7 +238,9 @@ class WorkItems(
             self._patch_work_item_batch(work_item_batch, type_change_to)
 
         for work_item_batch in self._iter_update_batches(items):
-            self._patch_work_item_batch(work_item_batch, None)
+            self._patch_work_item_batch(
+                work_item_batch, None, workflow_action=workflow_action
+            )
 
     async def _async_update(self, to_update: list[dm.WorkItem]) -> None:
         raise NotImplementedError("We have a custom async_update instead.")
@@ -207,8 +248,13 @@ class WorkItems(
     async def async_update(
         self,
         items: dm.WorkItem | list[dm.WorkItem],
+        *,
+        workflow_action: str | None = None,
     ) -> None:
-        """Update WorkItems and respect max body size and batch limits."""
+        """Update WorkItems and respect max body size and batch limits.
+
+        See update for the workflow_action semantics.
+        """
         if not isinstance(items, list):
             items = [items]
 
@@ -223,6 +269,7 @@ class WorkItems(
             self._a_patch_work_item_batch(
                 work_item_batch,
                 None,
+                workflow_action=workflow_action,
             )
             for work_item_batch in self._iter_update_batches(items)
         )
@@ -235,6 +282,7 @@ class WorkItems(
         page_size: int = 100,
         page_number: int = 1,
         fields: dict[str, str] | None = None,
+        include: str | None = None,
         work_item_cls: type[WT],
         revision: str | None = None,
     ) -> tuple[list[WT], bool]:
@@ -254,6 +302,7 @@ class WorkItems(
         page_size: int = 100,
         page_number: int = 1,
         fields: dict[str, str] | None = None,
+        include: str | None = None,
         revision: str | None = None,
     ) -> tuple[list[dm.WorkItem], bool]:
         """Return the work items on a defined page matching the given query.
@@ -270,6 +319,7 @@ class WorkItems(
         page_size: int = 100,
         page_number: int = 1,
         fields: dict[str, str] | None = None,
+        include: str | None = None,
         work_item_cls: type[dm.WorkItem] = dm.WorkItem,
         revision: str | None = None,
     ) -> tuple[list[dm.WorkItem], bool] | tuple[list[WT], bool]:
@@ -277,7 +327,10 @@ class WorkItems(
 
         In addition, a flag whether a next page is available is
         returned. Define a fields dictionary as described in the
-        Polarion API documentation to get certain fields.
+        Polarion API documentation to get certain fields. Pass include
+        (e.g. "author") to sideload related resources; user relationships
+        are then resolved to display names under
+        additional_attributes["<relationship>_name"].
         """
         if fields is None:
             fields = self._client.default_fields.workitems
@@ -290,6 +343,7 @@ class WorkItems(
             query=query,
             pagesize=page_size,
             pagenumber=page_number,
+            include=include or oa_types.UNSET,
             revision=revision or oa_types.UNSET,
         )
 
@@ -303,6 +357,7 @@ class WorkItems(
         page_size: int = 100,
         page_number: int = 1,
         fields: dict[str, str] | None = None,
+        include: str | None = None,
         work_item_cls: type[WT],
         revision: str | None = None,
     ) -> tuple[list[WT], bool]:
@@ -322,6 +377,7 @@ class WorkItems(
         page_size: int = 100,
         page_number: int = 1,
         fields: dict[str, str] | None = None,
+        include: str | None = None,
         revision: str | None = None,
     ) -> tuple[list[dm.WorkItem], bool]:
         """Return the work items on a defined page matching the given query.
@@ -338,6 +394,7 @@ class WorkItems(
         page_size: int = 100,
         page_number: int = 1,
         fields: dict[str, str] | None = None,
+        include: str | None = None,
         work_item_cls: type[dm.WorkItem] = dm.WorkItem,
         revision: str | None = None,
     ) -> tuple[list[dm.WorkItem], bool] | tuple[list[WT], bool]:
@@ -345,7 +402,8 @@ class WorkItems(
 
         In addition, a flag whether a next page is available is
         returned. Define a fields dictionary as described in the
-        Polarion API documentation to get certain fields.
+        Polarion API documentation to get certain fields. See get_multi
+        for the include semantics.
         """
         if fields is None:
             fields = self._client.default_fields.workitems
@@ -358,6 +416,7 @@ class WorkItems(
             query=query,
             pagesize=page_size,
             pagenumber=page_number,
+            include=include or oa_types.UNSET,
             revision=revision or oa_types.UNSET,
         )
 
@@ -379,8 +438,11 @@ class WorkItems(
             )
             and work_items_response.data
         ):
+            user_names = _user_names_from_included(
+                work_items_response.included
+            )
             work_items = [
-                self._generate_work_item(work_item, work_item_cls)
+                self._generate_work_item(work_item, work_item_cls, user_names)
                 for work_item in work_items_response.data
                 if not getattr(work_item.meta, "errors", [])
             ]
@@ -397,6 +459,8 @@ class WorkItems(
         work_item_id: str,
         work_item_cls: type[WT],
         revision: str | None = None,
+        *,
+        include: str | None = None,
     ) -> WT | None:
         """Return one specific work item with all fields.
 
@@ -409,7 +473,11 @@ class WorkItems(
 
     @t.overload
     def get(
-        self, work_item_id: str, *, revision: str | None = None
+        self,
+        work_item_id: str,
+        *,
+        revision: str | None = None,
+        include: str | None = None,
     ) -> dm.WorkItem | None:
         """Return one specific work item with all fields.
 
@@ -424,13 +492,17 @@ class WorkItems(
         work_item_id: str,
         work_item_cls: type[dm.WorkItem] = dm.WorkItem,
         revision: str | None = None,
+        *,
+        include: str | None = None,
     ) -> WT | dm.WorkItem | None:
         """Return one specific work item with all fields.
 
         This also includes all linked work items and attachments. If
         there are to many of these to get them in one request, the
         truncated flags for linked_work_items and attachments will be
-        set to True.
+        set to True. Pass include (e.g. "author") to sideload related
+        resources; user relationships are then resolved to display names
+        under additional_attributes["<relationship>_name"].
         """
         response = get_work_item.sync_detailed(
             self._project_id,
@@ -441,8 +513,10 @@ class WorkItems(
                     "workitems": "@all",
                     "workitem_attachments": "@all",
                     "linkedworkitems": "@all",
+                    "users": "name",
                 }
             ),
+            include=include or oa_types.UNSET,
             revision=revision or oa_types.UNSET,
         )
         return self._process_single_get_response(response, work_item_cls)
@@ -453,6 +527,8 @@ class WorkItems(
         work_item_id: str,
         work_item_cls: type[WT],
         revision: str | None = None,
+        *,
+        include: str | None = None,
     ) -> WT | None:
         """Return one specific work item with all fields.
 
@@ -465,7 +541,11 @@ class WorkItems(
 
     @t.overload
     async def async_get(
-        self, work_item_id: str, *, revision: str | None = None
+        self,
+        work_item_id: str,
+        *,
+        revision: str | None = None,
+        include: str | None = None,
     ) -> dm.WorkItem | None:
         """Return one specific work item with all fields.
 
@@ -480,13 +560,15 @@ class WorkItems(
         work_item_id: str,
         work_item_cls: type[dm.WorkItem] = dm.WorkItem,
         revision: str | None = None,
+        *,
+        include: str | None = None,
     ) -> WT | dm.WorkItem | None:
         """Return one specific work item with all fields.
 
         This also includes all linked work items and attachments. If
         there are to many of these to get them in one request, the
         truncated flags for linked_work_items and attachments will be
-        set to True.
+        set to True. See get for the include semantics.
         """
         response = await get_work_item.asyncio_detailed(
             self._project_id,
@@ -497,8 +579,10 @@ class WorkItems(
                     "workitems": "@all",
                     "workitem_attachments": "@all",
                     "linkedworkitems": "@all",
+                    "users": "name",
                 }
             ),
+            include=include or oa_types.UNSET,
             revision=revision or oa_types.UNSET,
         )
         return self._process_single_get_response(response, work_item_cls)
@@ -517,7 +601,9 @@ class WorkItems(
             parsed_response.data, api_models.WorkitemsSingleGetResponseData
         ):
             work_item = self._generate_work_item(
-                parsed_response.data, work_item_cls
+                parsed_response.data,
+                work_item_cls,
+                _user_names_from_included(parsed_response.included),
             )
         return work_item
 
@@ -778,11 +864,13 @@ class WorkItems(
         self,
         work_item_batch: api_models.WorkitemsListPatchRequest,
         batch_type: str | None,
+        workflow_action: str | None = None,
     ) -> None:
         response = patch_work_items.sync_detailed(
             self._project_id,
             client=self._client.client,
             change_type_to=batch_type or oa_types.UNSET,
+            workflow_action=workflow_action or oa_types.UNSET,
             body=work_item_batch,
         )
         self._raise_on_error(response)
@@ -791,11 +879,13 @@ class WorkItems(
         self,
         work_item_batch: api_models.WorkitemsListPatchRequest,
         batch_type: str | None,
+        workflow_action: str | None = None,
     ) -> None:
         response = await patch_work_items.asyncio_detailed(
             self._project_id,
             client=self._client.client,
             change_type_to=batch_type or oa_types.UNSET,
+            workflow_action=workflow_action or oa_types.UNSET,
             body=work_item_batch,
         )
         self._raise_on_error(response)
@@ -854,6 +944,42 @@ class WorkItems(
             > self._client.max_content_size,
         )
 
+    @staticmethod
+    def _resolve_named_user_relationship(
+        additional_attributes: dict[str, t.Any],
+        key: str,
+        relationship: t.Any,
+        user_names: dict[str, str],
+    ) -> None:
+        """Store user id(s) and resolved name(s) for a typed relationship.
+
+        Handles both to-one (data is a single object, e.g. author) and
+        to-many (data is a list, e.g. assignee) relationships. The id key
+        holds a str for to-one and a list[str] for to-many; the
+        "<key>_name" key mirrors that shape with resolved display names.
+        Nothing is written when the relationship or its data is absent.
+        """
+        if relationship is None:
+            return
+        data = getattr(relationship, "data", None)
+        if not data or isinstance(data, oa_types.Unset):
+            return
+
+        if isinstance(data, list):
+            ids = [entry.id for entry in data if entry.id]
+            if not ids:
+                return
+            additional_attributes[key] = ids
+            additional_attributes[f"{key}_name"] = [
+                user_names.get(user_id, "") for user_id in ids
+            ]
+        else:
+            user_id = data.id
+            if not user_id:
+                return
+            additional_attributes[key] = user_id
+            additional_attributes[f"{key}_name"] = user_names.get(user_id, "")
+
     def _generate_work_item(
         self,
         work_item: (
@@ -861,6 +987,7 @@ class WorkItems(
             | api_models.WorkitemsSingleGetResponseData
         ),
         work_item_cls: type[WT],
+        user_names: dict[str, str] | None = None,
     ) -> WT:
         assert work_item.attributes
         assert isinstance(work_item.id, str)
@@ -928,7 +1055,33 @@ class WorkItems(
                         isinstance(value, dict)
                         and value.get("data", {}).get("type") == "users"
                     ):
-                        additional_attributes[key] = value["data"]["id"]
+                        user_id = value["data"]["id"]
+                        additional_attributes[key] = user_id
+                        # Surface the display name (when include= resolved
+                        # the user) under a derived <relationship>_name key,
+                        # leaving the id key untouched.
+                        if user_names and user_id in user_names:
+                            additional_attributes[f"{key}_name"] = user_names[
+                                user_id
+                            ]
+
+            # Standard user relationships (author, assignee) are typed
+            # fields, not part of additional_properties, so the loop above
+            # never sees them. Only resolve them when include= sideloaded
+            # users, keeping the default output unchanged.
+            if user_names:
+                self._resolve_named_user_relationship(
+                    additional_attributes,
+                    "author",
+                    getattr(work_item.relationships, "author", None),
+                    user_names,
+                )
+                self._resolve_named_user_relationship(
+                    additional_attributes,
+                    "assignee",
+                    getattr(work_item.relationships, "assignee", None),
+                    user_names,
+                )
 
         description = None
         if work_item.attributes.description:

@@ -1,0 +1,50 @@
+{
+  "data": {
+    "type": "workitems",
+    "id": "MyProjectId/MyWorkItemId",
+    "attributes": {
+      "id": "MyWorkItemId",
+      "title": "Title",
+      "type": "task",
+      "status": "open"
+    },
+    "relationships": {
+      "author": {
+        "data": {
+          "type": "users",
+          "id": "MyProjectId/jdoe"
+        }
+      },
+      "assignee": {
+        "data": [
+          {
+            "type": "users",
+            "id": "MyProjectId/asmith"
+          }
+        ]
+      }
+    },
+    "links": {
+      "self": "server-host-name/application-path/projects/MyProjectId/workitems/MyWorkItemId"
+    }
+  },
+  "included": [
+    {
+      "type": "users",
+      "id": "MyProjectId/jdoe",
+      "attributes": {
+        "name": "J Doe"
+      }
+    },
+    {
+      "type": "users",
+      "id": "MyProjectId/asmith",
+      "attributes": {
+        "name": "A Smith"
+      }
+    }
+  ],
+  "links": {
+    "self": "server-host-name/application-path/projects/MyProjectId/workitems/MyWorkItemId"
+  }
+}

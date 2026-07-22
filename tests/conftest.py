@@ -175,6 +175,9 @@ TEST_WI_ERROR_NEXT_PAGE_RESPONSE = (
 )
 TEST_WI_NEXT_PAGE_RESPONSE = TEST_RESPONSES / "workitems_next_page.json"
 TEST_WI_SINGLE_RESPONSE = TEST_RESPONSES / "get_work_item.json"
+TEST_WI_INCLUDED_USERS_RESPONSE = (
+    TEST_RESPONSES / "get_work_item_included_users.json"
+)
 TEST_WI_NOT_TRUNCATED_RESPONSE = (
     TEST_RESPONSES / "get_work_item_not_truncated.json"
 )
