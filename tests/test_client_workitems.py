@@ -190,6 +190,21 @@ def test_get_all_work_items_single_page(
         additional_attributes={
             "capella_uuid": "asdfgh",
             "checksum": "123",
+            # Standard scalar attributes now surface in the bag (A13): they
+            # are typed slots on the response model, not additional_properties.
+            "created": "1970-01-01T00:00:00+00:00",
+            "dueDate": "1970-01-01",
+            "initialEstimate": "5 1/2d",
+            "outlineNumber": "1.11",
+            "plannedEnd": "1970-01-01T00:00:00+00:00",
+            "plannedStart": "1970-01-01T00:00:00+00:00",
+            "priority": "90.0",
+            "remainingEstimate": "5 1/2d",
+            "resolution": "done",
+            "resolvedOn": "1970-01-01T00:00:00+00:00",
+            "severity": "blocker",
+            "timeSpent": "5 1/2d",
+            "updated": "1970-01-01T00:00:00+00:00",
         },
         home_document=polarion_api.DocumentReference(
             "MySpaceId", "MyDocumentId"
@@ -924,6 +939,37 @@ def test_get_work_item_without_include_has_no_name_keys(
     assert work_item.additional_attributes["cfOwner"] == "MyUserId"
     assert "cfOwner_name" not in work_item.additional_attributes
     assert "author_name" not in work_item.additional_attributes
+
+
+def test_get_work_item_surfaces_standard_scalar_attributes(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    # Standard scalar attributes are typed slots on the response model, not
+    # part of additional_properties. They must still surface in the bag so
+    # consumers can read created/updated/priority/etc (A13).
+    with open(TEST_WI_SINGLE_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    work_item = client.work_items.get("MyWorkItemId")
+
+    assert work_item is not None
+    attrs = work_item.additional_attributes
+    # Dates are ISO strings (datetime slots serialized via .isoformat()).
+    assert attrs["created"] == "1970-01-01T00:00:00+00:00"
+    assert attrs["updated"] == "1970-01-01T00:00:00+00:00"
+    assert attrs["dueDate"] == "1970-01-01"
+    assert attrs["priority"] == "90.0"
+    assert attrs["severity"] == "blocker"
+    assert attrs["resolution"] == "done"
+    assert attrs["outlineNumber"] == "1.11"
+    assert attrs["initialEstimate"] == "5 1/2d"
+    # Keys already represented as typed WorkItem fields are not duplicated.
+    assert "title" not in attrs
+    assert "description" not in attrs
+    assert "hyperlinks" not in attrs
+    assert "type" not in attrs
+    assert "status" not in attrs
 
 
 def test_get_multi_forwards_include_and_resolves_names(

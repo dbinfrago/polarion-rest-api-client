@@ -38,6 +38,13 @@ min_wi_patch_request_size = _get_json_content_size(
     api_models.WorkitemsListPatchRequest(data=[]).to_dict()
 )
 
+# Attribute keys already represented as dedicated ``WorkItem`` dataclass
+# fields; excluded from the ``additional_attributes`` bag to avoid duplicating
+# them when copying the standard scalar attributes out of ``attributes``.
+_TYPED_WORK_ITEM_ATTRIBUTE_KEYS = frozenset(
+    {"id", "title", "type", "status", "description", "hyperlinks"}
+)
+
 
 class WorkItems(
     bc.StatusItemClient,
@@ -930,7 +937,19 @@ class WorkItems(
         links = []
         attachments = []
         home_document: dm.DocumentReference | None = None
-        additional_attributes = work_item.attributes.additional_properties
+        # ``attributes.to_dict()`` surfaces the standard scalar attributes
+        # (created/updated/priority/severity/resolution/outlineNumber/dueDate/
+        # initialEstimate/...) that are typed slots on the model, not part of
+        # ``additional_properties`` -- consuming ``additional_properties`` alone
+        # would drop them. ``to_dict()`` already merges in the custom fields and
+        # converts dates to ISO strings. Keys represented as dedicated
+        # ``WorkItem`` fields (title/type/status/description/hyperlinks/id) are
+        # removed to avoid duplicating them in the bag.
+        additional_attributes = {
+            key: value
+            for key, value in work_item.attributes.to_dict().items()
+            if key not in _TYPED_WORK_ITEM_ATTRIBUTE_KEYS
+        }
 
         # We set both truncated flags to True and will only set them to False,
         # if the corresponding fields were requested and returned completely
