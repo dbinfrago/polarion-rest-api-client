@@ -9,6 +9,7 @@ import pytest_httpx
 import polarion_rest_api_client as polarion_api
 from tests.conftest import (
     TEST_TREC_CREATED_RESPONSE,
+    TEST_TREC_INCLUDED_USERS_RESPONSE,
     TEST_TREC_NEXT_RESPONSE,
     TEST_TREC_NO_NEXT_RESPONSE,
     TEST_TREC_PATCH_REQUEST,
@@ -58,6 +59,42 @@ def test_get_test_records_multi_page(
     assert test_records[0].work_item_id == "MyTestcaseId2"
     assert test_records[0].work_item_revision == "1234"
     assert test_records[0].executed_by == "MyUserId"
+
+
+def test_get_test_records_multi_forwards_include(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_TREC_NO_NEXT_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    client.test_runs.records.get_multi(
+        "MyTestRunId",
+        fields={"testrecords": "@all"},
+        include="executedBy",
+    )
+
+    req = httpx_mock.get_request()
+    assert req is not None
+    assert dict(req.url.params)["include"] == "executedBy"
+
+
+def test_get_test_records_resolves_executed_by_name(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_TREC_INCLUDED_USERS_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    test_records, _ = client.test_runs.records.get_multi(
+        "MyTestRunId",
+        fields={"testrecords": "@all", "users": "name"},
+        include="executedBy",
+    )
+
+    assert len(test_records) == 1
+    assert test_records[0].executed_by == "MyProjectId/jdoe"
+    assert test_records[0].additional_attributes["executed_by_name"] == "J Doe"
 
 
 def test_create_test_records(

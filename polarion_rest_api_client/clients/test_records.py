@@ -105,6 +105,7 @@ class TestRecords(
         page_size: int = 100,
         page_number: int = 1,
         fields: dict[str, str] | None = None,
+        include: str | None = None,
     ) -> tuple[list[dm.TestRecord], bool]:
         if fields is None:
             fields = self._client.default_fields.testrecords
@@ -115,6 +116,7 @@ class TestRecords(
             test_run_id,
             client=self._client.client,
             fields=sparse_fields,
+            include=include or oa_types.UNSET,
             pagenumber=page_number,
             pagesize=page_size,
         )
@@ -127,6 +129,7 @@ class TestRecords(
         page_size: int = 100,
         page_number: int = 1,
         fields: dict[str, str] | None = None,
+        include: str | None = None,
     ) -> tuple[list[dm.TestRecord], bool]:
         if fields is None:
             fields = self._client.default_fields.testrecords
@@ -137,6 +140,7 @@ class TestRecords(
             test_run_id,
             client=self._client.client,
             fields=sparse_fields,
+            include=include or oa_types.UNSET,
             pagenumber=page_number,
             pagesize=page_size,
         )
@@ -150,6 +154,7 @@ class TestRecords(
         assert isinstance(
             parsed_response, api_models.TestrecordsListGetResponse
         )
+        user_names = self._user_names_from_included(parsed_response.included)
         test_records = []
         for data in parsed_response.data or []:
             assert isinstance(data.id, str)
@@ -159,6 +164,7 @@ class TestRecords(
             )
             _, _, project_id, work_item, iteration = data.id.split("/")
             executed_by = None
+            additional_attributes = data.additional_properties or {}
             if (
                 data.relationships
                 and (ex_by := data.relationships.executed_by)
@@ -166,6 +172,13 @@ class TestRecords(
                 and ex_by.data.id
             ):
                 executed_by = ex_by.data.id
+                if user_names:
+                    self._resolve_named_user_relationship(
+                        additional_attributes,
+                        "executed_by",
+                        data.relationships.executed_by,
+                        user_names,
+                    )
             test_records.append(
                 dm.TestRecord(
                     test_run_id=test_run_id,
@@ -186,7 +199,7 @@ class TestRecords(
                     comment=self._handle_text_content(data.attributes.comment),
                     executed=self.unset_to_none(data.attributes.executed),
                     executed_by=executed_by,
-                    additional_attributes=data.additional_properties or {},
+                    additional_attributes=additional_attributes,
                 )
             )
         next_page = isinstance(

@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "totalCount": 1
+  },
+  "data": [
+    {
+      "type": "testrecords",
+      "id": "MyProjectId/MyTestRunId/MyProjectId/MyTestcaseId/0",
+      "attributes": {
+        "duration": 0,
+        "executed": "1970-01-01T00:00:00Z",
+        "iteration": 0,
+        "result": "passed",
+        "testCaseRevision": "Test Case Revision"
+      },
+      "relationships": {
+        "executedBy": {
+          "data": {
+            "type": "users",
+            "id": "MyProjectId/jdoe"
+          }
+        },
+        "testCase": {
+          "data": {
+            "type": "workitems",
+            "id": "MyProjectId/MyWorkItemId"
+          }
+        }
+      },
+      "meta": {}
+    }
+  ],
+  "included": [
+    {
+      "type": "users",
+      "id": "MyProjectId/jdoe",
+      "attributes": {
+        "name": "J Doe"
+      }
+    }
+  ],
+  "links": {
+    "self": "server-host-name/application-path/projects/MyProjectId/testruns/MyTestRunId/testrecords"
+  }
+}
