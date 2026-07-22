@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "totalCount": 1
+  },
+  "data": [
+    {
+      "type": "linkedworkitems",
+      "id": "MyProjectId/SourceWorkItemId/relates_to/MyProjectId/MyWorkItemId",
+      "attributes": {
+        "role": "relates_to",
+        "suspect": true
+      },
+      "relationships": {
+        "workItem": {
+          "data": {
+            "type": "workitems",
+            "id": "MyProjectId/SourceWorkItemId"
+          }
+        }
+      },
+      "meta": {}
+    }
+  ],
+  "included": [{}],
+  "links": {
+    "self": "server-host-name/application-path/projects/MyProjectId/workitems/MyWorkItemId/backlinkedworkitems?page%5Bsize%5D=100&page%5Bnumber%5D=1"
+  }
+}

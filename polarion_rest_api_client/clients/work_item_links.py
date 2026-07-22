@@ -10,7 +10,9 @@ from polarion_rest_api_client.open_api_client import models as api_models
 from polarion_rest_api_client.open_api_client import types as oa_types
 from polarion_rest_api_client.open_api_client.api.linked_work_items import (
     delete_linked_work_items,
+    get_backlinked_work_items,
     get_linked_work_items,
+    patch_linked_work_item,
     post_linked_work_items,
 )
 
@@ -90,8 +92,123 @@ class WorkItemLinks(
 
         return self._parse_get_response(response, work_item_id)
 
+    def get_backlinks(
+        self,
+        work_item_id: str,
+        *,
+        page_size: int = 100,
+        page_number: int = 1,
+        fields: dict[str, str] | None = None,
+        include: str | None | oa_types.Unset = None,
+        revision: str | None | oa_types.Unset = None,
+    ) -> tuple[list[dm.WorkItemLink], bool]:
+        """Get the links pointing at the given work item on a page.
+
+        Each returned link's ``primary_work_item_id`` names the work item
+        that holds the link, and the queried work item is its target. In
+        addition, a flag whether a next page is available is returned.
+        """
+        if fields is None:
+            fields = self._client.default_fields.linkedworkitems
+
+        response = get_backlinked_work_items.sync_detailed(
+            self._project_id,
+            work_item_id,
+            client=self._client.client,
+            fields=self._build_sparse_fields(fields),
+            include=self.none_to_unset(include),
+            pagesize=page_size,
+            pagenumber=page_number,
+            revision=revision or oa_types.UNSET,
+        )
+
+        return self._parse_get_response(response, work_item_id, backlink=True)
+
+    async def async_get_backlinks(
+        self,
+        work_item_id: str,
+        *,
+        page_size: int = 100,
+        page_number: int = 1,
+        fields: dict[str, str] | None = None,
+        include: str | None | oa_types.Unset = None,
+        revision: str | None | oa_types.Unset = None,
+    ) -> tuple[list[dm.WorkItemLink], bool]:
+        """Get the links pointing at the given work item on a page.
+
+        Each returned link's ``primary_work_item_id`` names the work item
+        that holds the link, and the queried work item is its target. In
+        addition, a flag whether a next page is available is returned.
+        """
+        if fields is None:
+            fields = self._client.default_fields.linkedworkitems
+
+        response = await get_backlinked_work_items.asyncio_detailed(
+            self._project_id,
+            work_item_id,
+            client=self._client.client,
+            fields=self._build_sparse_fields(fields),
+            include=self.none_to_unset(include),
+            pagesize=page_size,
+            pagenumber=page_number,
+            revision=revision or oa_types.UNSET,
+        )
+
+        return self._parse_get_response(response, work_item_id, backlink=True)
+
+    def update(self, link: dm.WorkItemLink) -> None:
+        """Update the ``suspect`` flag (and revision) of a single link."""
+        response = patch_linked_work_item.sync_detailed(
+            *self._patch_path(link),
+            client=self._client.client,
+            body=self._build_patch_body(link),
+        )
+        self._raise_on_error(response)
+
+    async def async_update(self, link: dm.WorkItemLink) -> None:
+        """Update the ``suspect`` flag (and revision) of a single link."""
+        response = await patch_linked_work_item.asyncio_detailed(
+            *self._patch_path(link),
+            client=self._client.client,
+            body=self._build_patch_body(link),
+        )
+        self._raise_on_error(response)
+
+    def _patch_path(
+        self, link: dm.WorkItemLink
+    ) -> tuple[str, str, str, str, str]:
+        return (
+            self._project_id,
+            link.primary_work_item_id,
+            link.role,
+            link.secondary_work_item_project or self._project_id,
+            link.secondary_work_item_id,
+        )
+
+    def _build_patch_body(
+        self, link: dm.WorkItemLink
+    ) -> api_models.LinkedworkitemsSinglePatchRequest:
+        # pylint: disable=line-too-long
+        link_id = "/".join(self._patch_path(link))
+        return api_models.LinkedworkitemsSinglePatchRequest(
+            data=api_models.LinkedworkitemsSinglePatchRequestData(
+                type_=api_models.LinkedworkitemsSinglePatchRequestDataType.LINKEDWORKITEMS,
+                id=link_id,
+                attributes=api_models.LinkedworkitemsSinglePatchRequestDataAttributes(
+                    suspect=link.suspect or False,
+                    revision=link.secondary_work_item_revision
+                    or oa_types.UNSET,
+                ),
+            )
+        )
+        # pylint: enable=line-too-long
+
     def _parse_get_response(
-        self, response: oa_types.Response, work_item_id: str
+        self,
+        response: oa_types.Response,
+        work_item_id: str,
+        *,
+        backlink: bool = False,
     ) -> tuple[list[dm.WorkItemLink], bool]:
         self._raise_on_error(response)
         linked_work_item_response = response.parsed
@@ -118,6 +235,7 @@ class WorkItemLinks(
                         link.attributes.suspect,
                         work_item_id,
                         link.attributes.revision,
+                        backlink=backlink,
                     )
                 )
 
@@ -133,10 +251,26 @@ class WorkItemLinks(
         suspect: bool | oa_types.Unset,
         work_item_id: str,
         revision: str | oa_types.Unset,
+        *,
+        backlink: bool = False,
     ) -> dm.WorkItemLink:
         info = link_id.split("/")
         assert len(info) == LINK_ID_PART_COUNT
+        source_project_id, source_work_item_id = info[:2]
         role_id, target_project_id, linked_work_item_id = info[2:]
+
+        if backlink:
+            # A backlink id names the linking (source) work item; the queried
+            # work item is the target. Flip so primary_work_item_id is the
+            # source that actually holds the link.
+            return dm.WorkItemLink(
+                source_work_item_id,
+                linked_work_item_id,
+                role_id,
+                None if isinstance(suspect, oa_types.Unset) else suspect,
+                source_project_id,
+                None if isinstance(revision, oa_types.Unset) else revision,
+            )
 
         return dm.WorkItemLink(
             work_item_id,

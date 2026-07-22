@@ -150,6 +150,7 @@ TEST_WIL_NEXT_PAGE_RESPONSE = (
 TEST_WIL_NO_NEXT_PAGE_RESPONSE = (
     TEST_RESPONSES / "get_linked_work_items_no_next_page.json"
 )
+TEST_WIL_BACKLINKS_RESPONSE = TEST_RESPONSES / "get_backlinked_work_items.json"
 TEST_WI_DELETE_REQUEST = TEST_REQUESTS / "delete_work_item.json"
 TEST_WI_PATCH_STATUS_DELETED_REQUEST = (
     TEST_REQUESTS / "patch_work_item_status_deleted.json"
