@@ -253,3 +253,31 @@ def test_get_test_runs_multi_forwards_include(
     assert next_page is False
     assert len(test_runs) == 1
     assert test_runs[0].additional_attributes["author_name"] == "J Doe"
+
+
+def test_get_test_runs_multi_forwards_templates(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_TRUN_NO_NEXT_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    client.test_runs.get_multi(templates=True)
+
+    req = httpx_mock.get_request()
+    assert req is not None
+    assert req.url.params["templates"] == "true"
+
+
+def test_get_test_runs_multi_omits_templates_by_default(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_TRUN_NO_NEXT_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    client.test_runs.get_multi()
+
+    req = httpx_mock.get_request()
+    assert req is not None
+    assert "templates" not in req.url.params

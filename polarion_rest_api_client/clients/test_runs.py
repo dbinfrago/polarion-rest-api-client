@@ -115,6 +115,7 @@ class TestRuns(
         page_number: int = 1,
         fields: dict[str, str] | None = None,
         include: str | None = None,
+        templates: bool = False,
     ) -> tuple[list[dm.TestRun], bool]:
         """Return the test runs on a defined page matching the given query.
 
@@ -123,7 +124,8 @@ class TestRuns(
         Polarion API documentation to get certain fields. Pass include
         (e.g. "author") to sideload related resources; user relationships
         then get resolved display names under
-        additional_attributes["<relationship>_name"].
+        additional_attributes["<relationship>_name"]. Set templates to list
+        test run templates instead of regular runs.
         """
         if fields is None:
             fields = self._client.default_fields.testruns
@@ -137,6 +139,7 @@ class TestRuns(
             pagenumber=page_number,
             pagesize=page_size,
             include=include or oa_types.UNSET,
+            templates=True if templates else oa_types.UNSET,
         )
         return self._parse_get_response(response)
 
@@ -148,6 +151,7 @@ class TestRuns(
         page_number: int = 1,
         fields: dict[str, str] | None = None,
         include: str | None = None,
+        templates: bool = False,
     ) -> tuple[list[dm.TestRun], bool]:
         """Return the test runs on a defined page matching the given query.
 
@@ -156,7 +160,8 @@ class TestRuns(
         Polarion API documentation to get certain fields. Pass include
         (e.g. "author") to sideload related resources; user relationships
         then get resolved display names under
-        additional_attributes["<relationship>_name"].
+        additional_attributes["<relationship>_name"]. Set templates to list
+        test run templates instead of regular runs.
         """
         if fields is None:
             fields = self._client.default_fields.testruns
@@ -170,6 +175,7 @@ class TestRuns(
             pagenumber=page_number,
             pagesize=page_size,
             include=include or oa_types.UNSET,
+            templates=True if templates else oa_types.UNSET,
         )
 
         self._raise_on_error(response)
