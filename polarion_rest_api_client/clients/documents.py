@@ -358,6 +358,7 @@ class Documents(
         )
 
         self._raise_on_error(res)
+        self._process_post_response(res, items)
 
     async def _async_create(self, items: list[dm.Document]) -> None:
         assert items[0].module_folder
@@ -369,6 +370,23 @@ class Documents(
         )
 
         self._raise_on_error(res)
+        self._process_post_response(res, items)
+
+    def _process_post_response(
+        self, response: oa_types.Response, items: list[dm.Document]
+    ) -> None:
+        """Populate the created documents' ids from the 201 echo.
+
+        The response id is the full ``project/folder/name`` path, which is a
+        document's natural key; callers need it to reference the new document.
+        """
+        assert isinstance(
+            response.parsed, api_models.DocumentsListPostResponse
+        )
+        assert response.parsed.data
+        for index, document_res in enumerate(response.parsed.data):
+            assert document_res.id
+            items[index].id = document_res.id
 
     def _prepare_document_post_request(
         self, items: list[dm.Document]

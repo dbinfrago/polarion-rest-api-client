@@ -187,6 +187,8 @@ def test_create_new_document(
         req.url == "http://127.0.0.1/api/projects/PROJ/spaces/folder/documents"
     )
     assert json.loads(req.content.decode("utf-8")) == expected_request
+    # The 201 echo id (full project/folder/name path) is written back.
+    assert document.id == "PROJ/folder/name"
 
 
 def test_update_document(
