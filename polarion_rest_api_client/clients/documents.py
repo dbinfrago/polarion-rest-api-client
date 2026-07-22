@@ -18,6 +18,10 @@ from polarion_rest_api_client.open_api_client.api.documents import (
 )
 
 from . import base_classes as bc
+from . import comments
+
+if t.TYPE_CHECKING:
+    from polarion_rest_api_client import client as polarion_client
 
 logger = logging.getLogger(__name__)
 
@@ -31,6 +35,14 @@ class Documents(
     """A client to work with documents in Polarion."""
 
     _update_batch_size = 1
+
+    def __init__(
+        self,
+        project_id: str,
+        client: "polarion_client.PolarionClient",
+    ):
+        super().__init__(project_id, client)
+        self.comments = comments.DocumentComments(project_id, client)
 
     def get(
         self,
