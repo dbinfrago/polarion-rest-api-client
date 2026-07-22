@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 from __future__ import annotations
 
+import asyncio
 import json
 import ssl
 from unittest import mock
@@ -10,7 +11,48 @@ import pytest
 import pytest_httpx
 
 import polarion_rest_api_client as polarion_api
-from tests.conftest import TEST_PROJECT_RESPONSE_JSON
+from tests.conftest import (
+    TEST_PROJECT_RESPONSE_JSON,
+    TEST_PROJECTS_RESPONSE_JSON,
+)
+
+
+def _polarion_client() -> polarion_api.PolarionClient:
+    return polarion_api.PolarionClient(
+        polarion_api_endpoint="http://127.0.0.1/api",
+        polarion_access_token="PAT123",
+    )
+
+
+def test_list_projects(httpx_mock: pytest_httpx.HTTPXMock):
+    with open(TEST_PROJECTS_RESPONSE_JSON, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    client = _polarion_client()
+    result, next_page = client.projects.get_multi(fields={"projects": "@all"})
+
+    req = httpx_mock.get_request()
+    assert req.url.path.endswith("/projects")
+    assert req.url.params["fields[projects]"] == "@all"
+    assert next_page is False
+    assert [p.id for p in result] == ["MyProjectId", "OtherProject"]
+    assert result[0].name == "My Project"
+    assert result[0].active is True
+    assert result[0].tracker_prefix == "MP"
+    assert result[0].description is not None
+    assert result[0].description.value == "A project"
+    assert result[1].active is False
+
+
+def test_list_projects_async(httpx_mock: pytest_httpx.HTTPXMock):
+    with open(TEST_PROJECTS_RESPONSE_JSON, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    client = _polarion_client()
+    result, next_page = asyncio.run(client.projects.async_get_multi())
+
+    assert next_page is False
+    assert [p.id for p in result] == ["MyProjectId", "OtherProject"]
 
 
 @mock.patch("httpx.Client")

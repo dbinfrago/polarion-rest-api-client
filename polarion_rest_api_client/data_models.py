@@ -21,6 +21,7 @@ __all__ = [
     "HtmlContent",
     "HyperLink",
     "Layouter",
+    "Project",
     "RenderingLayout",
     "RenderingProperties",
     "SelectTestCasesBy",
@@ -74,6 +75,20 @@ class DocumentReference:
 
     module_folder: str
     module_name: str
+
+
+@dataclasses.dataclass
+class Project:
+    """A Polarion project's core metadata."""
+
+    id: str | None = None
+    name: str | None = None
+    active: bool | None = None
+    description: TextContent | None = None
+    tracker_prefix: str | None = None
+    additional_attributes: dict[str, t.Any] = dataclasses.field(
+        default_factory=dict
+    )
 
 
 class WorkItem(StatusItem):

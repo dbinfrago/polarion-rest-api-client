@@ -44,14 +44,18 @@ class _CommentsMixin(bc.BaseClient[dm.Comment]):
 
         comment = dm.Comment(
             id=data.id.split("/")[-1] if data.id else None,
-            title=self.unset_to_none(getattr(attributes, "title", oa_types.UNSET))
+            title=self.unset_to_none(
+                getattr(attributes, "title", oa_types.UNSET)
+            )
             if attributes
             else None,
             resolved=self.unset_to_none(attributes.resolved)
             if attributes
             else None,
             text=text,
-            created=self.unset_to_none(attributes.created) if attributes else None,
+            created=self.unset_to_none(attributes.created)
+            if attributes
+            else None,
         )
 
         relationships = getattr(data, "relationships", None)
@@ -70,7 +74,10 @@ class _CommentsMixin(bc.BaseClient[dm.Comment]):
                 and relationships.parent_comment.data.id
             ):
                 comment.parent_comment = relationships.parent_comment.data.id
-            if relationships.child_comments and relationships.child_comments.data:
+            if (
+                relationships.child_comments
+                and relationships.child_comments.data
+            ):
                 comment.child_comments = [
                     child.id
                     for child in relationships.child_comments.data
@@ -100,7 +107,9 @@ class WorkItemComments(
             self._project_id,
             work_item_id,
             client=self._client.client,
-            fields=self._build_sparse_fields(fields) if fields else oa_types.UNSET,
+            fields=self._build_sparse_fields(fields)
+            if fields
+            else oa_types.UNSET,
             include=include or oa_types.UNSET,
             pagesize=page_size,
             pagenumber=page_number,
@@ -122,7 +131,9 @@ class WorkItemComments(
             self._project_id,
             work_item_id,
             client=self._client.client,
-            fields=self._build_sparse_fields(fields) if fields else oa_types.UNSET,
+            fields=self._build_sparse_fields(fields)
+            if fields
+            else oa_types.UNSET,
             include=include or oa_types.UNSET,
             pagesize=page_size,
             pagenumber=page_number,
@@ -257,7 +268,9 @@ class DocumentComments(
             space_id,
             document_name,
             client=self._client.client,
-            fields=self._build_sparse_fields(fields) if fields else oa_types.UNSET,
+            fields=self._build_sparse_fields(fields)
+            if fields
+            else oa_types.UNSET,
             include=include or oa_types.UNSET,
             pagesize=page_size,
             pagenumber=page_number,
@@ -281,7 +294,9 @@ class DocumentComments(
             space_id,
             document_name,
             client=self._client.client,
-            fields=self._build_sparse_fields(fields) if fields else oa_types.UNSET,
+            fields=self._build_sparse_fields(fields)
+            if fields
+            else oa_types.UNSET,
             include=include or oa_types.UNSET,
             pagesize=page_size,
             pagenumber=page_number,

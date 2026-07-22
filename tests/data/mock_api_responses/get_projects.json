@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "type": "projects",
+      "id": "MyProjectId",
+      "attributes": {
+        "id": "MyProjectId",
+        "name": "My Project",
+        "active": true,
+        "trackerPrefix": "MP",
+        "description": {
+          "type": "text/plain",
+          "value": "A project"
+        }
+      }
+    },
+    {
+      "type": "projects",
+      "id": "OtherProject",
+      "attributes": {
+        "id": "OtherProject",
+        "name": "Other",
+        "active": false
+      }
+    }
+  ],
+  "links": {}
+}
