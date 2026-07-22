@@ -182,6 +182,9 @@ TEST_WI_NOT_TRUNCATED_RESPONSE = (
     TEST_RESPONSES / "get_work_item_not_truncated.json"
 )
 TEST_DOCUMENT_RESPONSE = TEST_RESPONSES / "get_document.json"
+TEST_DOCUMENTS_INCLUDED_USERS_RESPONSE = (
+    TEST_RESPONSES / "get_documents_included_users.json"
+)
 TEST_DOCUMENT_POST_REQUEST = TEST_REQUESTS / "create_document.json"
 TEST_DOCUMENT_PATCH_REQUEST = TEST_REQUESTS / "update_document.json"
 TEST_DOCUMENT_PATCH_REQUEST2 = TEST_REQUESTS / "update_document_2.json"

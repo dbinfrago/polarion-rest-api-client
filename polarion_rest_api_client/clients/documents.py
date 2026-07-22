@@ -12,6 +12,7 @@ from polarion_rest_api_client.open_api_client import models as api_models
 from polarion_rest_api_client.open_api_client import types as oa_types
 from polarion_rest_api_client.open_api_client.api.documents import (
     get_document,
+    get_documents,
     patch_document,
     post_documents,
 )
@@ -23,6 +24,7 @@ logger = logging.getLogger(__name__)
 
 class Documents(
     bc.SingleGetClient,
+    bc.MultiGetClient[dm.Document],
     bc.CreateClient,
     bc.UpdateClient[dm.Document],
 ):
@@ -94,52 +96,149 @@ class Documents(
             and (data := document_response.data)
             and not getattr(data.meta, "errors", [])
         ):
-            assert data.attributes
-            attributes = data.attributes
-            assert isinstance(data.id, str)
-            home_page_content = self._handle_text_content(
-                attributes.home_page_content
+            user_names = self._user_names_from_included(
+                document_response.included
             )
-
-            rendering_layouts = None
-            if attributes.rendering_layouts:
-                rendering_layouts = [
-                    dm.RenderingLayout(
-                        self.unset_to_none(layout.label),
-                        self.unset_to_none(layout.layouter),
-                        (
-                            [p.to_dict() for p in layout.properties]
-                            if layout.properties
-                            else None
-                        ),
-                        self.unset_to_none(layout.type_),
-                    )
-                    for layout in attributes.rendering_layouts
-                ]
-
-            return dm.Document(
-                id=data.id,
-                module_folder=self.unset_to_none(attributes.module_folder),
-                module_name=self.unset_to_none(attributes.module_name),
-                type=self.unset_to_none(attributes.type_),
-                status=self.unset_to_none(attributes.status),
-                home_page_content=home_page_content,
-                title=self.unset_to_none(attributes.title),
-                rendering_layouts=rendering_layouts,
-                outline_numbering=self.unset_to_none(
-                    attributes.uses_outline_numbering
-                ),
-                outline_numbering_prefix=(
-                    self.unset_to_none(attributes.outline_numbering.prefix)
-                    if attributes.outline_numbering
-                    else None
-                ),
-                additional_properties=attributes.additional_properties or {},
-                structure_link_role=self.unset_to_none(
-                    attributes.structure_link_role
-                ),
-            )
+            return self._generate_document(data, user_names)
         return None
+
+    def get_multi(  # type: ignore[override]
+        self,
+        query: str = "",
+        *,
+        page_size: int = 100,
+        page_number: int = 1,
+        fields: dict[str, str] | None = None,
+        include: str | None = None,
+    ) -> tuple[list[dm.Document], bool]:
+        """Return the documents on a page matching the given query."""
+        if fields is None:
+            fields = self._client.default_fields.documents
+
+        response = get_documents.sync_detailed(
+            self._project_id,
+            client=self._client.client,
+            fields=self._build_sparse_fields(fields),
+            query=query,
+            include=include or oa_types.UNSET,
+            pagesize=page_size,
+            pagenumber=page_number,
+        )
+        return self._parse_documents_response(response)
+
+    async def async_get_multi(  # type: ignore[override]
+        self,
+        query: str = "",
+        *,
+        page_size: int = 100,
+        page_number: int = 1,
+        fields: dict[str, str] | None = None,
+        include: str | None = None,
+    ) -> tuple[list[dm.Document], bool]:
+        """Return the documents on a page matching the given query."""
+        if fields is None:
+            fields = self._client.default_fields.documents
+
+        response = await get_documents.asyncio_detailed(
+            self._project_id,
+            client=self._client.client,
+            fields=self._build_sparse_fields(fields),
+            query=query,
+            include=include or oa_types.UNSET,
+            pagesize=page_size,
+            pagenumber=page_number,
+        )
+        return self._parse_documents_response(response)
+
+    def _parse_documents_response(
+        self, response: oa_types.Response
+    ) -> tuple[list[dm.Document], bool]:
+        self._raise_on_error(response)
+        documents_response = response.parsed
+        assert isinstance(
+            documents_response, api_models.DocumentsListGetResponse
+        )
+        user_names = self._user_names_from_included(
+            documents_response.included
+        )
+        documents = [
+            self._generate_document(data, user_names)
+            for data in documents_response.data or []
+            if not getattr(data.meta, "errors", []) and data.attributes
+        ]
+        next_page = isinstance(
+            documents_response.links,
+            api_models.DocumentsListGetResponseLinks,
+        ) and bool(documents_response.links.next_)
+        return documents, next_page
+
+    def _generate_document(
+        self,
+        data: t.Any,
+        user_names: dict[str, str] | None = None,
+    ) -> dm.Document:
+        assert data.attributes
+        attributes = data.attributes
+        assert isinstance(data.id, str)
+        home_page_content = self._handle_text_content(
+            attributes.home_page_content
+        )
+
+        rendering_layouts = None
+        if attributes.rendering_layouts:
+            rendering_layouts = [
+                dm.RenderingLayout(
+                    self.unset_to_none(layout.label),
+                    self.unset_to_none(layout.layouter),
+                    (
+                        [p.to_dict() for p in layout.properties]
+                        if layout.properties
+                        else None
+                    ),
+                    self.unset_to_none(layout.type_),
+                )
+                for layout in attributes.rendering_layouts
+            ]
+
+        additional_properties = attributes.additional_properties or {}
+        if user_names and (
+            relationships := getattr(data, "relationships", None)
+        ):
+            self._resolve_named_user_relationship(
+                additional_properties,
+                "author",
+                getattr(relationships, "author", None),
+                user_names,
+            )
+            self._resolve_named_user_relationship(
+                additional_properties,
+                "updated_by",
+                getattr(relationships, "updated_by", None),
+                user_names,
+            )
+
+        return dm.Document(
+            id=data.id,
+            module_folder=self.unset_to_none(attributes.module_folder),
+            module_name=self.unset_to_none(attributes.module_name),
+            type=self.unset_to_none(attributes.type_),
+            status=self.unset_to_none(attributes.status),
+            home_page_content=home_page_content,
+            title=self.unset_to_none(attributes.title),
+            rendering_layouts=rendering_layouts,
+            outline_numbering=self.unset_to_none(
+                attributes.uses_outline_numbering
+            ),
+            outline_numbering_prefix=(
+                self.unset_to_none(attributes.outline_numbering.prefix)
+                if attributes.outline_numbering
+                else None
+            ),
+            additional_properties=additional_properties,
+            structure_link_role=self.unset_to_none(
+                attributes.structure_link_role
+            ),
+        )
 
     def _pre_batching_grouping(
         self, items: list[dm.Document]
