@@ -3,9 +3,11 @@
     "type": "testruns",
     "id": "MyProjectId/MyTestRunId",
     "attributes": {
+      "created": "1970-01-01T00:00:00Z",
       "status": "open",
       "title": "Title",
-      "type": "manual"
+      "type": "manual",
+      "updated": "1970-01-02T00:00:00Z"
     },
     "relationships": {
       "author": {

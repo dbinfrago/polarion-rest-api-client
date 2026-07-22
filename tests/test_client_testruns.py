@@ -211,6 +211,29 @@ def test_get_test_run_resolves_author_name(
     )
 
 
+def test_get_test_run_surfaces_standard_scalar_attributes(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_TRUN_INCLUDED_USERS_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    test_run = client.test_runs.get("MyTestRunId")
+
+    assert test_run is not None
+    assert (
+        test_run.additional_attributes["created"]
+        == "1970-01-01T00:00:00+00:00"
+    )
+    assert (
+        test_run.additional_attributes["updated"]
+        == "1970-01-02T00:00:00+00:00"
+    )
+    assert "title" not in test_run.additional_attributes
+    assert "type" not in test_run.additional_attributes
+    assert "status" not in test_run.additional_attributes
+
+
 def test_get_test_runs_multi_forwards_include(
     client: polarion_api.ProjectClient,
     httpx_mock: pytest_httpx.HTTPXMock,

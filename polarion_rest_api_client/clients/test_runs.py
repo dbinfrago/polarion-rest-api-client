@@ -26,6 +26,26 @@ AttributesType = t.TypeVar(
     | api_models.TestrunsSinglePatchRequestDataAttributes,
 )
 
+# Keys already surfaced as dedicated dm.TestRun fields; excluded from the
+# additional_attributes bag to avoid duplicating them.
+_TYPED_TEST_RUN_ATTRIBUTE_KEYS: t.Final = frozenset(
+    {
+        "id",
+        "type",
+        "status",
+        "title",
+        "homePageContent",
+        "finishedOn",
+        "groupId",
+        "idPrefix",
+        "isTemplate",
+        "keepInHistory",
+        "query",
+        "useReportFromTemplate",
+        "selectTestCasesBy",
+    }
+)
+
 
 class TestRuns(
     bc.MultiGetClient[dm.TestRun],
@@ -218,7 +238,11 @@ class TestRuns(
         attributes = data.attributes
         assert attributes is not None
         assert not isinstance(attributes, oa_types.Unset)
-        additional_attributes = dict(attributes.additional_properties or {})
+        additional_attributes = {
+            key: value
+            for key, value in attributes.to_dict().items()
+            if key not in _TYPED_TEST_RUN_ATTRIBUTE_KEYS
+        }
 
         relationships = getattr(data, "relationships", None)
         if relationships is not None and not isinstance(
