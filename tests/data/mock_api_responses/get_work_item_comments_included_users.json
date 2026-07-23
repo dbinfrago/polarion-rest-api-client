@@ -1,0 +1,77 @@
+{
+  "data": [
+    {
+      "type": "workitem_comments",
+      "id": "MyProjectId/MyWorkItemId/parent",
+      "attributes": {
+        "id": "parent",
+        "created": "2024-01-01T00:00:00Z",
+        "resolved": false,
+        "title": "Root comment",
+        "text": {
+          "type": "text/html",
+          "value": "<p>Root</p>"
+        }
+      },
+      "relationships": {
+        "author": {
+          "data": {
+            "type": "users",
+            "id": "MyProjectId/jdoe"
+          }
+        },
+        "childComments": {
+          "data": [
+            {
+              "type": "workitem_comments",
+              "id": "MyProjectId/MyWorkItemId/child"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "workitem_comments",
+      "id": "MyProjectId/MyWorkItemId/child",
+      "attributes": {
+        "id": "child",
+        "created": "2024-01-02T00:00:00Z",
+        "resolved": true,
+        "text": {
+          "type": "text/plain",
+          "value": "A reply"
+        }
+      },
+      "relationships": {
+        "author": {
+          "data": {
+            "type": "users",
+            "id": "MyProjectId/asmith"
+          }
+        },
+        "parentComment": {
+          "data": {
+            "type": "workitem_comments",
+            "id": "MyProjectId/MyWorkItemId/parent"
+          }
+        }
+      }
+    }
+  ],
+  "included": [
+    {
+      "type": "users",
+      "id": "MyProjectId/jdoe",
+      "attributes": {
+        "name": "J Doe"
+      }
+    },
+    {
+      "type": "users",
+      "id": "MyProjectId/asmith",
+      "attributes": {
+        "name": "A Smith"
+      }
+    }
+  ]
+}

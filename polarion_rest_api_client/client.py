@@ -143,6 +143,8 @@ class PolarionClient:
         self.page_size = page_size
         self.max_content_size = max_content_size
         self.default_fields = DefaultFields()
+        # project_id is unused by the projects list endpoint.
+        self.projects = projects.Projects("", self)
 
     def generate_project_client(
         self,

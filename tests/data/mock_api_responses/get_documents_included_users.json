@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "totalCount": 2
+  },
+  "data": [
+    {
+      "type": "documents",
+      "id": "MyProjectId/MySpaceId/FirstDocument",
+      "attributes": {
+        "moduleFolder": "MySpaceId",
+        "moduleName": "FirstDocument",
+        "status": "open",
+        "title": "First Document",
+        "type": "standardSpecification"
+      },
+      "relationships": {
+        "author": {
+          "data": {
+            "type": "users",
+            "id": "MyProjectId/jdoe"
+          }
+        },
+        "updatedBy": {
+          "data": {
+            "type": "users",
+            "id": "MyProjectId/asmith"
+          }
+        }
+      },
+      "meta": {}
+    },
+    {
+      "type": "documents",
+      "id": "MyProjectId/MySpaceId/SecondDocument",
+      "attributes": {
+        "moduleFolder": "MySpaceId",
+        "moduleName": "SecondDocument",
+        "status": "draft",
+        "title": "Second Document",
+        "type": "standardSpecification"
+      },
+      "relationships": {
+        "author": {
+          "data": {
+            "type": "users",
+            "id": "MyProjectId/asmith"
+          }
+        }
+      },
+      "meta": {}
+    }
+  ],
+  "included": [
+    {
+      "type": "users",
+      "id": "MyProjectId/jdoe",
+      "attributes": {
+        "name": "J Doe"
+      }
+    },
+    {
+      "type": "users",
+      "id": "MyProjectId/asmith",
+      "attributes": {
+        "name": "A Smith"
+      }
+    }
+  ],
+  "links": {
+    "self": "server-host-name/application-path/projects/MyProjectId/documents"
+  }
+}

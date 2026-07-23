@@ -14,7 +14,74 @@ from tests.conftest import (
     TEST_DOCUMENT_PATCH_REQUEST2,
     TEST_DOCUMENT_POST_REQUEST,
     TEST_DOCUMENT_RESPONSE,
+    TEST_DOCUMENTS_INCLUDED_USERS_RESPONSE,
 )
+
+
+def test_get_documents_multi_lists_and_forwards_include(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_DOCUMENTS_INCLUDED_USERS_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    documents, next_page = client.documents.get_multi(
+        query="type:standardSpecification",
+        fields={"documents": "@all", "users": "name"},
+        include="author,updatedBy",
+    )
+
+    req = httpx_mock.get_request()
+    assert req is not None
+    assert req.url.path.endswith("PROJ/documents")
+    params = dict(req.url.params)
+    assert params["include"] == "author,updatedBy"
+    assert params["query"] == "type:standardSpecification"
+    assert next_page is False
+    assert len(documents) == 2
+    assert documents[0].module_name == "FirstDocument"
+    assert documents[1].module_name == "SecondDocument"
+
+
+def test_get_documents_multi_resolves_author_names(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_DOCUMENTS_INCLUDED_USERS_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    documents, _ = client.documents.get_multi(
+        fields={"documents": "@all", "users": "name"},
+        include="author,updatedBy",
+    )
+
+    first = documents[0].additional_properties
+    assert first["author"] == "MyProjectId/jdoe"
+    assert first["author_name"] == "J Doe"
+    assert first["updated_by"] == "MyProjectId/asmith"
+    assert first["updated_by_name"] == "A Smith"
+    # Second document has no updatedBy relationship -> no key written.
+    second = documents[1].additional_properties
+    assert second["author_name"] == "A Smith"
+    assert "updated_by_name" not in second
+
+
+def test_get_documents_multi_keeps_user_ids_without_names(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_DOCUMENTS_INCLUDED_USERS_RESPONSE, encoding="utf8") as f:
+        content = json.load(f)
+    content["included"] = []
+    httpx_mock.add_response(json=content)
+
+    documents, _ = client.documents.get_multi(include="author,updatedBy")
+
+    first = documents[0].additional_properties
+    assert first["author"] == "MyProjectId/jdoe"
+    assert first["updated_by"] == "MyProjectId/asmith"
+    assert "author_name" not in first
+    assert "updated_by_name" not in first
 
 
 def test_get_document_with_all_fields(
@@ -66,6 +133,25 @@ def test_get_document_with_all_fields(
         },
         structure_link_role="parent",
     )
+
+
+def test_get_document_encodes_spaces_once(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    """A space in the document name must be encoded exactly once (%20).
+
+    Regression: the client used to pre-quote space_id/document_name and the
+    generated endpoint quoted again, yielding %2520 and a spurious 404.
+    """
+    with open(TEST_DOCUMENT_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    client.documents.get("My Space", "My Document Name")
+
+    url = str(httpx_mock.get_requests()[0].url)
+    assert "My%20Space/documents/My%20Document%20Name" in url
+    assert "%25" not in url  # no double-encoding
 
 
 def test_create_new_document(
@@ -138,6 +224,8 @@ def test_create_new_document(
         req.url == "http://127.0.0.1/api/projects/PROJ/spaces/folder/documents"
     )
     assert json.loads(req.content.decode("utf-8")) == expected_request
+    # The 201 echo id (full project/folder/name path) is written back.
+    assert document.id == "PROJ/folder/name"
 
 
 def test_update_document(

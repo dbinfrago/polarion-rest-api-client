@@ -15,11 +15,13 @@ from polarion_rest_api_client import errors
 
 __all__ = [
     "AbstractTestParameter",
+    "Comment",
     "Document",
     "DocumentReference",
     "HtmlContent",
     "HyperLink",
     "Layouter",
+    "Project",
     "RenderingLayout",
     "RenderingProperties",
     "SelectTestCasesBy",
@@ -73,6 +75,20 @@ class DocumentReference:
 
     module_folder: str
     module_name: str
+
+
+@dataclasses.dataclass
+class Project:
+    """A Polarion project's core metadata."""
+
+    id: str | None = None
+    name: str | None = None
+    active: bool | None = None
+    description: TextContent | None = None
+    tracker_prefix: str | None = None
+    additional_attributes: dict[str, t.Any] = dataclasses.field(
+        default_factory=dict
+    )
 
 
 class WorkItem(StatusItem):
@@ -205,6 +221,9 @@ class WorkItemLink:
     )
     secondary_work_item_revision: str | None = (
         None  # Use to set specific revision
+    )
+    additional_attributes: dict[str, t.Any] = dataclasses.field(
+        default_factory=dict
     )
 
 
@@ -392,6 +411,30 @@ class TestStep:
     step_index: int | None = None
     revision: str | None = None
     step_columns: dict[str, TextContent] = dataclasses.field(
+        default_factory=dict
+    )
+
+
+@dataclasses.dataclass
+class Comment:
+    """A comment on a work item or document.
+
+    ``author`` holds the raw user id; when the author is sideloaded via
+    ``include=author`` its display name lands in
+    ``additional_attributes['author_name']`` (same convention as other
+    clients). ``parent_comment`` / ``child_comments`` carry the full
+    resource ids of the reply thread.
+    """
+
+    id: str | None = None
+    title: str | None = None
+    resolved: bool | None = None
+    text: TextContent | None = None
+    created: datetime.datetime | None = None
+    author: str | None = None
+    parent_comment: str | None = None
+    child_comments: list[str] = dataclasses.field(default_factory=list)
+    additional_attributes: dict[str, t.Any] = dataclasses.field(
         default_factory=dict
     )
 

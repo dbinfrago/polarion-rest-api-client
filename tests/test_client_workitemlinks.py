@@ -11,6 +11,7 @@ import pytest_httpx
 
 import polarion_rest_api_client as polarion_api
 from tests.conftest import (
+    TEST_WIL_BACKLINKS_RESPONSE,
     TEST_WIL_CREATED_RESPONSE,
     TEST_WIL_DELETE2_REQUEST,
     TEST_WIL_DELETE_REQUEST,
@@ -78,6 +79,12 @@ def test_get_work_item_links_single_page(
         True,
         "MyProjectId",
         "1234",
+        {
+            "title": "Linked item",
+            "type": "requirement",
+            "status": "open",
+            "module": "MyProjectId/MySpace/MyDocument",
+        },
     )
 
 
@@ -331,4 +338,77 @@ def test_get_work_item_links_error_first_request(
         True,
         "MyProjectId",
         "1234",
+        {
+            "title": "Linked item",
+            "type": "requirement",
+            "status": "open",
+            "module": "MyProjectId/MySpace/MyDocument",
+        },
     )
+
+
+def test_get_backlinked_work_items(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_WIL_BACKLINKS_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    links, next_page = client.work_items.links.get_backlinks(
+        "MyWorkItemId",
+        fields={"fields[linkedworkitems]": "id,role,suspect"},
+    )
+
+    req = httpx_mock.get_request()
+    assert req is not None
+    assert req.method == "GET"
+    assert req.url.path.endswith(
+        "PROJ/workitems/MyWorkItemId/backlinkedworkitems"
+    )
+    assert next_page is False
+    # The queried work item is the target; primary names the source that
+    # actually holds the link.
+    assert links == [
+        polarion_api.WorkItemLink(
+            "SourceWorkItemId",
+            "MyWorkItemId",
+            "relates_to",
+            True,
+            "TargetProjectId",
+            additional_attributes={
+                "title": "Source item",
+                "type": "defect",
+                "status": "closed",
+                "module": "SourceProjectId/SourceSpace/SourceDocument",
+            },
+        )
+    ]
+
+
+def test_update_work_item_link(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    httpx_mock.add_response(204)
+
+    client.work_items.links.update(
+        polarion_api.WorkItemLink(
+            "MyWorkItemId", "MyWorkItemId2", "parent", True, "MyProjectId"
+        )
+    )
+
+    req = httpx_mock.get_request()
+    assert req is not None
+    assert req.method == "PATCH"
+    assert req.url.path.endswith(
+        "PROJ/workitems/MyWorkItemId/linkedworkitems/"
+        "parent/MyProjectId/MyWorkItemId2"
+    )
+    body = json.loads(req.content.decode())
+    assert body == {
+        "data": {
+            "type": "linkedworkitems",
+            "id": "PROJ/MyWorkItemId/parent/MyProjectId/MyWorkItemId2",
+            "attributes": {"suspect": True},
+        }
+    }

@@ -150,6 +150,7 @@ TEST_WIL_NEXT_PAGE_RESPONSE = (
 TEST_WIL_NO_NEXT_PAGE_RESPONSE = (
     TEST_RESPONSES / "get_linked_work_items_no_next_page.json"
 )
+TEST_WIL_BACKLINKS_RESPONSE = TEST_RESPONSES / "get_backlinked_work_items.json"
 TEST_WI_DELETE_REQUEST = TEST_REQUESTS / "delete_work_item.json"
 TEST_WI_PATCH_STATUS_DELETED_REQUEST = (
     TEST_REQUESTS / "patch_work_item_status_deleted.json"
@@ -175,16 +176,23 @@ TEST_WI_ERROR_NEXT_PAGE_RESPONSE = (
 )
 TEST_WI_NEXT_PAGE_RESPONSE = TEST_RESPONSES / "workitems_next_page.json"
 TEST_WI_SINGLE_RESPONSE = TEST_RESPONSES / "get_work_item.json"
+TEST_WI_INCLUDED_USERS_RESPONSE = (
+    TEST_RESPONSES / "get_work_item_included_users.json"
+)
 TEST_WI_NOT_TRUNCATED_RESPONSE = (
     TEST_RESPONSES / "get_work_item_not_truncated.json"
 )
 TEST_DOCUMENT_RESPONSE = TEST_RESPONSES / "get_document.json"
+TEST_DOCUMENTS_INCLUDED_USERS_RESPONSE = (
+    TEST_RESPONSES / "get_documents_included_users.json"
+)
 TEST_DOCUMENT_POST_REQUEST = TEST_REQUESTS / "create_document.json"
 TEST_DOCUMENT_PATCH_REQUEST = TEST_REQUESTS / "update_document.json"
 TEST_DOCUMENT_PATCH_REQUEST2 = TEST_REQUESTS / "update_document_2.json"
 TEST_ERROR_RESPONSE = TEST_RESPONSES / "error.json"
 TEST_FAULTS_ERROR_RESPONSES = TEST_RESPONSES / "faulty_errors.json"
 TEST_PROJECT_RESPONSE_JSON = TEST_RESPONSES / "project.json"
+TEST_PROJECTS_RESPONSE_JSON = TEST_RESPONSES / "get_projects.json"
 TEST_TRUN_PATCH_REQUEST = TEST_REQUESTS / "patch_test_run_partially.json"
 TEST_TRUN_FULLY_PATCH_REQUEST = TEST_REQUESTS / "patch_test_run_fully.json"
 TEST_TRUN_POST_REQUEST = TEST_REQUESTS / "post_test_run.json"
@@ -199,6 +207,21 @@ TEST_TREC_NEXT_RESPONSE = TEST_RESPONSES / "test_records_next_page.json"
 TEST_TREC_NO_NEXT_RESPONSE = TEST_RESPONSES / "test_records_no_next_page.json"
 TEST_TRUN_NEXT_RESPONSE = TEST_RESPONSES / "test_runs_next_page.json"
 TEST_TRUN_NO_NEXT_RESPONSE = TEST_RESPONSES / "test_runs_no_next_page.json"
+TEST_TRUN_INCLUDED_USERS_RESPONSE = (
+    TEST_RESPONSES / "get_test_run_included_users.json"
+)
+TEST_TREC_INCLUDED_USERS_RESPONSE = (
+    TEST_RESPONSES / "get_test_record_included_users.json"
+)
+TEST_TREC_SINGLE_INCLUDED_USERS_RESPONSE = (
+    TEST_RESPONSES / "get_test_record_single_included_users.json"
+)
+TEST_WI_COMMENTS_INCLUDED_USERS_RESPONSE = (
+    TEST_RESPONSES / "get_work_item_comments_included_users.json"
+)
+TEST_DOC_COMMENTS_INCLUDED_USERS_RESPONSE = (
+    TEST_RESPONSES / "get_document_comments_included_users.json"
+)
 
 TEST_STEPS_CREATED_RESPONSE = TEST_RESPONSES / "created_test_steps.json"
 TEST_STEPS_NEXT_RESPONSE = TEST_RESPONSES / "test_steps_next_page.json"

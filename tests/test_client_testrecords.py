@@ -9,11 +9,13 @@ import pytest_httpx
 import polarion_rest_api_client as polarion_api
 from tests.conftest import (
     TEST_TREC_CREATED_RESPONSE,
+    TEST_TREC_INCLUDED_USERS_RESPONSE,
     TEST_TREC_NEXT_RESPONSE,
     TEST_TREC_NO_NEXT_RESPONSE,
     TEST_TREC_PATCH_REQUEST,
     TEST_TREC_PATCH_REQUEST_EX_BY,
     TEST_TREC_POST_REQUEST,
+    TEST_TREC_SINGLE_INCLUDED_USERS_RESPONSE,
     check_req,
 )
 
@@ -58,6 +60,129 @@ def test_get_test_records_multi_page(
     assert test_records[0].work_item_id == "MyTestcaseId2"
     assert test_records[0].work_item_revision == "1234"
     assert test_records[0].executed_by == "MyUserId"
+    assert "executed_by" not in test_records[0].additional_attributes
+    assert "executed_by_name" not in test_records[0].additional_attributes
+
+
+def test_get_test_records_skips_partial_errors(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_TREC_NO_NEXT_RESPONSE, encoding="utf8") as f:
+        content = json.load(f)
+    content["data"].append(
+        {"type": "testrecords", "id": "broken", "meta": {"errors": [{}]}}
+    )
+    httpx_mock.add_response(json=content)
+
+    test_records, _ = client.test_runs.records.get_multi("MyTestRunId")
+
+    assert len(test_records) == 1
+
+
+def test_get_test_records_multi_forwards_include(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_TREC_NO_NEXT_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    client.test_runs.records.get_multi(
+        "MyTestRunId",
+        fields={"testrecords": "@all"},
+        include="executedBy",
+    )
+
+    req = httpx_mock.get_request()
+    assert req is not None
+    assert dict(req.url.params)["include"] == "executedBy"
+
+
+def test_get_test_records_multi_forwards_test_result_id(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_TREC_NO_NEXT_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    client.test_runs.records.get_multi(
+        "MyTestRunId",
+        test_result_id="failed",
+    )
+
+    req = httpx_mock.get_request()
+    assert req is not None
+    assert dict(req.url.params)["testResultId"] == "failed"
+
+
+def test_get_test_records_parses_defect_relationship(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_TREC_NO_NEXT_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    test_records, _ = client.test_runs.records.get_multi(
+        "MyTestRunId",
+        fields={"testrecords": "@all"},
+    )
+
+    assert (
+        test_records[0].additional_attributes["defect"]
+        == "MyProjectId/MyWorkItemId"
+    )
+
+
+def test_get_test_records_resolves_executed_by_name(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_TREC_INCLUDED_USERS_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    test_records, _ = client.test_runs.records.get_multi(
+        "MyTestRunId",
+        fields={"testrecords": "@all", "users": "name"},
+        include="executedBy",
+    )
+
+    assert len(test_records) == 1
+    assert test_records[0].executed_by == "MyProjectId/jdoe"
+    assert test_records[0].additional_attributes["executed_by_name"] == "J Doe"
+
+
+def test_get_test_record_single_by_id(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_TREC_SINGLE_INCLUDED_USERS_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    test_record = client.test_runs.records.get(
+        "MyTestRunId",
+        "MyProjectId",
+        "MyTestcaseId",
+        0,
+        fields={"testrecords": "@all", "users": "name"},
+        include="executedBy",
+    )
+
+    req = httpx_mock.get_request()
+    assert req is not None
+    assert req.url.path.endswith(
+        "/projects/PROJ/testruns/MyTestRunId/testrecords/MyProjectId/MyTestcaseId/0"
+    )
+    params = dict(req.url.params)
+    assert params["fields[testrecords]"] == "@all"
+    assert params["fields[users]"] == "name"
+    assert params["include"] == "executedBy"
+    assert test_record is not None
+    assert test_record.work_item_project_id == "MyProjectId"
+    assert test_record.work_item_id == "MyTestcaseId"
+    assert test_record.iteration == 0
+    assert test_record.executed_by == "MyProjectId/jdoe"
+    assert test_record.additional_attributes["executed_by_name"] == "J Doe"
+    assert test_record.additional_attributes["defect"] == "MyProjectId/DEF-1"
 
 
 def test_create_test_records(

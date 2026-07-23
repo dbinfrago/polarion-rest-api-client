@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "totalCount": 1
+  },
+  "data": [
+    {
+      "type": "linkedworkitems",
+      "id": "SourceProjectId/SourceWorkItemId/relates_to/TargetProjectId/MyWorkItemId",
+      "attributes": {
+        "role": "relates_to",
+        "suspect": true
+      },
+      "relationships": {
+        "workItem": {
+          "data": {
+            "type": "workitems",
+            "id": "SourceProjectId/SourceWorkItemId"
+          }
+        }
+      },
+      "meta": {}
+    }
+  ],
+  "included": [
+    {
+      "type": "workitems",
+      "id": "SourceProjectId/SourceWorkItemId",
+      "attributes": {
+        "title": "Source item",
+        "type": "defect",
+        "status": "closed"
+      },
+      "relationships": {
+        "module": {
+          "data": {
+            "type": "documents",
+            "id": "SourceProjectId/SourceSpace/SourceDocument"
+          }
+        }
+      }
+    }
+  ],
+  "links": {
+    "self": "server-host-name/application-path/projects/MyProjectId/workitems/MyWorkItemId/backlinkedworkitems?page%5Bsize%5D=100&page%5Bnumber%5D=1"
+  }
+}
