@@ -27,6 +27,7 @@ project_client = client.generate_project_client("PROJ")
 project_exists = project_client.exists() # Should be True
 work_items = project_client.work_items.get_all()
 ```
+The high-level client also exposes project listing (`client.projects.get_all()`), comments (`project_client.work_items.comments`, `project_client.documents.comments`), work item backlinks/link updates, test run templates, single test run/test record getters, `include=` for sideloaded resources, and `workflow_action=` on work item updates.
 During the initialization of the client you can define additional settings like the page size when getting items or the maximum content size when bulk creating new items.
 Async bulk operations (`async_create`, `async_update`, `async_delete`) execute their prepared batches concurrently.
 The number of requests that may run at the same time is limited via `max_async_in_flight_requests` on `PolarionClient`.
