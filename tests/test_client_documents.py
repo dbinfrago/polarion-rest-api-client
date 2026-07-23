@@ -135,6 +135,25 @@ def test_get_document_with_all_fields(
     )
 
 
+def test_get_document_encodes_spaces_once(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    """A space in the document name must be encoded exactly once (%20).
+
+    Regression: the client used to pre-quote space_id/document_name and the
+    generated endpoint quoted again, yielding %2520 and a spurious 404.
+    """
+    with open(TEST_DOCUMENT_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    client.documents.get("My Space", "My Document Name")
+
+    url = str(httpx_mock.get_requests()[0].url)
+    assert "My%20Space/documents/My%20Document%20Name" in url
+    assert "%25" not in url  # no double-encoding
+
+
 def test_create_new_document(
     client: polarion_api.ProjectClient, httpx_mock: pytest_httpx.HTTPXMock
 ):

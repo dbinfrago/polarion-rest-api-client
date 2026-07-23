@@ -5,7 +5,6 @@
 import itertools
 import logging
 import typing as t
-import urllib.parse
 
 from polarion_rest_api_client import data_models as dm
 from polarion_rest_api_client.open_api_client import models as api_models
@@ -58,10 +57,8 @@ class Documents(
 
         response = get_document.sync_detailed(
             self._project_id,
-            urllib.parse.quote(space_id, safe="/", encoding=None, errors=None),
-            urllib.parse.quote(
-                document_name, safe="/", encoding=None, errors=None
-            ),
+            space_id,
+            document_name,
             client=self._client.client,
             fields=self._build_sparse_fields(fields),
             include=self.none_to_unset(include),
@@ -84,10 +81,8 @@ class Documents(
 
         response = await get_document.asyncio_detailed(
             self._project_id,
-            urllib.parse.quote(space_id, safe="/", encoding=None, errors=None),
-            urllib.parse.quote(
-                document_name, safe="/", encoding=None, errors=None
-            ),
+            space_id,
+            document_name,
             client=self._client.client,
             fields=self._build_sparse_fields(fields),
             include=self.none_to_unset(include),
