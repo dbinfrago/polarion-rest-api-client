@@ -213,6 +213,9 @@ TEST_TRUN_INCLUDED_USERS_RESPONSE = (
 TEST_TREC_INCLUDED_USERS_RESPONSE = (
     TEST_RESPONSES / "get_test_record_included_users.json"
 )
+TEST_TREC_SINGLE_INCLUDED_USERS_RESPONSE = (
+    TEST_RESPONSES / "get_test_record_single_included_users.json"
+)
 TEST_WI_COMMENTS_INCLUDED_USERS_RESPONSE = (
     TEST_RESPONSES / "get_work_item_comments_included_users.json"
 )

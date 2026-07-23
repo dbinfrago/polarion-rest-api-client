@@ -10,6 +10,7 @@ from polarion_rest_api_client.open_api_client import models as api_models
 from polarion_rest_api_client.open_api_client import types as oa_types
 from polarion_rest_api_client.open_api_client.api.test_records import (
     delete_test_record,
+    get_test_record,
     get_test_records,
     patch_test_record,
     post_test_records,
@@ -106,6 +107,7 @@ class TestRecords(
         page_number: int = 1,
         fields: dict[str, str] | None = None,
         include: str | None = None,
+        test_result_id: str | None = None,
     ) -> tuple[list[dm.TestRecord], bool]:
         if fields is None:
             fields = self._client.default_fields.testrecords
@@ -119,6 +121,7 @@ class TestRecords(
             include=include or oa_types.UNSET,
             pagenumber=page_number,
             pagesize=page_size,
+            test_result_id=test_result_id or oa_types.UNSET,
         )
         return self._parse_get_response(response, test_run_id)
 
@@ -130,6 +133,7 @@ class TestRecords(
         page_number: int = 1,
         fields: dict[str, str] | None = None,
         include: str | None = None,
+        test_result_id: str | None = None,
     ) -> tuple[list[dm.TestRecord], bool]:
         if fields is None:
             fields = self._client.default_fields.testrecords
@@ -143,8 +147,61 @@ class TestRecords(
             include=include or oa_types.UNSET,
             pagenumber=page_number,
             pagesize=page_size,
+            test_result_id=test_result_id or oa_types.UNSET,
         )
         return self._parse_get_response(response, test_run_id)
+
+    def get(
+        self,
+        test_run_id: str,
+        work_item_project_id: str,
+        work_item_id: str,
+        iteration: int,
+        *,
+        fields: dict[str, str] | None = None,
+        include: str | None = None,
+    ) -> dm.TestRecord | None:
+        if fields is None:
+            fields = self._client.default_fields.testrecords
+
+        sparse_fields = self._build_sparse_fields(fields)
+        response = get_test_record.sync_detailed(
+            self._project_id,
+            test_run_id,
+            work_item_project_id,
+            work_item_id,
+            str(iteration),
+            client=self._client.client,
+            fields=sparse_fields,
+            include=include or oa_types.UNSET,
+        )
+        return self._parse_single_get_response(response, test_run_id)
+
+    async def async_get(
+        self,
+        test_run_id: str,
+        work_item_project_id: str,
+        work_item_id: str,
+        iteration: int,
+        *,
+        fields: dict[str, str] | None = None,
+        include: str | None = None,
+    ) -> dm.TestRecord | None:
+        if fields is None:
+            fields = self._client.default_fields.testrecords
+
+        sparse_fields = self._build_sparse_fields(fields)
+        response = await get_test_record.asyncio_detailed(
+            self._project_id,
+            test_run_id,
+            work_item_project_id,
+            work_item_id,
+            str(iteration),
+            client=self._client.client,
+            fields=sparse_fields,
+            include=include or oa_types.UNSET,
+        )
+        return self._parse_single_get_response(response, test_run_id)
 
     def _parse_get_response(
         self, response: oa_types.Response, test_run_id: str
@@ -155,58 +212,88 @@ class TestRecords(
             parsed_response, api_models.TestrecordsListGetResponse
         )
         user_names = self._user_names_from_included(parsed_response.included)
-        test_records = []
-        for data in parsed_response.data or []:
-            assert isinstance(data.id, str)
-            assert isinstance(
-                data.attributes,
-                api_models.TestrecordsListGetResponseDataItemAttributes,
-            )
-            _, _, project_id, work_item, iteration = data.id.split("/")
-            executed_by = None
-            additional_attributes = data.additional_properties or {}
-            if (
-                data.relationships
-                and (ex_by := data.relationships.executed_by)
-                and ex_by.data
-                and ex_by.data.id
-            ):
-                executed_by = ex_by.data.id
-                if user_names:
-                    self._resolve_named_user_relationship(
-                        additional_attributes,
-                        "executed_by",
-                        data.relationships.executed_by,
-                        user_names,
-                    )
-            test_records.append(
-                dm.TestRecord(
-                    test_run_id=test_run_id,
-                    work_item_project_id=project_id,
-                    work_item_id=work_item,
-                    work_item_revision=self.unset_to_none(
-                        data.attributes.test_case_revision
-                    ),
-                    iteration=int(iteration),
-                    duration=(
-                        data.attributes.duration
-                        if not isinstance(
-                            data.attributes.duration, oa_types.Unset
-                        )
-                        else -1
-                    ),
-                    result=self.unset_to_none(data.attributes.result),
-                    comment=self._handle_text_content(data.attributes.comment),
-                    executed=self.unset_to_none(data.attributes.executed),
-                    executed_by=executed_by,
-                    additional_attributes=additional_attributes,
-                )
-            )
+        test_records = [
+            self._generate_test_record(data, test_run_id, user_names)
+            for data in parsed_response.data or []
+        ]
         next_page = isinstance(
             parsed_response.links,
             api_models.TestrecordsListGetResponseLinks,
         ) and bool(parsed_response.links.next_)
         return test_records, next_page
+
+    def _parse_single_get_response(
+        self, response: oa_types.Response, test_run_id: str
+    ) -> dm.TestRecord | None:
+        self._raise_on_error(response)
+        parsed_response = response.parsed
+        if isinstance(
+            parsed_response, api_models.TestrecordsSingleGetResponse
+        ) and isinstance(
+            parsed_response.data, api_models.TestrecordsSingleGetResponseData
+        ):
+            user_names = self._user_names_from_included(
+                parsed_response.included
+            )
+            return self._generate_test_record(
+                parsed_response.data, test_run_id, user_names
+            )
+        return None
+
+    def _generate_test_record(
+        self,
+        data: (
+            api_models.TestrecordsListGetResponseDataItem
+            | api_models.TestrecordsSingleGetResponseData
+        ),
+        test_run_id: str,
+        user_names: dict[str, str],
+    ) -> dm.TestRecord:
+        assert isinstance(data.id, str)
+        assert not isinstance(data.attributes, oa_types.Unset)
+        assert data.attributes is not None
+        _, _, project_id, work_item, iteration = data.id.split("/")
+        executed_by = None
+        additional_attributes = dict(data.additional_properties or {})
+        if data.relationships:
+            if (
+                (defect := data.relationships.defect)
+                and defect.data
+                and defect.data.id
+            ):
+                additional_attributes["defect"] = defect.data.id
+            if (
+                (ex_by := data.relationships.executed_by)
+                and ex_by.data
+                and ex_by.data.id
+            ):
+                executed_by = ex_by.data.id
+                self._resolve_named_user_relationship(
+                    additional_attributes,
+                    "executed_by",
+                    data.relationships.executed_by,
+                    user_names,
+                )
+
+        return dm.TestRecord(
+            test_run_id=test_run_id,
+            work_item_project_id=project_id,
+            work_item_id=work_item,
+            work_item_revision=self.unset_to_none(
+                data.attributes.test_case_revision
+            ),
+            iteration=int(iteration),
+            duration=(
+                data.attributes.duration
+                if not isinstance(data.attributes.duration, oa_types.Unset)
+                else -1
+            ),
+            result=self.unset_to_none(data.attributes.result),
+            comment=self._handle_text_content(data.attributes.comment),
+            executed=self.unset_to_none(data.attributes.executed),
+            executed_by=executed_by,
+            additional_attributes=additional_attributes,
+        )
 
     def _pre_batching_grouping(
         self, items: list[dm.TestRecord]

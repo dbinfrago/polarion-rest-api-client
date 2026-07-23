@@ -77,6 +77,7 @@ class BaseClient[T]:
         polarion_content: (
             api_models.DocumentsSingleGetResponseDataAttributesHomePageContent  # pylint: disable=line-too-long
             | api_models.TestrecordsListGetResponseDataItemAttributesComment
+            | api_models.TestrecordsSingleGetResponseDataAttributesComment
             | api_models.TestrunsListGetResponseDataItemAttributesHomePageContent
             | api_models.TestrunsSingleGetResponseDataAttributesHomePageContent
             | oa_types.Unset
