@@ -222,6 +222,9 @@ class WorkItemLink:
     secondary_work_item_revision: str | None = (
         None  # Use to set specific revision
     )
+    additional_attributes: dict[str, t.Any] = dataclasses.field(
+        default_factory=dict
+    )
 
 
 @dataclasses.dataclass

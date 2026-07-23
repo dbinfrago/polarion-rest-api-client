@@ -21,7 +21,25 @@
       "meta": {}
     }
   ],
-  "included": [{}],
+  "included": [
+    {
+      "type": "workitems",
+      "id": "MyProjectId/SourceWorkItemId",
+      "attributes": {
+        "title": "Source item",
+        "type": "defect",
+        "status": "closed"
+      },
+      "relationships": {
+        "module": {
+          "data": {
+            "type": "documents",
+            "id": "MyProjectId/SourceSpace/SourceDocument"
+          }
+        }
+      }
+    }
+  ],
   "links": {
     "self": "server-host-name/application-path/projects/MyProjectId/workitems/MyWorkItemId/backlinkedworkitems?page%5Bsize%5D=100&page%5Bnumber%5D=1"
   }

@@ -27,7 +27,25 @@
       }
     }
   ],
-  "included": [{}],
+  "included": [
+    {
+      "type": "workitems",
+      "id": "MyProjectId/MyWorkItemId2",
+      "attributes": {
+        "title": "Linked item",
+        "type": "requirement",
+        "status": "open"
+      },
+      "relationships": {
+        "module": {
+          "data": {
+            "type": "documents",
+            "id": "MyProjectId/MySpace/MyDocument"
+          }
+        }
+      }
+    }
+  ],
   "links": {
     "self": "server-host-name/application-path/projects/MyProjectId/workitems/MyWorkItemId/linkedworkitems/parent/MyProjectId?page%5Bsize%5D=10&page%5Bnumber%5D=5",
     "first": "server-host-name/application-path/projects/MyProjectId/workitems/MyWorkItemId/linkedworkitems/parent/MyProjectId?page%5Bsize%5D=10&page%5Bnumber%5D=1",

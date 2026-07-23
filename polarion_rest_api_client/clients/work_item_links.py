@@ -221,6 +221,9 @@ class WorkItemLinks(
             )
             and linked_work_item_response.data
         ):
+            work_item_attributes = self._work_item_attributes_from_included(
+                linked_work_item_response.included
+            )
             for link in linked_work_item_response.data:
                 assert isinstance(link.id, str)
                 assert isinstance(
@@ -235,6 +238,7 @@ class WorkItemLinks(
                         link.attributes.suspect,
                         work_item_id,
                         link.attributes.revision,
+                        work_item_attributes,
                         backlink=backlink,
                     )
                 )
@@ -251,6 +255,7 @@ class WorkItemLinks(
         suspect: bool | oa_types.Unset,
         work_item_id: str,
         revision: str | oa_types.Unset,
+        work_item_attributes: dict[str, dict[str, t.Any]],
         *,
         backlink: bool = False,
     ) -> dm.WorkItemLink:
@@ -258,6 +263,12 @@ class WorkItemLinks(
         assert len(info) == LINK_ID_PART_COUNT
         source_project_id, source_work_item_id = info[:2]
         role_id, target_project_id, linked_work_item_id = info[2:]
+        included_id = (
+            f"{source_project_id}/{source_work_item_id}"
+            if backlink
+            else f"{target_project_id}/{linked_work_item_id}"
+        )
+        additional_attributes = work_item_attributes.get(included_id, {})
 
         if backlink:
             # A backlink id names the linking (source) work item; the queried
@@ -270,6 +281,7 @@ class WorkItemLinks(
                 None if isinstance(suspect, oa_types.Unset) else suspect,
                 source_project_id,
                 None if isinstance(revision, oa_types.Unset) else revision,
+                additional_attributes,
             )
 
         return dm.WorkItemLink(
@@ -279,7 +291,40 @@ class WorkItemLinks(
             None if isinstance(suspect, oa_types.Unset) else suspect,
             target_project_id,
             None if isinstance(revision, oa_types.Unset) else revision,
+            additional_attributes,
         )
+
+    @staticmethod
+    def _work_item_attributes_from_included(
+        included: t.Sequence[t.Any] | oa_types.Unset,
+    ) -> dict[str, dict[str, t.Any]]:
+        if isinstance(included, oa_types.Unset):
+            return {}
+
+        work_items: dict[str, dict[str, t.Any]] = {}
+        for item in included:
+            props = item.additional_properties
+            if props.get("type") != "workitems":
+                continue
+            work_item_id = props.get("id")
+            attributes = props.get("attributes")
+            if not isinstance(work_item_id, str) or not isinstance(
+                attributes, dict
+            ):
+                continue
+
+            data = dict(attributes)
+            relationships = props.get("relationships")
+            if isinstance(relationships, dict):
+                module = relationships.get("module")
+                if isinstance(module, dict):
+                    module_data = module.get("data")
+                    if isinstance(module_data, dict) and isinstance(
+                        module_data.get("id"), str
+                    ):
+                        data["module"] = module_data["id"]
+            work_items[work_item_id] = data
+        return work_items
 
     def _pre_batching_grouping(
         self, items: list[dm.WorkItemLink]

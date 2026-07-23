@@ -979,6 +979,7 @@ class WorkItems(
                         link.additional_properties.get(
                             "revision", oa_types.UNSET
                         ),
+                        {},
                     )
                     for link in link_data.data or []
                 ]

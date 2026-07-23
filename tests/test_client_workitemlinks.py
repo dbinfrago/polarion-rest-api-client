@@ -79,6 +79,12 @@ def test_get_work_item_links_single_page(
         True,
         "MyProjectId",
         "1234",
+        {
+            "title": "Linked item",
+            "type": "requirement",
+            "status": "open",
+            "module": "MyProjectId/MySpace/MyDocument",
+        },
     )
 
 
@@ -332,6 +338,12 @@ def test_get_work_item_links_error_first_request(
         True,
         "MyProjectId",
         "1234",
+        {
+            "title": "Linked item",
+            "type": "requirement",
+            "status": "open",
+            "module": "MyProjectId/MySpace/MyDocument",
+        },
     )
 
 
@@ -363,6 +375,12 @@ def test_get_backlinked_work_items(
             "relates_to",
             True,
             "MyProjectId",
+            additional_attributes={
+                "title": "Source item",
+                "type": "defect",
+                "status": "closed",
+                "module": "MyProjectId/SourceSpace/SourceDocument",
+            },
         )
     ]
 
