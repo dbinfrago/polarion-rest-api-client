@@ -279,7 +279,7 @@ class WorkItemLinks(
                 linked_work_item_id,
                 role_id,
                 None if isinstance(suspect, oa_types.Unset) else suspect,
-                source_project_id,
+                target_project_id,
                 None if isinstance(revision, oa_types.Unset) else revision,
                 additional_attributes,
             )

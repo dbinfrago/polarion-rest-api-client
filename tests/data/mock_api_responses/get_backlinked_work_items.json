@@ -5,7 +5,7 @@
   "data": [
     {
       "type": "linkedworkitems",
-      "id": "MyProjectId/SourceWorkItemId/relates_to/MyProjectId/MyWorkItemId",
+      "id": "SourceProjectId/SourceWorkItemId/relates_to/TargetProjectId/MyWorkItemId",
       "attributes": {
         "role": "relates_to",
         "suspect": true
@@ -14,7 +14,7 @@
         "workItem": {
           "data": {
             "type": "workitems",
-            "id": "MyProjectId/SourceWorkItemId"
+            "id": "SourceProjectId/SourceWorkItemId"
           }
         }
       },
@@ -24,7 +24,7 @@
   "included": [
     {
       "type": "workitems",
-      "id": "MyProjectId/SourceWorkItemId",
+      "id": "SourceProjectId/SourceWorkItemId",
       "attributes": {
         "title": "Source item",
         "type": "defect",
@@ -34,7 +34,7 @@
         "module": {
           "data": {
             "type": "documents",
-            "id": "MyProjectId/SourceSpace/SourceDocument"
+            "id": "SourceProjectId/SourceSpace/SourceDocument"
           }
         }
       }

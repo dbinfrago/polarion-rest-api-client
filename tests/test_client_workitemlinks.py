@@ -374,12 +374,12 @@ def test_get_backlinked_work_items(
             "MyWorkItemId",
             "relates_to",
             True,
-            "MyProjectId",
+            "TargetProjectId",
             additional_attributes={
                 "title": "Source item",
                 "type": "defect",
                 "status": "closed",
-                "module": "MyProjectId/SourceSpace/SourceDocument",
+                "module": "SourceProjectId/SourceSpace/SourceDocument",
             },
         )
     ]
