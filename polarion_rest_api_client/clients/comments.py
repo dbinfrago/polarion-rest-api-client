@@ -31,8 +31,9 @@ class _CommentsMixin(bc.BaseClient[dm.Comment]):
     ) -> dm.Comment:
         """Build a :class:`dm.Comment` from a JSON:API comment resource."""
         attributes = data.attributes
+        comment_id = data.id.split("/")[-1] if data.id else None
         text = None
-        if attributes and attributes.text:
+        if attributes and not isinstance(attributes.text, oa_types.Unset):
             text = dm.TextContent(
                 type=(
                     str(attributes.text.type_)
@@ -42,32 +43,31 @@ class _CommentsMixin(bc.BaseClient[dm.Comment]):
                 value=attributes.text.value or None,
             )
 
-        comment = dm.Comment(
-            id=data.id.split("/")[-1] if data.id else None,
-            title=self.unset_to_none(
-                getattr(attributes, "title", oa_types.UNSET)
+        if attributes:
+            comment = dm.Comment(
+                id=comment_id,
+                title=self.unset_to_none(
+                    getattr(attributes, "title", oa_types.UNSET)
+                ),
+                resolved=self.unset_to_none(attributes.resolved),
+                text=text,
+                created=self.unset_to_none(attributes.created),
             )
-            if attributes
-            else None,
-            resolved=self.unset_to_none(attributes.resolved)
-            if attributes
-            else None,
-            text=text,
-            created=self.unset_to_none(attributes.created)
-            if attributes
-            else None,
-        )
+        else:
+            comment = dm.Comment(id=comment_id)
 
         relationships = getattr(data, "relationships", None)
         if relationships:
             if relationships.author:
+                author_data = getattr(relationships.author, "data", None)
                 self._resolve_named_user_relationship(
                     comment.additional_attributes,
                     "author",
                     relationships.author,
                     user_names or {},
                 )
-                comment.author = comment.additional_attributes.get("author")
+                if author_data and not isinstance(author_data, oa_types.Unset):
+                    comment.author = author_data.id
             if (
                 relationships.parent_comment
                 and relationships.parent_comment.data
@@ -85,6 +85,15 @@ class _CommentsMixin(bc.BaseClient[dm.Comment]):
                 ]
 
         return comment
+
+    @staticmethod
+    def _set_created_comment_ids(
+        parsed: t.Any, comments: list[dm.Comment]
+    ) -> None:
+        assert parsed.data
+        for index, comment_res in enumerate(parsed.data):
+            assert comment_res.id
+            comments[index].id = comment_res.id.split("/")[-1]
 
 
 class WorkItemComments(
@@ -210,10 +219,7 @@ class WorkItemComments(
         assert isinstance(
             response.parsed, api_models.WorkitemCommentsListPostResponse
         )
-        assert response.parsed.data
-        for index, comment_res in enumerate(response.parsed.data):
-            assert comment_res.id
-            comments[index].id = comment_res.id.split("/")[-1]
+        self._set_created_comment_ids(response.parsed, comments)
 
     def set_resolved(
         self, work_item_id: str, comment_id: str, resolved: bool
@@ -378,10 +384,7 @@ class DocumentComments(
         assert isinstance(
             response.parsed, api_models.DocumentCommentsListPostResponse
         )
-        assert response.parsed.data
-        for index, comment_res in enumerate(response.parsed.data):
-            assert comment_res.id
-            comments[index].id = comment_res.id.split("/")[-1]
+        self._set_created_comment_ids(response.parsed, comments)
 
     def set_resolved(
         self,

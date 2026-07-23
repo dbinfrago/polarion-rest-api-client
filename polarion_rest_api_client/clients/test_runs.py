@@ -139,7 +139,7 @@ class TestRuns(
             pagenumber=page_number,
             pagesize=page_size,
             include=include or oa_types.UNSET,
-            templates=True if templates else oa_types.UNSET,
+            templates=templates or oa_types.UNSET,
         )
         return self._parse_get_response(response)
 
@@ -175,7 +175,7 @@ class TestRuns(
             pagenumber=page_number,
             pagesize=page_size,
             include=include or oa_types.UNSET,
-            templates=True if templates else oa_types.UNSET,
+            templates=templates or oa_types.UNSET,
         )
 
         self._raise_on_error(response)
