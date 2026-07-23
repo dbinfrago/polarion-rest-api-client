@@ -167,9 +167,10 @@ class Documents(
     ) -> tuple[list[dm.Document], bool]:
         self._raise_on_error(response)
         documents_response = response.parsed
-        assert isinstance(
+        if not isinstance(
             documents_response, api_models.DocumentsListGetResponse
-        )
+        ):
+            return [], False
         user_names = self._user_names_from_included(
             documents_response.included
         )
@@ -213,20 +214,18 @@ class Documents(
             ]
 
         additional_properties = attributes.additional_properties or {}
-        if user_names and (
-            relationships := getattr(data, "relationships", None)
-        ):
+        if relationships := getattr(data, "relationships", None):
             self._resolve_named_user_relationship(
                 additional_properties,
                 "author",
                 getattr(relationships, "author", None),
-                user_names,
+                user_names or {},
             )
             self._resolve_named_user_relationship(
                 additional_properties,
                 "updated_by",
                 getattr(relationships, "updated_by", None),
-                user_names,
+                user_names or {},
             )
 
         return dm.Document(

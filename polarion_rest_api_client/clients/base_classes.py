@@ -132,7 +132,7 @@ class BaseClient[T]:
         Handles both to-one (data is a single object, e.g. author) and
         to-many (data is a list, e.g. assignee) relationships. The id key
         holds a str for to-one and a list[str] for to-many; the
-        "<key>_name" key mirrors that shape with resolved display names.
+        "<key>_name" key is written only when display names are resolved.
         Nothing is written when the relationship or its data is absent.
         """
         if relationship is None:
@@ -146,15 +146,18 @@ class BaseClient[T]:
             if not ids:
                 return
             additional_attributes[key] = ids
-            additional_attributes[f"{key}_name"] = [
-                user_names.get(user_id, "") for user_id in ids
+            names = [
+                user_names[user_id] for user_id in ids if user_id in user_names
             ]
+            if names:
+                additional_attributes[f"{key}_name"] = names
         else:
             user_id = data.id
             if not user_id:
                 return
             additional_attributes[key] = user_id
-            additional_attributes[f"{key}_name"] = user_names.get(user_id, "")
+            if user_id in user_names:
+                additional_attributes[f"{key}_name"] = user_names[user_id]
 
     def _build_sparse_fields(
         self, fields_dict: dict[str, str]

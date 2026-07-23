@@ -66,6 +66,24 @@ def test_get_documents_multi_resolves_author_names(
     assert "updated_by_name" not in second
 
 
+def test_get_documents_multi_keeps_user_ids_without_names(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_DOCUMENTS_INCLUDED_USERS_RESPONSE, encoding="utf8") as f:
+        content = json.load(f)
+    content["included"] = []
+    httpx_mock.add_response(json=content)
+
+    documents, _ = client.documents.get_multi(include="author,updatedBy")
+
+    first = documents[0].additional_properties
+    assert first["author"] == "MyProjectId/jdoe"
+    assert first["updated_by"] == "MyProjectId/asmith"
+    assert "author_name" not in first
+    assert "updated_by_name" not in first
+
+
 def test_get_document_with_all_fields(
     client: polarion_api.ProjectClient,
     httpx_mock: pytest_httpx.HTTPXMock,

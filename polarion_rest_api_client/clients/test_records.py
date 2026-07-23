@@ -215,6 +215,7 @@ class TestRecords(
         test_records = [
             self._generate_test_record(data, test_run_id, user_names)
             for data in parsed_response.data or []
+            if not getattr(data.meta, "errors", []) and data.attributes
         ]
         next_page = isinstance(
             parsed_response.links,
@@ -268,12 +269,10 @@ class TestRecords(
                 and ex_by.data.id
             ):
                 executed_by = ex_by.data.id
-                self._resolve_named_user_relationship(
-                    additional_attributes,
-                    "executed_by",
-                    data.relationships.executed_by,
-                    user_names,
-                )
+                if executed_by in user_names:
+                    additional_attributes["executed_by_name"] = user_names[
+                        executed_by
+                    ]
 
         return dm.TestRecord(
             test_run_id=test_run_id,

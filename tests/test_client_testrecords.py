@@ -60,6 +60,24 @@ def test_get_test_records_multi_page(
     assert test_records[0].work_item_id == "MyTestcaseId2"
     assert test_records[0].work_item_revision == "1234"
     assert test_records[0].executed_by == "MyUserId"
+    assert "executed_by" not in test_records[0].additional_attributes
+    assert "executed_by_name" not in test_records[0].additional_attributes
+
+
+def test_get_test_records_skips_partial_errors(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_TREC_NO_NEXT_RESPONSE, encoding="utf8") as f:
+        content = json.load(f)
+    content["data"].append(
+        {"type": "testrecords", "id": "broken", "meta": {"errors": [{}]}}
+    )
+    httpx_mock.add_response(json=content)
+
+    test_records, _ = client.test_runs.records.get_multi("MyTestRunId")
+
+    assert len(test_records) == 1
 
 
 def test_get_test_records_multi_forwards_include(
