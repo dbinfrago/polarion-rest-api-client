@@ -437,5 +437,5 @@ class TestStepResults(
                     ),
                 ),
             )
-            for stepResult in items
+            for step_result in items
         ]
