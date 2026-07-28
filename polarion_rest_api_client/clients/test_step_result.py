@@ -232,7 +232,7 @@ class TestStepResults(
 
         parsed_response = response.parsed
 
-        teststepResults: list[dm.TestStepResult] = []
+        test_step_results: list[dm.TestStepResult] = []
         next_page = False
 
         if (
