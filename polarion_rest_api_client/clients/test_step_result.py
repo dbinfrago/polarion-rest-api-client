@@ -198,9 +198,6 @@ class TestStepResults(
         )
         self._raise_on_error(response)
 
-    def _delete(self, *args: t.Any, **kwargs: t.Any) -> None:
-        raise NotImplementedError("delete is not implemented.")
-
     def get_multi(  # type: ignore[override]
         self,
         items: list[dm.TestStepResult],
