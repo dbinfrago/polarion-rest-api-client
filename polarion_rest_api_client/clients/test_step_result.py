@@ -153,6 +153,7 @@ class TestStepResults(
 
     async def _async_update(self, to_update: list[dm.TestStepResult]) -> None:
         """Async Update a Test Step Result for a test case."""
+        assert len(to_update) == 1, "Expected only one item"
         body_data = self._build_single_patch_request_data(to_update[0])
         body = api_models.TeststepResultsSinglePatchRequest(data=body_data)
         response = await patch_test_step_result.asyncio_detailed(
