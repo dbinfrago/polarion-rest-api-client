@@ -405,7 +405,7 @@ class TestStepResults(
         )
 
     def _build_single_patch_request_data(
-        self, stepResult: dm.TestStepResult
+        self, step_result: dm.TestStepResult
     ) -> api_models.TeststepResultsSinglePatchRequestData:
         return api_models.TeststepResultsSinglePatchRequestData(
             type_=api_models.TeststepResultsSinglePatchRequestDataType.TESTSTEP_RESULTS,
