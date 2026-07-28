@@ -366,7 +366,7 @@ class TestStepResults(
             api_models.TeststepResultsListPostRequestDataItemAttributes
             | api_models.TeststepResultsSinglePatchRequestDataAttributes
         ],
-        teststep_Result: dm.TestStepResult,
+        teststep_result: dm.TestStepResult,
     ) -> (
         api_models.TeststepResultsListPostRequestDataItemAttributes
         | api_models.TeststepResultsSinglePatchRequestDataAttributes
