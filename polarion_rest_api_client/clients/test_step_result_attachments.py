@@ -273,7 +273,7 @@ class TestStepResultAttachments(
 
         parsed_response = response.parsed
 
-        teststepResult_attachments: list[dm.TestStepResultAttachment] = []
+        teststep_result_attachments: list[dm.TestStepResultAttachment] = []
 
         next_page = False
 
