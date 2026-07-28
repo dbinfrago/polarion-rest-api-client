@@ -216,7 +216,7 @@ class TestStepResults(
         sparse_fields = self._build_sparse_fields(fields)
 
         response = get_test_step_results.sync_detailed(
-            project_id=items[0].test_case_project_id,
+            project_id=self._project_id,
             test_run_id=items[0].test_run_id,
             test_case_project_id=items[0].test_case_project_id,
             test_case_id=items[0].test_case_id,
