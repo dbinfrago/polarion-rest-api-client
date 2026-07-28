@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "type": "teststep_results",
+      "id": "MyProjectId/MyTestRunId/MyProjectId/MyTestcaseId/0/2",
+      "attributes": {
+        "result": "failed",
+        "comment": {
+          "type": "text/plain",
+          "value": "My text value 2"
+        }
+      }
+    }
+  ],
+  "links": {}
+}

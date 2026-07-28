@@ -1,0 +1,12 @@
+{
+  "data": [
+    {
+      "type": "teststepresult_attachments",
+      "id": "MyProjectId/MyTestRunId/MyProjectId/MyTestCaseId/1/0/MyAttachmentId1",
+      "links": {
+        "self": "server-host-name/application-path/projects/MyProjectId/testruns/MyTestRunId/testcases/MyProjectId/MyTestCaseId/teststepresults/1/0/attachments/MyAttachmentId1?revision=1234",
+        "content": "server-host-name/application-path/projects/MyProjectId/testruns/MyTestRunId/testcases/MyProjectId/MyTestCaseId/teststepresults/1/0/attachments/MyAttachmentId1/content?revision=1234"
+      }
+    }
+  ]
+}
