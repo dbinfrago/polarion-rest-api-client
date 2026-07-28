@@ -433,7 +433,7 @@ class TestStepResults(
                     api_models.TeststepResultsListPostRequestDataItemAttributes,
                     self._fill_teststep_result_attributes(
                         api_models.TeststepResultsListPostRequestDataItemAttributes,
-                        stepResult,
+                        step_result,
                     ),
                 ),
             )
