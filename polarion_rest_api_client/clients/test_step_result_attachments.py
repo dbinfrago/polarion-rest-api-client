@@ -26,18 +26,6 @@ class TestStepResultAttachments(
 ):
     """A class to handle TestStepResultAttachments."""
 
-    def get(
-        self, *args: t.Any, **kwargs: t.Any
-    ) -> dm.TestStepResultAttachment | None:
-        """Return a specific attachment - not Implemented yet."""
-        raise NotImplementedError
-
-    def async_get(
-        self, *args: t.Any, **kwargs: t.Any
-    ) -> t.Coroutine[t.Any, t.Any, dm.TestStepResultAttachment | None]:
-        """Return a specific attachment - not Implemented yet."""
-        raise NotImplementedError
-
     def _create(self, items: list[dm.TestStepResultAttachment]) -> None:
         """Create the given work item attachment in Polarion."""
         attachment_attributes = []
