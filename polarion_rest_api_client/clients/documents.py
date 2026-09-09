@@ -374,34 +374,6 @@ class Documents(
         )
         return attrs
 
-    def _resolve_source_and_target(
-        self,
-        space_id: str | dm.Document | None,
-        document_name: str | None,
-        target_document_name: str | None,
-        document: dm.Document | None,
-    ) -> tuple[str, str, str]:
-        """Resolve the overloaded source/target arguments for copy/branch."""
-        if document is not None:
-            source_space_id = document.module_folder
-            source_document_name = document.module_name
-            target_doc_name = target_document_name
-        elif isinstance(space_id, dm.Document):
-            source_space_id = space_id.module_folder
-            source_document_name = space_id.module_name
-            target_doc_name = document_name
-        else:
-            source_space_id = space_id
-            source_document_name = document_name
-            target_doc_name = target_document_name
-
-        assert source_space_id is not None, "source space_id must be set"
-        assert source_document_name is not None, (
-            "source document_name must be set"
-        )
-        assert target_doc_name is not None, "target_document_name must be set"
-        return source_space_id, source_document_name, target_doc_name
-
     @staticmethod
     def _url_quote(value: str) -> str:
         """URL-encode a document path component."""
@@ -460,26 +432,20 @@ class Documents(
         self,
         action_api: t.Any,
         body_cls: t.Any,
-        space_id: str | dm.Document | None,
-        document_name: str | None,
-        target_document_name: str | None,
+        space_id: str,
+        document_name: str,
+        target_document_name: str,
         target_space_id: str | None,
         revision: str | None | oa_types.Unset,
-        document: dm.Document | None,
         **body_kwargs: t.Any,
     ) -> dm.Document:
-        source_space_id, source_document_name, target_doc_name = (
-            self._resolve_source_and_target(
-                space_id, document_name, target_document_name, document
-            )
-        )
         response = action_api.sync_detailed(
             self._project_id,
-            self._url_quote(source_space_id),
-            self._url_quote(source_document_name),
+            self._url_quote(space_id),
+            self._url_quote(document_name),
             client=self._client.client,
             body=body_cls(
-                target_document_name=target_doc_name,
+                target_document_name=target_document_name,
                 target_space_id=target_space_id or oa_types.UNSET,
                 **body_kwargs,
             ),
@@ -488,33 +454,29 @@ class Documents(
 
         self._raise_on_error(response)
         return self._parse_post_response_to_document(
-            response, target_space_id or source_space_id, target_doc_name
+            response,
+            target_space_id or space_id,
+            target_document_name,
         )
 
     async def _async_post_document_action(
         self,
         action_api: t.Any,
         body_cls: t.Any,
-        space_id: str | dm.Document | None,
-        document_name: str | None,
-        target_document_name: str | None,
+        space_id: str,
+        document_name: str,
+        target_document_name: str,
         target_space_id: str | None,
         revision: str | None | oa_types.Unset,
-        document: dm.Document | None,
         **body_kwargs: t.Any,
     ) -> dm.Document:
-        source_space_id, source_document_name, target_doc_name = (
-            self._resolve_source_and_target(
-                space_id, document_name, target_document_name, document
-            )
-        )
         response = await action_api.asyncio_detailed(
             self._project_id,
-            self._url_quote(source_space_id),
-            self._url_quote(source_document_name),
+            self._url_quote(space_id),
+            self._url_quote(document_name),
             client=self._client.client,
             body=body_cls(
-                target_document_name=target_doc_name,
+                target_document_name=target_document_name,
                 target_space_id=target_space_id or oa_types.UNSET,
                 **body_kwargs,
             ),
@@ -523,10 +485,11 @@ class Documents(
 
         self._raise_on_error(response)
         return self._parse_post_response_to_document(
-            response, target_space_id or source_space_id, target_doc_name
+            response,
+            target_space_id or space_id,
+            target_document_name,
         )
 
-    @t.overload
     def copy(
         self,
         space_id: str,
@@ -537,47 +500,17 @@ class Documents(
         link_original_items_with_role: str | None = None,
         remove_outgoing_links: bool | None = None,
         revision: str | None | oa_types.Unset = None,
-    ) -> dm.Document: ...
-
-    @t.overload
-    def copy(
-        self,
-        document: dm.Document,
-        target_document_name: str,
-        target_space_id: str | None = None,
-        target_project_id: str | None = None,
-        link_original_items_with_role: str | None = None,
-        remove_outgoing_links: bool | None = None,
-        revision: str | None | oa_types.Unset = None,
-    ) -> dm.Document: ...
-
-    def copy(  # type: ignore[misc]
-        self,
-        space_id: str | dm.Document | None = None,
-        document_name: str | None = None,
-        target_document_name: str | None = None,
-        target_space_id: str | None = None,
-        target_project_id: str | None = None,
-        link_original_items_with_role: str | None = None,
-        remove_outgoing_links: bool | None = None,
-        revision: str | None | oa_types.Unset = None,
-        document: dm.Document | None = None,
     ) -> dm.Document:
         """Copy a document in Polarion.
-
-        Can be called in two ways:
-
-        1. ``copy(space_id, document_name, target_document_name, ...)``
-        2. ``copy(document, target_document_name, ...)``
 
         Parameters
         ----------
         space_id:
-            Source space ID, or a Document instance.
+            Source space ID.
         document_name:
-            Source document name (form 1) or target name (form 2).
+            Source document name.
         target_document_name:
-            Name for the new copied document (form 1 or ``document=`` form).
+            Name for the new copied document.
         target_space_id:
             Destination space; defaults to source space.
         target_project_id:
@@ -588,8 +521,6 @@ class Documents(
             Whether to remove outgoing links from the copy.
         revision:
             Copy from a specific revision.
-        document:
-            Keyword alternative for the source Document.
 
         Returns
         -------
@@ -603,7 +534,6 @@ class Documents(
             target_document_name,
             target_space_id,
             revision,
-            document,
             target_project_id=target_project_id or oa_types.UNSET,
             link_original_items_with_role=(
                 link_original_items_with_role or oa_types.UNSET
@@ -615,7 +545,6 @@ class Documents(
             ),
         )
 
-    @t.overload
     async def async_copy(
         self,
         space_id: str,
@@ -626,31 +555,6 @@ class Documents(
         link_original_items_with_role: str | None = None,
         remove_outgoing_links: bool | None = None,
         revision: str | None | oa_types.Unset = None,
-    ) -> dm.Document: ...
-
-    @t.overload
-    async def async_copy(
-        self,
-        document: dm.Document,
-        target_document_name: str,
-        target_space_id: str | None = None,
-        target_project_id: str | None = None,
-        link_original_items_with_role: str | None = None,
-        remove_outgoing_links: bool | None = None,
-        revision: str | None | oa_types.Unset = None,
-    ) -> dm.Document: ...
-
-    async def async_copy(  # type: ignore[misc]
-        self,
-        space_id: str | dm.Document | None = None,
-        document_name: str | None = None,
-        target_document_name: str | None = None,
-        target_space_id: str | None = None,
-        target_project_id: str | None = None,
-        link_original_items_with_role: str | None = None,
-        remove_outgoing_links: bool | None = None,
-        revision: str | None | oa_types.Unset = None,
-        document: dm.Document | None = None,
     ) -> dm.Document:
         """Copy a document in Polarion asynchronously.
 
@@ -664,7 +568,6 @@ class Documents(
             target_document_name,
             target_space_id,
             revision,
-            document,
             target_project_id=target_project_id or oa_types.UNSET,
             link_original_items_with_role=(
                 link_original_items_with_role or oa_types.UNSET
@@ -676,7 +579,6 @@ class Documents(
             ),
         )
 
-    @t.overload
     def branch(
         self,
         space_id: str,
@@ -687,47 +589,17 @@ class Documents(
         copy_workflow_status_and_signatures: bool | None = None,
         query: str | None = None,
         revision: str | None | oa_types.Unset = None,
-    ) -> dm.Document: ...
-
-    @t.overload
-    def branch(
-        self,
-        document: dm.Document,
-        target_document_name: str,
-        target_space_id: str | None = None,
-        target_project_id: str | None = None,
-        copy_workflow_status_and_signatures: bool | None = None,
-        query: str | None = None,
-        revision: str | None | oa_types.Unset = None,
-    ) -> dm.Document: ...
-
-    def branch(  # type: ignore[misc]
-        self,
-        space_id: str | dm.Document | None = None,
-        document_name: str | None = None,
-        target_document_name: str | None = None,
-        target_space_id: str | None = None,
-        target_project_id: str | None = None,
-        copy_workflow_status_and_signatures: bool | None = None,
-        query: str | None = None,
-        revision: str | None | oa_types.Unset = None,
-        document: dm.Document | None = None,
     ) -> dm.Document:
         """Branch a document in Polarion.
-
-        Can be called in two ways:
-
-        1. ``branch(space_id, document_name, target_document_name, ...)``
-        2. ``branch(document, target_document_name, ...)``
 
         Parameters
         ----------
         space_id:
-            Source space ID, or a Document instance.
+            Source space ID.
         document_name:
-            Source document name (form 1) or target name (form 2).
+            Source document name.
         target_document_name:
-            Name for the new branched document (form 1 or ``document=`` form).
+            Name for the new branched document.
         target_space_id:
             Destination space; defaults to source space.
         target_project_id:
@@ -738,8 +610,6 @@ class Documents(
             Optional filtering query (e.g. "status:open").
         revision:
             Branch from a specific revision.
-        document:
-            Keyword alternative for the source Document.
 
         Returns
         -------
@@ -753,7 +623,6 @@ class Documents(
             target_document_name,
             target_space_id,
             revision,
-            document,
             target_project_id=target_project_id or oa_types.UNSET,
             copy_workflow_status_and_signatures=(
                 copy_workflow_status_and_signatures
@@ -763,7 +632,6 @@ class Documents(
             query=query or oa_types.UNSET,
         )
 
-    @t.overload
     async def async_branch(
         self,
         space_id: str,
@@ -774,31 +642,6 @@ class Documents(
         copy_workflow_status_and_signatures: bool | None = None,
         query: str | None = None,
         revision: str | None | oa_types.Unset = None,
-    ) -> dm.Document: ...
-
-    @t.overload
-    async def async_branch(
-        self,
-        document: dm.Document,
-        target_document_name: str,
-        target_space_id: str | None = None,
-        target_project_id: str | None = None,
-        copy_workflow_status_and_signatures: bool | None = None,
-        query: str | None = None,
-        revision: str | None | oa_types.Unset = None,
-    ) -> dm.Document: ...
-
-    async def async_branch(  # type: ignore[misc]
-        self,
-        space_id: str | dm.Document | None = None,
-        document_name: str | None = None,
-        target_document_name: str | None = None,
-        target_space_id: str | None = None,
-        target_project_id: str | None = None,
-        copy_workflow_status_and_signatures: bool | None = None,
-        query: str | None = None,
-        revision: str | None | oa_types.Unset = None,
-        document: dm.Document | None = None,
     ) -> dm.Document:
         """Branch a document in Polarion asynchronously.
 
@@ -812,7 +655,6 @@ class Documents(
             target_document_name,
             target_space_id,
             revision,
-            document,
             target_project_id=target_project_id or oa_types.UNSET,
             copy_workflow_status_and_signatures=(
                 copy_workflow_status_and_signatures
