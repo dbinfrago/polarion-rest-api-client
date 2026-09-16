@@ -27,7 +27,7 @@ if t.TYPE_CHECKING:
     from polarion_rest_api_client import client as polarion_client
 
 
-def _get_json_content_size(data: dict) -> int:
+def _get_json_content_size(data: dict[str, t.Any]) -> int:
     return len(json.dumps(data).encode("utf-8"))
 
 
@@ -40,11 +40,11 @@ min_wi_patch_request_size = _get_json_content_size(
 
 
 class WorkItems(
-    bc.StatusItemClient,
-    bc.MultiGetClient,
-    bc.SingleGetClient,
-    bc.DeleteClient,
-    bc.CreateClient,
+    bc.StatusItemClient[dm.WorkItem],
+    bc.MultiGetClient[dm.WorkItem],
+    bc.SingleGetClient[dm.WorkItem],
+    bc.DeleteClient[dm.WorkItem],
+    bc.CreateClient[dm.WorkItem],
 ):
     """A project specific client for work item operations."""
 
@@ -367,7 +367,9 @@ class WorkItems(
     def _process_get_response(
         self,
         work_item_cls: type[WT],
-        response: oa_types.Response,
+        response: oa_types.Response[
+            api_models.WorkitemsListGetResponse | api_models.Errors
+        ],
     ) -> tuple[list[WT], bool]:
         self._raise_on_error(response)
         work_items_response = response.parsed
@@ -505,7 +507,9 @@ class WorkItems(
 
     def _process_single_get_response(
         self,
-        response: oa_types.Response,
+        response: oa_types.Response[
+            api_models.WorkitemsSingleGetResponse | api_models.Errors
+        ],
         work_item_cls: type[WT],
     ) -> WT | None:
         self._raise_on_error(response)
@@ -827,7 +831,11 @@ class WorkItems(
         self._process_post_response(response, work_item_objs)
 
     def _process_post_response(
-        self, response: oa_types.Response, work_item_objs: list[dm.WorkItem]
+        self,
+        response: oa_types.Response[
+            api_models.WorkitemsListPostResponse | api_models.Errors
+        ],
+        work_item_objs: list[dm.WorkItem],
     ) -> None:
         assert isinstance(
             response.parsed, api_models.WorkitemsListPostResponse

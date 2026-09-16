@@ -151,7 +151,9 @@ class WorkItemAttachments(
 
     def _process_get_response(
         self,
-        response: oa_types.Response,
+        response: oa_types.Response[
+            api_models.WorkitemAttachmentsListGetResponse | api_models.Errors
+        ],
         work_item_id: str,
     ) -> tuple[list[dm.WorkItemAttachment], bool]:
         self._raise_on_error(response)
@@ -212,7 +214,9 @@ class WorkItemAttachments(
     def _process_post_response(
         self,
         items: list[dm.WorkItemAttachment],
-        response: oa_types.Response,
+        response: oa_types.Response[
+            api_models.WorkitemAttachmentsListPostResponse | api_models.Errors
+        ],
     ) -> None:
         self._raise_on_error(response)
         parsed_response = response.parsed

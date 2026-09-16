@@ -91,7 +91,11 @@ class WorkItemLinks(
         return self._parse_get_response(response, work_item_id)
 
     def _parse_get_response(
-        self, response: oa_types.Response, work_item_id: str
+        self,
+        response: oa_types.Response[
+            api_models.LinkedworkitemsListGetResponse | api_models.Errors
+        ],
+        work_item_id: str,
     ) -> tuple[list[dm.WorkItemLink], bool]:
         self._raise_on_error(response)
         linked_work_item_response = response.parsed

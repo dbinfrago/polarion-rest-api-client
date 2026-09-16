@@ -15,7 +15,7 @@ if t.TYPE_CHECKING:
     from polarion_rest_api_client import client as polarion_client
 
 
-class ProjectClient(bc.BaseClient):
+class ProjectClient(bc.BaseClient[t.Any]):
     """A client for a specific project."""
 
     def __init__(
