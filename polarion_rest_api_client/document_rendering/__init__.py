@@ -8,6 +8,7 @@ from polarion_rest_api_client.document_rendering.document_renderer import (
 )
 from polarion_rest_api_client.document_rendering.html_utils import (
     POLARION_WORK_ITEM_DOCUMENT,
+    POLARION_WORK_ITEM_DOCUMENT_INTERNAL,
     POLARION_WORK_ITEM_DOCUMENT_PROJECT,
     POLARION_WORK_ITEM_URL,
     POLARION_WORK_ITEM_URL_PROJECT,
@@ -37,6 +38,7 @@ from polarion_rest_api_client.document_rendering.text_work_item_provider import 
 
 __all__ = [
     "POLARION_WORK_ITEM_DOCUMENT",
+    "POLARION_WORK_ITEM_DOCUMENT_INTERNAL",
     "POLARION_WORK_ITEM_DOCUMENT_PROJECT",
     "POLARION_WORK_ITEM_URL",
     "POLARION_WORK_ITEM_URL_PROJECT",

@@ -62,6 +62,24 @@ Minimal example with explicit work item tuple:
    document = result.document
 
 
+Document-local work items and layouts
+-------------------------------------
+
+By default, work items are rendered with the existing external-work-item
+behavior and missing rendering layouts use the ``section`` layouter. To
+render known work items as native document content, pass their IDs with
+``document_work_item_ids``. The ``default_layouter`` option selects the
+layouter used when a matching rendering layout does not already exist.
+
+.. code-block:: python
+
+   renderer = rendering.DocumentRenderer(
+      default_project_id="PROJ",
+      document_work_item_ids={"REQ-1", "REQ-2"},
+      default_layouter="paragraph",
+   )
+
+
 Work item lookup modes
 ----------------------
 

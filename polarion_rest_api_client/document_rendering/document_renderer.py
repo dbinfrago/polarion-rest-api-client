@@ -18,6 +18,8 @@ from polarion_rest_api_client import data_models
 from . import html_utils, rendering_session
 from . import text_work_item_provider as text_work_item_provider_module
 
+DEFAULT_LAYOUTER = "section"
+
 PROJ_WI_PAIR_LEN = 2
 
 DEFAULT_AREA_START_CLS = "autoRenderAreaStart"
@@ -54,6 +56,8 @@ class DocumentRenderer:
         ) = None,
         area_start_class: str = DEFAULT_AREA_START_CLS,
         area_end_class: str = DEFAULT_AREA_END_CLS,
+        document_work_item_ids: cabc.Collection[str] | None = None,
+        default_layouter: str = DEFAULT_LAYOUTER,
         extra_template_context: dict[str, t.Any] | None = None,
     ) -> None:
         self.jinja_envs: dict[str, jinja2.Environment] = {}
@@ -62,6 +66,12 @@ class DocumentRenderer:
         self._work_item_repository = dict(work_item_repository or {})
         self.area_start_class = area_start_class
         self.area_end_class = area_end_class
+        self.document_work_item_ids = (
+            set(document_work_item_ids)
+            if document_work_item_ids is not None
+            else None
+        )
+        self.default_layouter = default_layouter
         self._extra_template_context = extra_template_context or {}
 
     def _get_jinja_env(
@@ -192,27 +202,39 @@ class DocumentRenderer:
 
             assert work_item.type
             layout_index = html_utils.get_layout_index(
-                "section",
+                self.default_layouter,
                 session.rendering_layouts,
                 work_item.type,
             )
 
-            custom_info = ""
+            external_custom_info = ""
+            internal_custom_info = ""
             if level is not None:
-                custom_info = f"level={level}|"
+                external_custom_info = f"level={level}|"
+                internal_custom_info = f"|level={level}"
 
             session.inserted_work_item_ids.append((proj_id, work_item.id))
+            is_document_work_item = (
+                self.document_work_item_ids is not None
+                and work_item.id in self.document_work_item_ids
+            )
+            if is_document_work_item:
+                return html_utils.POLARION_WORK_ITEM_DOCUMENT_INTERNAL.format(
+                    pid=work_item.id,
+                    lid=layout_index,
+                    custom_info=internal_custom_info,
+                )
             if proj_id != session.document_project_id:
                 return html_utils.POLARION_WORK_ITEM_DOCUMENT_PROJECT.format(
                     pid=work_item.id,
                     lid=layout_index,
-                    custom_info=custom_info,
+                    custom_info=external_custom_info,
                     project=proj_id,
                 )
             return html_utils.POLARION_WORK_ITEM_DOCUMENT.format(
                 pid=work_item.id,
                 lid=layout_index,
-                custom_info=custom_info,
+                custom_info=external_custom_info,
             )
 
         logger.warning("Error inserting work item for input: %r", obj)
