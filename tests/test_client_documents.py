@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 
+import pytest
 import pytest_httpx
 
 import polarion_rest_api_client as polarion_api
@@ -214,3 +215,81 @@ def test_update_document(
         == "http://127.0.0.1/api/projects/PROJ/spaces/folder/documents/name"
     )
     assert json.loads(reqs[1].content.decode("utf-8")) == expected_request_2
+
+
+@pytest.mark.parametrize(
+    (
+        "action",
+        "target_name",
+        "extra_kwargs",
+        "expected_body",
+    ),
+    [
+        (
+            "copy",
+            "copied_name",
+            {
+                "link_original_items_with_role": "duplicates",
+                "remove_outgoing_links": True,
+            },
+            {
+                "linkOriginalItemsWithRole": "duplicates",
+                "removeOutgoingLinks": True,
+            },
+        ),
+        (
+            "branch",
+            "branched_name",
+            {
+                "copy_workflow_status_and_signatures": True,
+                "query": "status:open",
+            },
+            {
+                "copyWorkflowStatusAndSignatures": True,
+                "query": "status:open",
+            },
+        ),
+    ],
+)
+def test_document_action(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+    action: str,
+    target_name: str,
+    extra_kwargs: dict[str, object],
+    expected_body: dict[str, object],
+):
+    httpx_mock.add_response(
+        201,
+        json={
+            "data": {
+                "type": "documents",
+                "id": f"PROJ/folder/{target_name}",
+            }
+        },
+    )
+    document = getattr(client.documents, action)(
+        space_id="folder",
+        document_name="name",
+        target_document_name=target_name,
+        target_space_id="folder",
+        **extra_kwargs,
+    )
+
+    reqs = httpx_mock.get_requests()
+    assert len(reqs) == 1
+    assert reqs[0].method == "POST"
+    assert (
+        reqs[0].url
+        == f"http://127.0.0.1/api/projects/PROJ/spaces/folder/documents/name/actions/{action}"
+    )
+    request_body = json.loads(reqs[0].content.decode("utf-8"))
+    assert request_body["targetDocumentName"] == target_name
+    assert request_body["targetSpaceId"] == "folder"
+    for key, value in expected_body.items():
+        assert request_body[key] == value
+
+    assert isinstance(document, data_models.Document)
+    assert document.id == f"PROJ/folder/{target_name}"
+    assert document.module_folder == "folder"
+    assert document.module_name == target_name

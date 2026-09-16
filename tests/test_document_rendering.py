@@ -44,6 +44,7 @@ def test_render_document_with_tuple_work_item(tmp_path):
     assert rendered.document.title == "My Doc"
     assert len(rendered.document.rendering_layouts) == 1
     assert rendered.document.rendering_layouts[0].type == "requirement"
+    assert rendered.document.rendering_layouts[0].layouter.value == "section"
     assert content[0].tag == "h1"
     assert content[0].text == "Main Heading"
     assert content[1].tag == "div"
@@ -86,6 +87,69 @@ def test_render_document_with_work_item_id_lookup(tmp_path):
     assert content[0].get("id") == (
         "polarion_wiki macro name=module-workitem;"
         "params=id=REQ-2|layout=0|external=true"
+    )
+
+
+def test_render_document_marks_known_document_work_items_internal(tmp_path):
+    template_dir = tmp_path / "templates"
+    template_dir.mkdir()
+    (template_dir / "doc.j2").write_text(
+        "{{ insert_work_item(item, session) }}",
+        encoding="utf-8",
+    )
+
+    renderer = document_rendering.DocumentRenderer(
+        default_project_id="PRJ",
+        document_work_item_ids={"REQ-1"},
+        default_layouter="paragraph",
+    )
+    item = ("PRJ", polarion_api.WorkItem(id="REQ-1", type="requirement"))
+
+    rendered = renderer.render_document(
+        template_dir,
+        "doc.j2",
+        "_default",
+        "DOC-INTERNAL",
+        item=item,
+    )
+
+    content = lxmlhtml.fragments_fromstring(
+        rendered.document.home_page_content.value
+    )
+    assert content[0].get("id") == (
+        "polarion_wiki macro name=module-workitem;params=id=REQ-1|layout=0"
+    )
+    assert rendered.document.rendering_layouts[0].layouter.value == "paragraph"
+
+
+def test_render_document_keeps_unknown_document_work_items_external(tmp_path):
+    template_dir = tmp_path / "templates"
+    template_dir.mkdir()
+    (template_dir / "doc.j2").write_text(
+        "{{ insert_work_item(item, session) }}",
+        encoding="utf-8",
+    )
+
+    renderer = document_rendering.DocumentRenderer(
+        default_project_id="PRJ",
+        document_work_item_ids={"REQ-KNOWN"},
+    )
+    item = ("PRJ", polarion_api.WorkItem(id="REQ-UNKNOWN", type="requirement"))
+
+    rendered = renderer.render_document(
+        template_dir,
+        "doc.j2",
+        "_default",
+        "DOC-EXTERNAL",
+        item=item,
+    )
+
+    content = lxmlhtml.fragments_fromstring(
+        rendered.document.home_page_content.value
+    )
+    assert content[0].get("id") == (
+        "polarion_wiki macro name=module-workitem;"
+        "params=id=REQ-UNKNOWN|layout=0|external=true"
     )
 
 

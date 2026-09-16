@@ -33,6 +33,10 @@ POLARION_WORK_ITEM_DOCUMENT = (
     '<div id="polarion_wiki macro name=module-workitem;'
     'params=id={pid}|layout={lid}|{custom_info}external=true"></div>'
 )
+POLARION_WORK_ITEM_DOCUMENT_INTERNAL = (
+    '<div id="polarion_wiki macro name=module-workitem;'
+    'params=id={pid}|layout={lid}{custom_info}"></div>'
+)
 POLARION_WORK_ITEM_DOCUMENT_PROJECT = (
     '<div id="polarion_wiki macro name=module-workitem;'
     "params=id={pid}|layout={lid}|{custom_info}external=true"
