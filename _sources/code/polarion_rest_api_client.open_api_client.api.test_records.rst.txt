@@ -1,0 +1,98 @@
+polarion\_rest\_api\_client.open\_api\_client.api.test\_records package
+=======================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.test_records
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.test\_records.delete\_test\_record module
+-------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.test_records.delete_test_record
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.test\_records.delete\_test\_record\_test\_parameter module
+------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.test_records.delete_test_record_test_parameter
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.test\_records.get\_fields\_metadata\_for\_test\_record module
+---------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.test_records.get_fields_metadata_for_test_record
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.test\_records.get\_test\_record module
+----------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.test_records.get_test_record
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.test\_records.get\_test\_record\_test\_parameter module
+---------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.test_records.get_test_record_test_parameter
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.test\_records.get\_test\_record\_test\_parameters module
+----------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.test_records.get_test_record_test_parameters
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.test\_records.get\_test\_records module
+-----------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.test_records.get_test_records
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.test\_records.patch\_test\_record module
+------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.test_records.patch_test_record
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.test\_records.patch\_test\_records module
+-------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.test_records.patch_test_records
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.test\_records.post\_test\_record\_test\_parameters module
+-----------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.test_records.post_test_record_test_parameters
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.test\_records.post\_test\_records module
+------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.test_records.post_test_records
+   :members:
+   :show-inheritance:
+   :undoc-members:

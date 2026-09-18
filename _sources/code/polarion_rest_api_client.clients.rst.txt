@@ -1,0 +1,90 @@
+polarion\_rest\_api\_client.clients package
+===========================================
+
+.. automodule:: polarion_rest_api_client.clients
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.clients.base\_classes module
+--------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.clients.base_classes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.clients.documents module
+----------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.clients.documents
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.clients.projects module
+---------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.clients.projects
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.clients.test\_parameters module
+-----------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.clients.test_parameters
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.clients.test\_records module
+--------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.clients.test_records
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.clients.test\_runs module
+-----------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.clients.test_runs
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.clients.test\_steps module
+------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.clients.test_steps
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.clients.work\_item\_attachments module
+------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.clients.work_item_attachments
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.clients.work\_item\_links module
+------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.clients.work_item_links
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.clients.work\_items module
+------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.clients.work_items
+   :members:
+   :show-inheritance:
+   :undoc-members:

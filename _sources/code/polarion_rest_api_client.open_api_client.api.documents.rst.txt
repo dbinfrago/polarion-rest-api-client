@@ -1,0 +1,138 @@
+polarion\_rest\_api\_client.open\_api\_client.api.documents package
+===================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.documents
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.documents.branch\_document module
+-----------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.documents.branch_document
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.documents.branch\_documents module
+------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.documents.branch_documents
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.documents.copy\_document module
+---------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.documents.copy_document
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.documents.get\_all\_documents module
+--------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.documents.get_all_documents
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.documents.get\_available\_enum\_options\_for\_document module
+---------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.documents.get_available_enum_options_for_document
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.documents.get\_available\_enum\_options\_for\_document\_type module
+---------------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.documents.get_available_enum_options_for_document_type
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.documents.get\_current\_enumeration\_options\_for\_document module
+--------------------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.documents.get_current_enumeration_options_for_document
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.documents.get\_document module
+--------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.documents.get_document
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.documents.get\_documents module
+---------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.documents.get_documents
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.documents.get\_fields\_metadata\_for\_document module
+-------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.documents.get_fields_metadata_for_document
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.documents.get\_space\_documents module
+----------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.documents.get_space_documents
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.documents.import\_word\_document module
+-----------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.documents.import_word_document
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.documents.merge\_document\_from\_master module
+------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.documents.merge_document_from_master
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.documents.merge\_document\_to\_master module
+----------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.documents.merge_document_to_master
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.documents.patch\_document module
+----------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.documents.patch_document
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.documents.post\_documents module
+----------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.documents.post_documents
+   :members:
+   :show-inheritance:
+   :undoc-members:

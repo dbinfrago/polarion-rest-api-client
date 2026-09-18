@@ -1,0 +1,42 @@
+polarion\_rest\_api\_client.open\_api\_client.api.work\_item\_comments package
+==============================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_item_comments
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_item\_comments.get\_comment module
+------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_item_comments.get_comment
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_item\_comments.get\_comments module
+-------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_item_comments.get_comments
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_item\_comments.patch\_comment module
+--------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_item_comments.patch_comment
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.work\_item\_comments.post\_comments module
+--------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.work_item_comments.post_comments
+   :members:
+   :show-inheritance:
+   :undoc-members:

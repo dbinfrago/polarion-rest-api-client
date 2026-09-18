@@ -1,0 +1,58 @@
+polarion\_rest\_api\_client.open\_api\_client.api.document\_parts package
+=========================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.document_parts
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.document\_parts.delete\_document\_parts module
+------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.document_parts.delete_document_parts
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.document\_parts.get\_document\_part module
+--------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.document_parts.get_document_part
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.document\_parts.get\_document\_parts module
+---------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.document_parts.get_document_parts
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.document\_parts.move\_document\_parts module
+----------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.document_parts.move_document_parts
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.document\_parts.overwrite\_document\_parts module
+---------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.document_parts.overwrite_document_parts
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.document\_parts.post\_document\_parts module
+----------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.document_parts.post_document_parts
+   :members:
+   :show-inheritance:
+   :undoc-members:
