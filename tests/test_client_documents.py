@@ -72,6 +72,22 @@ def test_get_document_with_all_fields(
     )
 
 
+def test_get_document_encodes_path_parameters_once(
+    client: polarion_api.ProjectClient,
+    httpx_mock: pytest_httpx.HTTPXMock,
+):
+    with open(TEST_DOCUMENT_RESPONSE, encoding="utf8") as f:
+        httpx_mock.add_response(json=json.load(f))
+
+    client.documents.get("My Space", "My Document")
+
+    req = httpx_mock.get_request()
+    assert req is not None
+    assert req.url.raw_path.startswith(
+        b"/api/projects/PROJ/spaces/My%20Space/documents/My%20Document?"
+    )
+
+
 def test_get_documents_for_project(
     client: polarion_api.ProjectClient,
     httpx_mock: pytest_httpx.HTTPXMock,
