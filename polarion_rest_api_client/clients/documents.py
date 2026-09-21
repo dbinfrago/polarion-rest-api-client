@@ -5,7 +5,6 @@
 import itertools
 import logging
 import typing as t
-import urllib.parse
 
 from polarion_rest_api_client import data_models as dm
 from polarion_rest_api_client.open_api_client import models as api_models
@@ -492,11 +491,6 @@ class Documents(
         )
         return attrs
 
-    @staticmethod
-    def _url_quote(value: str) -> str:
-        """URL-encode a document path component."""
-        return urllib.parse.quote(value, safe="/", encoding=None, errors=None)
-
     def _parse_post_response_to_document(
         self,
         response: oa_types.Response,
@@ -559,8 +553,8 @@ class Documents(
     ) -> dm.Document:
         response = action_api.sync_detailed(
             self._project_id,
-            self._url_quote(space_id),
-            self._url_quote(document_name),
+            space_id,
+            document_name,
             client=self._client.client,
             body=body_cls(
                 target_document_name=target_document_name,
@@ -590,8 +584,8 @@ class Documents(
     ) -> dm.Document:
         response = await action_api.asyncio_detailed(
             self._project_id,
-            self._url_quote(space_id),
-            self._url_quote(document_name),
+            space_id,
+            document_name,
             client=self._client.client,
             body=body_cls(
                 target_document_name=target_document_name,
