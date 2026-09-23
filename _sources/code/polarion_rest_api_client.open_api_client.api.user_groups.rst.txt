@@ -1,0 +1,18 @@
+polarion\_rest\_api\_client.open\_api\_client.api.user\_groups package
+======================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.user_groups
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.user\_groups.get\_user\_group module
+--------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.user_groups.get_user_group
+   :members:
+   :show-inheritance:
+   :undoc-members:

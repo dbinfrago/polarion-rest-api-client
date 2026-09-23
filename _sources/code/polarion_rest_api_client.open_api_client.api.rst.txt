@@ -1,0 +1,53 @@
+polarion\_rest\_api\_client.open\_api\_client.api package
+=========================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   polarion_rest_api_client.open_api_client.api.ai
+   polarion_rest_api_client.open_api_client.api.collections
+   polarion_rest_api_client.open_api_client.api.custom_fields
+   polarion_rest_api_client.open_api_client.api.document_attachments
+   polarion_rest_api_client.open_api_client.api.document_comments
+   polarion_rest_api_client.open_api_client.api.document_parts
+   polarion_rest_api_client.open_api_client.api.documents
+   polarion_rest_api_client.open_api_client.api.enumerations
+   polarion_rest_api_client.open_api_client.api.externally_linked_work_items
+   polarion_rest_api_client.open_api_client.api.feature_selections
+   polarion_rest_api_client.open_api_client.api.icons
+   polarion_rest_api_client.open_api_client.api.jobs
+   polarion_rest_api_client.open_api_client.api.license_
+   polarion_rest_api_client.open_api_client.api.linked_oslc_resources
+   polarion_rest_api_client.open_api_client.api.linked_work_items
+   polarion_rest_api_client.open_api_client.api.metadata
+   polarion_rest_api_client.open_api_client.api.page_attachments
+   polarion_rest_api_client.open_api_client.api.page_comments
+   polarion_rest_api_client.open_api_client.api.pages
+   polarion_rest_api_client.open_api_client.api.plans
+   polarion_rest_api_client.open_api_client.api.project_templates
+   polarion_rest_api_client.open_api_client.api.projects
+   polarion_rest_api_client.open_api_client.api.revisions
+   polarion_rest_api_client.open_api_client.api.roles
+   polarion_rest_api_client.open_api_client.api.test_record_attachments
+   polarion_rest_api_client.open_api_client.api.test_records
+   polarion_rest_api_client.open_api_client.api.test_run_attachments
+   polarion_rest_api_client.open_api_client.api.test_run_comments
+   polarion_rest_api_client.open_api_client.api.test_runs
+   polarion_rest_api_client.open_api_client.api.test_step_result_attachments
+   polarion_rest_api_client.open_api_client.api.test_step_results
+   polarion_rest_api_client.open_api_client.api.test_steps
+   polarion_rest_api_client.open_api_client.api.user_groups
+   polarion_rest_api_client.open_api_client.api.users
+   polarion_rest_api_client.open_api_client.api.work_item_approvals
+   polarion_rest_api_client.open_api_client.api.work_item_attachments
+   polarion_rest_api_client.open_api_client.api.work_item_comments
+   polarion_rest_api_client.open_api_client.api.work_item_work_records
+   polarion_rest_api_client.open_api_client.api.work_items

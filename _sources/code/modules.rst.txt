@@ -1,0 +1,8 @@
+polarion-rest-api-client
+========================
+
+.. toctree::
+   :maxdepth: 4
+
+   polarion_rest_api_client
+   tests

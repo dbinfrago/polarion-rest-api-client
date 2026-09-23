@@ -1,0 +1,50 @@
+polarion\_rest\_api\_client.open\_api\_client.api.test\_step\_results package
+=============================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.test_step_results
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.test\_step\_results.get\_test\_step\_result module
+----------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.test_step_results.get_test_step_result
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.test\_step\_results.get\_test\_step\_results module
+-----------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.test_step_results.get_test_step_results
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.test\_step\_results.patch\_test\_step\_result module
+------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.test_step_results.patch_test_step_result
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.test\_step\_results.patch\_test\_step\_results module
+-------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.test_step_results.patch_test_step_results
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.test\_step\_results.post\_test\_step\_results module
+------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.test_step_results.post_test_step_results
+   :members:
+   :show-inheritance:
+   :undoc-members:

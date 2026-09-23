@@ -1,0 +1,74 @@
+polarion\_rest\_api\_client.open\_api\_client.api.icons package
+===============================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.icons
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.icons.get\_default\_icon module
+---------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.icons.get_default_icon
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.icons.get\_default\_icons module
+----------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.icons.get_default_icons
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.icons.get\_global\_icon module
+--------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.icons.get_global_icon
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.icons.get\_global\_icons module
+---------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.icons.get_global_icons
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.icons.get\_project\_icon module
+---------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.icons.get_project_icon
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.icons.get\_project\_icons module
+----------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.icons.get_project_icons
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.icons.post\_global\_icons module
+----------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.icons.post_global_icons
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.icons.post\_project\_icons module
+-----------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.icons.post_project_icons
+   :members:
+   :show-inheritance:
+   :undoc-members:

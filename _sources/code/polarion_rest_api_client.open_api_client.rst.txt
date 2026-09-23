@@ -1,0 +1,43 @@
+polarion\_rest\_api\_client.open\_api\_client package
+=====================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   polarion_rest_api_client.open_api_client.api
+   polarion_rest_api_client.open_api_client.models
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.client module
+-----------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.client
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.errors module
+-----------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.errors
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.types module
+----------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.types
+   :members:
+   :show-inheritance:
+   :undoc-members:

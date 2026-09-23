@@ -1,0 +1,90 @@
+polarion\_rest\_api\_client.open\_api\_client.api.license\_ package
+===================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.license_
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.license\_.delete\_license\_slots module
+-----------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.license_.delete_license_slots
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.license\_.get\_license module
+-------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.license_.get_license
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.license\_.get\_license\_assignments module
+--------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.license_.get_license_assignments
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.license\_.get\_license\_assignments\_for\_user module
+-------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.license_.get_license_assignments_for_user
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.license\_.get\_license\_slot module
+-------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.license_.get_license_slot
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.license\_.get\_license\_slots module
+--------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.license_.get_license_slots
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.license\_.patch\_license module
+---------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.license_.patch_license
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.license\_.patch\_license\_assignment module
+---------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.license_.patch_license_assignment
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.license\_.patch\_license\_assignments module
+----------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.license_.patch_license_assignments
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.license\_.post\_license\_slots module
+---------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.license_.post_license_slots
+   :members:
+   :show-inheritance:
+   :undoc-members:

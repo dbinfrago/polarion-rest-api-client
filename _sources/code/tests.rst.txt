@@ -1,0 +1,122 @@
+tests package
+=============
+
+.. automodule:: tests
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+tests.conftest module
+---------------------
+
+.. automodule:: tests.conftest
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+tests.test\_client\_documents module
+------------------------------------
+
+.. automodule:: tests.test_client_documents
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+tests.test\_client\_error\_responses module
+-------------------------------------------
+
+.. automodule:: tests.test_client_error_responses
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+tests.test\_client\_general module
+----------------------------------
+
+.. automodule:: tests.test_client_general
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+tests.test\_client\_test\_parameters module
+-------------------------------------------
+
+.. automodule:: tests.test_client_test_parameters
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+tests.test\_client\_test\_steps module
+--------------------------------------
+
+.. automodule:: tests.test_client_test_steps
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+tests.test\_client\_testrecords module
+--------------------------------------
+
+.. automodule:: tests.test_client_testrecords
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+tests.test\_client\_testruns module
+-----------------------------------
+
+.. automodule:: tests.test_client_testruns
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+tests.test\_client\_workitemattachments module
+----------------------------------------------
+
+.. automodule:: tests.test_client_workitemattachments
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+tests.test\_client\_workitemlinks module
+----------------------------------------
+
+.. automodule:: tests.test_client_workitemlinks
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+tests.test\_client\_workitems module
+------------------------------------
+
+.. automodule:: tests.test_client_workitems
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+tests.test\_client\_workitems\_custom module
+--------------------------------------------
+
+.. automodule:: tests.test_client_workitems_custom
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+tests.test\_document\_rendering module
+--------------------------------------
+
+.. automodule:: tests.test_document_rendering
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+tests.test\_html\_utils module
+------------------------------
+
+.. automodule:: tests.test_html_utils
+   :members:
+   :show-inheritance:
+   :undoc-members:

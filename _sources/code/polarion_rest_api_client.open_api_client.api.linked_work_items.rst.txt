@@ -1,0 +1,74 @@
+polarion\_rest\_api\_client.open\_api\_client.api.linked\_work\_items package
+=============================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.linked_work_items
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.linked\_work\_items.delete\_linked\_work\_item module
+-------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.linked_work_items.delete_linked_work_item
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.linked\_work\_items.delete\_linked\_work\_items module
+--------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.linked_work_items.delete_linked_work_items
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.linked\_work\_items.get\_backlinked\_work\_items module
+---------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.linked_work_items.get_backlinked_work_items
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.linked\_work\_items.get\_linked\_work\_item module
+----------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.linked_work_items.get_linked_work_item
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.linked\_work\_items.get\_linked\_work\_items module
+-----------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.linked_work_items.get_linked_work_items
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.linked\_work\_items.patch\_linked\_work\_item module
+------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.linked_work_items.patch_linked_work_item
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.linked\_work\_items.post\_backlinked\_work\_items module
+----------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.linked_work_items.post_backlinked_work_items
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.linked\_work\_items.post\_linked\_work\_items module
+------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.linked_work_items.post_linked_work_items
+   :members:
+   :show-inheritance:
+   :undoc-members:

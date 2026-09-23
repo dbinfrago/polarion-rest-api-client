@@ -1,0 +1,26 @@
+polarion\_rest\_api\_client.open\_api\_client.api.feature\_selections package
+=============================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.feature_selections
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.feature\_selections.get\_feature\_selection module
+----------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.feature_selections.get_feature_selection
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.feature\_selections.get\_feature\_selections module
+-----------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.feature_selections.get_feature_selections
+   :members:
+   :show-inheritance:
+   :undoc-members:

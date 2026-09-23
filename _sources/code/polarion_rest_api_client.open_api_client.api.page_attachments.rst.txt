@@ -1,0 +1,58 @@
+polarion\_rest\_api\_client.open\_api\_client.api.page\_attachments package
+===========================================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.page_attachments
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.page\_attachments.delete\_page\_attachment module
+---------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.page_attachments.delete_page_attachment
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.page\_attachments.get\_page\_attachment module
+------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.page_attachments.get_page_attachment
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.page\_attachments.get\_page\_attachment\_content module
+---------------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.page_attachments.get_page_attachment_content
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.page\_attachments.get\_page\_attachments module
+-------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.page_attachments.get_page_attachments
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.page\_attachments.patch\_page\_attachment module
+--------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.page_attachments.patch_page_attachment
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.page\_attachments.post\_page\_attachments module
+--------------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.page_attachments.post_page_attachments
+   :members:
+   :show-inheritance:
+   :undoc-members:

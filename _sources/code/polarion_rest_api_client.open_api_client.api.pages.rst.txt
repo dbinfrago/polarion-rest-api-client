@@ -1,0 +1,114 @@
+polarion\_rest\_api\_client.open\_api\_client.api.pages package
+===============================================================
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.pages
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+polarion\_rest\_api\_client.open\_api\_client.api.pages.delete\_page module
+---------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.pages.delete_page
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.pages.delete\_page\_relationships module
+------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.pages.delete_page_relationships
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.pages.get\_all\_pages module
+------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.pages.get_all_pages
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.pages.get\_global\_pages module
+---------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.pages.get_global_pages
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.pages.get\_page module
+------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.pages.get_page
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.pages.get\_page\_relationships module
+---------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.pages.get_page_relationships
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.pages.get\_pages module
+-------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.pages.get_pages
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.pages.get\_repository\_space\_pages module
+--------------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.pages.get_repository_space_pages
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.pages.get\_space\_pages module
+--------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.pages.get_space_pages
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.pages.patch\_page\_relationships module
+-----------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.pages.patch_page_relationships
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.pages.patch\_rich\_page module
+--------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.pages.patch_rich_page
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.pages.post\_page\_relationships module
+----------------------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.pages.post_page_relationships
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+polarion\_rest\_api\_client.open\_api\_client.api.pages.post\_pages module
+--------------------------------------------------------------------------
+
+.. automodule:: polarion_rest_api_client.open_api_client.api.pages.post_pages
+   :members:
+   :show-inheritance:
+   :undoc-members:
