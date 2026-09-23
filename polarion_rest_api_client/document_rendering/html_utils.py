@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import collections.abc as cabc
 import html
+import logging
 import re
 
 from lxml import html as lxmlhtml
@@ -49,7 +50,9 @@ POLARION_CAPTION = (
 )
 RED_TEXT = '<p style="color:red">{text}</p>'
 WORK_ITEM_TAG = "workitem"
+DEFAULT_GENERATED_ID_PREFIX = "rest-api:uid="
 type HtmlFragment = lxmlhtml.HtmlElement | str
+logger = logging.getLogger(__name__)
 
 
 def strike_through(string: str) -> str:
@@ -156,18 +159,70 @@ def get_layout_index(
     return layout_index
 
 
-def remove_table_ids(
+def assign_generated_ids(
     html_content: str | cabc.Sequence[HtmlFragment],
-) -> list[HtmlFragment]:
-    """Remove the ID field from all tables.
+    *,
+    start_uid: int = 1,
+    prefix: str = DEFAULT_GENERATED_ID_PREFIX,
+) -> tuple[list[HtmlFragment], int]:
+    """Assign IDs to elements without IDs.
 
-    This works around a Polarion limitation where duplicate table IDs in
-    document HTML are rejected by the REST API.
+    Parameters
+    ----------
+    html_content
+        HTML fragments generated for an automatically rendered section.
+    start_uid
+        Numeric suffix for the first generated ID.
+    prefix
+        Prefix for generated IDs.
+
+    Returns
+    -------
+    tuple[list[HtmlFragment], int]
+        The unchanged fragments with generated IDs assigned recursively and
+        the next available numeric ID.
     """
     html_fragments = ensure_fragments(html_content)
+    next_uid = start_uid
     for element in html_fragments:
         if not isinstance(element, lxmlhtml.HtmlElement):
             continue
-        if element.tag == "table":
-            element.attrib.pop("id", None)
-    return html_fragments
+        for child in element.iter():
+            if not child.get("id"):
+                child.set("id", f"{prefix}{next_uid}")
+                next_uid += 1
+    return html_fragments, next_uid
+
+
+def validate_root_element_ids(
+    html_content: str | cabc.Sequence[HtmlFragment],
+) -> bool:
+    """Validate IDs on the root elements of HTML fragments.
+
+    Returns
+    -------
+    bool
+        Whether all root elements have unique, non-empty IDs.
+    """
+    element_ids: set[str] = set()
+    is_valid = True
+    for element in ensure_fragments(html_content):
+        if not isinstance(element, lxmlhtml.HtmlElement):
+            continue
+        element_id = element.get("id")
+        if not element_id:
+            logger.warning(
+                "Root element <%s> is missing an ID.",
+                element.tag,
+            )
+            is_valid = False
+            continue
+        if element_id in element_ids:
+            logger.warning(
+                "Root element ID %r occurs more than once.",
+                element_id,
+            )
+            is_valid = False
+            continue
+        element_ids.add(element_id)
+    return is_valid

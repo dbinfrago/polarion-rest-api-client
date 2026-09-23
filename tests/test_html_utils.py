@@ -72,15 +72,43 @@ def test_get_layout_index_appends_layout_if_missing():
     assert layouts[0].label == "System Function"
 
 
-def test_remove_table_ids_only_changes_tables():
-    fragments = html_utils.remove_table_ids(
-        '<table id="a"><tr><td>v</td></tr></table><div id="keep"></div>'
+def test_assign_generated_ids_assigns_ids_recursively():
+    fragments, next_uid = html_utils.assign_generated_ids(
+        '<table><tr><td>v</td></tr></table><div id="keep"></div>'
     )
 
     table = fragments[0]
     div = fragments[1]
     assert not isinstance(table, str)
     assert not isinstance(div, str)
-    assert table.tag == "table"
-    assert "id" not in table.attrib
+    assert table.attrib["id"] == "rest-api:uid=1"
+    assert table[0].attrib["id"] == "rest-api:uid=2"
+    assert table[0][0].attrib["id"] == "rest-api:uid=3"
     assert div.attrib["id"] == "keep"
+    assert next_uid == 4
+
+
+def test_validate_root_element_ids_accepts_unique_ids():
+    html_utils.validate_root_element_ids(
+        '<p id="one"><span></span></p><div id="two"></div>'
+    )
+
+
+def test_validate_root_element_ids_warns_for_missing_id(caplog):
+    with caplog.at_level("WARNING"):
+        is_valid = html_utils.validate_root_element_ids(
+            '<p id="one"></p><div></div>'
+        )
+
+    assert not is_valid
+    assert "missing an ID" in caplog.text
+
+
+def test_validate_root_element_ids_warns_for_duplicate_id(caplog):
+    with caplog.at_level("WARNING"):
+        is_valid = html_utils.validate_root_element_ids(
+            '<p id="same"></p><div id="same"></div>'
+        )
+
+    assert not is_valid
+    assert "occurs more than once" in caplog.text

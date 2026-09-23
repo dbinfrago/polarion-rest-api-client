@@ -59,6 +59,7 @@ class DocumentRenderer:
         document_work_item_ids: cabc.Collection[str] | None = None,
         default_layouter: str = DEFAULT_LAYOUTER,
         extra_template_context: dict[str, t.Any] | None = None,
+        generated_id_prefix: str = html_utils.DEFAULT_GENERATED_ID_PREFIX,
     ) -> None:
         self.jinja_envs: dict[str, jinja2.Environment] = {}
         self.default_project_id = default_project_id
@@ -73,6 +74,7 @@ class DocumentRenderer:
         )
         self.default_layouter = default_layouter
         self._extra_template_context = extra_template_context or {}
+        self.generated_id_prefix = generated_id_prefix
 
     def _get_jinja_env(
         self, template_folder: str | pathlib.Path
@@ -374,13 +376,24 @@ class DocumentRenderer:
         rendering_result = template.render(
             **(self.get_template_context() | kwargs | {"session": session})
         )
-        text_work_item_provider.generate_text_work_items(
-            html_utils.ensure_fragments(rendering_result),
+        html_fragments = html_utils.ensure_fragments(rendering_result)
+        text_work_item_provider.generate_text_work_items(html_fragments)
+        html_fragments, _ = html_utils.assign_generated_ids(
+            html_fragments,
+            prefix=self.generated_id_prefix,
         )
+        html_utils.validate_root_element_ids(html_fragments)
 
         document.home_page_content = data_models.TextContent(
             "text/html",
-            rendering_result,
+            "\n".join(
+                (
+                    lxmlhtml.tostring(element, encoding="unicode")
+                    if isinstance(element, lxmlhtml.HtmlElement)
+                    else element
+                )
+                for element in html_fragments
+            ),
         )
         document.rendering_layouts = session.rendering_layouts
 
@@ -427,6 +440,7 @@ class DocumentRenderer:
 
         new_content: list[t.Any] = []
         last_section_end = 0
+        next_generated_uid = 1
 
         for section_name, area in section_areas.items():
             if section_name not in sections:
@@ -454,10 +468,17 @@ class DocumentRenderer:
                 html_fragments,
                 work_item_ids,
             )
+            html_fragments, next_generated_uid = (
+                html_utils.assign_generated_ids(
+                    html_fragments,
+                    start_uid=next_generated_uid,
+                    prefix=self.generated_id_prefix,
+                )
+            )
             new_content += html_fragments
 
         new_content += html_elements[last_section_end:]
-        new_content = html_utils.remove_table_ids(new_content)
+        html_utils.validate_root_element_ids(new_content)
 
         document.home_page_content = data_models.TextContent(
             "text/html",

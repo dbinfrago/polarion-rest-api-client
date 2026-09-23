@@ -7,6 +7,7 @@ from polarion_rest_api_client.document_rendering.document_renderer import (
     WorkItemLookupResult,
 )
 from polarion_rest_api_client.document_rendering.html_utils import (
+    DEFAULT_GENERATED_ID_PREFIX,
     POLARION_WORK_ITEM_DOCUMENT,
     POLARION_WORK_ITEM_DOCUMENT_INTERNAL,
     POLARION_WORK_ITEM_DOCUMENT_PROJECT,
@@ -19,14 +20,15 @@ from polarion_rest_api_client.document_rendering.html_utils import (
     WI_ID_REGEX,
     WI_PROJECT_REGEX,
     WORK_ITEM_TAG,
+    assign_generated_ids,
     camel_case_to_words,
     ensure_fragments,
     extract_headings,
     extract_work_items,
     generate_image_html,
     get_layout_index,
-    remove_table_ids,
     strike_through,
+    validate_root_element_ids,
 )
 from polarion_rest_api_client.document_rendering.rendering_session import (
     DocumentData,
@@ -37,6 +39,7 @@ from polarion_rest_api_client.document_rendering.text_work_item_provider import 
 )
 
 __all__ = [
+    "DEFAULT_GENERATED_ID_PREFIX",
     "POLARION_WORK_ITEM_DOCUMENT",
     "POLARION_WORK_ITEM_DOCUMENT_INTERNAL",
     "POLARION_WORK_ITEM_DOCUMENT_PROJECT",
@@ -54,12 +57,13 @@ __all__ = [
     "RenderingSession",
     "TextWorkItemProvider",
     "WorkItemLookupResult",
+    "assign_generated_ids",
     "camel_case_to_words",
     "ensure_fragments",
     "extract_headings",
     "extract_work_items",
     "generate_image_html",
     "get_layout_index",
-    "remove_table_ids",
     "strike_through",
+    "validate_root_element_ids",
 ]

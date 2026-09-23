@@ -173,7 +173,8 @@ def test_render_document_escapes_heading_text(tmp_path):
     assert rendered.document.home_page_content.value is not None
     assert (
         rendered.document.home_page_content.value.strip()
-        == "<h1>Main &lt;Heading&gt; &amp; &quot;Title&quot;</h1>"
+        == '<h1 id="rest-api:uid=1">'
+        'Main &lt;Heading&gt; &amp; "Title"</h1>'
     )
 
 
@@ -330,3 +331,114 @@ def test_update_mixed_authority_document_reuses_heading_ids(tmp_path):
     assert len(rendered.headings) == 1
     assert rendered.headings[0].id == "REQ-9"
     assert rendered.headings[0].title == "Updated Heading"
+
+
+def test_update_mixed_authority_document_assigns_ids_only_to_generated_content(
+    tmp_path,
+):
+    template_dir = tmp_path / "templates"
+    template_dir.mkdir()
+    (template_dir / "section.j2").write_text(
+        "<table><tr><td>{{ message }}</td></tr></table>",
+        encoding="utf-8",
+    )
+
+    old_document = polarion_api.Document(
+        module_folder="_default",
+        module_name="DOC-4",
+        home_page_content=polarion_api.TextContent(
+            type="text/html",
+            value=textwrap.dedent(
+                """\
+                <table id="preserved-table"><tr><td>Before</td></tr></table>
+                <div class="polarion-dle-wiki-block">
+                  <div class="polarion-dle-wiki-block-source">&lt;div class=&quot;autoRenderAreaStart&quot; id=&quot;section1&quot;&gt;&lt;/div&gt;</div>
+                </div>
+                <p>Old content</p>
+                <div class="polarion-dle-wiki-block">
+                  <div class="polarion-dle-wiki-block-source">&lt;div class=&quot;autoRenderAreaEnd&quot; id=&quot;section1&quot;&gt;&lt;/div&gt;</div>
+                </div>
+                <table id="preserved-table-2"><tr><td>After</td></tr></table>
+                """
+            ),
+        ),
+    )
+
+    renderer = document_rendering.DocumentRenderer(default_project_id="PRJ")
+    rendered = renderer.update_mixed_authority_document(
+        old_document,
+        template_dir,
+        {"section1": "section.j2"},
+        {"message": "Generated"},
+        {},
+    )
+
+    content = lxmlhtml.fragments_fromstring(
+        rendered.document.home_page_content.value
+    )
+    generated_table = next(
+        element
+        for element in content
+        if element.tag == "table"
+        and element.get("id") != "preserved-table"
+        and element.get("id") != "preserved-table-2"
+    )
+
+    assert content[0].get("id") == "preserved-table"
+    assert content[-1].get("id") == "preserved-table-2"
+    assert generated_table.get("id") == "rest-api:uid=1"
+    assert generated_table[0].get("id") == "rest-api:uid=2"
+    assert generated_table[0][0].get("id") == "rest-api:uid=3"
+
+
+def test_update_mixed_authority_document_shares_id_counter_between_sections(
+    tmp_path,
+):
+    template_dir = tmp_path / "templates"
+    template_dir.mkdir()
+    (template_dir / "section.j2").write_text(
+        "<p>{{ message }}</p>",
+        encoding="utf-8",
+    )
+
+    def marker(section: str, boundary: str) -> str:
+        return (
+            '<div class="polarion-dle-wiki-block">'
+            '<div class="polarion-dle-wiki-block-source">'
+            f"&lt;div class=&quot;autoRenderArea{boundary}&quot; "
+            f"id=&quot;{section}&quot;&gt;&lt;/div&gt;"
+            "</div></div>"
+        )
+
+    old_document = polarion_api.Document(
+        module_folder="_default",
+        module_name="DOC-5",
+        home_page_content=polarion_api.TextContent(
+            type="text/html",
+            value=marker("section1", "Start")
+            + marker("section1", "End")
+            + marker("section2", "Start")
+            + marker("section2", "End"),
+        ),
+    )
+
+    renderer = document_rendering.DocumentRenderer(default_project_id="PRJ")
+    rendered = renderer.update_mixed_authority_document(
+        old_document,
+        template_dir,
+        {"section1": "section.j2", "section2": "section.j2"},
+        {"message": "Generated"},
+        {},
+    )
+
+    paragraphs = [
+        element
+        for element in lxmlhtml.fragments_fromstring(
+            rendered.document.home_page_content.value
+        )
+        if element.tag == "p"
+    ]
+    assert [paragraph.get("id") for paragraph in paragraphs] == [
+        "rest-api:uid=1",
+        "rest-api:uid=2",
+    ]
