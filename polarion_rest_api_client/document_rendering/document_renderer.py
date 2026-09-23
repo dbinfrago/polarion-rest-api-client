@@ -376,9 +376,8 @@ class DocumentRenderer:
         rendering_result = template.render(
             **(self.get_template_context() | kwargs | {"session": session})
         )
-        text_work_item_provider.generate_text_work_items(
-            html_fragments := html_utils.ensure_fragments(rendering_result),
-        )
+        html_fragments = html_utils.ensure_fragments(rendering_result)
+        text_work_item_provider.generate_text_work_items(html_fragments)
         html_fragments, _ = html_utils.assign_generated_ids(
             html_fragments,
             prefix=self.generated_id_prefix,
@@ -389,7 +388,7 @@ class DocumentRenderer:
             "text/html",
             "\n".join(
                 (
-                    lxmlhtml.tostring(element).decode("utf-8")
+                    lxmlhtml.tostring(element, encoding="unicode")
                     if isinstance(element, lxmlhtml.HtmlElement)
                     else element
                 )
