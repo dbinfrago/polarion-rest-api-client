@@ -250,7 +250,10 @@ Common helpers:
 - ``generate_image_html``: generate Polarion image HTML with optional caption
 - ``extract_work_items`` / ``extract_headings``: parse work item references
 - ``get_layout_index``: find or append rendering layout entries
-- ``remove_table_ids``: strip table IDs to avoid Polarion duplicate-ID issues
+- ``assign_generated_ids``: assign unique IDs to generated HTML elements,
+  using the configurable ``rest-api:uid=`` prefix by default
+- ``validate_root_element_ids``: warn about missing or duplicate IDs on
+  document root elements without aborting rendering
 - ``camel_case_to_words``: user-friendly labels from type names
 - ``strike_through``: mark removed references in generated HTML
 
