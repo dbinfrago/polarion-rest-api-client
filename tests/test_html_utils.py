@@ -74,18 +74,59 @@ def test_get_layout_index_appends_layout_if_missing():
 
 def test_assign_generated_ids_assigns_ids_recursively():
     fragments, next_uid = html_utils.assign_generated_ids(
-        '<table><tr><td>v</td></tr></table><div id="keep"></div>'
+        '<table id="table_8"><tr><td>v</td></tr></table>'
+        "<h2>New heading</h2>"
+        '<div id="polarion_wiki macro name=module-workitem;params=id=REQ-1">'
+        "</div>"
     )
 
     table = fragments[0]
-    div = fragments[1]
+    heading = fragments[1]
+    work_item = fragments[2]
     assert not isinstance(table, str)
-    assert not isinstance(div, str)
-    assert table.attrib["id"] == "rest-api:uid=1"
-    assert table[0].attrib["id"] == "rest-api:uid=2"
-    assert table[0][0].attrib["id"] == "rest-api:uid=3"
-    assert div.attrib["id"] == "keep"
+    assert not isinstance(heading, str)
+    assert not isinstance(work_item, str)
+    assert table.attrib["id"] == "rest-api-1"
+    assert table[0].attrib["id"] == "rest-api-2"
+    assert table[0][0].attrib["id"] == "rest-api-3"
+    assert work_item.attrib["id"] == (
+        "polarion_wiki macro name=module-workitem;params=id=REQ-1"
+    )
+    assert heading.get("id") is None
     assert next_uid == 4
+
+
+def test_replace_uid_parameters_only_replaces_exact_uid_parameters():
+    fragments, next_uid = html_utils.replace_uid_parameters(
+        '<table id="polarion_wiki macro name=table;params=uid=8"></table>'
+        '<div id="polarion_wiki macro name=table;params=noPageBreak=yes|uid=8">'
+        "</div>"
+        '<p id="uid-like=8"></p>'
+    )
+
+    assert fragments[0].get("id") == (
+        "polarion_wiki macro name=table;params=uid=1"
+    )
+    assert fragments[1].get("id") == (
+        "polarion_wiki macro name=table;params=noPageBreak=yes|uid=2"
+    )
+    assert fragments[2].get("id") == "uid-like=8"
+    assert next_uid == 3
+
+
+def test_replace_uid_parameters_excludes_headings():
+    fragments, next_uid = html_utils.replace_uid_parameters(
+        '<h2 id="polarion_wiki macro name=table;params=uid=8"></h2>'
+        '<table id="polarion_wiki macro name=table;params=uid=8"></table>'
+    )
+
+    assert fragments[0].get("id") == (
+        "polarion_wiki macro name=table;params=uid=8"
+    )
+    assert fragments[1].get("id") == (
+        "polarion_wiki macro name=table;params=uid=1"
+    )
+    assert next_uid == 2
 
 
 def test_validate_root_element_ids_accepts_unique_ids():

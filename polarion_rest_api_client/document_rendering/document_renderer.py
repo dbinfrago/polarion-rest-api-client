@@ -378,9 +378,13 @@ class DocumentRenderer:
         )
         html_fragments = html_utils.ensure_fragments(rendering_result)
         text_work_item_provider.generate_text_work_items(html_fragments)
-        html_fragments, _ = html_utils.assign_generated_ids(
+        html_fragments, next_generated_uid = html_utils.assign_generated_ids(
             html_fragments,
             prefix=self.generated_id_prefix,
+        )
+        html_fragments, _ = html_utils.replace_uid_parameters(
+            html_fragments,
+            start_uid=next_generated_uid,
         )
         html_utils.validate_root_element_ids(html_fragments)
 
@@ -478,6 +482,10 @@ class DocumentRenderer:
             new_content += html_fragments
 
         new_content += html_elements[last_section_end:]
+        new_content, _ = html_utils.replace_uid_parameters(
+            new_content,
+            start_uid=next_generated_uid,
+        )
         html_utils.validate_root_element_ids(new_content)
 
         document.home_page_content = data_models.TextContent(

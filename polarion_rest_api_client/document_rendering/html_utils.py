@@ -18,6 +18,7 @@ WI_PROJECT_PREFIX = "polarion_wiki macro name=module-workitem;.*project="
 H_REGEX = re.compile("h[0-9]+")
 WI_ID_REGEX = re.compile(WI_ID_PREFIX + r"([A-Za-z0-9]*-[0-9]+)")
 WI_PROJECT_REGEX = re.compile(WI_PROJECT_PREFIX + r"([A-Za-z0-9\-_]+)")
+UID_PARAMETER_REGEX = re.compile(r"(?P<prefix>^|params=|\|)uid=[^|]+")
 
 TEXT_WORK_ITEM_ID_FIELD = "__AUTO_RENDER__id"
 TEXT_WORK_ITEM_TYPE = "text"
@@ -50,7 +51,7 @@ POLARION_CAPTION = (
 )
 RED_TEXT = '<p style="color:red">{text}</p>'
 WORK_ITEM_TAG = "workitem"
-DEFAULT_GENERATED_ID_PREFIX = "rest-api:uid="
+DEFAULT_GENERATED_ID_PREFIX = "rest-api"
 type HtmlFragment = lxmlhtml.HtmlElement | str
 logger = logging.getLogger(__name__)
 
@@ -165,7 +166,7 @@ def assign_generated_ids(
     start_uid: int = 1,
     prefix: str = DEFAULT_GENERATED_ID_PREFIX,
 ) -> tuple[list[HtmlFragment], int]:
-    """Assign IDs to elements without IDs.
+    """Assign IDs to generated elements except work-item elements.
 
     Parameters
     ----------
@@ -179,8 +180,8 @@ def assign_generated_ids(
     Returns
     -------
     tuple[list[HtmlFragment], int]
-        The unchanged fragments with generated IDs assigned recursively and
-        the next available numeric ID.
+        The fragments with generated IDs assigned recursively and the next
+        available numeric ID. Existing work-item IDs are preserved.
     """
     html_fragments = ensure_fragments(html_content)
     next_uid = start_uid
@@ -188,9 +189,60 @@ def assign_generated_ids(
         if not isinstance(element, lxmlhtml.HtmlElement):
             continue
         for child in element.iter():
-            if not child.get("id"):
-                child.set("id", f"{prefix}{next_uid}")
+            if isinstance(child.tag, str) and H_REGEX.fullmatch(child.tag):
+                continue
+            element_id = child.get("id")
+            if not element_id or not (
+                element_id.startswith(WI_ID_PREFIX)
+                or UID_PARAMETER_REGEX.search(element_id)
+            ):
+                child.set("id", f"{prefix}-{next_uid}")
                 next_uid += 1
+    return html_fragments, next_uid
+
+
+def replace_uid_parameters(
+    html_content: str | cabc.Sequence[HtmlFragment],
+    *,
+    start_uid: int = 1,
+) -> tuple[list[HtmlFragment], int]:
+    """Replace exact ``uid`` parameters in all element IDs.
+
+    Parameters
+    ----------
+    html_content
+        HTML fragments containing Polarion macro IDs.
+    start_uid
+        Numeric value for the first replaced UID.
+
+    Returns
+    -------
+    tuple[list[HtmlFragment], int]
+        The fragments with UID parameters replaced and the next available
+        numeric UID.
+    """
+    html_fragments = ensure_fragments(html_content)
+    next_uid = start_uid
+    for element in html_fragments:
+        if not isinstance(element, lxmlhtml.HtmlElement):
+            continue
+        for child in element.iter():
+            if isinstance(child.tag, str) and H_REGEX.fullmatch(child.tag):
+                continue
+            element_id = child.get("id")
+            if element_id is None:
+                continue
+
+            def replace_uid(_: re.Match[str]) -> str:
+                nonlocal next_uid
+                replacement = f"{_.group('prefix')}uid={next_uid}"
+                next_uid += 1
+                return replacement
+
+            child.set(
+                "id",
+                UID_PARAMETER_REGEX.sub(replace_uid, element_id),
+            )
     return html_fragments, next_uid
 
 
