@@ -251,7 +251,7 @@ Common helpers:
 - ``extract_work_items`` / ``extract_headings``: parse work item references
 - ``get_layout_index``: find or append rendering layout entries
 - ``assign_generated_ids``: assign unique IDs to generated HTML elements,
-  using the configurable ``rest-api:uid=`` prefix by default
+  using the configurable ``rest-api`` prefix by default
 - ``validate_root_element_ids``: warn about missing or duplicate IDs on
   document root elements without aborting rendering
 - ``camel_case_to_words``: user-friendly labels from type names

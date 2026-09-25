@@ -173,8 +173,7 @@ def test_render_document_escapes_heading_text(tmp_path):
     assert rendered.document.home_page_content.value is not None
     assert (
         rendered.document.home_page_content.value.strip()
-        == '<h1 id="rest-api:uid=1">'
-        'Main &lt;Heading&gt; &amp; "Title"</h1>'
+        == '<h1>Main &lt;Heading&gt; &amp; "Title"</h1>'
     )
 
 
@@ -386,9 +385,9 @@ def test_update_mixed_authority_document_assigns_ids_only_to_generated_content(
 
     assert content[0].get("id") == "preserved-table"
     assert content[-1].get("id") == "preserved-table-2"
-    assert generated_table.get("id") == "rest-api:uid=1"
-    assert generated_table[0].get("id") == "rest-api:uid=2"
-    assert generated_table[0][0].get("id") == "rest-api:uid=3"
+    assert generated_table.get("id") == "rest-api-1"
+    assert generated_table[0].get("id") == "rest-api-2"
+    assert generated_table[0][0].get("id") == "rest-api-3"
 
 
 def test_update_mixed_authority_document_shares_id_counter_between_sections(
@@ -439,6 +438,6 @@ def test_update_mixed_authority_document_shares_id_counter_between_sections(
         if element.tag == "p"
     ]
     assert [paragraph.get("id") for paragraph in paragraphs] == [
-        "rest-api:uid=1",
-        "rest-api:uid=2",
+        "rest-api-1",
+        "rest-api-2",
     ]

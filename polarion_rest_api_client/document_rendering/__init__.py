@@ -27,6 +27,7 @@ from polarion_rest_api_client.document_rendering.html_utils import (
     extract_work_items,
     generate_image_html,
     get_layout_index,
+    replace_uid_parameters,
     strike_through,
     validate_root_element_ids,
 )
@@ -64,6 +65,7 @@ __all__ = [
     "extract_work_items",
     "generate_image_html",
     "get_layout_index",
+    "replace_uid_parameters",
     "strike_through",
     "validate_root_element_ids",
 ]
