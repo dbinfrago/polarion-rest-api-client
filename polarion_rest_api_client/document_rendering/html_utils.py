@@ -233,9 +233,9 @@ def replace_uid_parameters(
             if element_id is None:
                 continue
 
-            def replace_uid(_: re.Match[str]) -> str:
+            def replace_uid(m: re.Match[str]) -> str:
                 nonlocal next_uid
-                replacement = f"{_.group('prefix')}uid={next_uid}"
+                replacement = f"{m.group('prefix')}uid={next_uid}"
                 next_uid += 1
                 return replacement
 
