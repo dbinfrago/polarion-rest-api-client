@@ -173,8 +173,7 @@ def test_render_document_escapes_heading_text(tmp_path):
     assert rendered.document.home_page_content.value is not None
     assert (
         rendered.document.home_page_content.value.strip()
-        == '<h1 id="rest-api:uid=1">'
-        'Main &lt;Heading&gt; &amp; "Title"</h1>'
+        == '<h1>Main &lt;Heading&gt; &amp; "Title"</h1>'
     )
 
 
@@ -276,6 +275,71 @@ def test_render_document_generates_text_work_items(tmp_path):
     )
     assert work_item.description is not None
     assert work_item.description.value == "<p>Hello</p>"
+
+
+def test_render_document_preserves_html_comments(tmp_path):
+    template_dir = tmp_path / "templates"
+    template_dir.mkdir()
+    (template_dir / "doc.j2").write_text(
+        textwrap.dedent(
+            """\
+            <!-- License header -->
+            {{ heading(1, "Title", session) }}
+            <!-- Between elements -->
+            <p>Text<!-- nested --><span>span</span></p>
+            <workitem id="txt-1"><!-- inside -->
+            <p>Hello</p></workitem>
+            """
+        ),
+        encoding="utf-8",
+    )
+    renderer = document_rendering.DocumentRenderer(default_project_id="PRJ")
+
+    rendered = renderer.render_document(
+        template_dir,
+        "doc.j2",
+        "_default",
+        "DOC-COMMENTS",
+    )
+
+    assert rendered.document.home_page_content is not None
+    assert rendered.document.home_page_content.value == (
+        "<!-- License header -->\n\n"
+        "<h1>Title</h1>\n\n"
+        "<!-- Between elements -->\n\n"
+        '<p id="rest-api:uid=1">Text<!-- nested -->'
+        '<span id="rest-api:uid=2">span</span></p>\n\n'
+        '<workitem id="txt-1"><!-- inside -->\n'
+        '<p id="rest-api:uid=3">Hello</p></workitem>'
+    )
+    work_item = rendered.text_work_item_provider.new_text_work_items["txt-1"]
+    assert work_item.description is not None
+    assert work_item.description.value == "<!-- inside -->\n<p>Hello</p>"
+
+
+def test_insert_text_work_items_preserves_html_comments():
+    provider = document_rendering.TextWorkItemProvider()
+    provider.new_text_work_items["txt-1"] = polarion_api.WorkItem(
+        id="TXT-1", type="text"
+    )
+    document = polarion_api.Document(
+        home_page_content=polarion_api.TextContent(
+            type="text/html",
+            value='<!-- header --><workitem id="txt-1"></workitem>'
+            "<!-- footer -->",
+        ),
+        rendering_layouts=[],
+    )
+
+    provider.insert_text_work_items(document)
+
+    assert document.home_page_content is not None
+    assert document.home_page_content.value == (
+        "<!-- header -->\n"
+        '<div id="polarion_wiki macro name=module-workitem;'
+        'params=id=TXT-1|layout=0|external=true"></div>\n'
+        "<!-- footer -->"
+    )
 
 
 def test_update_mixed_authority_document_reuses_heading_ids(tmp_path):

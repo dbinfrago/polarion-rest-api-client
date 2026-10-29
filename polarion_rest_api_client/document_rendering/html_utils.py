@@ -9,6 +9,7 @@ import html
 import logging
 import re
 
+from lxml import etree
 from lxml import html as lxmlhtml
 
 from polarion_rest_api_client import data_models
@@ -51,7 +52,7 @@ POLARION_CAPTION = (
 RED_TEXT = '<p style="color:red">{text}</p>'
 WORK_ITEM_TAG = "workitem"
 DEFAULT_GENERATED_ID_PREFIX = "rest-api:uid="
-type HtmlFragment = lxmlhtml.HtmlElement | str
+type HtmlFragment = lxmlhtml.HtmlElement | lxmlhtml.HtmlComment | str
 logger = logging.getLogger(__name__)
 
 
@@ -159,6 +160,12 @@ def get_layout_index(
     return layout_index
 
 
+def _is_heading(element: lxmlhtml.HtmlElement) -> bool:
+    return isinstance(element.tag, str) and bool(
+        H_REGEX.fullmatch(element.tag)
+    )
+
+
 def assign_generated_ids(
     html_content: str | cabc.Sequence[HtmlFragment],
     *,
@@ -187,7 +194,9 @@ def assign_generated_ids(
     for element in html_fragments:
         if not isinstance(element, lxmlhtml.HtmlElement):
             continue
-        for child in element.iter():
+        for child in element.iter(etree.Element):
+            if _is_heading(child):
+                continue
             if not child.get("id"):
                 child.set("id", f"{prefix}{next_uid}")
                 next_uid += 1
@@ -210,6 +219,8 @@ def validate_root_element_ids(
         if not isinstance(element, lxmlhtml.HtmlElement):
             continue
         element_id = element.get("id")
+        if not element_id and _is_heading(element):
+            continue
         if not element_id:
             logger.warning(
                 "Root element <%s> is missing an ID.",

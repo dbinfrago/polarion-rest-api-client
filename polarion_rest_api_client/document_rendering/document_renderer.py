@@ -388,9 +388,9 @@ class DocumentRenderer:
             "text/html",
             "\n".join(
                 (
-                    lxmlhtml.tostring(element, encoding="unicode")
-                    if isinstance(element, lxmlhtml.HtmlElement)
-                    else element
+                    element
+                    if isinstance(element, str)
+                    else lxmlhtml.tostring(element, encoding="unicode")
                 )
                 for element in html_fragments
             ),
