@@ -195,9 +195,6 @@ def assign_generated_ids(
         if not isinstance(element, lxmlhtml.HtmlElement):
             continue
         for child in element.iter(etree.Element):
-            # Polarion creates heading work items for id-less headings
-            # and rejects other heading IDs ("Wrong Heading Part ID
-            # format.").
             if _is_heading(child):
                 continue
             if not child.get("id"):
