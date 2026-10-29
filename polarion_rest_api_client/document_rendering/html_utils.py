@@ -52,7 +52,7 @@ POLARION_CAPTION = (
 RED_TEXT = '<p style="color:red">{text}</p>'
 WORK_ITEM_TAG = "workitem"
 DEFAULT_GENERATED_ID_PREFIX = "rest-api:uid="
-type HtmlFragment = lxmlhtml.HtmlElement | str
+type HtmlFragment = lxmlhtml.HtmlElement | lxmlhtml.HtmlComment | str
 logger = logging.getLogger(__name__)
 
 

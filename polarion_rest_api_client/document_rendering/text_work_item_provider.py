@@ -47,7 +47,7 @@ class TextWorkItemProvider:
 
     def generate_text_work_items(
         self,
-        content: list[lxmlhtml.HtmlElement | str],
+        content: list[html_utils.HtmlFragment],
         work_item_id_filter: list[str] | None = None,
     ) -> None:
         """Generate text work items from the provided html.
@@ -117,7 +117,7 @@ class TextWorkItemProvider:
         html_fragments = html_utils.ensure_fragments(
             document.home_page_content.value or ""
         )
-        new_content: list[lxmlhtml.HtmlElement | str] = []
+        new_content: list[html_utils.HtmlFragment] = []
         last_match = -1
         for index, element in enumerate(html_fragments):
             if not isinstance(element, lxmlhtml.HtmlElement):
